@@ -10,5 +10,8 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<c:forEach items="${test}" var="t">
+	${t.test},
+</c:forEach>
 </body>
 </html>
