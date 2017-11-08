@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeRatingMapper">
+
+	<!-- @author 신승엽 -->
+	
+	<resultMap type="storeRating" id="storeRatingSelectMap">
+		<result column="rat_num" property="ratNum"/>
+		<result column="email" property="email"/>
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="interior" property="interior"/>
+		<result column="rat_access" property="ratAccess"/>
+		<result column="cost_effect" property="costEffect"/>
+		<result column="rat_comment" property="ratComment"/>
+		<result column="rat_date" property="ratDate"/>
+	</resultMap>
+
+	<sql id="storeRatingColum">
+		rat_num, email, lan_code, id, interior, rat_access, cost_effect, rat_comment, rat_date
+	</sql>
+	
+	<select id="selectStoreRating" resultMap="storeRatingSelectMap">
+		SELECT <include refid="storeRatingColum"/>
+		FROM storeRating
+	</select>
+	
+	<insert id="insertStoreRating" parameterType="storeRating">
+		INSERT INTO storeRating(
+			<include refid="storeRatingColum" />
+		)
+		VALUES(#{ratNum},#{email},#{lanCode},#{id},#{interior},#{ratAccess},#{costEffect},#{ratComment},#{ratDate})
+	</insert>
+	
+	<update id="updatestoreRating" parameterType="storeRating">
+		UPDATE storeRating
+		SET taste = #{taste},
+		WHERE rat_num = #{ratNum} AND email = #{email} AND lan_code = #{lanCode} AND id = #{id}
+	</update>
+	
+	<delete id="deletestoreRating" parameterType="storeRating">
+		DELETE
+		FROM storeRating
+		WHERE rat_num = #{ratNum} AND email = #{email} AND lan_code = #{lanCode} AND id = #{id}
+	</delete>
+	
+	<delete id="deletestoreRatingByEmail" parameterType="storeRating">
+		DELETE
+		FROM storeRating
+		WHERE email = #{email}
+	</delete>
+	
+</mapper>	

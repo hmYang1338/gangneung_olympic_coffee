@@ -23,5 +23,6 @@ public class TestController {
 		System.out.println(test.toString());
 		return "home";
 	}
-
+	
 }
+

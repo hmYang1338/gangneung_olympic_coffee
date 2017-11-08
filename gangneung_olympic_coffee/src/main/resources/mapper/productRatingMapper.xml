@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productRatingMapper">
+
+	<!-- @author 신승엽 -->
+	
+	<resultMap type="productRating" id="productRatingSelectMap">
+		<result column="rat_num" property="ratNum"/>
+		<result column="email" property="email"/>
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="code" property="code"/>
+		<result column="oz" property="oz"/>
+		<result column="taste" property="taste"/>
+		<result column="rat_comment" property="ratComment"/>
+		<result column="rat_date" property="ratDate"/>
+	</resultMap>
+
+	<sql id="productRatingColum">
+		rat_num, email, lan_code, id, code, oz, taste, rat_comment, rat_date
+	</sql>
+	
+	<select id="selectProductRating" resultMap="productRatingSelectMap">
+		SELECT <include refid="productRatingColum"/>
+		FROM productRating
+	</select>
+	
+	<insert id="insertProductRating" parameterType="productRating">
+		INSERT INTO productRating(
+			<include refid="productRatingColum" />
+		)
+		VALUES(#{ratNum},#{email},#{lanCode},#{id},#{code},#{oz},#{taste},#{ratComment},#{ratDate})
+	</insert>
+	
+	<update id="updateProductRating" parameterType="productRating">
+		UPDATE productRating
+		SET taste = #{taste},
+		WHERE rat_num = #{ratNum} AND email = #{email} AND lan_code = #{lanCode} AND id = #{id} AND code = #{code} AND oz = #{oz}
+	</update>
+	
+	<delete id="deleteProductRating" parameterType="productRating">
+		DELETE
+		FROM productRating
+		WHERE rat_num = #{ratNum} AND email = #{email} AND lan_code = #{lanCode} AND id = #{id} AND code = #{code} AND oz = #{oz}
+	</delete>
+	
+	<delete id="deleteProductRatingByEmail" parameterType="productRating">
+		DELETE
+		FROM productRating
+		WHERE email = #{email}
+	</delete>
+	
+</mapper>	

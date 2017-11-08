@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeMapper">
+
+	<!-- @author 신승엽 -->
+	
+	<resultMap type="store" id="storeSelectMap">
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="tel" property="tel"/>
+		<result column="addr" property="addr"/>
+		<result column="lat" property="lat"/>
+		<result column="longi" property="longi"/>
+		<result column="store_hours" property="shortHours"/>
+	</resultMap>
+
+	<sql id="storeColum">
+		lan_code, id, name, tel, addr, lat, longi store_hours
+	</sql>
+	
+	<select id="selectStore" resultMap="storeSelectMap">
+		SELECT <include refid="storeColum"/>
+		FROM store
+	</select>
+	
+	<select id="selectStoreById" resultMap="storeSelectMap" parameterType="string">
+		SELECT <include refid="storeColum"/>
+		FROM store WHERE id = #{id}
+	</select>
+	
+	<select id="selectStoreByName" resultMap="storeSelectMap" parameterType="string">
+		SELECT <include refid="storeColum"/>
+		FROM store WHERE name LIKE #{name}
+	</select>
+	
+	<select id="selectStoreByDistance" resultMap="storeSelectMap">
+		SELECT <include refid="storeColum"/>
+		FROM store
+	</select>
+	
+	<insert id="insertStore" parameterType="store">
+		INSERT INTO store(
+			<include refid="storeColum" />
+		)
+		VALUES(#{lanCode},#{id},#{name},#{tel},#{addr},#{lat},#{longi},#{storeHours})
+	</insert>
+	
+	<update id="updateStore" parameterType="store">
+		UPDATE store 
+		SET name = #{name}, tel = #{tel}, addr = #{addr}, lat = #{lat}, longi = #{longi}, storeHours = #{storeHours}
+		WHERE lan_code = #{lan_code} AND id = #{id}
+	</update>
+	
+	<delete id="deleteStore" parameterType="store">
+		DELETE
+		FROM store
+		WHERE lan_code = #{lan_code} and id = #{id}
+	</delete>
+	
+</mapper>	
