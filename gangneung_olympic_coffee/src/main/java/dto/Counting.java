@@ -3,30 +3,32 @@ package dto;
 import java.util.Date;
 
 public class Counting {
-	private int cntNum;
+	private int seq;
 	private String email;
-	private int id;
 	private int lanCode;
+	private int id;
+	private int code;
 	private int oz;
 	private Date accDate;
 	
 	public Counting() {}
 
-	public Counting(int cntNum, String email, int id, int lanCode, int oz, Date accDate) {
-		this.cntNum = cntNum;
+	public Counting(int seq, String email, int lanCode, int id, int code, int oz, Date accDate) {
+		this.seq = seq;
 		this.email = email;
-		this.id = id;
 		this.lanCode = lanCode;
+		this.id = id;
+		this.code = code;
 		this.oz = oz;
 		this.accDate = accDate;
 	}
 
-	public int getCntNum() {
-		return cntNum;
+	public int getSeq() {
+		return seq;
 	}
 
-	public void setCntNum(int cntNum) {
-		this.cntNum = cntNum;
+	public void setSeq(int seq) {
+		this.seq = seq;
 	}
 
 	public String getEmail() {
@@ -37,6 +39,14 @@ public class Counting {
 		this.email = email;
 	}
 
+	public int getLanCode() {
+		return lanCode;
+	}
+
+	public void setLanCode(int lanCode) {
+		this.lanCode = lanCode;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -45,12 +55,12 @@ public class Counting {
 		this.id = id;
 	}
 
-	public int getLanCode() {
-		return lanCode;
+	public int getCode() {
+		return code;
 	}
 
-	public void setLanCode(int lanCode) {
-		this.lanCode = lanCode;
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	public int getOz() {
@@ -72,14 +82,16 @@ public class Counting {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Counting [cntNum=");
-		builder.append(cntNum);
+		builder.append("Counting [seq=");
+		builder.append(seq);
 		builder.append(", email=");
 		builder.append(email);
-		builder.append(", id=");
-		builder.append(id);
 		builder.append(", lanCode=");
 		builder.append(lanCode);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append(", code=");
+		builder.append(code);
 		builder.append(", oz=");
 		builder.append(oz);
 		builder.append(", accDate=");
@@ -93,11 +105,12 @@ public class Counting {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((accDate == null) ? 0 : accDate.hashCode());
-		result = prime * result + cntNum;
+		result = prime * result + code;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
 		result = prime * result + lanCode;
 		result = prime * result + oz;
+		result = prime * result + seq;
 		return result;
 	}
 
@@ -115,7 +128,7 @@ public class Counting {
 				return false;
 		} else if (!accDate.equals(other.accDate))
 			return false;
-		if (cntNum != other.cntNum)
+		if (code != other.code)
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -128,7 +141,9 @@ public class Counting {
 			return false;
 		if (oz != other.oz)
 			return false;
+		if (seq != other.seq)
+			return false;
 		return true;
 	}
-	
+
 }

@@ -6,9 +6,11 @@
 
 <html>
 <head>
-<meta http-equiv="refresh" content="0;url=<c:url value='/test.do'/>">
 </head>
 <body>
+<a href="test.do">신승엽 항목 테스트</a>
+<a href="test2.do">신승엽 항목 테스트</a>
+<a href="test3.do">신승엽 항목 테스트</a>
 </body>
 </html>
 

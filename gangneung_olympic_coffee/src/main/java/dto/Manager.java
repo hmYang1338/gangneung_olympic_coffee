@@ -2,84 +2,101 @@ package dto;
 
 public class Manager {
 	private String email;
-	private String major;
 	private String password;
 	private String salt;
 	private String name;
 	private String birth;
-	private String imgDir;
-	private int id;
 	private int lan_code;
+	private int id;
+	private String imgDir;
+	private String major;
 	
 	public Manager() {}
-	
-	public Manager(String email, String major, String password, String salt, String name, String birth, String imgDir,
-			int id, int lan_code) {
+
+	public Manager(String email, String password, String salt, String name, String birth, int lan_code, int id,
+			String imgDir, String major) {
 		super();
 		this.email = email;
-		this.major = major;
 		this.password = password;
 		this.salt = salt;
 		this.name = name;
 		this.birth = birth;
-		this.imgDir = imgDir;
-		this.id = id;
 		this.lan_code = lan_code;
+		this.id = id;
+		this.imgDir = imgDir;
+		this.major = major;
 	}
 
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getMajor() {
-		return major;
-	}
-	public void setMajor(String major) {
-		this.major = major;
-	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getSalt() {
 		return salt;
 	}
+
 	public void setSalt(String salt) {
 		this.salt = salt;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getBirth() {
 		return birth;
 	}
+
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
-	public String getImgDir() {
-		return imgDir;
-	}
-	public void setImgDir(String imgDir) {
-		this.imgDir = imgDir;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public int getLan_code() {
 		return lan_code;
 	}
+
 	public void setLan_code(int lan_code) {
 		this.lan_code = lan_code;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getImgDir() {
+		return imgDir;
+	}
+
+	public void setImgDir(String imgDir) {
+		this.imgDir = imgDir;
+	}
+
+	public String getMajor() {
+		return major;
+	}
+
+	public void setMajor(String major) {
+		this.major = major;
 	}
 
 	@Override
@@ -87,8 +104,6 @@ public class Manager {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Manager [email=");
 		builder.append(email);
-		builder.append(", major=");
-		builder.append(major);
 		builder.append(", password=");
 		builder.append(password);
 		builder.append(", salt=");
@@ -97,12 +112,14 @@ public class Manager {
 		builder.append(name);
 		builder.append(", birth=");
 		builder.append(birth);
-		builder.append(", imgDir=");
-		builder.append(imgDir);
-		builder.append(", id=");
-		builder.append(id);
 		builder.append(", lan_code=");
 		builder.append(lan_code);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append(", imgDir=");
+		builder.append(imgDir);
+		builder.append(", major=");
+		builder.append(major);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -173,5 +190,6 @@ public class Manager {
 			return false;
 		return true;
 	}
+
 	
 }

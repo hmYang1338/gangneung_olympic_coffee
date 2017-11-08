@@ -2,19 +2,21 @@ package dto;
 
 public class Favorite {
 	private int favNum;
-	private int id;
-	private int lanCode;
-	private int oz;
 	private String email;
+	private int lanCode;
+	private int id;
+	private int code;
+	private int oz;
 	
 	public Favorite() {}
 
-	public Favorite(int favNum, int id, int lanCode, int oz, String email) {
+	public Favorite(int favNum, String email, int lanCode, int id, int code, int oz) {
 		this.favNum = favNum;
-		this.id = id;
-		this.lanCode = lanCode;
-		this.oz = oz;
 		this.email = email;
+		this.lanCode = lanCode;
+		this.id = id;
+		this.code = code;
+		this.oz = oz;
 	}
 
 	public int getFavNum() {
@@ -25,12 +27,12 @@ public class Favorite {
 		this.favNum = favNum;
 	}
 
-	public int getId() {
-		return id;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getLanCode() {
@@ -41,6 +43,22 @@ public class Favorite {
 		this.lanCode = lanCode;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getCode() {
+		return code;
+	}
+
+	public void setCode(int code) {
+		this.code = code;
+	}
+
 	public int getOz() {
 		return oz;
 	}
@@ -49,27 +67,21 @@ public class Favorite {
 		this.oz = oz;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("favorite [favNum=");
+		builder.append("Favorite [favNum=");
 		builder.append(favNum);
-		builder.append(", id=");
-		builder.append(id);
-		builder.append(", lanCode=");
-		builder.append(lanCode);
-		builder.append(", oz=");
-		builder.append(oz);
 		builder.append(", email=");
 		builder.append(email);
+		builder.append(", lanCode=");
+		builder.append(lanCode);
+		builder.append(", id=");
+		builder.append(id);
+		builder.append(", code=");
+		builder.append(code);
+		builder.append(", oz=");
+		builder.append(oz);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -78,6 +90,7 @@ public class Favorite {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + code;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + favNum;
 		result = prime * result + id;
@@ -95,6 +108,8 @@ public class Favorite {
 		if (getClass() != obj.getClass())
 			return false;
 		Favorite other = (Favorite) obj;
+		if (code != other.code)
+			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
@@ -110,5 +125,5 @@ public class Favorite {
 			return false;
 		return true;
 	}
-	
+
 }

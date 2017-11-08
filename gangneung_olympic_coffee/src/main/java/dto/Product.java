@@ -1,28 +1,21 @@
 package dto;
 
 public class Product {
-	private int id;
 	private int lanCode;
-	private int oz;
+	private int id;
 	private int code;
+	private int oz;
 	private int price;
 	
 	public Product() {}
 
-	public Product(int id, int lanCode, int oz, int code, int price) {
-		this.id = id;
+	public Product(int lanCode, int id, int code, int oz, int price) {
+		super();
 		this.lanCode = lanCode;
-		this.oz = oz;
-		this.code = code;
-		this.price = price;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
 		this.id = id;
+		this.code = code;
+		this.oz = oz;
+		this.price = price;
 	}
 
 	public int getLanCode() {
@@ -33,12 +26,12 @@ public class Product {
 		this.lanCode = lanCode;
 	}
 
-	public int getOz() {
-		return oz;
+	public int getId() {
+		return id;
 	}
 
-	public void setOz(int oz) {
-		this.oz = oz;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getCode() {
@@ -47,6 +40,14 @@ public class Product {
 
 	public void setCode(int code) {
 		this.code = code;
+	}
+
+	public int getOz() {
+		return oz;
+	}
+
+	public void setOz(int oz) {
+		this.oz = oz;
 	}
 
 	public int getPrice() {
@@ -60,14 +61,14 @@ public class Product {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("product [id=");
-		builder.append(id);
-		builder.append(", lanCode=");
+		builder.append("Product [lanCode=");
 		builder.append(lanCode);
-		builder.append(", oz=");
-		builder.append(oz);
+		builder.append(", id=");
+		builder.append(id);
 		builder.append(", code=");
 		builder.append(code);
+		builder.append(", oz=");
+		builder.append(oz);
 		builder.append(", price=");
 		builder.append(price);
 		builder.append("]");
@@ -107,5 +108,5 @@ public class Product {
 			return false;
 		return true;
 	}
-	
+
 }

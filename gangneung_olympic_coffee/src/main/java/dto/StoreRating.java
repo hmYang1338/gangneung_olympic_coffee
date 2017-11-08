@@ -4,25 +4,25 @@ import java.util.Date;
 
 public class StoreRating {
 	private int rat_num;
-	private int id;
-	private int lanCode;
 	private String email;
+	private int lanCode;
+	private int id;
 	private int interior;
-	private int access;
+	private int ratAccess;
 	private int costEffect;
 	private String ratComment;
 	private Date ratDate;
 	
 	public StoreRating() {}
 
-	public StoreRating(int rat_num, int id, int lanCode, String email, int interior, int access, int costEffect,
+	public StoreRating(int rat_num, String email, int lanCode, int id, int interior, int ratAccess, int costEffect,
 			String ratComment, Date ratDate) {
 		this.rat_num = rat_num;
-		this.id = id;
-		this.lanCode = lanCode;
 		this.email = email;
+		this.lanCode = lanCode;
+		this.id = id;
 		this.interior = interior;
-		this.access = access;
+		this.ratAccess = ratAccess;
 		this.costEffect = costEffect;
 		this.ratComment = ratComment;
 		this.ratDate = ratDate;
@@ -36,12 +36,12 @@ public class StoreRating {
 		this.rat_num = rat_num;
 	}
 
-	public int getId() {
-		return id;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getLanCode() {
@@ -52,12 +52,12 @@ public class StoreRating {
 		this.lanCode = lanCode;
 	}
 
-	public String getEmail() {
-		return email;
+	public int getId() {
+		return id;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getInterior() {
@@ -68,12 +68,12 @@ public class StoreRating {
 		this.interior = interior;
 	}
 
-	public int getAccess() {
-		return access;
+	public int getRatAccess() {
+		return ratAccess;
 	}
 
-	public void setAccess(int access) {
-		this.access = access;
+	public void setRatAccess(int ratAccess) {
+		this.ratAccess = ratAccess;
 	}
 
 	public int getCostEffect() {
@@ -105,16 +105,16 @@ public class StoreRating {
 		StringBuilder builder = new StringBuilder();
 		builder.append("StoreRating [rat_num=");
 		builder.append(rat_num);
-		builder.append(", id=");
-		builder.append(id);
-		builder.append(", lanCode=");
-		builder.append(lanCode);
 		builder.append(", email=");
 		builder.append(email);
+		builder.append(", lanCode=");
+		builder.append(lanCode);
+		builder.append(", id=");
+		builder.append(id);
 		builder.append(", interior=");
 		builder.append(interior);
-		builder.append(", access=");
-		builder.append(access);
+		builder.append(", ratAccess=");
+		builder.append(ratAccess);
 		builder.append(", costEffect=");
 		builder.append(costEffect);
 		builder.append(", ratComment=");
@@ -129,12 +129,12 @@ public class StoreRating {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + access;
 		result = prime * result + costEffect;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
 		result = prime * result + interior;
 		result = prime * result + lanCode;
+		result = prime * result + ratAccess;
 		result = prime * result + ((ratComment == null) ? 0 : ratComment.hashCode());
 		result = prime * result + ((ratDate == null) ? 0 : ratDate.hashCode());
 		result = prime * result + rat_num;
@@ -150,8 +150,6 @@ public class StoreRating {
 		if (getClass() != obj.getClass())
 			return false;
 		StoreRating other = (StoreRating) obj;
-		if (access != other.access)
-			return false;
 		if (costEffect != other.costEffect)
 			return false;
 		if (email == null) {
@@ -164,6 +162,8 @@ public class StoreRating {
 		if (interior != other.interior)
 			return false;
 		if (lanCode != other.lanCode)
+			return false;
+		if (ratAccess != other.ratAccess)
 			return false;
 		if (ratComment == null) {
 			if (other.ratComment != null)

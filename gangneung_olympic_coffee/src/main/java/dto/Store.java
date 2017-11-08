@@ -1,8 +1,8 @@
 package dto;
 
 public class Store {
-	private int id;
 	private int lanCode;
+	private int id;
 	private String name;
 	private String tel;
 	private String addr;
@@ -12,9 +12,9 @@ public class Store {
 	
 	public Store() {}
 
-	public Store(int id, int lanCode, String name, String tel, String addr, int lat, int longi, String storeHours) {
-		this.id = id;
+	public Store(int lanCode, int id, String name, String tel, String addr, int lat, int longi, String storeHours) {
 		this.lanCode = lanCode;
+		this.id = id;
 		this.name = name;
 		this.tel = tel;
 		this.addr = addr;
@@ -23,20 +23,20 @@ public class Store {
 		this.storeHours = storeHours;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public int getLanCode() {
 		return lanCode;
 	}
 
 	public void setLanCode(int lanCode) {
 		this.lanCode = lanCode;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -90,10 +90,10 @@ public class Store {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Store [id=");
-		builder.append(id);
-		builder.append(", lanCode=");
+		builder.append("Store [lanCode=");
 		builder.append(lanCode);
+		builder.append(", id=");
+		builder.append(id);
 		builder.append(", name=");
 		builder.append(name);
 		builder.append(", tel=");
@@ -164,5 +164,5 @@ public class Store {
 			return false;
 		return true;
 	}
-	
+
 }

@@ -9,6 +9,8 @@
 
 	<!-- jsp 파일을 views 폴더 안에 넣어 경로 매핑 작업을 하는 곳 -->
 	<view-controller path="/home" view-name="home"/>
+	<view-controller path="/home1" view-name="home1"/>
+	<view-controller path="/home2" view-name="home2"/>
 	
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/"/>
