@@ -15,4 +15,8 @@ public class MemberDAO {
 	public List<Member> selectAllMember() {
 		return sqlsession.selectList("memberMapper.selectAllMember");
 	}
+	
+	public int insertUser(Member member) {
+		return sqlsession.insert("memberMapper.insertMember", member);
+	}
 }

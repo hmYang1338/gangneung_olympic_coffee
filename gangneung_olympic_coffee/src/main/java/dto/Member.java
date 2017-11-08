@@ -15,9 +15,15 @@ public class Member {
 	private Date lastDate;
 	private String imgDir;
 	private String accessCode;
-	
-	public Member() {}
 
+	public Member() {
+	}
+	public Member(String email, String password, String salt) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.salt = salt;
+	}
 	public Member(String email, String password, String salt, String name, int gender, Date birth, int nationCode,
 			int lanCode, Date joinDate, Date lastDate, String imgDir, String accessCode) {
 		super();
@@ -243,5 +249,5 @@ public class Member {
 			return false;
 		return true;
 	}
-	
+
 }
