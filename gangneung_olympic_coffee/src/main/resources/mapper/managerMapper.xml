@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="managerMapper">
+	<resultMap type="manager" id="managerMap">
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+		<result column="name" property="name"/>
+		<result column="birth" property="birth"/>
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="img_dir" property="imgDir"/>
+		<result column="major" property="major"/>
+	</resultMap>
+	
+	<!-- Manager와 Store Join - 관리자 가게 이름을 나타내기 위해 (단,HashMap처리이기에 String으로 생성됨)-->
+	<resultMap type="java.util.HashMap" id="managerStoreMap">
+		<result column="email" property="manager.email"/>
+		<result column="name" property="manager.name"/>
+		<result column="birth" property="manager.birth"/>
+		<result column="lan_code" property="manager.lanCode"/>
+		<result column="id" property="manager.id"/>
+		<result column="s.name" property="store.name"/>
+		<result column="s.addr" property="store.addr"/>
+		<result column="s.tel" property="store.tel"/>
+		<result column="s.storeHours" property="store.storeHours"/>
+		<result column="img_dir" property="manager.imgDir"/>
+		<result column="major" property="manager.major"/>
+	</resultMap>
+
+	<select id="selectManagerAll" resultMap="managerMap">
+		SELECT email, name, birth, lan_code, id, img_dir, major
+		FROM manager
+	</select>
+	
+	<!-- 운영자 -> 관리자 검색[Id(email),사장이름(name),가게번호(id)] -->
+	<select id="selectManagerById" parameterType="List" resultMap="managerMap">
+		SELECT email, name, birth, lan_code, id, img_dir, major
+		FROM manager
+		WHERE email LIKE '%'||#{email}||'%' or name LIKE '%'||#{name}||'%' or id LIKE '%'||#{id}||'%'
+	</select>
+	
+	<!-- JOIN문을 통한 가게이름 검색 --> 
+	<select id="selectManagerById" parameterType="List" resultMap="managerMap">
+		SELECT m.email as email, m.name as name, m.birth as birth, m.lan_code as lan_code, s.id as id, s.name as store_name, s.addr as store_addr, s.tel as store_tel, s.store_hours as store_store_hours, m.img_dir as img_dir, m.major as major
+		FROM manager m, store s
+		WHERE m.id=s.id and m.email LIKE '%'||#{email}||'%' or m.name LIKE '%'||#{name}||'%' or s.name LIKE '%'||#{store.name}||'%' or s.addr LIKE '%'||#{store.addr}||'%'
+	</select>
+	 
+	 <!-- 회원 가입(관리자&운영자) -->
+	 <insert id="insertManager" parameterType="manager">
+	 	INSERT INTO manager
+	 	VALUES(#{email},#{password},#{salt},#{name},#{birth},#{lanCode},#{id},#{imgDir},#{major})
+	 </insert>
+	
+</mapper>	

@@ -10,16 +10,16 @@ public class Member {
 	private int gender;
 	private Date birth;
 	private int nationCode;
-	private int lan_code;
+	private int lanCode;
 	private Date joinDate;
 	private Date lastDate;
 	private String imgDir;
-	private String AccessCode;
+	private String accessCode;
 	
 	public Member() {}
 
 	public Member(String email, String password, String salt, String name, int gender, Date birth, int nationCode,
-			int lan_code, Date joinDate, Date lastDate, String imgDir, String accessCode) {
+			int lanCode, Date joinDate, Date lastDate, String imgDir, String accessCode) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -28,11 +28,11 @@ public class Member {
 		this.gender = gender;
 		this.birth = birth;
 		this.nationCode = nationCode;
-		this.lan_code = lan_code;
+		this.lanCode = lanCode;
 		this.joinDate = joinDate;
 		this.lastDate = lastDate;
 		this.imgDir = imgDir;
-		AccessCode = accessCode;
+		this.accessCode = accessCode;
 	}
 
 	public String getEmail() {
@@ -91,12 +91,12 @@ public class Member {
 		this.nationCode = nationCode;
 	}
 
-	public int getLan_code() {
-		return lan_code;
+	public int getLanCode() {
+		return lanCode;
 	}
 
-	public void setLan_code(int lan_code) {
-		this.lan_code = lan_code;
+	public void setLan_code(int lanCode) {
+		this.lanCode = lanCode;
 	}
 
 	public Date getJoinDate() {
@@ -124,11 +124,11 @@ public class Member {
 	}
 
 	public String getAccessCode() {
-		return AccessCode;
+		return accessCode;
 	}
 
 	public void setAccessCode(String accessCode) {
-		AccessCode = accessCode;
+		this.accessCode = accessCode;
 	}
 
 	@Override
@@ -148,16 +148,16 @@ public class Member {
 		builder.append(birth);
 		builder.append(", nationCode=");
 		builder.append(nationCode);
-		builder.append(", lan_code=");
-		builder.append(lan_code);
+		builder.append(", lanCode=");
+		builder.append(lanCode);
 		builder.append(", joinDate=");
 		builder.append(joinDate);
 		builder.append(", lastDate=");
 		builder.append(lastDate);
 		builder.append(", imgDir=");
 		builder.append(imgDir);
-		builder.append(", AccessCode=");
-		builder.append(AccessCode);
+		builder.append(", accessCode=");
+		builder.append(accessCode);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -166,13 +166,13 @@ public class Member {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((AccessCode == null) ? 0 : AccessCode.hashCode());
+		result = prime * result + ((accessCode == null) ? 0 : accessCode.hashCode());
 		result = prime * result + ((birth == null) ? 0 : birth.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + gender;
 		result = prime * result + ((imgDir == null) ? 0 : imgDir.hashCode());
 		result = prime * result + ((joinDate == null) ? 0 : joinDate.hashCode());
-		result = prime * result + lan_code;
+		result = prime * result + lanCode;
 		result = prime * result + ((lastDate == null) ? 0 : lastDate.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + nationCode;
@@ -190,10 +190,10 @@ public class Member {
 		if (getClass() != obj.getClass())
 			return false;
 		Member other = (Member) obj;
-		if (AccessCode == null) {
-			if (other.AccessCode != null)
+		if (accessCode == null) {
+			if (other.accessCode != null)
 				return false;
-		} else if (!AccessCode.equals(other.AccessCode))
+		} else if (!accessCode.equals(other.accessCode))
 			return false;
 		if (birth == null) {
 			if (other.birth != null)
@@ -217,7 +217,7 @@ public class Member {
 				return false;
 		} else if (!joinDate.equals(other.joinDate))
 			return false;
-		if (lan_code != other.lan_code)
+		if (lanCode != other.lanCode)
 			return false;
 		if (lastDate == null) {
 			if (other.lastDate != null)

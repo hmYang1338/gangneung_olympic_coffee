@@ -6,14 +6,14 @@ public class Manager {
 	private String salt;
 	private String name;
 	private String birth;
-	private int lan_code;
+	private int lanCode;
 	private int id;
 	private String imgDir;
 	private String major;
-	
+
 	public Manager() {}
 
-	public Manager(String email, String password, String salt, String name, String birth, int lan_code, int id,
+	public Manager(String email, String password, String salt, String name, String birth, int lanCode, int id,
 			String imgDir, String major) {
 		super();
 		this.email = email;
@@ -21,7 +21,7 @@ public class Manager {
 		this.salt = salt;
 		this.name = name;
 		this.birth = birth;
-		this.lan_code = lan_code;
+		this.lanCode = lanCode;
 		this.id = id;
 		this.imgDir = imgDir;
 		this.major = major;
@@ -67,12 +67,12 @@ public class Manager {
 		this.birth = birth;
 	}
 
-	public int getLan_code() {
-		return lan_code;
+	public int getLanCode() {
+		return lanCode;
 	}
 
-	public void setLan_code(int lan_code) {
-		this.lan_code = lan_code;
+	public void setLanCode(int lanCode) {
+		this.lanCode = lanCode;
 	}
 
 	public int getId() {
@@ -112,8 +112,8 @@ public class Manager {
 		builder.append(name);
 		builder.append(", birth=");
 		builder.append(birth);
-		builder.append(", lan_code=");
-		builder.append(lan_code);
+		builder.append(", lanCode=");
+		builder.append(lanCode);
 		builder.append(", id=");
 		builder.append(id);
 		builder.append(", imgDir=");
@@ -132,7 +132,7 @@ public class Manager {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((imgDir == null) ? 0 : imgDir.hashCode());
-		result = prime * result + lan_code;
+		result = prime * result + lanCode;
 		result = prime * result + ((major == null) ? 0 : major.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -166,7 +166,7 @@ public class Manager {
 				return false;
 		} else if (!imgDir.equals(other.imgDir))
 			return false;
-		if (lan_code != other.lan_code)
+		if (lanCode != other.lanCode)
 			return false;
 		if (major == null) {
 			if (other.major != null)
@@ -191,5 +191,4 @@ public class Manager {
 		return true;
 	}
 
-	
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+		<!-- @author 정태준 -->
+	<resultMap type="member" id="memberMap">
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+		<result column="name" property="name"/>
+		<result column="gender" property="gender"/>
+		<result column="birth" property="birth"/>
+		<result column="nation_code" property="nationCode"/>
+		<result column="lan_code" property="lanCode"/>
+		<result column="join_date" property="joinDate"/>
+		<result column="last_date" property="lastDate"/>
+		<result column="img_dir" property="imgDir"/>
+		<result column="access_code" property="accessCode"/>
+	</resultMap>
+
+	<!-- select : 관리자&운영자, search : User -->
+	<select id="selectMemberAll" resultMap="memberMap">
+		SELECT email, name, gender, birth, nation_code, lan_code, join_date, last_date, img_dir, access_code
+		FROM member
+	</select>	
+
+	<select id="selectMemberById" parameterType="String" resultMap="memberMap">
+		SELECT email, name, gender, birth, nation_code, lan_code, join_date, last_date, img_dir, access_code
+		FROM member
+		WHERE email LIKE '%'||{#email}||'%'
+	</select>
+	
+	<!-- User가 User 정보 검색 -->
+	<select id="searchMemberById" resultMap="memberMap">
+		SELECT email, name, gender, birth, nation_code, lan_code, join_date, last_date, img_dir
+		FROM member
+		WHERE email LIKE '%'||{#email}||'%'
+	</select>
+
+	<!-- 회원 가입 -->
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO member
+		VALUES(#{email},#{password},#{salt},#{name},#{gender},#{birth},#{nationCode},#{lanCode},sysdate,sysdate,#{imgDir},#{accessCode})
+	</insert>
+	
+	<!-- LastDate 로그인시 현재 시간으로 변경 -->
+	<update id="updateMemberByLastDate" parameterType="member">
+		UPDATE member
+		SET last_date = sysdate
+		WHERE email LIKE #{email}
+	</update>
+	
+	<!-- 승인 시 AccessCode 변경 -->
+	<update id="updateMemeberByAccessCode" parameterType="member">
+		UPDATE member
+		SET access_code = '0'
+		WHERE email LIKE #{email}
+	</update>
+	
+	<!-- 회원 탈퇴(User스스로) -->
+	<delete id="deleteMemeber" parameterType="member">
+		DELETE FROM member
+		WHERE email LIKE #{email} AND password LIKE #{password}
+	</delete>
+	
+</mapper>	
