@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="countingMapper">
+	<!-- @author 신승엽 -->
+	<resultMap type="counting" id="countingSelectMap">
+		<result column="seq" property="seq"/>
+		<result column="email" property="email"/>
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="code" property="code"/>
+		<result column="oz" property="oz"/>
+	</resultMap>
+
+	<sql id="countingColum">
+		seq, email, lan_code, id, code, oz, acc_date
+	</sql>
+	
+	<insert id="insertCounting" parameterType="counting">
+		INSERT INTO product(
+			<include refid="countingColum" />
+		)
+		VALUES(#{seq},#{lanCode},#{id},#{code},#{oz},SYS-DATE)
+	</insert>
+	
+</mapper>	

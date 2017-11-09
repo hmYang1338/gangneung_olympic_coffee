@@ -17,10 +17,8 @@ public class StoreDAO {
 		return sqlSession.selectList("storeRatingMapper.storeSelectMap");
 	}
 	
-	public List<Store> getStoreSelect(){
-		return sqlSession.selectList("");
+	public List<Store> getStoreSelectDistance(){
+		return sqlSession.selectList("storeRatingMapper.selectStoreByDistance");
 	}
 	
 }
-/**
-*/

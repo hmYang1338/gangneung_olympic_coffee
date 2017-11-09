@@ -1,4 +1,7 @@
-/* 다수의 비동기 통신을 하기 위하여 httpRequest를 리턴하는 함수*/
+/** 
+ * 다수의 비동기 통신을 하기 위하여 httpRequest를 리턴하는 함수
+ * @author 신승엽
+ * */
 function sendRequest(url, params, callback, method) {
 	var httpRequest = new XMLHttpRequest();
 	var httpMethod = method;	

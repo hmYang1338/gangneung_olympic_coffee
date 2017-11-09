@@ -25,6 +25,11 @@
 		FROM productRating
 	</select>
 	
+	<select id="selectProductRatingById" resultMap="productRatingSelectMap" parameterType="productRating">
+		SELECT <include refid="productRatingColum"/>
+		FROM productRating WHERE lan_code = #{lanCode} AND id = #{id}
+	</select>
+	
 	<insert id="insertProductRating" parameterType="productRating">
 		INSERT INTO productRating(
 			<include refid="productRatingColum" />
