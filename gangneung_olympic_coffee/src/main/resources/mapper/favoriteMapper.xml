@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="testMapper">
+	<!-- @author 정태준 -->
+	<resultMap type="favorite" id="favoriteSelectMap">
+		<result column="fav_num" property="favNum"/>
+		<result column="email" property="email"/>
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="code" property="code"/>
+		<result column="oz" property="oz"/>
+	</resultMap>
+
+	
+	
+	<select id="selectFavorite" resultMap="favoriteSelectMap">
+		SELECT fav_no, email, 
+		FROM favorite
+	</select>
+	
+</mapper>	

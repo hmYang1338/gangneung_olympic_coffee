@@ -19,9 +19,9 @@ public class TestController3 {
 	
 	@RequestMapping("/test3.do")
 	public String TestGo(Model model) {
-		List<Member> member = null;
-		model.addAttribute("member",member = memberDAO.selectAllMember());
-		System.out.println(member.toString());
+//		List<Member> member = null;
+//		model.addAttribute("member",member = memberDAO.selectAllMember());
+//		System.out.println(member.toString());
 		return "home3";
 	}
 
