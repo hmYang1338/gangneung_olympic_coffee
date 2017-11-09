@@ -41,7 +41,7 @@
 	</select>
 	
 	<!-- JOIN문을 통한 가게이름 검색 --> 
-	<select id="selectManagerById" parameterType="List" resultMap="managerMap">
+	<select id="selectManagerById2" parameterType="List" resultMap="managerStoreMap">
 		SELECT m.email as email, m.name as name, m.birth as birth, m.lan_code as lan_code, s.id as id, s.name as store_name, s.addr as store_addr, s.tel as store_tel, s.store_hours as store_store_hours, m.img_dir as img_dir, m.major as major
 		FROM manager m, store s
 		WHERE m.id=s.id and m.email LIKE '%'||#{email}||'%' or m.name LIKE '%'||#{name}||'%' or s.name LIKE '%'||#{store.name}||'%' or s.addr LIKE '%'||#{store.addr}||'%'
