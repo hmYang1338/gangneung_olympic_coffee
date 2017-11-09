@@ -16,21 +16,41 @@
 		<result column="img_dir" property="imgDir"/>
 		<result column="access_code" property="accessCode"/>
 	</resultMap>
-
+	
+	<!-- test용 resultMap -->
+	<resultMap type="member" id="memberMap2">
+		<result column="email" property="email"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+	</resultMap>
+	
+	<!-- test용 회원 가입 -->
+	<insert id="insertMember2" parameterType="member">
+		INSERT INTO test2
+		VALUES(#{email},#{password},#{salt})
+	</insert>
+	
+	<!-- test용 로그인 -->
+	<select id="selectMemberByEmail2" parameterType="String" resultMap="memberMap2">
+		SELECT email, passwd as password, salt
+		FROM test2
+		WHERE email LIKE #{#email}
+	</select>
+	
 	<!-- select : 관리자&운영자, search : User -->
 	<select id="selectMemberAll" resultMap="memberMap">
 		SELECT email, name, gender, birth, nation_code, lan_code, join_date, last_date, img_dir, access_code
 		FROM member
 	</select>	
 
-	<select id="selectMemberById" parameterType="String" resultMap="memberMap">
+	<select id="selectMemberByEmail" parameterType="String" resultMap="memberMap">
 		SELECT email, name, gender, birth, nation_code, lan_code, join_date, last_date, img_dir, access_code
 		FROM member
 		WHERE email LIKE '%'||{#email}||'%'
 	</select>
 	
 	<!-- User가 User 정보 검색 -->
-	<select id="searchMemberById" resultMap="memberMap">
+	<select id="searchMemberByEmail" resultMap="memberMap">
 		SELECT email, name, gender, birth, nation_code, lan_code, join_date, last_date, img_dir
 		FROM member
 		WHERE email LIKE '%'||{#email}||'%'
@@ -41,6 +61,8 @@
 		INSERT INTO member
 		VALUES(#{email},#{password},#{salt},#{name},#{gender},#{birth},#{nationCode},#{lanCode},sysdate,sysdate,#{imgDir},#{accessCode})
 	</insert>
+	
+	
 	
 	<!-- LastDate 로그인시 현재 시간으로 변경 -->
 	<update id="updateMemberByLastDate" parameterType="member">

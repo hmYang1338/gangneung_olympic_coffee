@@ -2,7 +2,10 @@ package sercurity;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
+/**
+ * 1차
+ * @author hyunmoYang
+ */
 public class PasswordEncoding implements PasswordEncoder {
 	private PasswordEncoder passwordEncoder;
 

@@ -7,6 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * 2차
+ * @author hyunmoYang
+ */
 @org.springframework.stereotype.Service("shaEncoder")
 public class SHAPasswordEncoder implements PasswordEncoder {
 	

@@ -8,16 +8,22 @@ import java.security.SecureRandom;
  */
 public class GetSalt {
 	public static String getSalt() {
-		String value = "";
+		byte[] salt = new byte[16];
 		try {
 			SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");
 			// Salt generation 128 bits long
-			byte[] salt = new byte[16];
 			secureRandom.nextBytes(salt);
-			value = salt.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return value;
+		StringBuffer hexString = new StringBuffer();
+		for (int i = 0; i < salt.length; i++) {
+			String hex = Integer.toHexString(0xff & salt[i]);
+			if (hex.length() == 1) {
+				hexString.append('0');
+			}
+			hexString.append(hex);
+		}
+		return hexString.toString();
 	}
 } // end of class
