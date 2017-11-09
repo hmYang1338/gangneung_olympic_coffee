@@ -1,4 +1,4 @@
-package service;
+package sercurity;
 
 /**
  * SHA-256으로 패스워드를 받아와 암호화된 Password와 salt값을 제공하는 클래스

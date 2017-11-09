@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.MemberDAO;
 import dto.Member;
-import service.SHAEncoding;
+import sercurity.SHAEncoding;
 
 @Controller
 public class TestController2 {
 	@Autowired
-	private MemberDAO userDao;
+	private MemberDAO memberDao;
 
 	@RequestMapping("/test2.do")
 	public String TestGo(Model model) {
@@ -28,17 +28,17 @@ public class TestController2 {
 		return "loginPage";
 	}
 
-	@RequestMapping(value = "/insertUser", method = RequestMethod.POST)
-	public String insertUser(@RequestParam("email") String email, @RequestParam("passwd") String passwd) {
+	@RequestMapping(value = "/insertMember", method = RequestMethod.POST)
+	public String insertMember(@RequestParam("email") String email, @RequestParam("passwd") String passwd) {
 		SHAEncoding sha = new SHAEncoding();
 		Member member = new Member();
 
 		member.setEmail(email);
 		member.setPassword(sha.getPassword(passwd));
 		member.setSalt(sha.getSalt());
-		int result = userDao.insertUser(member);
+		int result = memberDao.insertMember(member);
 		System.out.println("result ===>" + result);
-		/* logger.info("result ===> {}", result); */
+
 		return "loginPage";
 	}
 
