@@ -10,15 +10,16 @@
 </head>
 <body>
 	${errMsg}
-	<form action='<c:url value="loginPage"/>' method="post">
-		<input type="text" name="email" id="email" /> <input type="password"
-			name="password" id="password" /> <input type="submit" value="로그인">
+	<form action='<c:url value="loginPage.do"/>' method="post">
+		<input type="text" name="email" id="email" />
+		<input type="password" name="password" id="password" /> 
+		<input type="submit" value="로그인">
 	</form>
 	<br>
 
-	<form action='<c:url value="insertMember"/>' method="post">
-		<input type="text" name="email" id="email" /> <input type="password"
-			name="password" id="password" /> <select name="authority">
+	<form action='<c:url value="insertMember.do"/>' method="post">
+		<input type="text" name="email" id="email" /> 
+		<input type="password" name="password" id="password" /> <select name="authority">
 			<option value="ROLE_USER">사용자</option>
 			<option value="ROLE_ADMIN">관리자</option>
 		</select> <input type="submit" value="회원가입">

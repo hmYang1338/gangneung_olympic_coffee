@@ -1,7 +1,6 @@
 package controller;
 
-import java.util.Arrays;
-import java.util.List;
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,51 +12,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.MemberDAO;
 import dto.Member;
-import sercurity.PasswordEncoding;
-import sercurity.SHAEncoding;
-import sercurity.SHAPasswordEncoder;
+import sercurity.ShaEncoder;
 
 @Controller
 public class TestController2 {
+	
 	@Autowired
 	private MemberDAO memberDao;
-
+	@Resource(name = "shaEncoder")
+	private ShaEncoder encoder;
+	
 	@RequestMapping("/test2.do")
 	public String TestGo(Model model) {
 		return "home2";
 	}
 
-	@RequestMapping("/loginPage")
+	@RequestMapping(value = "/loginPage.do", method = RequestMethod.POST)
 	public String loginPage(@RequestParam String email, @RequestParam String password) {
 		Member member = memberDao.selectMemberByEmail(email);
-		
 		System.out.println(member);
 		if (member == null) {// ID가 없는경우
 			System.out.println("없는 회원입니다.");	// test
 			throw new UsernameNotFoundException(email + "는 없는 회원입니다.");
 		}
-		
-		SHAEncoding sha = new SHAEncoding();
-		sha.setSalt(member.getSalt());
-		if(sha.passwordEquals(member.getPassword(), password)) {
-			System.out.println("??");
+		if(encoder.matches(password, member.getPassword())) {
+			System.out.println("성공?");
 		}
 		return "test/loginSuccess";
 	}
 
-	@RequestMapping(value = "/insertMember", method = RequestMethod.POST)
+	@RequestMapping(value = "/insertMember.do", method = RequestMethod.POST)
 	public String insertMember(@RequestParam String email, @RequestParam String password) {
-		SHAEncoding sha = new SHAEncoding();
 		Member member = new Member();
-
 		member.setEmail(email);
-		member.setPassword(sha.getPassword(password));
-		member.setSalt(sha.getSalt());
-		System.out.println(sha.getSalt());
-		System.out.println(Arrays.toString(sha.getSalt().getBytes()));
+		member.setPassword(encoder.encoding(password));
+		member.setSalt("423423");
+		System.out.println(member);
 		int result = memberDao.insertMember(member);
-		System.out.println("result ===>" + result);
-
 		return "test/loginPage";
 	}
 }
