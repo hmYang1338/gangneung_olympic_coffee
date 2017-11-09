@@ -6,11 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dao.ManagerDAO;
 import dao.MemberDAO;
+import dto.Manager;
 import dto.Member;
 import sercurity.ShaEncoder;
 
@@ -19,6 +22,9 @@ public class TestController2 {
 	
 	@Autowired
 	private MemberDAO memberDao;
+	@Autowired
+	private ManagerDAO managerDao;
+	
 	@Resource(name = "shaEncoder")
 	private ShaEncoder encoder;
 	
@@ -50,5 +56,30 @@ public class TestController2 {
 		System.out.println(member);
 		int result = memberDao.insertMember(member);
 		return "test/loginPage";
+	}
+	
+	@RequestMapping(value = "/insertManager", method = RequestMethod.POST)
+	public String insertManager(@ModelAttribute Manager manager, Model data) {
+		String uri = null;
+		if (manager.getEmail() == null || manager.getEmail().trim().length() == 0 
+				|| manager.getPassword() == null || manager.getPassword().trim().length() == 0
+				|| manager.getName() == null || manager.getName().trim().length() == 0 
+				|| manager.gettel() == null || manager.gettel().trim().length() == 0
+				|| manager.getBirth() == null || manager.getBirth().trim().length() == 0
+				|| manager.getLanCode() == 0 || manager.getId() == 0
+				|| manager.getImgDir() == null || manager.getImgDir().trim().length() == 0
+				|| manager.getMajor() == null || manager.getMajor().trim().length() == 0) {
+			return "test/loginPage";
+		}
+
+		int result = managerDao.insertManager(manager);
+
+		if (result == 0) {
+			System.out.println("error"); // test
+		} else {
+			System.out.println(result); // test
+			uri = "test/managerinsertSuccess";
+		}
+		return uri;
 	}
 }
