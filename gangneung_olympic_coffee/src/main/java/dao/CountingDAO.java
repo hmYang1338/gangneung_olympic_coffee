@@ -13,6 +13,7 @@ import dto.Counting;
  */
 @Repository
 public class CountingDAO {
+	
 	@Autowired
 	private SqlSession sqlSession;
 

@@ -34,9 +34,9 @@
 		FROM store WHERE name LIKE #{name}
 	</select>
 	
-	<select id="selectStoreByDistance" resultMap="storeSelectMap">
+	<select id="selectStoreByDistance" resultMap="storeSelectMap" parameterType="userGPS">
 		SELECT <include refid="storeColum"/>
-		FROM store
+		FROM store where lat = #{lat} longi = #{longi}
 	</select>
 	
 	<insert id="insertStore" parameterType="store">

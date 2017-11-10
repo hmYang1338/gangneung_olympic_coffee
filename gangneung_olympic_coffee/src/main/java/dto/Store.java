@@ -6,13 +6,13 @@ public class Store {
 	private String name;
 	private String tel;
 	private String addr;
-	private int lat;
-	private int longi;
+	private double lat;
+	private double longi;
 	private String storeHours;
 	
 	public Store() {}
 
-	public Store(int lanCode, int id, String name, String tel, String addr, int lat, int longi, String storeHours) {
+	public Store(int lanCode, int id, String name, String tel, String addr, double lat, double longi, String storeHours) {
 		this.lanCode = lanCode;
 		this.id = id;
 		this.name = name;
@@ -22,6 +22,8 @@ public class Store {
 		this.longi = longi;
 		this.storeHours = storeHours;
 	}
+	
+	
 
 	public int getLanCode() {
 		return lanCode;
@@ -63,7 +65,7 @@ public class Store {
 		this.addr = addr;
 	}
 
-	public int getLat() {
+	public double getLat() {
 		return lat;
 	}
 
@@ -71,7 +73,7 @@ public class Store {
 		this.lat = lat;
 	}
 
-	public int getLongi() {
+	public double getLongi() {
 		return longi;
 	}
 
@@ -117,8 +119,8 @@ public class Store {
 		result = prime * result + ((addr == null) ? 0 : addr.hashCode());
 		result = prime * result + id;
 		result = prime * result + lanCode;
-		result = prime * result + lat;
-		result = prime * result + longi;
+		result = (int) (prime * result + lat);
+		result = (int) (prime * result + longi);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((storeHours == null) ? 0 : storeHours.hashCode());
 		result = prime * result + ((tel == null) ? 0 : tel.hashCode());
