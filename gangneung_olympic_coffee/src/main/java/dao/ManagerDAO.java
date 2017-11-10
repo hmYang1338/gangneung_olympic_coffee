@@ -49,12 +49,19 @@ public class ManagerDAO {
 	/**
 	 * (관리자 & 운영자) 회원가입
 	 * @param manager
-	 * @return insert 안되었다면 0 안되었다면 insert된 행의 개수 
+	 * @return insert 안되었다면 0, 되었다면 insert된 행의 개수 
 	 */
 	public int insertManager(Manager manager) {
-		return sqlsession.insert("magerMapper.insertManager", manager);
+		return sqlsession.insert("managerMapper.insertManager", manager);
 	}
 	
-	
+	/**
+	 * (관리자 & 운영자) 계정 삭제
+	 * @param email
+	 * @return delete 안되었다면 0, 되었다면 delete된 행의 개수
+	 */
+	public int deleteManager(String email) {
+		return sqlsession.delete("managerMapper.deleteManager", email);
+	}
 	
 }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @author 정태준, 양현모 -->
 <mapper namespace="managerMapper">
 	<resultMap type="manager" id="managerMap">
 		<result column="email" property="email"/>
 		<result column="password" property="password"/>
-		<result column="salt" property="salt"/>
 		<result column="name" property="name"/>
+		<result column="tel" property="tel"/>
 		<result column="birth" property="birth"/>
 		<result column="lan_code" property="lanCode"/>
 		<result column="id" property="id"/>
@@ -29,7 +30,7 @@
 	</resultMap>
 
 	<select id="selectManagerAll" resultMap="managerMap">
-		SELECT email, name, birth, lan_code, id, img_dir, major
+		SELECT email, name, birth, tel, lan_code, id, img_dir, major
 		FROM manager
 	</select>
 	
@@ -50,7 +51,12 @@
 	 <!-- 회원 가입(관리자&운영자) -->
 	 <insert id="insertManager" parameterType="manager">
 	 	INSERT INTO manager
-	 	VALUES(#{email},#{password},#{salt},#{name},#{birth},#{lanCode},#{id},#{imgDir},#{major})
+	 	VALUES(#{email}, #{password}, #{name}, #{tel}, #{birth}, #{lanCode}, #{id}, #{imgDir}, #{major})
 	 </insert>
+	 
+	 <delete id="deleteManager" parameterType="String">
+	 	DELETE FROM manager
+	 	WHERE email=#{email}
+	 </delete>
 	
 </mapper>	

@@ -9,6 +9,21 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script type="text/javascript">
+function loadDoc() {
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var resData = this.responseText; 
+			document.getElementById("list").innerHTML = resData;
+		}
+	};
+	xhttp.open("GET", "listAjax.do", true);
+	xhttp.send();
+}
+</script>
+
+
 	${errMsg}
 	<form action='<c:url value="loginPage.do"/>' method="post">
 		<input type="text" name="email" id="email" />
@@ -19,16 +34,18 @@
 
 	<form action='<c:url value="insertMember.do"/>' method="post">
 		<input type="text" name="email" id="email" /> 
-		<input type="password" name="password" id="password" /> <select name="authority">
+		<input type="password" name="password" id="password" /> 
+		<select name="authority">
 			<option value="ROLE_USER">사용자</option>
 			<option value="ROLE_ADMIN">관리자</option>
-		</select> <input type="submit" value="회원가입">
+		</select> 
+		<input type="submit" value="회원가입">
 	</form>
 	
 	<br><br><hr><br><br>
 	
-	<h1>운영자 계정 생성</h1>
-	<form action='<c:url value="insertManager"/>' method="post">
+	<h1>운영자 계정 생성(insert)</h1>
+	<form action='<c:url value="insertManager.do"/>' method="post">
 		이메일 : <input type="text" name="email" id="email" /><br>
 		비밀번호 : <input type="password" name="password" id="password" /><br>
 		이름 : <input type="text" name="name" id="name" /><br>
@@ -40,5 +57,17 @@
 		major : <input type="text" name="major" id="major" /><br>
 		<input type="submit" value="운영자 등록">
 	</form>
+	
+	<br><br><hr><br><br>
+	
+	<h1>운영자 계정 보기(select)</h1>
+	<form action='<c:url value="selectAllManager.do"/>' method="post">
+		<input type="submit" value="운영자 보기">
+	</form>
+	
+	<br><hr><br>
+	<div align=right><span style="font-size:9pt;">&lt;<a onclick="loadDoc()">리스트로 보기</a>&gt;</span></div>
+	<div id="list"></div>
+	
 </body>
 </html>
