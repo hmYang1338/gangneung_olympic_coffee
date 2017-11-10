@@ -12,7 +12,7 @@
 		<result column="addr" property="addr"/>
 		<result column="lat" property="lat"/>
 		<result column="longi" property="longi"/>
-		<result column="store_hours" property="shortHours"/>
+		<result column="store_hours" property="storeHours"/>
 	</resultMap>
 
 	<sql id="storeColum">

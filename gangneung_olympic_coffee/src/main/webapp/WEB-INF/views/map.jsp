@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-	
 <section id="about" class="about">
 	<div class="container text-center">
 		<h1>Coffee</h1>
@@ -17,5 +14,5 @@
 </section>
 
 <script src="js/ajax/httpRequest.js"></script>
-
+<script src="js/ajax/map.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAleY05YLGGXlCg7fglyYbaxg1ygurk4IA&callback=initMap"></script>

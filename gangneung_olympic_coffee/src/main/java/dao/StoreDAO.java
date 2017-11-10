@@ -24,7 +24,7 @@ public class StoreDAO {
 	 * @return 모든 가게 목록
 	 */
 	public List<Store> getStoreSelectMap(){
-		return sqlSession.selectList("storeRatingMapper.storeSelectMap");
+		return sqlSession.selectList("storeMapper.selectStore");
 	}
 	/**
 	 * 사용자의 GPS 정보를 받아와 근처의 커피숍을 리턴함
@@ -32,7 +32,7 @@ public class StoreDAO {
 	 * @return 근처의 가게 목록
 	 */
 	public List<Store> getStoreSelectMapByDistance(UserGPS userGPS){
-		return sqlSession.selectList("storeRatingMapper.selectStoreByDistance",userGPS);
+		return sqlSession.selectList("storeMapper.selectStoreByDistance",userGPS);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class StoreDAO {
 	 * @return 해당 가게의 정보
 	 */
 	public Store getStoreSelectById(int id){
-		return sqlSession.selectOne("storeRatingMapper.selectStoreById",id);
+		return sqlSession.selectOne("storeMapper.selectStoreById",id);
 	}
 	
 }
