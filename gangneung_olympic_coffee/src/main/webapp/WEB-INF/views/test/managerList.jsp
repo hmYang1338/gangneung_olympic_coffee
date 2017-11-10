@@ -42,6 +42,11 @@
  --%>
 		<c:forEach items="${list}" var="data">
 		    <tr>
+		    	<td bgcolor="">
+					<p><span style="font-size:9pt;">
+					<a href="www/test2.do/read.do/${data.email}">${data.email}</a>
+					</span></p>
+	        	</td>
 		        <td bgcolor="">
 		            <p align="center"><span style="font-size:9pt;">${data.email}</span></p>
 		        </td>

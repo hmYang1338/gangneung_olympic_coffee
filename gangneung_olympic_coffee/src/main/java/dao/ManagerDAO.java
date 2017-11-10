@@ -41,9 +41,20 @@ public class ManagerDAO {
 	 * @param manager
 	 * @return 검색한 해당 정보
 	 */
+	/*수정*/
 	public List<Manager> selectManagerById2() {
 		System.out.println(sqlsession.selectMap("managerMapper.selectManagerById2", "email"));
 		return null;
+	}
+	
+	/**
+	 * 운영자 상세조회(Table[manager, store] JOIN)
+	 * @param email
+	 * @return 검색한 해당 정보
+	 */
+	/*수정*/
+	public Manager selectOneManagerDetail(String email) {
+		return sqlsession.selectOne("managerMapper.selectOneManagerDetail", email);
 	}
 	
 	/**

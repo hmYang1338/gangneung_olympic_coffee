@@ -18,6 +18,7 @@
 	<resultMap type="java.util.HashMap" id="managerStoreMap">
 		<result column="email" property="manager.email"/>
 		<result column="name" property="manager.name"/>
+		<result column="tel" property="manager.tel"/>
 		<result column="birth" property="manager.birth"/>
 		<result column="lan_code" property="manager.lanCode"/>
 		<result column="id" property="manager.id"/>
@@ -34,25 +35,41 @@
 		FROM manager
 	</select>
 	
-	<!-- 운영자 -> 관리자 검색[Id(email),사장이름(name),가게번호(id)] -->
+	<!-- 운영자 -> 관리자 검색[Id(email),사장이름(name),가게번호(id)] (추후 수정)-->
 	<select id="selectManagerById" parameterType="List" resultMap="managerMap">
 		SELECT email, name, birth, lan_code, id, img_dir, major
 		FROM manager
-		WHERE email LIKE '%'||#{email}||'%' or name LIKE '%'||#{name}||'%' or id LIKE '%'||#{id}||'%'
+		WHERE email LIKE '%'||#{email}||'%' or 
+		name LIKE '%'||#{name}||'%' or 
+		id LIKE '%'||#{id}||'%'
 	</select>
 	
-	<!-- JOIN문을 통한 가게이름 검색 --> 
-	<select id="selectManagerById2" parameterType="List" resultMap="managerStoreMap">
-		SELECT m.email as email, m.name as name, m.birth as birth, m.lan_code as lan_code, s.id as id, s.name as store_name, s.addr as store_addr, s.tel as store_tel, s.store_hours as store_store_hours, m.img_dir as img_dir, m.major as major
-		FROM manager m, store s
+	<!-- JOIN문을 통한 가게이름 검색 (추후 수정)--> 
+	<select id="selectManagerById2" parameterType="HashMap" resultMap="managerStoreMap">
+		SELECT m.email as email, m.name as name, m.birth as birth, m.lan_code as lan_code, m.img_dir as img_dir, m.major as major
+		s.id as id, s.name as store_name, s.addr as store_addr, s.tel as store_tel, s.store_hours as store_store_hours 
+		FROM manager m, store s.
 		WHERE m.id=s.id and m.email LIKE '%'||#{email}||'%' or m.name LIKE '%'||#{name}||'%' or s.name LIKE '%'||#{store.name}||'%' or s.addr LIKE '%'||#{store.addr}||'%'
 	</select>
+	 
+	 <!-- 관리자 상세 조회를 위한 SELECT JOIN문 -->
+	 <select id="selectOneManagerDetail" parameterType="String" resultMap="managerStoreMap">
+	 	SELECT m.email as email, m.name as name, m.tel as tel, s.name as store_name, s.tel as store_tel, s.addr as store_addr
+	 	FROM manager m, store s
+	 	WHERE email=#{email}
+	 </select>
+	 
 	 
 	 <!-- 회원 가입(관리자&운영자) -->
 	 <insert id="insertManager" parameterType="manager">
 	 	INSERT INTO manager
 	 	VALUES(#{email}, #{password}, #{name}, #{tel}, #{birth}, #{lanCode}, #{id}, #{imgDir}, #{major})
 	 </insert>
+	 
+	 <update id="updateManager" parameterType="manager">
+	 	UPDATE manager SET  WHERE email=#{email}
+	 	update Electronics set price=#{price} where model_num=#{modelNum}
+	 </update>
 	 
 	 <delete id="deleteManager" parameterType="String">
 	 	DELETE FROM manager
