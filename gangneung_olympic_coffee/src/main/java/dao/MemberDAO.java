@@ -12,18 +12,18 @@ import dto.Member;
 public class MemberDAO {
 	
 	@Autowired
-	private SqlSession sqlsession;
+	private SqlSession sqlSession;
 	
 	public List<Member> selectAllMember() {
-		return sqlsession.selectList("memberMapper.selectAllMember");
+		return sqlSession.selectList("memberMapper.selectAllMember");
 	}
 	
 	public int insertMember(Member member) {
-		return sqlsession.insert("memberMapper.insertMember2", member);
+		return sqlSession.insert("memberMapper.insertMember", member);
 	}
 	
 	public Member selectMemberByEmail(String email) {
-		return sqlsession.selectOne("memberMapper.selectMemberByEmail2", email);
+		return sqlSession.selectOne("memberMapper.selectMemberByEmail", email);
 	}
 	
 }

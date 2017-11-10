@@ -15,12 +15,17 @@
 
 </head>
 <body>
+	
+	<!-- 회원 가입 구현 -->
+	
+	<form method="POST" id="joinMember" name="joinMember" action="insertMember.do">
 	<input type="email" id="email" name="email" maxlength="30" placeholder="이메일 입력해주세요" required="required"><br>
-	<input type="password" id="password1" name="password" maxlength="16" placeholder="비밀번호를 입력해주세요" required="required" onchange="compare()"><br>
-	<input type="password" id="password2" maxlength="16" placeholder="비밀번호를 재확인해주세요" required="required" onchange="compare()"><br>
+	<input type="password" id="password" name="password" maxlength="16" placeholder="비밀번호를 입력해주세요" required="required" onchange="compare()"><br>
+	<input type="password" id="password2" name="password2" maxlength="16" placeholder="비밀번호를 재확인해주세요" required="required" onchange="compare()">
 	<div id="alert"></div>
 	<!-- Nation(나라)를 설정 -->
-<%-- 	<select required="required">
+	<select name="nationCode" id="nationCode">
+  	  	<option value="1">1</option>
 	  <c:if test="${not empty requestScope.nationList}">
 		<c:forEach var="nation" items="${requestScope.nationList}">
 		  <option value="${nation.nationCode}">${nation.nation}</option>
@@ -29,22 +34,27 @@
 	</select>
 	<br>
 	<!-- 언어를 설정 -->
-	<select required="required">
-	  <c:if test="${not empty requestScope.languageList}">
-		<c:forEach var="language" items="${requestScope.languageList}">
-		  <option value="${language.lanCode}">${language.language}</option>
-		</c:forEach>
-	  </c:if>
-	</select> --%>
+<!-- 	<select required="required"> -->
+<!-- 	  	<option>1</option>지울내용 -->
+<%-- 	  <c:if test="${not empty requestScope.languageList}"> --%>
+<%-- 		<c:forEach var="language" items="${requestScope.languageList}"> --%>
+<%-- 		  <option value="${language.lanCode}">${language.language}</option> --%>
+<%-- 		</c:forEach> --%>
+<%-- 	  </c:if> --%>
+	</select>
 	<!-- 이름 -->
-	<br>
 	<input type="text" id="name" name="name" maxlength="20" placeholder="이름을 입력해주세요" required="required"><br>
-	<input type="radio" id="gender1" name="gender" value="1">남&nbsp;&nbsp;&nbsp;
-	<input type="radio" id="gender2" name="gender" value="2">여<br>
+	<input type="tel" id="tel" name="tel" maxlength="20">
+	<input type="radio" id="gender" name="gender" value="1">남&nbsp;&nbsp;&nbsp;
+	<input type="radio" id="gender" name="gender" value="2">여<br>
 	<input type="date" id="birth" name="birth" title="생일을 입력해주세요" required="required"><br>
-	<!-- 이미지 업로드 해야하는 것 만들어야함 -->
-	<button onclick="shin1()">Submit</button>
+<!-- 	<input type="text" id="imgDir" name="imgDir" title="imgDir"><br> -->
+<!-- 	<input type="text" id="accessCode" name="accessCode" title="accessCode"><br> -->
 	
+	<!-- 이미지 업로드 해야하는 것 만들어야함 -->
+	<input type="button" id="button" value="submit" onclick="shin1();">
+	
+	</form>
 	
 	<script type="text/javascript">
 	
@@ -58,7 +68,7 @@
 		/* 비밀번호 재확인 글 나오기  */
     	function compare(){
     		var alert = document.getElementById("alert");
-    		var pw1 = document.getElementById("password1").value;
+    		var pw1 = document.getElementById("password").value;
     		var pw2 = document.getElementById("password2").value;
     		if(pw1.length>=8&&pw2.length>=8){
     			passwordLengthCheck = true;
@@ -131,13 +141,15 @@
     	function shin1(){
     		checkEmail();
     		checkName();
+    			console.log("들어감1");
     		//checkGender();
     		//checkBirth();
     		
     		//emailCheck&&passwordCheck&&passwordLengthCheck&&nameCheck&&genderCheck&&birthCheck
     		if(emailCheck&&passwordCheck&&passwordLengthCheck&&nameCheck){
-    			alert("회원가입을 축하드립니다.");
-    			location.href="index.jsp";
+    			//alert("회원가입을 축하드립니다.");
+    			console.log("들어감2");
+    			document.getElementById("joinMember").submit();
     		}else{
     			alert("회원가입에 실패하였습니다.");
     		}

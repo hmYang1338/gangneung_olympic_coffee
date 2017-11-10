@@ -15,25 +15,5 @@
 
 	<context:component-scan base-package="sercurity" /> 
 	<bean id="passwordEncoder"
-		class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
-		<constructor-arg name="strength" value="256"></constructor-arg>
-	</bean>
-	
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 </beans>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

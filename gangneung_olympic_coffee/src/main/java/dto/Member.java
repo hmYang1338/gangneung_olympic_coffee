@@ -1,12 +1,12 @@
 package dto;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Member {
 	private String email;
 	private String password;
-	private String salt;
 	private String name;
+	private String tel;
 	private int gender;
 	private Date birth;
 	private int nationCode;
@@ -16,21 +16,18 @@ public class Member {
 	private String imgDir;
 	private String accessCode;
 
-	public Member() {
-	}
-	public Member(String email, String password, String salt) {
+	public Member() {}
+	public Member(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
-		this.salt = salt;
 	}
-	public Member(String email, String password, String salt, String name, int gender, Date birth, int nationCode,
+	public Member(String email, String password, String name, String tel, int gender, Date birth, int nationCode,
 			int lanCode, Date joinDate, Date lastDate, String imgDir, String accessCode) {
-		super();
 		this.email = email;
 		this.password = password;
-		this.salt = salt;
 		this.name = name;
+		this.tel = tel;
 		this.gender = gender;
 		this.birth = birth;
 		this.nationCode = nationCode;
@@ -40,99 +37,85 @@ public class Member {
 		this.imgDir = imgDir;
 		this.accessCode = accessCode;
 	}
+	public Member(String email, String password, String name, String tel, int gender, Date birth, int nationCode) {
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.tel = tel;
+		this.gender = gender;
+		this.birth = birth;
+		this.nationCode = nationCode;
+	}
 
 	public String getEmail() {
 		return email;
 	}
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getSalt() {
-		return salt;
+	public String getTel() {
+		return tel;
 	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
-
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public int getGender() {
 		return gender;
 	}
-
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-
 	public Date getBirth() {
 		return birth;
 	}
-
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
-
 	public int getNationCode() {
 		return nationCode;
 	}
-
 	public void setNationCode(int nationCode) {
 		this.nationCode = nationCode;
 	}
-
 	public int getLanCode() {
 		return lanCode;
 	}
-
 	public void setLan_code(int lanCode) {
 		this.lanCode = lanCode;
 	}
-
 	public Date getJoinDate() {
 		return joinDate;
 	}
-
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-
 	public Date getLastDate() {
 		return lastDate;
 	}
-
 	public void setLastDate(Date lastDate) {
 		this.lastDate = lastDate;
 	}
-
 	public String getImgDir() {
 		return imgDir;
 	}
-
 	public void setImgDir(String imgDir) {
 		this.imgDir = imgDir;
 	}
-
 	public String getAccessCode() {
 		return accessCode;
 	}
-
 	public void setAccessCode(String accessCode) {
 		this.accessCode = accessCode;
 	}
@@ -144,8 +127,8 @@ public class Member {
 		builder.append(email);
 		builder.append(", password=");
 		builder.append(password);
-		builder.append(", salt=");
-		builder.append(salt);
+		builder.append(", tel=");
+		builder.append(tel);
 		builder.append(", name=");
 		builder.append(name);
 		builder.append(", gender=");
@@ -183,7 +166,7 @@ public class Member {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + nationCode;
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((salt == null) ? 0 : salt.hashCode());
+		result = prime * result + ((tel == null) ? 0 : tel.hashCode());
 		return result;
 	}
 
@@ -242,10 +225,10 @@ public class Member {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (salt == null) {
-			if (other.salt != null)
+		if (tel == null) {
+			if (other.tel != null)
 				return false;
-		} else if (!salt.equals(other.salt))
+		} else if (!tel.equals(other.tel))
 			return false;
 		return true;
 	}
