@@ -26,7 +26,7 @@ function mapStart() {
 			lat : position.coords.latitude,
 			lng : position.coords.longitude
 		};
-		infoWindow.setPosition(pos); map.setCenter(pos); 
+		infoWindow.setPosition(pos); map.setCenter(pos);
 		recent(pos.lat,pos.lng);
 	}
 	function errorCallback(error) {

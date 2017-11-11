@@ -21,10 +21,11 @@ public class StoreDAO {
 	
 	/**
 	 * 모든 가게 목록 리스트를 받아옴
+	 * @param 사용자의 언어코드를 받아
 	 * @return 모든 가게 목록
 	 */
-	public List<Store> getStoreSelectMap(){
-		return sqlSession.selectList("storeMapper.selectStore");
+	public List<Store> getStoreSelectMap(int lanCode){
+		return sqlSession.selectList("storeMapper.selectStore",lanCode);
 	}
 	/**
 	 * 사용자의 GPS 정보를 받아와 근처의 커피숍을 리턴함

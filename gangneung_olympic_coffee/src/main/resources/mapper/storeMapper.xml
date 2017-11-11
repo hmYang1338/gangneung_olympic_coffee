@@ -19,9 +19,9 @@
 		lan_code, id, name, tel, addr, lat, longi store_hours
 	</sql>
 	
-	<select id="selectStore" resultMap="storeSelectMap">
+	<select id="selectStore" resultMap="storeSelectMap" parameterType="int">
 		SELECT <include refid="storeColum"/>
-		FROM store
+		FROM store WHERE lan_code = #{int}
 	</select>
 	
 	<select id="selectStoreById" resultMap="storeSelectMap" parameterType="string">
