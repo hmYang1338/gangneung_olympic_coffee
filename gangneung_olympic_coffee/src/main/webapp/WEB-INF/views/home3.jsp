@@ -15,6 +15,8 @@
 
 </head>
 <body>
+
+	<a href="selectMemberAll.do">리스트 보기</a>
 	
 	<!-- 회원 가입 구현 -->
 	
@@ -27,7 +29,7 @@
 	<select name="nationCode" id="nationCode">
   	  	<option value="1">1</option>
 	  <c:if test="${not empty requestScope.nationList}">
-		<c:forEach var="nation" items="${requestScope.nationList}">
+		<c:forEach items="${requestScope.nationList}" var="nation" >
 		  <option value="${nation.nationCode}">${nation.nation}</option>
 		</c:forEach>
 	  </c:if>

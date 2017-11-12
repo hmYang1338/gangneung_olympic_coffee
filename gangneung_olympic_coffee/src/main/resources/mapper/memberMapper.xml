@@ -63,25 +63,32 @@
 	</insert>
 	<!-- (#{email},#{password},#{name},#{tel},#{gender},#{birth},#{nationCode},#{lanCode},sysdate,sysdate,#{imgDir},#{accessCode}) -->
 	
+	<!-- 회원 탈퇴(사용자 스스로 탈퇴) -->
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM member
+		WHERE email = #{email}
+	</delete>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE member
+		SET password = #{password} AND tel = #{tel} AND lan_code = #{lanCode} AND img_dir = #{imgDir}
+		WHERE email = #{email}
+	</update>
 	
 	<!-- LastDate 로그인시 현재 시간으로 변경 -->
 	<update id="updateMemberByLastDate" parameterType="member">
 		UPDATE member
 		SET last_date = sysdate
-		WHERE email LIKE #{email}
+		WHERE email = #{email}
 	</update>
 	
 	<!-- 승인 시 AccessCode 변경 -->
-	<update id="updateMemeberByAccessCode" parameterType="member">
+	<update id="updateMemberByAccessCode" parameterType="member">
 		UPDATE member
 		SET access_code = '0'
-		WHERE email LIKE #{email}
+		WHERE email = #{email}
 	</update>
 	
-	<!-- 회원 탈퇴(User스스로) -->
-	<delete id="deleteMemeber" parameterType="member">
-		DELETE FROM member
-		WHERE email LIKE #{email} AND password LIKE #{password}
-	</delete>
+
 	
 </mapper>	

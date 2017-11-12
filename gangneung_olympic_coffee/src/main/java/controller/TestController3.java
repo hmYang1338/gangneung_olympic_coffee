@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,7 @@ public class TestController3 {
 //		List<Member> member = null;
 //		model.addAttribute("member",member = memberDAO.selectAllMember());
 //		System.out.println(member.toString());
-		return "memberLogin";
+		return "home3";
 	}
 
 	@RequestMapping(value = "/loginPage.do", method = RequestMethod.POST)
@@ -65,9 +67,20 @@ public class TestController3 {
 		return uri;
 	}
 	
-	//회원탈퇴(자발적인)
+	//회원리스트
+	@RequestMapping(value = "/selectMemberAll.do", method = RequestMethod.GET)
+	public String selectMemberAll(Model model) {
+		List<Member> list = memberDAO.selectMemberAll();
+		model.addAttribute("memberList",list);
+		return "memberList";
+	}
+	
+	//회원탈퇴(자발적인) - 자발적이라 썼지만 우선 admin으로도 못함...
 	@RequestMapping(value = "/deleteMember.do", method = RequestMethod.POST)
-	public String deleteMember(@ModelAttribute Member member, Model model) {
-		return "";
+	public String deleteMember(@RequestParam String email, @RequestParam String password, Model model) {
+		System.out.println("delete - 1");
+		System.out.println(email+","+password);
+		memberDAO.deleteMember(email);
+		return "redirect:/";
 	}
 }
