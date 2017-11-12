@@ -14,6 +14,21 @@
 		<result column="longi" property="longi"/>
 		<result column="store_hours" property="storeHours"/>
 	</resultMap>
+	
+	<resultMap type="java.util.HashMap" id="storeHashMap">
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="tel" property="tel"/>
+		<result column="addr" property="addr"/>
+		<result column="lat" property="lat"/>
+		<result column="longi" property="longi"/>
+		<result column="store_hours" property="storeHours"/>
+		<result column="store_rating" property="storeRating"/>
+		<result column="store_rating_count" property="storeRatingCount"/>
+		<result column="product_rating" property="productRating"/>
+		<result column="store_rating_count" property="storeRatingCount"/>
+	</resultMap>
 
 	<sql id="storeColum">
 		lan_code, id, name, tel, addr, lat, longi store_hours
@@ -21,7 +36,19 @@
 	
 	<select id="selectStore" resultMap="storeSelectMap" parameterType="int">
 		SELECT <include refid="storeColum"/>
-		FROM store WHERE lan_code = #{int}
+		FROM store WHERE lan_code = #{lanCode}
+	</select>
+	
+	<select id="selectStoreAndRating" resultMap="storeSelectMap" parameterType="int">
+		SELECT s.lan_code as lan_code, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
+			   s.lat as lat, s.longi as longi, s.store_hours as store_hours,
+			   AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as store_rating, 
+               AVG(CAST(pR.taste as DECIMAL(10,6))) as product_rating
+		FROM store s 
+		JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
+		JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
+		WHERE s.lan_code = #{lan_code}
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours;
 	</select>
 	
 	<select id="selectStoreById" resultMap="storeSelectMap" parameterType="string">
@@ -36,7 +63,19 @@
 	
 	<select id="selectStoreByDistance" resultMap="storeSelectMap" parameterType="userGPS">
 		SELECT <include refid="storeColum"/>
-		FROM store where lat = #{lat} longi = #{longi}
+		FROM store where lat = #{lat} AND longi = #{longi}
+	</select>
+	
+	<select id="selectStoreByDistanceAndRating" resultMap="storeSelectMap" parameterType="int">
+		SELECT s.lan_code as lan_code, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
+			   s.lat as lat, s.longi as longi, s.store_hours as store_hours,
+			   AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as store_rating, 
+               AVG(CAST(pR.taste as DECIMAL(10,6))) as product_rating
+		FROM store s 
+		JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
+		JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
+		WHERE s.lan_code = #{lan_code}
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours;
 	</select>
 	
 	<insert id="insertStore" parameterType="store">

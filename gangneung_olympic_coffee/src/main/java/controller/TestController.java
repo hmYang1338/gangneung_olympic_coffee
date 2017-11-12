@@ -23,7 +23,7 @@ public class TestController {
 	
 	@RequestMapping("/test.do")
 	public String TestGo(Model model) {
-		return "gpsTest";
+		return "storeList";
 	}
 	
 	@RequestMapping("/storeList.do")
