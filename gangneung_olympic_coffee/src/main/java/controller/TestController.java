@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.sun.xml.internal.ws.developer.MemberSubmissionEndpointReference;
 
 import dao.MemberDAO;
 import dao.ProductRatingDAO;
 import dao.StoreDAO;
+import dto.Member;
 import dto.ProductRating;
 import dto.Store;
 import dto.UserGPS;
 
 @Controller
+@SessionAttributes({"memberSession"})
 public class TestController {
 	
 	@Autowired
@@ -68,7 +73,36 @@ public class TestController {
 	
 	@RequestMapping("/productRatingSelectById.do")
 	public @ResponseBody List<ProductRating> productRatingSelectById(@ModelAttribute ProductRating productRating){
+		System.out.println(productRating);
 		return productRatingDAO.selectAllProductRatingById(productRating);
 	}
+	
+	@RequestMapping("/productRatingDelete.do")
+	public @ResponseBody String productRatingDelete(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession) {
+		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+			return "need login";
+		} else {
+			return productRatingDAO.deleteProductRating(productRating)>0?"success":"fail";
+		}
+	}
+	
+	@RequestMapping("/productRatingUpdate.do")
+	public @ResponseBody String productRatingUpdate(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession) {
+		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+			return "need login";
+		} else {
+			return productRatingDAO.updateProductRating(productRating)>0?"success":"fail";
+		}
+	}
+	
+	@RequestMapping("/productRatingInsert.do")
+	public @ResponseBody String productRatingInsert(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession) {
+		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+			return "need login";
+		} else {
+			return productRatingDAO.insertProductRating(productRating)>0?"success":"fail";
+		}
+	}
+	
 }
 

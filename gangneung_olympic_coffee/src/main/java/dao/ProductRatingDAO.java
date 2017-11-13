@@ -23,7 +23,7 @@ public class ProductRatingDAO {
 	 * @return 사용자가 입력한 모든 평가 리스트
 	 */
 	public List<ProductRating> selectAllProductRating() {
-		return sqlSession.selectList("productMapper.selectProductRating");
+		return sqlSession.selectList("productRatingMapper.selectProductRating");
 	}
 	
 	/**
@@ -32,7 +32,7 @@ public class ProductRatingDAO {
 	 * @return 특정 id의 가게 평가 리스트
 	 */
 	public List<ProductRating> selectAllProductRatingById(ProductRating productRating) {
-		return sqlSession.selectList("productMapper.selectProductRatingById",productRating);
+		return sqlSession.selectList("productRatingMapper.selectProductRatingById",productRating);
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class ProductRatingDAO {
 	 * @return 입력이 실패하면 0을 입력이 성공하면 1을 리턴
 	 */
 	public int insertProductRating(ProductRating productRating) {
-		return sqlSession.insert("productMapper.insertProduct",productRating);
+		return sqlSession.insert("productRatingMapper.insertProduct",productRating);
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class ProductRatingDAO {
 	 * @return 수정에 실패하면 0을 수정에 성공하면 1을 리턴
 	 */
 	public int updateProductRating(ProductRating productRating) {
-		return sqlSession.update("productMapper.updateProduct",productRating);
+		return sqlSession.update("productRatingMapper.updateProduct",productRating);
 	}
 	
 	/**
@@ -59,7 +59,7 @@ public class ProductRatingDAO {
 	 * @return 삭제에 실패하면 0을 삭제를 성공하면 1을 리턴
 	 */
 	public int deleteProductRating(ProductRating productRating) {
-		return sqlSession.delete("productMapper.deleteProduct",productRating);
+		return sqlSession.delete("productRatingMapper.deleteProduct",productRating);
 	}
 
 }

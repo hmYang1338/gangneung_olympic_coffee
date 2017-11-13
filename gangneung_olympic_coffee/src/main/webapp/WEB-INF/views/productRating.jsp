@@ -7,6 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+<input type="text" id="productId" name="productId">
 
+<input type="button" onclick="productRatingByIdBtn()" value="특정 아이디 확인">
+<input type="button" onclick="productRatingBtn()" value="전체 확인">
+
+<div id="productRatingTable"></div>
+
+<script src="js/ajax/httpRequest.js"></script>
+<script src="js/ajax/productRating.js"></script>
 </body>
 </html>

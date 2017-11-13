@@ -32,6 +32,10 @@ public class ProductRating {
 		this.lanCode = lanCode;
 		this.id = id;
 	}
+	
+	public ProductRating(int lanCode) {
+		this.lanCode = lanCode;
+	}
 
 	public int getRatNum() {
 		return ratNum;
