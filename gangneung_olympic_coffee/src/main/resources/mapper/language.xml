@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="languageMapper">
+	
+	<!-- @author 정태준 -->
+	
+	<resultMap type="language" id="languageMap">
+		<result column="lan_code" property="lanCode"/>
+		<result column="language" property="language"/>
+	</resultMap>
+	
+	<sql id="languageColum">
+		lan_code, language
+	</sql>
+	
+	<select id="selectLanguage" resultMap="languageMap">
+		SELECT <include refid="languageColum"/>
+		FROM language
+	</select>
+	
+	<select id="selectLanguageByCode" resultMap="languageMap" parameterType="int">
+		SELECT <include refid="languageColum"/>
+		FROM language
+		WHERE lan_code = #{lan_code}
+	</select>
+
+</mapper>

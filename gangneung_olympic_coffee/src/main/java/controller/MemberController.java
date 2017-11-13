@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import dao.MemberDAO;
+import dao.NationDAO;
 import dto.Member;
 import sercurity.ShaEncoder;
 
@@ -27,6 +28,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired
+	private NationDAO nationDAO;
 	
 	@Resource(name = "shaEncoder")
 	private ShaEncoder encoder;
@@ -61,6 +65,7 @@ public class MemberController {
 	public String insertMember(@ModelAttribute Member member, Model model) {
 		String uri = null;
 		System.out.println("회원가입 들어오는지 확인");//test
+		member.setLanCode(1);
 		member.setPassword(encoder.encoding(member.getPassword()));
 		int result = memberDAO.insertMember(member);
 		if (result == 0) {
@@ -74,8 +79,8 @@ public class MemberController {
 	
 	//회원리스트
 	@RequestMapping(value = "/selectMemberAll.do", method = RequestMethod.GET)
-	public String selectMemberAll(Model model) {
-		List<Member> list = memberDAO.selectMemberAll();
+	public String selectMember(Model model) {
+		List<Member> list = memberDAO.selectMember();
 		model.addAttribute("memberList",list);
 		return "memberList";
 	}

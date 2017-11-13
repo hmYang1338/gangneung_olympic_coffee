@@ -92,7 +92,7 @@ public class Member {
 	public int getLanCode() {
 		return lanCode;
 	}
-	public void setLan_code(int lanCode) {
+	public void setLanCode(int lanCode) {
 		this.lanCode = lanCode;
 	}
 	public Date getJoinDate() {

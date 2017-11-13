@@ -28,22 +28,22 @@
 	<div id="alert"></div>
 	<!-- Nation(나라)를 설정 -->
 	<select name="nationCode" id="nationCode">
-  	  	<option value="1">1</option>
-	  <c:if test="${not empty requestScope.nationList}">
-		<c:forEach items="${requestScope.nationList}" var="nation" >
+  	  	<option value="1">1</option><!-- test -->
+	  <c:if test="${not empty requestScope.nation}">
+		<c:forEach items="${requestScope.nation}" var="nation" >
 		  <option value="${nation.nationCode}">${nation.nation}</option>
 		</c:forEach>
 	  </c:if>
 	</select>
 	<br>
 	<!-- 언어를 설정 -->
-<!-- 	<select required="required"> -->
-<!-- 	  	<option>1</option>지울내용 -->
-<%-- 	  <c:if test="${not empty requestScope.languageList}"> --%>
-<%-- 		<c:forEach var="language" items="${requestScope.languageList}"> --%>
-<%-- 		  <option value="${language.lanCode}">${language.language}</option> --%>
-<%-- 		</c:forEach> --%>
-<%-- 	  </c:if> --%>
+ 	<select required="required"> 
+ 	  	<option>1</option><!-- test --> 
+	  <c:if test="${not empty requestScope.language}">
+		<c:forEach items="${requestScope.language}" var="language">
+		  <option value="${language.lanCode}">${language.language}</option>
+		</c:forEach>
+	  </c:if>
 	</select>
 	<!-- 이름 -->
 	<input type="text" id="name" name="name" maxlength="20" placeholder="이름을 입력해주세요" required="required"><br>

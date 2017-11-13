@@ -39,7 +39,7 @@
 	<!-- 회원 가입 -->
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO member
-		VALUES(#{email}, #{password}, #{name}, #{tel}, #{gender}, #{birth}, #{nationCode}, #{lanCode}, sysdate, sysdate, 1234, 1234)
+		VALUES(#{email}, #{password}, #{name}, #{tel}, #{gender}, #{birth}, #{nationCode}, #{lanCode}, systimestamp, systimestamp, 1234, 1234)
 	</insert>
 	<!-- (#{email},#{password},#{name},#{tel},#{gender},#{birth},#{nationCode},#{lanCode},sysdate,sysdate,#{imgDir},#{accessCode}) -->
 	
@@ -71,7 +71,7 @@
 	<!-- LastDate 로그인시 현재 시간으로 변경 -->
 	<update id="updateMemberByLastDate" parameterType="member">
 		UPDATE member
-		SET last_date = sysdate
+		SET last_date = systimestamp
 		WHERE email = #{email}
 	</update>
 	

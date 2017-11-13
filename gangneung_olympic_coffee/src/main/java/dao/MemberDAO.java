@@ -22,7 +22,7 @@ public class MemberDAO {
 	 * 전체 일반 회원 관련 비밀번호를 제외한 모든 정보
 	 * @return member 테이블에 존재하는 모든 member
 	 */
-	public List<Member> selectMemberAll() {
+	public List<Member> selectMember() {
 		return sqlSession.selectList("memberMapper.selectMemberAll");
 	}
 	

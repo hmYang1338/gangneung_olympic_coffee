@@ -16,6 +16,9 @@
 </head>
 <body>
 
+	<form action="selectNation.do" method="POST">
+		<input type="submit" value="List뿌리기">
+	</form>
 	
 
 	<!-- Bootstrap core JavaScript -->
