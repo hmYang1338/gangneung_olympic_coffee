@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +22,7 @@ import sercurity.ShaEncoder;
 
 
 @Controller
-@SessionAttributes({"member"})
+@SessionAttributes({"memberSession"})
 public class TestController3 {
 	
 	@Autowired
@@ -31,9 +33,6 @@ public class TestController3 {
 	
 	@RequestMapping("/test3.do")
 	public String TestGo(Model model) {
-//		List<Member> member = null;
-//		model.addAttribute("member",member = memberDAO.selectAllMember());
-//		System.out.println(member.toString());
 		return "home3";
 	}
 
@@ -44,18 +43,24 @@ public class TestController3 {
 		if (member == null) {// ID가 없는경우
 			System.out.println("없는 회원입니다.");	// test
 			throw new UsernameNotFoundException(email + "는 없는 회원입니다.");
-		} else if(encoder.matches(password, member.getPassword())) {
-			System.out.println("성공?");
-			member.setPassword(null);
-			model.addAttribute("member", member);
+		}else {
+			if(encoder.matches(password, member.getPassword())) {
+				System.out.println("성공");
+				model.addAttribute("memberSession", member);
+				return "memberLoginSuccess";
+			}else {
+				System.out.println("비밀번호 MissMatch");
+				return "home3";
+			}
 		}
-		return "memberLoginSuccess";
+		
 	}
 
 	//회원가입
 	@RequestMapping(value = "/insertMember.do", method = RequestMethod.POST)
 	public String insertMember(@ModelAttribute Member member, Model model) {
 		String uri = null;
+		System.out.println("회원가입 들어오는지 확인");//test
 		member.setPassword(encoder.encoding(member.getPassword()));
 		int result = memberDAO.insertMember(member);
 		if (result == 0) {
@@ -75,12 +80,52 @@ public class TestController3 {
 		return "memberList";
 	}
 	
+	//회원탈퇴(관리자)
+	@RequestMapping(value = "/deleteMemberByManager.do", method = RequestMethod.POST)
+	public String deleteMemberByManager(@RequestParam String email, Model model) {
+		System.out.println(email);//test
+		memberDAO.deleteMemberByManager(email);
+		return "memberList";
+	}
+	
 	//회원탈퇴(자발적인) - 자발적이라 썼지만 우선 admin으로도 못함...
 	@RequestMapping(value = "/deleteMember.do", method = RequestMethod.POST)
-	public String deleteMember(@RequestParam String email, @RequestParam String password, Model model) {
-		System.out.println("delete - 1");
-		System.out.println(email+","+password);
-		memberDAO.deleteMember(email);
-		return "redirect:/";
+	public String deleteMember(@RequestParam String password, @ModelAttribute Member memberSession) {
+		//select 구문을 이용해서 password만 가지고오는 dao를 하나 제작!
+		//그 다음 DB에서 암호를 가지고 왔다고 가정함!!
+		System.out.println("자발적 탈퇴 들어옴");//test
+		String passwordDB = memberDAO.selectMemberByPassword(memberSession.getEmail());
+		System.out.println(passwordDB);//test
+		if (encoder.matches(password, passwordDB)) {
+			System.out.println("삭제 완료");	// test
+			memberDAO.deleteMember(memberSession.getEmail());
+			return "memberDelete";//추후 index로 바꿔줄 것
+		} else {
+			System.out.println("삭제 실패");
+			return "home3";
+		}
+	}
+	
+	//회원정보 수정
+	@RequestMapping(value = "/updateMember.do", method = RequestMethod.POST)
+	public String updateMember(@RequestParam String passwordBefore, @RequestParam String password, @ModelAttribute Member memberSession) {
+		String passwordDB = memberDAO.selectMemberByPassword(memberSession.getEmail());
+		if(encoder.matches(passwordBefore, passwordDB)) {
+			if(password==null) {
+				memberDAO.updateMember(memberSession);
+				return "memberList";
+			}else if(password.length()>=8) {
+				memberSession.setPassword(encoder.encoding(memberSession.getPassword()));
+				memberDAO.updateMember(memberSession);
+				return "memberList";
+			}else {
+				System.out.println("Inner 실패");
+				return "home3";
+			}
+		}else {
+		System.out.println("Outter 실패 - 이전 비밀번호가 틀림");
+		return "home3";
+		}
+		
 	}
 }

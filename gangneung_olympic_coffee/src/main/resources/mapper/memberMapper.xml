@@ -59,19 +59,32 @@
 	<!-- 회원 가입 -->
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO member
-		VALUES(#{email},#{password},#{name},#{tel},#{gender},#{birth},#{nationCode},#{lanCode},sysdate,sysdate,1234,1234)
+		VALUES(#{email}, #{password}, #{name}, #{tel}, #{gender}, #{birth}, #{nationCode}, #{lanCode}, sysdate, sysdate, 1234, 1234)
 	</insert>
 	<!-- (#{email},#{password},#{name},#{tel},#{gender},#{birth},#{nationCode},#{lanCode},sysdate,sysdate,#{imgDir},#{accessCode}) -->
 	
-	<!-- 회원 탈퇴(사용자 스스로 탈퇴) -->
-	<delete id="deleteMember" parameterType="String">
+	<!-- 회원 탈퇴(관리자) -->
+	<delete id="deleteMemberByManager" parameterType="String">
 		DELETE FROM member
 		WHERE email = #{email}
 	</delete>
 	
+	<!-- 회원의 비밀번호 찾기(자발적 탈퇴 & 정보수정) -->
+	<select id="selectMemberByPassword" parameterType="String" resultType="java.lang.String">
+		SELECT password FROM member
+		WHERE email = #{email}
+	</select>
+	
+	<!-- 회원 탈퇴(사용자 자발적 탈퇴) -->
+	<delete id="deleteMember" parameterType="string">
+		DELETE FROM member
+		WHERE email = #{email}
+	</delete>
+	
+	
 	<update id="updateMember" parameterType="member">
 		UPDATE member
-		SET password = #{password} AND tel = #{tel} AND lan_code = #{lanCode} AND img_dir = #{imgDir}
+		SET password = #{password}, nation_code = #{nationCode}, lan_code = #{lanCode}, name = #{name}, tel = #{tel}, gender = #{gender}, img_dir = #{imgDir}
 		WHERE email = #{email}
 	</update>
 	

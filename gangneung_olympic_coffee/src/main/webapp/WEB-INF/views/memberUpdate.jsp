@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Join Member</title>
+<title>회원 정보 수정</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="../vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -21,10 +21,10 @@
 	<!--  http://localhost/www/WEB-INF/views/memberLogin.jsp -->
 	<!-- 회원 가입 구현 -->
 	
-	<form method="POST" id="joinMember" name="joinMember" action="insertMember.do">
-	<input type="email" id="email" name="email" maxlength="30" placeholder="이메일 입력해주세요" required="required"><br>
-	<input type="password" id="password" name="password" maxlength="16" placeholder="비밀번호를 입력해주세요" required="required" onchange="compare()"><br>
-	<input type="password" id="password2" name="password2" maxlength="16" placeholder="비밀번호를 재확인해주세요" required="required" onchange="compare()">
+	<form method="POST" id="updateMember" name="updateMember" action="updateMember.do">
+	<input type="hidden" id="email" name="email" value="${sessionScope.member.email}"><br>
+	<input type="password" id="password" name="password" maxlength="16" placeholder="변경할 비밀번호를 써주세요" required="required" onchange="compare()"><br>
+	<input type="password" id="password2" name="password2" maxlength="16" placeholder="변경할 비밀번호를 써주세요" required="required" onchange="compare()">
 	<div id="alert"></div>
 	<!-- Nation(나라)를 설정 -->
 	<select name="nationCode" id="nationCode">

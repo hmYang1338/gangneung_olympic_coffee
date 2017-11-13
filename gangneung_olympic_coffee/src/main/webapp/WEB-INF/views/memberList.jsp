@@ -9,8 +9,7 @@
 </head>
 <body>
 	<h1> 일반 유저 계정 보기(selectList)</h1>
-	
-	<form name="requestForm" id="requestForm" action="deleteMember.do" method="POST">
+	<form name="requestForm" id="requestForm" action="deleteMemberByManager.do" method="POST">
 	<input type="hidden" id="password" name="password">
 	<input type="hidden" id="email" name="email">
 	<table>
@@ -45,10 +44,8 @@
 	<!-- 사용자 탈퇴가 맞게 email Session 처리 해줘야함 -->
  	<script>
 		function sendDelete(email){
-				var password = prompt("삭제할 아이디의 비밀번호를 입력하세요");	
-				if(password != null){
-					console.log(password);
-					document.getElementById("password").value = password;
+				var check = prompt("삭제하고 싶으시다면 y를 ");	
+				if(check.toLowerCase() == 'y' || check.toLowerCase() == 'yes'){
 					document.getElementById("email").value = email;
 					document.getElementById("requestForm").submit();
 				}else{

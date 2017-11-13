@@ -39,7 +39,40 @@ public class MemberDAO {
 		return sqlSession.selectOne("memberMapper.selectMemberByEmail", email);
 	}
 	
+	/**
+	 * 일반회원 관리자로 인한 탈퇴
+	 * @param email
+	 * @return delete 안되었다면 0, 되었다면 삭제
+	 */
+	public int deleteMemberByManager(String email) {
+		return sqlSession.delete("memberMapper.deleteMemberByManager", email);
+	}
+	
+	/**
+	 * 일반회원 자발적 탈퇴
+	 * @param email
+	 * @return delete 안되었다면 0, 되었다면 삭제
+	 */
 	public int deleteMember(String email) {
 		return sqlSession.delete("memberMapper.deleteMember", email);
 	}
+	
+	/**
+	 * 일반회원 비밀번호 가져오기
+	 * @param email
+	 * @return 암호화된 비밀번호값
+	 */
+	public String selectMemberByPassword(String email) {
+		return sqlSession.selectOne("memberMapper.selectMemberByPassword", email);
+	}
+	
+	/**
+	 * 일반회원 회원정보 수정
+	 * @param email
+	 * @return 변경값
+	 */
+	public int updateMember(Member member) {
+		return sqlSession.update("memberMapper.updateMember",member);
+	}
+	
 }
