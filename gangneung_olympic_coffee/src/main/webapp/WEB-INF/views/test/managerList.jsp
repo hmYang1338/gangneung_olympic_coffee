@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -43,13 +44,12 @@
 		<c:forEach items="${list}" var="data">
 		    <tr>
 		    	<td bgcolor="">
+		    		<form action="post">
 					<p><span style="font-size:9pt;">
-					<a href="www/test2.do/read.do/${data.email}">${data.email}</a>
+					<a href="detail.do/${data.email}.do">${data.email}</a>
 					</span></p>
+					</form>
 	        	</td>
-		        <td bgcolor="">
-		            <p align="center"><span style="font-size:9pt;">${data.email}</span></p>
-		        </td>
 		        <td bgcolor="">
 		            <p align="center"><span style="font-size:9pt;">${data.id}</span></p>
 		        </td>

@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form name=updateForm method=post action="go/elec.do/update" onSubmit='return checkValid()'>
-		<input type="hidden" name="modelNum" value="${resultContent.modelNum}"/>
+	<form name=updateForm method=post action="update.do" onSubmit='return checkValid()'>
+		<input type="hidden" name="email" value="${resultContent.email}"/>
 		<table align="center" cellpadding="5" cellspacing="1" width="600" border="1">
     		<tr>
         		<td width="150" height="20">

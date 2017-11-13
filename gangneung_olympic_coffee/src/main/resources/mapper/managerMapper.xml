@@ -30,6 +30,15 @@
 		<result column="major" property="manager.major"/>
 	</resultMap>
 
+	<resultMap type="managerstorejoin" id="managerstoreSelectmap">
+		<result column="email" property="email"/>
+		<result column="name" property="name"/>
+		<result column="tel" property="tel"/>
+		<result column="s.name" property="s_name"/>
+		<result column="s.addr" property="s_addr"/>
+		<result column="s.tel" property="s_tel"/>
+	</resultMap>
+
 	<select id="selectManagerAll" resultMap="managerMap">
 		SELECT email, name, birth, tel, lan_code, id, img_dir, major
 		FROM manager
@@ -53,22 +62,27 @@
 	</select>
 	 
 	 <!-- 관리자 상세 조회를 위한 SELECT JOIN문 -->
-	 <select id="selectOneManagerDetail" parameterType="String" resultMap="managerStoreMap">
-	 	SELECT m.email as email, m.name as name, m.tel as tel, s.name as store_name, s.tel as store_tel, s.addr as store_addr
+	 <select id="selectOneManagerDetail" parameterType="String" resultMap="managerstoreSelectmap">
+	 	SELECT m.email as email, m.name as name, m.tel as tel, s.name as s_name, s.addr as s_addr, s.tel as s_tel
 	 	FROM manager m, store s
-	 	WHERE email=#{email}
+	 	WHERE email=#{email} AND m.id=s.id AND m.lan_code=s.lan_code
 	 </select>
 	 
 	 
-	 <!-- 회원 가입(관리자&운영자) -->
+	 <!-- 운영자 계정 생성 -->
 	 <insert id="insertManager" parameterType="manager">
 	 	INSERT INTO manager
 	 	VALUES(#{email}, #{password}, #{name}, #{tel}, #{birth}, #{lanCode}, #{id}, #{imgDir}, #{major})
 	 </insert>
 	 
-	 <update id="updateManager" parameterType="manager">
-	 	UPDATE manager SET  WHERE email=#{email}
-	 	update Electronics set price=#{price} where model_num=#{modelNum}
+	 
+	 <!-- 운영자 계정 수정 -->
+	 <update id="updateManager" parameterType="managerstorejoin">
+	 	UPDATE (SELECT m.tel as tel, s.tel as s_tel
+	 			FROM manager m, store s
+	 			WHERE m.id=s.id
+	 					AND m.lan_code=s.lan_code)
+	 	SET tel=#{tel}, s_tel=#{s_tel}
 	 </update>
 	 
 	 <delete id="deleteManager" parameterType="String">

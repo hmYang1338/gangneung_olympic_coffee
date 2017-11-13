@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dto.Manager;
+import dto.ManagerStoreJOIN;
 
 /**
  * 관리자 & 운영자 관련 DAO
@@ -19,7 +20,7 @@ public class ManagerDAO {
 	private SqlSession sqlsession;
 	
 	/**
-	 * 전체 manager 관련 비밀번호를 제외한 모든 정보
+	 * 전체 운영자 관련 비밀번호를 제외한 모든 정보
 	 * @return manager 테이블에 존재하는 모든 manager
 	 */
 	public List<Manager> selectManagerAll() {
@@ -48,17 +49,17 @@ public class ManagerDAO {
 	}
 	
 	/**
-	 * 운영자 상세조회(Table[manager, store] JOIN)
+	 * 운영자 상세조회(Table[manager, store] JOIN) [m_email, m_name, m_tel, s_name, s_addr, s_tel]
 	 * @param email
 	 * @return 검색한 해당 정보
 	 */
 	/*수정*/
-	public Manager selectOneManagerDetail(String email) {
+	public ManagerStoreJOIN selectOneManagerDetail(String email) {
 		return sqlsession.selectOne("managerMapper.selectOneManagerDetail", email);
 	}
 	
 	/**
-	 * (관리자 & 운영자) 회원가입
+	 * 운영자 계정 생성
 	 * @param manager
 	 * @return insert 안되었다면 0, 되었다면 insert된 행의 개수 
 	 */
@@ -67,7 +68,16 @@ public class ManagerDAO {
 	}
 	
 	/**
-	 * (관리자 & 운영자) 계정 삭제
+	 * 운영자 계정 수정 _ 휴대폰과 전화번호만 수정
+	 * @param managerstore
+	 * @return update 안되었다면 0, 되었다면 update된 행의 개수
+	 */
+	public int updateManager(ManagerStoreJOIN managerstore) {
+		return sqlsession.update("managerMapper.updateManager", managerstore);
+	}
+	
+	/**
+	 * 운영자 계정 삭제
 	 * @param email
 	 * @return delete 안되었다면 0, 되었다면 delete된 행의 개수
 	 */
