@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class TestController {
 	public @ResponseBody List<Store> StoreList() {
 		System.out.println(storeDAO.getStoreSelectMap(1));
 		return storeDAO.getStoreSelectMap(1);
+	}
+	
+	@RequestMapping("/storeListMap.do")
+	public @ResponseBody List<HashMap<String,Object>> StoreListMap() {
+		System.out.println(storeDAO.getStoreSelectHashMap(1));
+		return storeDAO.getStoreSelectHashMap(1);
 	}
 	
 	@RequestMapping("/gps.do")

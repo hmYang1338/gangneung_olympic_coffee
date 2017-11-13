@@ -1,15 +1,24 @@
 package dto;
 
 public class UserGPS {
+	private int lanCode;
 	private double lat;
 	private double longi;
 	
 	public UserGPS() {}
 
-	public UserGPS(double lat, double longi) {
-		super();
+	public UserGPS(int lanCode, double lat, double longi) {
+		this.lanCode = lanCode;
 		this.lat = lat;
 		this.longi = longi;
+	}
+
+	public int getLanCode() {
+		return lanCode;
+	}
+
+	public void setLanCode(int lanCode) {
+		this.lanCode = lanCode;
 	}
 
 	public double getLat() {
@@ -31,7 +40,9 @@ public class UserGPS {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("UserGPS [lat=");
+		builder.append("UserGPS [lanCode=");
+		builder.append(lanCode);
+		builder.append(", lat=");
 		builder.append(lat);
 		builder.append(", longi=");
 		builder.append(longi);
@@ -43,6 +54,7 @@ public class UserGPS {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + lanCode;
 		long temp;
 		temp = Double.doubleToLongBits(lat);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -60,11 +72,13 @@ public class UserGPS {
 		if (getClass() != obj.getClass())
 			return false;
 		UserGPS other = (UserGPS) obj;
+		if (lanCode != other.lanCode)
+			return false;
 		if (Double.doubleToLongBits(lat) != Double.doubleToLongBits(other.lat))
 			return false;
 		if (Double.doubleToLongBits(longi) != Double.doubleToLongBits(other.longi))
 			return false;
 		return true;
 	}
-	
+
 }

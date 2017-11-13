@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -27,13 +28,17 @@ public class StoreDAO {
 	public List<Store> getStoreSelectMap(int lanCode){
 		return sqlSession.selectList("storeMapper.selectStore",lanCode);
 	}
+	
+	public List<HashMap<String,Object>> getStoreSelectHashMap(int lanCode){
+		return sqlSession.selectList("storeMapper.selectStoreAndRating",lanCode);
+	}
 	/**
 	 * 사용자의 GPS 정보를 받아와 근처의 커피숍을 리턴함
 	 * @param userGPS 사용자의 GPS x,y 좌표 값
 	 * @return 근처의 가게 목록
 	 */
 	public List<Store> getStoreSelectMapByDistance(UserGPS userGPS){
-		return sqlSession.selectList("storeMapper.selectStoreByDistance",userGPS);
+		return sqlSession.selectList("storeMapper.selectStoreByDistanceAndRating",userGPS);
 	}
 	
 	/**
