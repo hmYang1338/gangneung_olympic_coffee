@@ -3,91 +3,82 @@
 <!-- @author 정태준, 양현모 -->
 <mapper namespace="managerMapper">
 	<resultMap type="manager" id="managerMap">
-		<result column="email" property="email"/>
-		<result column="password" property="password"/>
-		<result column="name" property="name"/>
-		<result column="tel" property="tel"/>
-		<result column="birth" property="birth"/>
-		<result column="lan_code" property="lanCode"/>
-		<result column="id" property="id"/>
-		<result column="img_dir" property="imgDir"/>
-		<result column="major" property="major"/>
-	</resultMap>
-	
-	<!-- Manager와 Store Join - 관리자 가게 이름을 나타내기 위해 (단,HashMap처리이기에 String으로 생성됨)-->
-	<resultMap type="java.util.HashMap" id="managerStoreMap">
-		<result column="email" property="manager.email"/>
-		<result column="name" property="manager.name"/>
-		<result column="tel" property="manager.tel"/>
-		<result column="birth" property="manager.birth"/>
-		<result column="lan_code" property="manager.lanCode"/>
-		<result column="id" property="manager.id"/>
-		<result column="s.name" property="store.name"/>
-		<result column="s.addr" property="store.addr"/>
-		<result column="s.tel" property="store.tel"/>
-		<result column="s.storeHours" property="store.storeHours"/>
-		<result column="img_dir" property="manager.imgDir"/>
-		<result column="major" property="manager.major"/>
+		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="tel" property="tel" />
+		<result column="birth" property="birth" />
+		<result column="lan_code" property="lanCode" />
+		<result column="id" property="id" />
+		<result column="img_dir" property="imgDir" />
+		<result column="major" property="major" />
 	</resultMap>
 
 	<resultMap type="managerstorejoin" id="managerstoreSelectmap">
-		<result column="email" property="email"/>
-		<result column="name" property="name"/>
-		<result column="tel" property="tel"/>
-		<result column="s.name" property="s_name"/>
-		<result column="s.addr" property="s_addr"/>
-		<result column="s.tel" property="s_tel"/>
+		<result column="email" property="email" />
+		<result column="name" property="name" />
+		<result column="tel" property="tel" />
+		<result column="s.name" property="s_name" />
+		<result column="s.addr" property="s_addr" />
+		<result column="s.tel" property="s_tel" />
 	</resultMap>
 
+	<!-- 운영자 전체 조회 -->
 	<select id="selectManagerAll" resultMap="managerMap">
-		SELECT email, name, birth, tel, lan_code, id, img_dir, major
+		SELECT email, name,
+		birth, tel, lan_code, id, img_dir, major
 		FROM manager
 	</select>
-	
-	<!-- 운영자 -> 관리자 검색[Id(email),사장이름(name),가게번호(id)] (추후 수정)-->
+
+	<!-- 운영자 -> 관리자 검색[Id(email),사장이름(name),가게번호(id)] (추후 수정) -->
 	<select id="selectManagerById" parameterType="List" resultMap="managerMap">
 		SELECT email, name, birth, lan_code, id, img_dir, major
 		FROM manager
-		WHERE email LIKE '%'||#{email}||'%' or 
-		name LIKE '%'||#{name}||'%' or 
+		WHERE email LIKE '%'||#{email}||'%' or
+		name LIKE '%'||#{name}||'%' or
 		id LIKE '%'||#{id}||'%'
 	</select>
-	
-	<!-- JOIN문을 통한 가게이름 검색 (추후 수정)--> 
-	<select id="selectManagerById2" parameterType="HashMap" resultMap="managerStoreMap">
-		SELECT m.email as email, m.name as name, m.birth as birth, m.lan_code as lan_code, m.img_dir as img_dir, m.major as major
-		s.id as id, s.name as store_name, s.addr as store_addr, s.tel as store_tel, s.store_hours as store_store_hours 
-		FROM manager m, store s.
-		WHERE m.id=s.id and m.email LIKE '%'||#{email}||'%' or m.name LIKE '%'||#{name}||'%' or s.name LIKE '%'||#{store.name}||'%' or s.addr LIKE '%'||#{store.addr}||'%'
+
+	<!-- JOIN문을 통한 가게이름 검색 (추후 수정) -->
+	<!-- <select id="selectManagerById2" parameterType="HashMap" resultMap="managerStoreMap"> -->
+	<!-- SELECT m.email as email, m.name as name, m.birth as birth, m.lan_code 
+		as lan_code, m.img_dir as img_dir, m.major as major -->
+	<!-- s.id as id, s.name as store_name, s.addr as store_addr, s.tel as store_tel, 
+		s.store_hours as store_store_hours -->
+	<!-- FROM manager m, store s. -->
+	<!-- WHERE m.id=s.id and m.email LIKE '%'||#{email}||'%' or m.name LIKE 
+		'%'||#{name}||'%' or s.name LIKE '%'||#{store.name}||'%' or s.addr LIKE '%'||#{store.addr}||'%' -->
+	<!-- </select> -->
+
+	<!-- 관리자 상세 조회를 위한 SELECT JOIN문 -->
+	<select id="selectOneManagerDetail" parameterType="String"
+		resultMap="managerstoreSelectmap">
+		SELECT m.email as email, m.name as name, m.tel as tel, s.name as s_name,
+		s.addr as s_addr, s.tel as s_tel
+		FROM manager m, store s
+		WHERE email=#{email} AND m.id=s.id AND m.lan_code=s.lan_code
 	</select>
-	 
-	 <!-- 관리자 상세 조회를 위한 SELECT JOIN문 -->
-	 <select id="selectOneManagerDetail" parameterType="String" resultMap="managerstoreSelectmap">
-	 	SELECT m.email as email, m.name as name, m.tel as tel, s.name as s_name, s.addr as s_addr, s.tel as s_tel
-	 	FROM manager m, store s
-	 	WHERE email=#{email} AND m.id=s.id AND m.lan_code=s.lan_code
-	 </select>
-	 
-	 
-	 <!-- 운영자 계정 생성 -->
-	 <insert id="insertManager" parameterType="manager">
-	 	INSERT INTO manager
-	 	VALUES(#{email}, #{password}, #{name}, #{tel}, #{birth}, #{lanCode}, #{id}, #{imgDir}, #{major})
-	 </insert>
-	 
-	 
-	 <!-- 운영자 계정 수정 -->
-	 <update id="updateManager" parameterType="managerstorejoin">
-	 	UPDATE (SELECT m.tel as tel, s.tel as s_tel
-	 			FROM manager m, store s
-	 			WHERE m.id=s.id
-	 					AND m.lan_code=s.lan_code)
-	 	SET tel=#{tel}, s_tel=#{s_tel}
-	 </update>
-	 
-	 <delete id="deleteManager" parameterType="String">
-	 	DELETE FROM manager
-	 	WHERE email=#{email}
-	 </delete>
-	
+
+
+	<!-- 운영자 계정 생성 -->
+	<insert id="insertManager" parameterType="manager">
+		INSERT INTO manager
+		VALUES(#{email}, #{password}, #{name}, #{tel}, #{birth}, #{lanCode}, #{id}, #{imgDir},
+		#{major})
+	</insert>
+
+
+	<!-- 운영자 계정 수정 -->
+	<update id="updateManager" parameterType="java.util.HashMap">
+		UPDATE manager
+		SET tel=#{tel}
+		WHERE email=#{email}
+	</update>
+
+	<!-- 운영자 계정 삭제 -->
+	<delete id="deleteManager" parameterType="string">
+		DELETE FROM manager
+		WHERE email=#{email}
+	</delete>
+
 </mapper>	

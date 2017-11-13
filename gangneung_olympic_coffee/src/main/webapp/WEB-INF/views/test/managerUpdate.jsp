@@ -8,41 +8,57 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form name=updateForm method=post action="update.do" onSubmit='return checkValid()'>
+	<form name=updateForm method=post action="updateManager.do" onSubmit='return checkValid()'>
 		<input type="hidden" name="email" value="${resultContent.email}"/>
 		<table align="center" cellpadding="5" cellspacing="1" width="600" border="1">
     		<tr>
         		<td width="150" height="20">
-            		<p align="right"><b><span style="font-size:9pt;">모델 번호</span></b></p>
+            		<p align="right"><b><span style="font-size:9pt;">이메일</span></b></p>
         		</td>
         		<td width="450" height="20">
-					<p align="center"><b><span style="font-size:9pt;">${resultContent.modelNum}</span></b></p>
+					<p align="center"><b><span style="font-size:9pt;">${resultContent.email}</span></b></p>
 				</td>
     		</tr>
 		    <tr>
 		        <td width="150" height="20">
-		            <p align="right"><b><span style="font-size:9pt;">모델 이름</span></b></p>
+		            <p align="right"><b><span style="font-size:9pt;">이름</span></b></p>
 		        </td>
 				<td width="450" height="20">
-					<p align="center"><b><span style="font-size:9pt;">${resultContent.modelName}</span></b></p>
+					<p align="center"><b><span style="font-size:9pt;">${resultContent.name}</span></b></p>
 				</td>
 		    </tr>
 		    <tr>
 		        <td width="150" height="20">
-		            <p align="right"><b><span style="font-size:9pt;">가  격</span></b></p>
+		            <p align="right"><b><span style="font-size:9pt;">휴대폰</span></b></p>
 		        </td>
 		        <td width="450" height="20">
 		        	<b><span style="font-size:9pt;">
-							<input type=text name="price" size="50" value="${resultContent.price}">					
+							<input type=text name="tel" size="50" value="${resultContent.tel}">					
 					</span></b>
 				</td>
 		    </tr>
 		    <tr>
 		        <td width="150" height="20" >
-		            <p align="right"><b><span style="font-size:9pt;">비  고</span></b></p>
+		            <p align="right"><b><span style="font-size:9pt;">카페명</span></b></p>
 		        </td>
 				<td width="450" height="20">
-					<p align="center"><b><span style="font-size:9pt;">${resultContent.description}</span></b></p>
+					<p align="center"><b><span style="font-size:9pt;">${resultContent.s_name}</span></b></p>
+				</td>
+		    </tr>
+		     <tr>
+		        <td width="150" height="20" >
+		            <p align="right"><b><span style="font-size:9pt;">주소</span></b></p>
+		        </td>
+				<td width="450" height="20">
+					<p align="center"><b><span style="font-size:9pt;">${resultContent.s_addr}</span></b></p>
+				</td>
+		    </tr>
+		     <tr>
+		        <td width="150" height="20" >
+		            <p align="right"><b><span style="font-size:9pt;">전화번호</span></b></p>
+		        </td>
+		        <td width="450" height="20">
+					<p align="center"><b><span style="font-size:9pt;">${resultContent.s_tel}</span></b></p>
 				</td>
 		    </tr>
 		    <tr>

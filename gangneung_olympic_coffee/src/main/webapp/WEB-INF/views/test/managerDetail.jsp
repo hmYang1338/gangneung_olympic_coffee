@@ -8,12 +8,12 @@
 <title>Insert title here</title>
 <script language=javascript>
 	function sendUpdate(){
-		document.requestForm.action ="updateForm.do";
+		document.requestForm.action ="../updateForm.do";
 		document.requestForm.submit();
 	}	
 	
 	function sendDelete(){
-		document.requestForm.action ="go/elec.do/delete";
+		document.requestForm.action ="../deleteManager.do";
 		document.requestForm.submit();			
 	}	 
 </script>
@@ -90,7 +90,7 @@
 						<td>
 							<!-- 수정시 필요한 데이터들을 hidden으로 숨겨놓고 폼 데이터로 보내준다. -->
 							<form name="requestForm" method=post>
-								<input type=hidden name="modelNum" value="${sessionScope.resultContent.email}">
+								<input type=hidden name="email" value="${sessionScope.resultContent.email}">
 								<input type=button value="수정하기" onClick="sendUpdate()">
 								<input type=button value="삭제하기" onClick="sendDelete()">
 							</form> 

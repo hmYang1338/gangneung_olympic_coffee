@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -43,17 +44,16 @@ public class ManagerDAO {
 	 * @return 검색한 해당 정보
 	 */
 	/*수정*/
-	public List<Manager> selectManagerById2() {
+/*	public List<Manager> selectManagerById2() {
 		System.out.println(sqlsession.selectMap("managerMapper.selectManagerById2", "email"));
 		return null;
 	}
-	
+*/	
 	/**
 	 * 운영자 상세조회(Table[manager, store] JOIN) [m_email, m_name, m_tel, s_name, s_addr, s_tel]
 	 * @param email
 	 * @return 검색한 해당 정보
 	 */
-	/*수정*/
 	public ManagerStoreJOIN selectOneManagerDetail(String email) {
 		return sqlsession.selectOne("managerMapper.selectOneManagerDetail", email);
 	}
@@ -68,12 +68,15 @@ public class ManagerDAO {
 	}
 	
 	/**
-	 * 운영자 계정 수정 _ 휴대폰과 전화번호만 수정
+	 * 운영자 계정 수정 _ 휴대폰만 수정
 	 * @param managerstore
 	 * @return update 안되었다면 0, 되었다면 update된 행의 개수
 	 */
-	public int updateManager(ManagerStoreJOIN managerstore) {
-		return sqlsession.update("managerMapper.updateManager", managerstore);
+	public int updateManager(String email, String tel) {
+		HashMap<String,Object> updateManager = new HashMap<>();
+		updateManager.put("email", email);
+		updateManager.put("tel", tel);
+		return sqlsession.update("managerMapper.updateManager", updateManager);
 	}
 	
 	/**
