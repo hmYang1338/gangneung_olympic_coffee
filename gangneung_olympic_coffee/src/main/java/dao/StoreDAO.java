@@ -22,23 +22,34 @@ public class StoreDAO {
 	
 	/**
 	 * 모든 가게 목록 리스트를 받아옴
-	 * @param 사용자의 언어코드를 받아
+	 * @param 사용자의 언어코드를 받아 옴
 	 * @return 모든 가게 목록
 	 */
 	public List<Store> getStoreSelectMap(int lanCode){
 		return sqlSession.selectList("storeMapper.selectStore",lanCode);
 	}
-	
+	/**
+	 * 모든 가게 목록 리스트를 받아옴(추천인 평가 포함)
+	 * @param lanCode 사용자의 언어 코드를 받아 옴
+	 * @return 모든 가게 목록
+	 */
 	public List<HashMap<String,Object>> getStoreSelectHashMap(int lanCode){
 		return sqlSession.selectList("storeMapper.selectStoreAndRating",lanCode);
 	}
 	/**
 	 * 사용자의 GPS 정보를 받아와 근처의 커피숍을 리턴함
-	 * @param userGPS 사용자의 GPS x,y 좌표 값
-	 * @return 근처의 가게 목록
+	 * @param userGPS 사용자의 GPS x,y 좌표 값 그리고 언어 값
+	 * @return 가까운 거리로 정렬된 가게리스트
 	 */
-	public List<Store> getStoreSelectMapByDistance(UserGPS userGPS){
+	public List<HashMap<String,Object>> getStoreSelectMapByDistance(UserGPS userGPS){
 		return sqlSession.selectList("storeMapper.selectStoreByDistanceAndRating",userGPS);
+	}
+	
+	public List<HashMap<String,Object>> getStoreSelectByName(String name, int lanCode){
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("name", name);
+		data.put("lanCode", lanCode);
+		return sqlSession.selectList("storeMapper.selectStoreByName",data);
 	}
 	
 	/**

@@ -27,6 +27,11 @@ public class ProductRating {
 		this.ratComment = ratComment;
 		this.ratDate = ratDate;
 	}
+	
+	public ProductRating(int lanCode, int id) {
+		this.lanCode = lanCode;
+		this.id = id;
+	}
 
 	public int getRatNum() {
 		return ratNum;

@@ -13,6 +13,11 @@ public class UserGPS {
 		this.longi = longi;
 	}
 
+	public UserGPS(double lat, double longi) {
+		this.lat = lat;
+		this.longi = longi;
+	}
+
 	public int getLanCode() {
 		return lanCode;
 	}

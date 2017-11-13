@@ -6,11 +6,14 @@
 var gpsRequest;
 getLocation();
 
-function gpsTester() {
+function gpsStore() {
 	if (gpsRequest.readyState == 4 && gpsRequest.status == 200) {
 		var json = gpsRequest.responseText;
-		json = JSON.parse(json);
-		console.log(json[0].lat,json[0].longi);
+		var column =['NAME','ADDR','STOREHOURS','PRODUCTRATING','STORERATING'];
+		//json 객체로 받아온 컬럼명을 작성, 추후 객체를 가지고 올 때 사용
+		var columnId =['name','addr','storeHour','productRating','storeRating'];
+		//tag의 id 값을 지정하기 위하여 사용, css 적용을 위하여 설정 함
+		storeListView(json,column,columnId,"gpsResultView","innerDiv","innerTableDiv");
 	}
 }
 
@@ -19,7 +22,7 @@ function getLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
       var gps = 'lat='+position.coords.latitude+
             '&longi='+position.coords.longitude;
-      gpsRequest = sendRequest("gps.do", gps, gpsTester, "POST");
+      gpsRequest = sendRequest("nearByStore.do", gps, gpsStore, "POST");
     }, function(error) {
       console.error(error);
     }, {

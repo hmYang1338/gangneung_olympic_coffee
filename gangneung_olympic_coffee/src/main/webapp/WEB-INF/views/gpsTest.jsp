@@ -6,8 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<div id="gpsResultView"></div>
 <body>
 <script src="js/ajax/httpRequest.js"></script>
 <script src="js/ajax/gpsReciver.js"></script>
+<script src="js/ajax/storeList.js"></script>
 </body>
 </html>

@@ -33,7 +33,7 @@
 		FROM store s 
 		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
 		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
-		WHERE s.lan_code = #{lan_code}
+		WHERE s.lan_code = #{lanCode}
 		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours
 	</select>
 	
@@ -42,9 +42,16 @@
 		FROM store WHERE id = #{id}
 	</select>
 	
-	<select id="selectStoreByName" resultMap="storeSelectMap" parameterType="string">
-		SELECT <include refid="storeColum"/>
-		FROM store WHERE name LIKE #{name}
+	<select id="selectStoreByName" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
+	 		s.lat as lat, s.longi as longi, s.store_hours as storeHours,
+			AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as storeRating, 
+           	AVG(CAST(pR.taste as DECIMAL(10,6))) as productRating
+		FROM store s 
+		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
+		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
+		WHERE s.lan_code = #{lanCode} AND s.name LIKE '%'||#{name}||'%'
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours
 	</select>
 	
 	<select id="selectStoreByDistance" resultMap="storeSelectMap" parameterType="userGPS">
@@ -52,17 +59,17 @@
 		FROM store where lat = #{lat} AND longi = #{longi}
 	</select>
 	
-	<select id="selectStoreByDistanceAndRating" resultMap="storeSelectMap" parameterType="userGPS">
-		SELECT TOP(10) s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
+	<select id="selectStoreByDistanceAndRating" resultType="java.util.HashMap" parameterType="userGPS">
+		SELECT s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
 			   s.lat as lat, s.longi as longi, s.store_hours as storeHours,
 			   AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as storeRating, 
                AVG(CAST(pR.taste as DECIMAL(10,6))) as productRating
 		FROM store s 
 		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
 		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
-		WHERE s.lan_code = #{lan_code}
+		WHERE s.lan_code = #{lanCode}
 		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours
-		ORDER BY ABS((s.lat-#{lat})*{s.longi-#{longi}))
+		ORDER BY ABS((s.lat-#{lat})*(s.longi-#{longi}))
 	</select>
 	
 	<insert id="insertStore" parameterType="store">
@@ -75,13 +82,13 @@
 	<update id="updateStore" parameterType="store">
 		UPDATE store 
 		SET name = #{name}, tel = #{tel}, addr = #{addr}, lat = #{lat}, longi = #{longi}, storeHours = #{storeHours}
-		WHERE lan_code = #{lan_code} AND id = #{id}
+		WHERE lan_code = #{lanCode} AND id = #{id}
 	</update>
 	
 	<delete id="deleteStore" parameterType="store">
 		DELETE
 		FROM store
-		WHERE lan_code = #{lan_code} and id = #{id}
+		WHERE lan_code = #{lanCode} and id = #{id}
 	</delete>
 	
 </mapper>	
