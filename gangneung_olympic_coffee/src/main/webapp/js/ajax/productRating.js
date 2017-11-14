@@ -18,8 +18,7 @@ function productRatingByIdBtn(){
 function productRatingById(){
 	if (productRatingByIdRequest.readyState == 4 && productRatingByIdRequest.status == 200) {
 		var json = productRatingByIdRequest.responseText;
-		json = JSON.parse(json);
-		console.log(json);
+		listView(json,['email','ratComment','ratDate'],['email','ratComment','ratDate'],'productRatingTable','listDiv','tableDiv');
 	}
 }
 function productRatingBtn(){
@@ -28,8 +27,7 @@ function productRatingBtn(){
 function productRating(){
 	if (productRatingRequest.readyState == 4 && productRatingRequest.status == 200) {
 		var json = productRatingRequest.responseText;
-		json = JSON.parse(json);
-		console.log(json);
+		listView(json,['email','ratComment','ratDate'],['email','ratComment','ratDate'],'productRatingTable','listDiv','tableDiv');
 	}
 }
 

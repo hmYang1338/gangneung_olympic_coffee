@@ -20,6 +20,6 @@ function storeSearchAjax() {
 		var json = storeSearchListRequest.responseText;
 		var column =['NAME','ADDR','STOREHOURS','PRODUCTRATING','STORERATING'];
 		var columnId =['name','addr','storeHour','productRating','storeRating'];
-		storeListView(json,column,columnId,"storeSearchResult","innerDiv","innerTableDiv");
+		listView(json,column,columnId,"storeSearchResult","innerDiv","innerTableDiv");
 	}
 }

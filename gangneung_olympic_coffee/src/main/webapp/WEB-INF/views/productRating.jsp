@@ -15,6 +15,7 @@
 <div id="productRatingTable"></div>
 
 <script src="js/ajax/httpRequest.js"></script>
+<script src="js/form/listView.js"></script>
 <script src="js/ajax/productRating.js"></script>
 </body>
 </html>
