@@ -38,6 +38,15 @@ public class ManagerDAO {
 	}
 	
 	/**
+	 * 운영자의 이메일로 비밀번호만 꺼내옴
+	 * @param email
+	 * @return
+	 */
+	public String selectOneManagerByEmail(String email) {
+		return sqlsession.selectOne("managerMapper.selectOneManagerByEmail", email);
+	}
+	
+	/**
 	 * 수정해야함
 	 * Join문으로 카페정보를 포함한 카페 운영자의 모든 정보
 	 * @param manager
@@ -88,4 +97,16 @@ public class ManagerDAO {
 		return sqlsession.delete("managerMapper.deleteManager", email);
 	}
 	
+	/**
+	 * 운영자가 자신의 비밀번호를 수정
+	 * @param email
+	 * @param password
+	 * @return update 안되었다면 0, 되었다면 update된 행의 개수
+	 */
+	public int updatePassword(String email, String password) {
+		HashMap<String, Object> updatePassword = new HashMap<>();
+		updatePassword.put("email", email);
+		updatePassword.put("password", password);
+		return sqlsession.update("managerMapper.updatePassword", updatePassword);
+	}
 }

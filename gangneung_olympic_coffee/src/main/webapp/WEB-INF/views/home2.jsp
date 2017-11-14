@@ -9,6 +9,19 @@
 </head>
 <body>
 <script type="text/javascript">
+var managerListRequest;
+
+function managerListBtn(){
+	managerListRequest = sendRequest("listAjax.do", null, managerList, "GET")
+}
+function managerList(){
+	if (productRatingByIdRequest.readyState == 4 && productRatingByIdRequest.status == 200) {
+		var json = managerListRequest.responseText;
+		json = JSON.parse(json);
+		console.log(json);
+	}
+}
+
 function managerList() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -20,6 +33,8 @@ function managerList() {
 	xhttp.open("GET", "listAjax.do", true);
 	xhttp.send();
 }
+
+
 function managerInsert() {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -32,42 +47,25 @@ function managerInsert() {
 	xhttp.send();
 }
 
-/* 
-function managerUpdate() {
+
+function updatePassword(){
 	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var resData = this.responseText; 
-			document.getElementById("updateform").innerHTML = resData;
+	xhttp.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			var resData = this.responseText;
+			document.getElementById("updatePasswordform").innerHTML = resData;
 		}
 	};
-	xhttp.open("GET", "updateForm.do", true);
+	xhttp.open("GET", "updatePasswordform.do", true);
 	xhttp.send();
 }
-
- * 추후 입력예정 
- *
-function managerDelete() {
-	var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			var resData = this.responseText; 
-			document.getElementById("list").innerHTML = resData;
-		}
-	};
-	xhttp.open("GET", "listAjax.do", true);
-	xhttp.send();
-} */
 </script>
-<!-- <div align=right><span style="font-size:9pt;">&lt;<a onclick="loadDoc()">리스트로 돌아가기</a>&gt;</span></div>
-	<div id="list"></div> -->
-
 
 	<h1>관리자 페이지</h1>
 	<hr><br>
 	<h3>운영자 통합관리</h3>
 	<hr><br>
-	<button id="select" name="select" onclick="managerList()">운영자 조회</button><br>
+	<button id="select" name="select" onclick="managerListBtn()">운영자 조회</button><br>
 	<button id="insert" name="insert" onclick="managerInsert()">운영자 등록</button><br>
 	
 	
@@ -75,35 +73,13 @@ function managerDelete() {
 	<div id="selectform" align="center"></div>
 	<div id="insertform" align="center"></div>
 	
-	<!-- 다른 곳으로 이동할 예정
-	<button id="update" name="update" onclick="managerUpdate()">운영자 수정</button><br>
-	<button id="delete" name="update">운영자 삭제</button><br>
-	<div id="updateform" align="center"></div>
-	<div id="deleteform" align="center"></div>
-	 -->
-
+	<br><hr>
+	<h1>운영자 페이지</h1>
+	<hr>
+	<h3>운영자 본인의 비밀번호 수정</h3>
+	<hr>
+	<button id="updatePassword" name="updatePassword" onclick="updatePassword()">패스워드 수정</button><br>
+	<div id="updatePasswordform" align="center"></div>
+	
 </body>
 </html>
-
-
-<%-- 	member 회원가입 및 로그인 부분
-	${errMsg}
-	<form action='<c:url value="loginPage.do"/>' method="post">
-		<input type="text" name="email" id="email" />
-		<input type="password" name="password" id="password" /> 
-		<input type="submit" value="로그인">
-	</form>
-	<br>
-
-	<form action='<c:url value="insertMember.do"/>' method="post">
-		<input type="text" name="email" id="email" /> 
-		<input type="password" name="password" id="password" /> 
-		<select name="authority">
-			<option value="ROLE_USER">사용자</option>
-			<option value="ROLE_ADMIN">관리자</option>
-		</select> 
-		<input type="submit" value="회원가입">
-	</form>
-
-	<br><br><hr><br><br>
- --%>	

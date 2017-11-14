@@ -59,6 +59,12 @@
 		WHERE email=#{email} AND m.id=s.id AND m.lan_code=s.lan_code
 	</select>
 
+	<select id="selectOneManagerByEmail" parameterType="String" resultMap="manager">
+		SELECT password
+		FROM manager
+		WHERE email=#{email}
+	</select>
+
 
 	<!-- 운영자 계정 생성 -->
 	<insert id="insertManager" parameterType="manager">
@@ -75,10 +81,19 @@
 		WHERE email=#{email}
 	</update>
 
+
 	<!-- 운영자 계정 삭제 -->
 	<delete id="deleteManager" parameterType="string">
 		DELETE FROM manager
 		WHERE email=#{email}
 	</delete>
+	
+	<!-- 운영자가 자신의 비밀번호를 수정 -->
+	<update id="updatePassword" parameterType="java.util.HashMap">
+		UPDATE manager
+		SET password=#{password}
+		WHERE email=#{email}
+	</update>
+	
 
 </mapper>	
