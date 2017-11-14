@@ -33,7 +33,7 @@ public class TestController {
 	
 	@RequestMapping("/test.do")
 	public String TestGo(Model model) {
-		return "productRating";
+		return "index";
 	}
 	
 	@RequestMapping("/storeList.do")
@@ -43,9 +43,8 @@ public class TestController {
 	}
 	
 	@RequestMapping("/storeListMap.do")
-	public @ResponseBody List<HashMap<String,Object>> StoreListMap() {
-		System.out.println(storeDAO.getStoreSelectHashMap(1));
-		return storeDAO.getStoreSelectHashMap(1);
+	public @ResponseBody List<HashMap<String,Object>> StoreListMap(@RequestParam int lanCode) {
+		return storeDAO.getStoreSelectHashMap(lanCode);
 	}
 	
 	@RequestMapping("/nearByStore.do")

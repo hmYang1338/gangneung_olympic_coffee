@@ -4,7 +4,7 @@
  * @author 신승엽
  */
 
-//var storeListRequest = sendRequest("storeListMap.do", null, storeAjax, "POST");
+var storeListRequest = sendRequest("storeListMap.do", "lanCode=2", storeAjax, "POST");
 
 function storeAjax() {
 	if (storeListRequest.readyState == 4 && storeListRequest.status == 200) {
@@ -13,6 +13,8 @@ function storeAjax() {
 		//json 객체로 받아온 컬럼명을 작성, 추후 객체를 가지고 올 때 사용
 		var columnId =['name','addr','storeHour','productRating','storeRating'];
 		//tag의 id 값을 지정하기 위하여 사용, css 적용을 위하여 설정 함
-		storeListView(json,column,columnId,"storeListView","innerDiv","innerTableDiv");
+		var columnClass =['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'];
+		listView(json,column,columnId,columnClass,
+				"storeListView","innerDiv","divTableBody","innerTableDiv","divTableRow");
 	}
 }

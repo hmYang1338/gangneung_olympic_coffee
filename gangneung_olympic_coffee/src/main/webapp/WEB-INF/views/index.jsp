@@ -20,6 +20,7 @@
 
     <!-- Custom CSS -->
     <link href="css/stylish-portfolio.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
 
   </head>
 
@@ -49,7 +50,7 @@
           <a class="js-scroll-trigger" href="#portfolio">Portfolio</a>
         </li>
         <li>
-          <a class="js-scroll-trigger" href="#contact" onclick=$( "#menu-close").click();>Contact</a>
+          <a class="js-scroll-trigger" href="#contact" onclick='$( "#menu-close").click();'>Contact</a>
         </li>
       </ul>
     </nav>
@@ -57,8 +58,8 @@
     <!-- Header -->
     <header class="header" id="top">
       <div class="text-vertical-center">
-        <h1>Start Bootstrap</h1>
-        <h3>Free Bootstrap Themes &amp; Templates</h3>
+        <h1>GangNeung Coffee</h1>
+        <h3>Start You're Coffee Life In GangNeung</h3>
         <br>
         <a href="#about" class="btn btn-dark btn-lg js-scroll-trigger">Find Out More</a>
       </div>
@@ -75,67 +76,12 @@
     </section>
 
     <!-- Services -->
-    <section id="services" class="services bg-primary text-white">
+    <section id="services" class="services text-center brown-background">
+      <h2>You're Best Friend</h2>
       <div class="container">
         <div class="row text-center">
-          <div class="col-lg-10 mx-auto">
-            <h2>Our Services</h2>
-            <hr class="small">
-            <div class="row">
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-cloud fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                    <strong>Service Name</strong>
-                  </h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  <a href="#" class="btn btn-light">Learn More</a>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-compass fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                    <strong>Service Name</strong>
-                  </h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  <a href="#" class="btn btn-light">Learn More</a>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-flask fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                    <strong>Service Name</strong>
-                  </h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  <a href="#" class="btn btn-light">Learn More</a>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="service-item">
-                  <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-shield fa-stack-1x text-primary"></i>
-                  </span>
-                  <h4>
-                    <strong>Service Name</strong>
-                  </h4>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  <a href="#" class="btn btn-light">Learn More</a>
-                </div>
-              </div>
-            </div>
-            <!-- /.row (nested) -->
+          <div class="col-lg-10 divTable" id="storeListView">
+          <!-- 여기에 storeList가 나타납니다. -->
           </div>
           <!-- /.col-lg-10 -->
         </div>
@@ -272,7 +218,12 @@
 
     <!-- Custom scripts for this template -->
     <script src="js/stylish-portfolio.js"></script>
-
+    
+    <!-- 사용자 지정 js 추가 -->
+	<script src="js/ajax/httpRequest.js"></script>
+	<script src="js/form/listView.js"></script>
+	<script src="js/ajax/storeList.js"></script>
+	<script src="js/ajax/storeSearch.js"></script>
   </body>
 
 </html>
