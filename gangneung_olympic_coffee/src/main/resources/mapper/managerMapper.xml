@@ -59,7 +59,7 @@
 		WHERE email=#{email} AND m.id=s.id AND m.lan_code=s.lan_code
 	</select>
 
-	<select id="selectOneManagerByEmail" parameterType="String" resultMap="manager">
+	<select id="selectOneManagerByEmail" parameterType="String" resultMap="managerMap">
 		SELECT password
 		FROM manager
 		WHERE email=#{email}
