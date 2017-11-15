@@ -61,7 +61,7 @@
 		WHERE email = #{email}
 	</delete>
 	
-	
+	<!-- 회원 정보 수정 -->
 	<update id="updateMember" parameterType="member">
 		UPDATE member
 		SET password = #{password}, nation_code = #{nationCode}, lan_code = #{lanCode}, name = #{name}, tel = #{tel}, gender = #{gender}, img_dir = #{imgDir}
@@ -69,7 +69,7 @@
 	</update>
 	
 	<!-- LastDate 로그인시 현재 시간으로 변경 -->
-	<update id="updateMemberByLastDate" parameterType="member">
+	<update id="updateMemberByLastDate" parameterType="String">
 		UPDATE member
 		SET last_date = systimestamp
 		WHERE email = #{email}

@@ -29,7 +29,7 @@ public class MemberDAO {
 	/**
 	 * 일반회원 회원가입
 	 * @param member
-	 * @return insert 안되었다면 0, 되었다면 insert된 행의 개수
+	 * @return insert 안되었다면 0, 되었다면 1
 	 */
 	public int insertMember(Member member) {
 		return sqlSession.insert("memberMapper.insertMember", member);
@@ -42,7 +42,7 @@ public class MemberDAO {
 	/**
 	 * 일반회원 관리자로 인한 탈퇴
 	 * @param email
-	 * @return delete 안되었다면 0, 되었다면 삭제
+	 * @return delete 안되었다면 0, 되었다면 1
 	 */
 	public int deleteMemberByManager(String email) {
 		return sqlSession.delete("memberMapper.deleteMemberByManager", email);
@@ -51,7 +51,7 @@ public class MemberDAO {
 	/**
 	 * 일반회원 자발적 탈퇴
 	 * @param email
-	 * @return delete 안되었다면 0, 되었다면 삭제
+	 * @return delete 안되었다면 0, 되었다면 1
 	 */
 	public int deleteMember(String email) {
 		return sqlSession.delete("memberMapper.deleteMember", email);
@@ -75,4 +75,12 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.updateMember",member);
 	}
 	
+	/**
+	 * 일반회원 로그인시 최근접속 일자 변경
+	 * @param email
+	 * @return 변경 실패시 0, 성공시 1
+	 */
+	public int updateMemberByLastDate(String email) {
+		return sqlSession.update("memberMapper.updateMemberByLastDate",email);
+	}
 }

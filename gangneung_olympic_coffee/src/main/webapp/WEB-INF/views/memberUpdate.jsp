@@ -22,15 +22,14 @@
 	<!-- 회원 가입 구현 -->
 	
 	<form method="POST" id="updateMember" name="updateMember" action="updateMember.do">
-	<input type="hidden" id="email" name="email" value="${sessionScope.member.email}"><br>
+	<input type="hidden" id="email" name="email"><br>
 	<input type="password" id="password" name="password" maxlength="16" placeholder="변경할 비밀번호를 써주세요" required="required" onchange="compare()"><br>
 	<input type="password" id="password2" name="password2" maxlength="16" placeholder="변경할 비밀번호를 써주세요" required="required" onchange="compare()">
 	<div id="alert"></div>
 	<!-- Nation(나라)를 설정 -->
 	<select name="nationCode" id="nationCode">
-  	  	<option value="1">1</option><!-- test -->
-	  <c:if test="${not empty requestScope.nation}">
-		<c:forEach items="${requestScope.nation}" var="nation" >
+	  <c:if test="${not empty requestScope.nationList}">
+		<c:forEach items="${requestScope.nationList}" var="nation" >
 		  <option value="${nation.nationCode}">${nation.nation}</option>
 		</c:forEach>
 	  </c:if>
@@ -38,9 +37,8 @@
 	<br>
 	<!-- 언어를 설정 -->
  	<select required="required"> 
- 	  	<option>1</option><!-- test --> 
-	  <c:if test="${not empty requestScope.language}">
-		<c:forEach items="${requestScope.language}" var="language">
+	  <c:if test="${not empty requestScope.languageList}">
+		<c:forEach items="${requestScope.languageList}" var="language">
 		  <option value="${language.lanCode}">${language.language}</option>
 		</c:forEach>
 	  </c:if>

@@ -16,6 +16,7 @@
 	<select id="selectNation" resultMap="nationMap">
 		SELECT <include refid="nationColum"/>
 		FROM nation
+		Order by nation
 	</select>
 	
 	<select id="selectNationByCode" resultMap="nationMap" parameterType="int">

@@ -8,19 +8,11 @@
 <title>Nation List Test</title>
 </head>
 <body>
-	<table>
-		<tr>
-			<th>NationCode</th>
-			<th>Nation</th>
-		</tr>
+			LanCode - Language
 
-		<c:forEach items="${requestScope.nation}" var="nation">
-			<tr>
-				<td>${nation.nationCode}</td>
-				<td>${nation.nation}</td>
-			</tr>
+		<c:forEach items="${requestScope.language}" var="language">
 			<br>
+				${language.lanCode} - ${language.language}
 		</c:forEach>
-	</table>
 </body>
 </html>

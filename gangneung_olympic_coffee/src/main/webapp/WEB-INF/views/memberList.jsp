@@ -6,12 +6,41 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member List</title>
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-	<h1> 일반 유저 계정 보기(selectList)</h1>
-	<form name="requestForm" id="requestForm" action="deleteMemberByManager.do" method="POST">
-	<input type="hidden" id="password" name="password">
-	<input type="hidden" id="email" name="email">
+<a href="member.do">test3.do</a>
+	<h1> Member List</h1>
+	
+	<div class="container">
+			<div class="row">
+				<div class="col">Email</div>
+				<div class="col">Nation</div>
+				<div class="col">Language</div>
+				<div class="col">Name</div>
+				<div class="col">CellPhone</div>
+				<div class="col">Gender</div>
+				<div class="col">BirthDay</div>
+				<div class="col">JoinDate</div>
+				<div class="col">LastDate</div>
+				<div class="col">Delete</div>
+			</div>
+				<c:forEach items="${requestScope.memberList}" var="member">
+				<br>
+			<div class="row">
+					<div class="col">${member.email}</div>
+					<div class="col">${member.nationCode}</div>
+					<div class="col">${member.lanCode}</div>
+					<div class="col">${member.name}</div>
+					<div class="col">${member.tel}</div>
+					<div class="col">${member.gender}</div>
+					<div class="col">${member.birth}</div>
+					<div class="col">${member.joinDate}</div>
+					<div class="col">${member.lastDate}</div>
+					<div class="col"><input type="button" name="deleteMember"  value="Delete" onclick="sendDelete('${member.email}')"></div>
+			</div>
+				</c:forEach>
+	</div>
 	<table>
 		<tr>
 			<th>이메일</th>
@@ -40,7 +69,6 @@
 			</tr>
 		</c:forEach>
 	</table>
-	</form>
 	<!-- 사용자 탈퇴가 맞게 email Session 처리 해줘야함 -->
  	<script>
 		function sendDelete(email){

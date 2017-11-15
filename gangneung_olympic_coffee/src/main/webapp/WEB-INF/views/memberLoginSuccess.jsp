@@ -20,25 +20,23 @@ Email : ${memberSession.email}
 	<br><hr><br><br>
 	<form action="updateMember.do" method="POST">
 		<input type="hidden" name="email" value="${memberSession.email}"><br>
-		<input type="password" name="passwordBefore" value="${memberSession.password}"><br>
-		<input type="password" name="password" placeholder="변경할 비밀번호를 입력해주세요."><br>
+		<input type="password" name="passwordBefore"><br>
+		<input type="password" id="password" name="password" maxlength="16" placeholder="변경할 비밀번호를 써주세요" required="required" onchange="compare()"><br>
 		<select name="nationCode" id="nationCode">
-	  	  	<option value="1">1</option>
 		  <c:if test="${not empty requestScope.nationList}">
 			<c:forEach items="${requestScope.nationList}" var="nation" >
 			  <option value="${nation.nationCode}">${nation.nation}</option>
 			</c:forEach>
 		  </c:if>
-		</select>
-	<br>
-			<!-- 언어를 설정 -->
-		<!-- 	<select required="required"> -->
-		<!-- 	  	<option>1</option>지울내용 -->
-		<%-- 	  <c:if test="${not empty requestScope.languageList}"> --%>
-		<%-- 		<c:forEach var="language" items="${requestScope.languageList}"> --%>
-		<%-- 		  <option value="${language.lanCode}">${language.language}</option> --%>
-		<%-- 		</c:forEach> --%>
-		<%-- 	  </c:if> --%>
+		</select><br>
+		<!-- 언어를 설정 -->
+	 	<select name="lanCode" id="lanCode" required="required">
+	 	  <c:if test="${not empty requestScope.languageList}"><!-- not empty일 때 설정 필요 -->
+	 		<c:forEach var="language" items="${requestScope.languageList}">
+	 		  <option value="${language.lanCode}">${language.language}</option>
+	 		</c:forEach>
+	 	  </c:if>
+		</select><br>
 		<!-- 이름 -->
 		<input type="text" id="name" name="name" maxlength="20" value="${memberSession.name}" required="required"><br>
 		<input type="tel" id="tel" name="tel" maxlength="20" value="${memberSession.tel}">
