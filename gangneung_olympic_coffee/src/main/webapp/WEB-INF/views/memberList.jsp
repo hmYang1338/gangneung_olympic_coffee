@@ -7,6 +7,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Member List</title>
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+</style>
+
 </head>
 <body>
 <a href="member.do">test3.do</a>
@@ -14,16 +22,16 @@
 	
 	<div class="container">
 			<div class="row">
-				<div class="col">Email</div>
-				<div class="col">Nation</div>
-				<div class="col">Language</div>
-				<div class="col">Name</div>
-				<div class="col">CellPhone</div>
-				<div class="col">Gender</div>
-				<div class="col">BirthDay</div>
-				<div class="col">JoinDate</div>
-				<div class="col">LastDate</div>
-				<div class="col">Delete</div>
+				<div class="divTableHeading">Email</div>
+				<div class="divTableHeading">Nation</div>
+				<div class="divTableHeading">Language</div>
+				<div class="divTableHeading">Name</div>
+				<div class="divTableHeading">CellPhone</div>
+				<div class="divTableHeading">Gender</div>
+				<div class="divTableHeading">BirthDay</div>
+				<div class="divTableHeading">JoinDate</div>
+				<div class="divTableHeading">LastDate</div>
+				<div class="divTableHeading">Delete</div>
 			</div>
 				<c:forEach items="${requestScope.memberList}" var="member">
 				<br>
@@ -37,7 +45,7 @@
 					<div class="col">${member.birth}</div>
 					<div class="col">${member.joinDate}</div>
 					<div class="col">${member.lastDate}</div>
-					<div class="col"><input type="button" name="deleteMember"  value="Delete" onclick="sendDelete('${member.email}')"></div>
+					<div class="col"><input type="button" name="deleteMember"  value="x" onclick="sendDelete('${member.email}')"></div>
 			</div>
 				</c:forEach>
 	</div>

@@ -58,7 +58,7 @@ public class MemberController {
 				System.out.println("성공");
 				memberDAO.updateMemberByLastDate(email);
 				model.addAttribute("memberSession", member);
-				return "memberLoginSuccess";
+				return "memberUpdate";
 			}else {
 				System.out.println("비밀번호 MissMatch");
 				return "memberJoin";

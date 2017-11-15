@@ -5,57 +5,166 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>회원 정보 수정</title>
-
-	<!-- Bootstrap core CSS -->
-	<link href="../vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-	<!-- Custom fonts for this template -->
-	<link href="../vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
-
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+	.brown-background{
+		background: #f2e6d9;
+	}
+	.brown{
+		color: #996633;
+	}
+	.blue-background{
+		background: #f0f0f5;
+	}
+	.blue{
+		color: #666699;
+	}
+/* 	.green-background{ */
+/* 		background: #daffda; */
+/* 	} */
+/* 	.green{ */
+/* 		color: #009933; */
+/* 	} */
+	.radius{
+		border-width: 3px;
+		border-color: white;
+	}
+	.radius:hover{
+		background-color:white;
+		color:black;
+	}
+	
+	.raio-group{
+		margin-left: 10%;
+		margin-bottom: 1px;
+	}
+	
+	.hr-white{
+		border-top: 3px solid #f8f9fa;
+	}
+	
+	/* 아래부터는 재정의 */
+	.control-label{
+	    cursor: default;
+	    font-size: large;
+	}
+	.pull-right {
+	    float: right!important;
+	    margin-right: 20px;
+	}
+</style>
 </head>
 <body>
 
-	<a href="selectMemberAll.do">리스트 보기</a>
-	<a href="memberLogin.jsp">로그인</a>
-	<!--  http://localhost/www/WEB-INF/views/memberLogin.jsp -->
-	<!-- 회원 가입 구현 -->
-	
-	<form method="POST" id="updateMember" name="updateMember" action="updateMember.do">
-	<input type="hidden" id="email" name="email"><br>
-	<input type="password" id="password" name="password" maxlength="16" placeholder="변경할 비밀번호를 써주세요" required="required" onchange="compare()"><br>
-	<input type="password" id="password2" name="password2" maxlength="16" placeholder="변경할 비밀번호를 써주세요" required="required" onchange="compare()">
-	<div id="alert"></div>
-	<!-- Nation(나라)를 설정 -->
-	<select name="nationCode" id="nationCode">
-	  <c:if test="${not empty requestScope.nationList}">
-		<c:forEach items="${requestScope.nationList}" var="nation" >
-		  <option value="${nation.nationCode}">${nation.nation}</option>
-		</c:forEach>
-	  </c:if>
-	</select>
-	<br>
-	<!-- 언어를 설정 -->
- 	<select required="required"> 
-	  <c:if test="${not empty requestScope.languageList}">
-		<c:forEach items="${requestScope.languageList}" var="language">
-		  <option value="${language.lanCode}">${language.language}</option>
-		</c:forEach>
-	  </c:if>
-	</select>
-	<!-- 이름 -->
-	<input type="text" id="name" name="name" maxlength="20" placeholder="이름을 입력해주세요" required="required"><br>
-	<input type="tel" id="tel" name="tel" maxlength="20">
-	<input type="radio" id="gender" name="gender" value="1">남&nbsp;&nbsp;&nbsp;
-	<input type="radio" id="gender" name="gender" value="2">여<br>
-	<input type="date" id="birth" name="birth" title="생일을 입력해주세요" required="required"><br>
-<!-- 	<input type="text" id="imgDir" name="imgDir" title="imgDir"><br> -->
-<!-- 	<input type="text" id="accessCode" name="accessCode" title="accessCode"><br> -->
-	
-	<!-- 이미지 업로드 해야하는 것 만들어야함 -->
-	<input type="button" id="button" value="submit" onclick="shin1();">
-	
-	</form>
+	<!-- 회원 정보 수정 -->
+	<div class="container">
+		<div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 blue-background">
+			
+			<form method="POST" id="updateMember" name="updateMember" action="updateMember.do">
+			<br>
+			<hr class="hr-white">
+			<h3 class="blue text-center"> Update Member </h3><hr class="hr-white">
+				
+				<!-- 회원 Email -->
+				<div class="form-group">
+					<label for="email" class="control-label blue">Email&nbsp;:&nbsp;</label>
+					<input type="hidden" name="email" value="${memberSession.email}">
+					<p class="form-control-static">${memberSession.email}</p>
+				</div><br>
+				
+				<!-- 회원 기존 Password -->
+				<div class="form-group">
+					<label for="passwordBefore" class="control-label blue">Before PassWord&nbsp;:&nbsp;</label>
+					<input type="password" name="passwordBefore" maxlength="16" placeholder="Enter Before Password" class="form-control input-lg blue"><br>
+				</div><br>
+				
+				<!-- 회원 변경 Password -->
+				<div class="form-group">
+					<label for="password" class="control-label blue">Update PassWord&nbsp;:&nbsp;</label>
+					<input type="password" id="password" name="password" maxlength="16" placeholder="Enter Update Password" class="form-control input-lg blue" onchange="compare()"><br>
+					<input type="password" id="password2" name="password2" maxlength="16" placeholder="Reconfirm Update Password" class="form-control input-lg blue" onchange="compare()">
+					<div id="alert"></div>
+				</div><br>
+				
+				<!-- 회원 국가 변경 -->
+				<div class="form-group">
+					<label for="nationCode" class="control-label blue">Update Nation&nbsp;:&nbsp;</label>
+					<select name="nationCode" id="nationCode">
+					  <c:if test="${not empty requestScope.nationList}">
+						<c:forEach items="${requestScope.nationList}" var="nation" >
+						  <option value="${nation.nationCode}">${nation.nation}</option>
+						</c:forEach>
+					  </c:if>
+					</select>
+					</div><br>
+					
+					<!-- 회원 언어 변경 -->
+					<div class="form-group">
+						<label for="lanCode" class="control-label blue">Update Language&nbsp;:&nbsp;</label>
+					 	<select name="lanCode" id="lanCode" required="required">
+					 	  <c:if test="${not empty requestScope.languageList}"><!-- not empty일 때 설정 필요 -->
+					 		<c:forEach var="language" items="${requestScope.languageList}">
+					 		  <option value="${language.lanCode}">${language.language}</option>
+					 		</c:forEach>
+					 	  </c:if>
+						</select>
+					</div><br>
+					
+					<!-- 회원 이름 변경 -->
+					<div class="form-group">
+						<label for="lanCode" class="control-label blue">Update Name&nbsp;:&nbsp;</label>
+						<input type="text" id="name" name="name" maxlength="20" value="${memberSession.name}" required="required">
+					</div><br>
+					
+					<!-- 회원 국가 변경 -->
+					<div class="form-group">
+						<label for="lanCode" class="control-label blue">Update CellPhone&nbsp;:&nbsp;</label>
+						<input type="tel" id="tel" name="tel" maxlength="20" value="${memberSession.tel}">
+					</div><br>
+					
+					<!-- 회원 성별 변경 -->
+					<!-- memberSession.gender==1 일 때 checked Male, memeberSession.gender==2일 때 checked Female -->
+					<label for="gender" class="control-label blue">Gender&nbsp;:&nbsp;</label>
+					<c:if test="${memberSession.gender eq 1}">
+					<div class="raio-group">
+						<label class="custom-control custom-radio">
+						  <input id="gender" name="gender" type="radio" class="custom-control-input" value="1" checked="checked">
+						  <span class="custom-control-indicator"></span>
+						  <span class="custom-control-description">Male</span>
+						</label><br>
+						<label class="custom-control custom-radio">
+						  <input id="gender" name="gender" type="radio" class="custom-control-input" value="2">
+						  <span class="custom-control-indicator"></span>
+						  <span class="custom-control-description">Female</span>
+						</label>
+					</div><br>
+					</c:if>
+				
+					<c:if test="${memberSession.gender eq 2}">
+					<div class="raio-group">
+						<label class="custom-control custom-radio">
+						  <input id="gender" name="gender" type="radio" class="custom-control-input" value="1">
+						  <span class="custom-control-indicator"></span>
+						  <span class="custom-control-description">Male</span>
+						</label><br>
+						<label class="custom-control custom-radio">
+						  <input id="gender" name="gender" type="radio" class="custom-control-input" value="2" checked="checked">
+						  <span class="custom-control-indicator"></span>
+						  <span class="custom-control-description">Female</span>
+						</label>
+					</div><br>
+					</c:if>
+				
+					
+					
+					<input type="date" id="birth" name="birth" value="${memberSession.birth}" required="required"><br>
+					<input type="text" id="imgDir" name="imgDir" value="${memberSession.imgDir}"><br>
+					<input type="submit" value="변경">
+			</form>
+			
+		</div>
+	</div>
 	
 	<script type="text/javascript">
 	
@@ -158,9 +267,5 @@
     	
     </script>
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="../vendor/jquery/jquery.js"></script>
-	<script src="../vendor/popper/popper.js"></script>
-	<script src="../vendor/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
