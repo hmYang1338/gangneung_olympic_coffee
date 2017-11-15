@@ -24,7 +24,7 @@
 
   </head>
 
-  <body>
+<body>
     <!-- Navigation -->
     <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle">
       <i class="fa fa-bars"></i>
@@ -92,12 +92,12 @@
 
     <!-- Callout -->
     <aside class="callout">
-      <div class="text-vertical-center">
-        <h1>Vertically Centered Text</h1>
+      <div class="text-vertical-center" id="storeView">
+      <!-- 여기에 store가 나타납니다 -->
       </div>
     </aside>
 
-    <!-- Portfolio -->
+	<!-- Portfolio -->
     <section id="portfolio" class="portfolio">
       <div class="container">
         <div class="row">

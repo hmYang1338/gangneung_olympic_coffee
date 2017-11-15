@@ -38,7 +38,6 @@ public class TestController {
 	
 	@RequestMapping("/storeList.do")
 	public @ResponseBody List<Store> StoreList() {
-		System.out.println(storeDAO.getStoreSelectMap(1));
 		return storeDAO.getStoreSelectMap(1);
 	}
 	
@@ -57,6 +56,12 @@ public class TestController {
 	@RequestMapping("/storeSelectByName.do")
 	public @ResponseBody List<HashMap<String,Object>> storeSelectByName(@RequestParam String name) {
 		return storeDAO.getStoreSelectByName(name,1);
+	}
+	
+	@RequestMapping("/storeSelectById.do")
+	public @ResponseBody Store storeSelectById(@RequestParam int lanCode,@RequestParam int id) {
+		System.out.println(storeDAO.getStoreSelectById(id, lanCode));
+		return storeDAO.getStoreSelectById(id, lanCode);
 	}
 	
 	@RequestMapping("/gps.do")

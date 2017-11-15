@@ -48,6 +48,7 @@ Div 로 Table을 구성하기 위한 생성자
 
 .divTableCell, .divTableHead {
 	width: 50%;
+	border-bottom: 5px solid white;
 	display: table-cell;
 	padding: 3px 10px;
 }
@@ -66,4 +67,33 @@ Div 로 Table을 구성하기 위한 생성자
 
 .divTableBody {
 	display: table-row-group;
+}
+/*
+store출력을 위한 css
+*/
+.store-name{
+	font-size: 35px;
+	border-bottom: 5px solid white;
+}
+/*
+이미지 효과를 위한 css
+*/
+/*이미지 블러처리*/
+.bg-gray {
+	background-color: #00000033;
+}
+.bgBlur:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: inherit;
+	z-index: -1;
+	filter: blur(6px);
+	-webkit-filter: blur(6px);
+	-moz-filter: blur(6px);
+	-o-filter: blur(6px);
+	filter: url(#blur);
 }

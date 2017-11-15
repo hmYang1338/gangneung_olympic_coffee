@@ -4,17 +4,69 @@
  * @author 신승엽
  */
 
-var storeListRequest = sendRequest("storeListMap.do", "lanCode=2", storeAjax, "POST");
+//메인 화면 실행시 비동기 통신으로 커피숍 목록을 출력함
+var storeListRequest = sendRequest("storeListMap.do", "lanCode=1", storeListAjax, "POST");
+var storeSelectByIdRequest;
 
-function storeAjax() {
+//받아온 ajax 객체를 DIV로 출력
+function storeListAjax() {
 	if (storeListRequest.readyState == 4 && storeListRequest.status == 200) {
-		var json = storeListRequest.responseText;
-		var column =['NAME','ADDR','STOREHOURS','PRODUCTRATING','STORERATING'];
-		//json 객체로 받아온 컬럼명을 작성, 추후 객체를 가지고 올 때 사용
-		var columnId =['name','addr','storeHour','productRating','storeRating'];
-		//tag의 id 값을 지정하기 위하여 사용, css 적용을 위하여 설정 함
-		var columnClass =['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'];
-		listView(json,column,columnId,columnClass,
-				"storeListView","innerDiv","divTableBody","innerTableDiv","divTableRow");
+		var data ={
+				'json': storeListRequest.responseText,//json 객체
+				'column' : ['NAME','ADDR','STOREHOURS','PRODUCTRATING','STORERATING'], //JSON객체의 열 이름
+				'columnId' : ['name','addr','storeHour','productRating','storeRating'], //열 id
+				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'], //열 class
+				'elementId' : 'storeListView', //넣으려는 div의 id 값
+				'innerSet' : {
+						hiddenColumn:['ID'],
+						divId:'innerDiv',
+						divClass:'divTableBody',
+						tableId:'innerTableDiv',
+						tableClass:'divTableRow',
+				},
+				'innerFunction' : storeSelectById,
+		};
+		listView(data);
 	}
+}
+
+//열 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
+function storeSelectById(element){
+	element.addEventListener("click", function() {
+		var id = this.firstChild.getAttribute("value");
+		//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
+		storeSelectByIdRequest = sendRequest("storeSelectById.do", "lanCode="+lanCode+"&id="+id, storeAjax, "POST");
+	});
+}
+
+//해당 매장에 대한 상세 정보를 출력 함 -> (storeRating,productRating) 호출 예정
+function storeAjax(){
+	if (storeSelectByIdRequest.readyState == 4 && storeSelectByIdRequest.status == 200) {
+		var data = {
+				'json' : storeSelectByIdRequest.responseText,
+				'column' : ['name','tel','addr','storeHours'],
+				'columnId' :['name','tel','addr','storeHours'],
+				'columnClass' : ['store-name',
+					'',
+					'',
+					''],
+				'elementId' : 'storeView',
+				'innerSet' : {
+						hiddenColumn:['id','let','longi'],
+						divId:'sinnerDiv',
+						divClass:'container bg-gray',
+						tableId:'sinnerTableDiv',
+						tableClass:'sdivTableRow'
+				},
+				'executeFunction' : storeBackGroundSettng
+		};
+		listView(data);
+	}
+}
+
+//DB에서 가지고 온 해당 스토어에 해당하는 Background를 출력합니다.
+//일단은 문자열로 설정한 뒤 추후 변경 예정
+function storeBackGroundSettng(element){
+	element.className="text-vertical-center bgBlur";
+	element.style.backgroundImage="url(img/portfolio-2.jpg)";
 }

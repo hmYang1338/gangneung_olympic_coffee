@@ -18,6 +18,7 @@ import dto.UserGPS;
  */
 @Repository
 public class StoreDAO {
+
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -58,8 +59,11 @@ public class StoreDAO {
 	 * @param id 가게의 id
 	 * @return 해당 가게의 정보
 	 */
-	public Store getStoreSelectById(int id){
-		return sqlSession.selectOne("storeMapper.selectStoreById",id);
+	public Store getStoreSelectById(int id, int lanCode){
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("id", id);
+		data.put("lanCode", lanCode);
+		return sqlSession.selectOne("storeMapper.selectStoreById",data);
 	}
 	
 	/* 관리자_카페 정보 통합관리 @author 양현모 */

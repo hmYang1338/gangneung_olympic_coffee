@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="storeMapper">
 
-	<!-- @author 신승엽 -->
+<!-- @author 신승엽 -->
 	
 	<resultMap type="store" id="storeSelectMap">
 		<result column="lan_code" property="lanCode"/>
@@ -17,7 +17,7 @@
 	
 
 	<sql id="storeColum">
-		lan_code, id, name, tel, addr, lat, longi store_hours
+		lan_code, id, name, tel, addr, lat, longi, store_hours
 	</sql>
 	
 	<select id="selectStore" resultMap="storeSelectMap" parameterType="int">
@@ -37,9 +37,9 @@
 		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours
 	</select>
 	
-	<select id="selectStoreById" resultMap="storeSelectMap" parameterType="string">
+	<select id="selectStoreById" resultMap="storeSelectMap" parameterType="java.util.HashMap">
 		SELECT <include refid="storeColum"/>
-		FROM store WHERE id = #{id}
+		FROM store WHERE id = #{id} and lan_code = #{lanCode}
 	</select>
 	
 	<select id="selectStoreByName" resultType="java.util.HashMap" parameterType="java.util.HashMap">
@@ -90,5 +90,4 @@
 		FROM store
 		WHERE lan_code = #{lanCode} and id = #{id}
 	</delete>
-	
 </mapper>	
