@@ -18,14 +18,14 @@ import dto.ManagerStoreJOIN;
 public class ManagerDAO {
 	
 	@Autowired
-	private SqlSession sqlsession;
+	private SqlSession sqlSession;
 	
 	/**
 	 * 전체 운영자 관련 비밀번호를 제외한 모든 정보
 	 * @return manager 테이블에 존재하는 모든 manager
 	 */
 	public List<Manager> selectManagerAll() {
-		return sqlsession.selectList("managerMapper.selectManagerAll");
+		return sqlSession.selectList("managerMapper.selectManagerAll");
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class ManagerDAO {
 	 * @return 검색한 manager의 정보
 	 */
 	public List<Manager> selectManagerById(List<Manager> manager) {
-		return sqlsession.selectList("managerMapper.selectManagerById", manager);
+		return sqlSession.selectList("managerMapper.selectManagerById", manager);
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class ManagerDAO {
 	 * @return
 	 */
 	public String selectOneManagerByEmail(String email) {
-		return sqlsession.selectOne("managerMapper.selectOneManagerByEmail", email);
+		return sqlSession.selectOne("managerMapper.selectOneManagerByEmail", email);
 	}
 	
 	/**
@@ -54,7 +54,7 @@ public class ManagerDAO {
 	 */
 	/*수정*/
 /*	public List<Manager> selectManagerById2() {
-		System.out.println(sqlsession.selectMap("managerMapper.selectManagerById2", "email"));
+		System.out.println(sqlSession.selectMap("managerMapper.selectManagerById2", "email"));
 		return null;
 	}
 */	
@@ -64,7 +64,7 @@ public class ManagerDAO {
 	 * @return 검색한 해당 정보
 	 */
 	public ManagerStoreJOIN selectOneManagerDetail(String email) {
-		return sqlsession.selectOne("managerMapper.selectOneManagerDetail", email);
+		return sqlSession.selectOne("managerMapper.selectOneManagerDetail", email);
 	}
 	
 	/**
@@ -73,7 +73,7 @@ public class ManagerDAO {
 	 * @return insert 안되었다면 0, 되었다면 insert된 행의 개수 
 	 */
 	public int insertManager(Manager manager) {
-		return sqlsession.insert("managerMapper.insertManager", manager);
+		return sqlSession.insert("managerMapper.insertManager", manager);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class ManagerDAO {
 		HashMap<String,Object> updateManager = new HashMap<>();
 		updateManager.put("email", email);
 		updateManager.put("tel", tel);
-		return sqlsession.update("managerMapper.updateManager", updateManager);
+		return sqlSession.update("managerMapper.updateManager", updateManager);
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public class ManagerDAO {
 	 * @return delete 안되었다면 0, 되었다면 delete된 행의 개수
 	 */
 	public int deleteManager(String email) {
-		return sqlsession.delete("managerMapper.deleteManager", email);
+		return sqlSession.delete("managerMapper.deleteManager", email);
 	}
 	
 	/**
@@ -107,6 +107,6 @@ public class ManagerDAO {
 		HashMap<String, Object> updatePassword = new HashMap<>();
 		updatePassword.put("email", email);
 		updatePassword.put("password", password);
-		return sqlsession.update("managerMapper.updatePassword", updatePassword);
+		return sqlSession.update("managerMapper.updatePassword", updatePassword);
 	}
 }

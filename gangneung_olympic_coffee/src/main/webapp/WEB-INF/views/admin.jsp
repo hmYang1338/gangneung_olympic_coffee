@@ -49,11 +49,24 @@
 				<hr>
 				<input type="button"
 					class="btn btn-default brown brown-background radius" id="select"
-					name="select" onclick="managerListBtn()" value="운영자 조회"> <br>
+					name="select" onclick="managerListBtn()" value="운영자 조회">
 				<input type="button"
 					class="btn btn-default brown brown-background radius" id="insert"
 					name="insert" onclick="managerInsertBtn()" value="운영자 등록">
-				<br>
+				<hr>
+			</form>
+			<form class="from-group brown" name="requestForm" method="POST">
+				<h3>카페 통합관리</h3>
+				<hr>
+				<input type="button"
+					class="btn btn-default brown brown-background radius" id="insertStore"
+					name="insertStore" onclick="insertStoreBtn()" value="카페정보 입력">
+				<input type="button"
+					class="btn btn-default brown brown-background radius" id="updateStore"
+					name="updateStore" onclick="updateStoreBtn()" value="카페정보 수정">
+				<input type="button"
+					class="btn btn-default brown brown-background radius" id="deleteStore"
+					name="deleteStore" onclick="deleteStoreBtn()" value="카페정보 삭제">	
 				<hr>
 			</form>
 		</div>
@@ -74,6 +87,13 @@
 					id="updatePassword" name="updatePassword"
 					onclick="updatePasswordBtn()" value="패스워드 수정"><br>
 				<hr>
+				<h3>내 카페 관리</h3>
+				<hr>
+				<input type="button"
+					class="btn btn-default blue blue-background radius"
+					id="updateMyStore" name="updateMyStore"
+					onclick="updateMyStoreBtn()" value="내 카페정보 수정">
+				<hr>
 			</form>
 		</div>
 	</div>
@@ -85,7 +105,8 @@
 		var managerListRequest;
 		var managerInsertRequest;
 		var updatePasswordRequest;
-
+		
+		/* 운영자 계정 조회 */
 		function managerListBtn() {
 			managerListRequest = sendRequest("listAjax.do", null, managerList,
 					"GET")
@@ -97,7 +118,8 @@
 				document.getElementById("selectform").innerHTML = resData;
 			}
 		}
-
+		
+		/* 운영자 계정 입력 */
 		function managerInsertBtn() {
 			managerInsertRequest = sendRequest("insertForm.do", null,
 					managerInsert, "GET")
@@ -109,7 +131,8 @@
 				document.getElementById("insertform").innerHTML = resData;
 			}
 		}
-
+		
+		/* 운영자 패스워드 수정 */
 		function updatePasswordBtn() {
 			updatePasswordRequest = sendRequest("updatePasswordForm.do", null,
 					updatePassword, "GET")
@@ -120,6 +143,31 @@
 				var resData = updatePasswordRequest.responseText;
 				document.getElementById("updatePasswordform").innerHTML = resData;
 			}
+		}
+		
+		/* 관리자_카페정보 입력 */
+		function insertStoreBtn() {
+			document.requestForm.action ="insertStoreForm.do";
+			document.requestForm.submit();
+		}
+		
+		/* 관리자_카페정보 수정 */
+		function updateStoreBtn() {
+			/* document.requestForm.action ="updateStoreForm.do";
+			document.requestForm.submit(); */
+			location.href="storeUpdate.jsp"
+		}
+		
+		/* 관리자_카페정보 삭제 */
+		function deleteStoreBtn() {
+			document.requestForm.action ="updateStoreForm.do";
+			document.requestForm.submit();
+		}
+		
+		/* 운영자_내 카페정보 수정 */
+		function updateMyStoreBtn() {
+			document.requestForm.action ="updateMyStoreForm.do";
+			document.requestForm.submit();
 		}
 	</script>
 </body>

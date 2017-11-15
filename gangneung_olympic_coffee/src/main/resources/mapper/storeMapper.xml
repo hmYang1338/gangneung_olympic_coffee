@@ -81,7 +81,7 @@
 	
 	<update id="updateStore" parameterType="store">
 		UPDATE store 
-		SET name = #{name}, tel = #{tel}, addr = #{addr}, lat = #{lat}, longi = #{longi}, storeHours = #{storeHours}
+		SET name = #{name}, tel = #{tel}, storeHours = #{storeHours}
 		WHERE lan_code = #{lanCode} AND id = #{id}
 	</update>
 	

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dto.Manager;
 import dto.Store;
 import dto.UserGPS;
 
@@ -61,4 +62,33 @@ public class StoreDAO {
 		return sqlSession.selectOne("storeMapper.selectStoreById",id);
 	}
 	
+	/* 관리자_카페 정보 통합관리 @author 양현모 */
+	/**
+	 * 카페 정보 입력
+	 * @param manager
+	 * @return insert 안되었다면 0, 되었다면 insert된 행의 개수 
+	 */
+	public int insertStore(Store store) {
+		return sqlSession.insert("storeMapper.insertStore", store);
+	}
+	
+	/**
+	 * 카페 정보 수정
+	 * @param managerstore
+	 * @return update 안되었다면 0, 되었다면 update된 행의 개수
+	 */
+	public int updateManager(Store store) {
+		return sqlSession.update("storeMapper.updateStore", store);
+	}
+	
+	/**
+	 * 카페 정보 삭제
+	 * @param email
+	 * @return delete 안되었다면 0, 되었다면 delete된 행의 개수
+	 */
+	public int deleteManager(Store store) {
+		return sqlSession.delete("storeMapper.deleteStore", store);
+	}
+	
+	/***********************************************************************/
 }

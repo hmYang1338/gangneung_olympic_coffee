@@ -6,27 +6,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-<script language=javascript>
-	function sendUpdate(){
-		document.requestForm.action ="../updateForm.do";
-		document.requestForm.submit();
-	}	
-	
-	function sendDelete(){
-		document.requestForm.action ="../deleteManager.do";
-		document.requestForm.submit();			
-	}	 
-</script>
 </head>
 <body>
 	<table align="center" cellpadding="5" cellspacing="2" width="600" border='1'>
-	    <tr>
+		<tr>
 	        <td width="100" height="20">
 	            <p align="right"><b><span style="font-size:9pt;">이메일</span></b></p>
 	        </td>
 	        <td width="450" height="20" colspan="3">
-	        	<span style="font-size:9pt;"><b>
-	        		${sessionScope.resultContent.email}</b>
+	        	<span style="font-size:9pt;">
+	        		<b>${sessionScope.resultContent.email}</b>
 	        	</span>
 	        </td>
 	    </tr>
@@ -35,8 +24,8 @@
 	            <p align="right"><b><span style="font-size:9pt;">이름</span></b></p>
 	        </td>
 	         <td width="450" height="20" colspan="3">
-	        	<span style="font-size:9pt;"><b>
-	        		${sessionScope.resultContent.name}</b>
+	        	<span style="font-size:9pt;">
+	        		<b>${sessionScope.resultContent.name}</b>
 	        	</span>
 	        </td>
 	    </tr>
@@ -45,8 +34,8 @@
 	            <p align="right"><b><span style="font-size:9pt;">휴대폰</span></b></p>
 	        </td>
 	        <td width="450" height="20" colspan="3">
-	        	<span style="font-size:9pt;"><b>
-					${sessionScope.resultContent.tel}</b>
+	        	<span style="font-size:9pt;">
+	        		<b>${sessionScope.resultContent.tel}</b>
 				</span>
 			</td>
 	    </tr>
@@ -55,8 +44,8 @@
 	            <p align="right"><b><span style="font-size:9pt;">카페 이름</span></b></p>
 	        </td>
 	        <td width="450" height="20" colspan="3">
-	        	<span style="font-size:9pt;"><b>
-					${sessionScope.resultContent.s_name}</b>
+	        	<span style="font-size:9pt;">
+	        		<b>${sessionScope.resultContent.s_name}</b>
 				</span>
 			</td>
 	    </tr>
@@ -65,8 +54,8 @@
 	            <p align="right"><b><span style="font-size:9pt;">주소</span></b></p>
 	        </td>
 	        <td width="450" height="20" colspan="3">
-	        	<span style="font-size:9pt;"><b>
-					${sessionScope.resultContent.s_addr}</b>
+	        	<span style="font-size:9pt;">
+	        		<b>${sessionScope.resultContent.s_addr}</b>
 				</span>
 			</td>
 	    </tr>
@@ -75,8 +64,8 @@
 	            <p align="right"><b><span style="font-size:9pt;">전화번호</span></b></p>
 	        </td>
 	        <td width="450" height="20" colspan="3">
-	        	<span style="font-size:9pt;"><b>
-					${sessionScope.resultContent.s_tel}</b>
+	        	<span style="font-size:9pt;">
+	        		<b>${sessionScope.resultContent.s_tel}</b>
 				</span>
 			</td>
 	    </tr>
@@ -100,5 +89,16 @@
 			</td>
 	    </tr>
 	</table>
+	<script language=javascript>
+	function sendUpdate(){
+		document.requestForm.action ="../updateForm.do";
+		document.requestForm.submit();
+	}	
+	
+	function sendDelete(){
+		document.requestForm.action ="../deleteManager.do";
+		document.requestForm.submit();			
+	}	 
+	</script>
 </body>
 </html>

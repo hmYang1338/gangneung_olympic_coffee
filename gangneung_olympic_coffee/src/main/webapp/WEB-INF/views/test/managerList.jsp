@@ -32,15 +32,6 @@
 	        </td>
 	        
 	    </tr>
-<%-- 
-	<c:if test="${empty list || fn:length(list) == 0}">
-		<tr>
-	        <td colspan="5">
-	            <p align="center"><b><span style="font-size:9pt;">등록된 모델 정보가 없습니다.</span></b></p>
-	        </td> 
-	    </tr>
-	</c:if>
- --%>
 		<c:forEach items="${list}" var="data">
 		    <tr>
 		    	<td bgcolor="">

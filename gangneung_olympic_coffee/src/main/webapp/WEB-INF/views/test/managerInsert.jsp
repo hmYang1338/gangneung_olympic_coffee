@@ -45,16 +45,27 @@
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 blue-background">
 	<h1>운영자 계정 생성(insert)</h1>
 	<form class="form-group brown" action='<c:url value="insertManager.do"/>' method="post" id="insertManager" name="insertManager">
-		<input type="text" name="email" id="email" class="form-control input-lg blue" placeholder="이메일"/><br> 
-		<input type="password" name="password" id="password" class="form-control input-lg blue" placeholder="비밀번호"/><br> 
-		<input type="text" name="name" id="name" class="form-control input-lg blue" placeholder="이름"/><br> 
-		<input type="text" name="tel" id="tel" class="form-control input-lg blue" placeholder="전화번호"/><br> 
-		<input type="text" name="birth" id="birth" class="form-control input-lg blue" placeholder="생년월일"/><br> 
-		<input type="text" name="lanCode" id="lanCode" class="form-control input-lg blue" placeholder="언어코드"/><br> 
-		<input type="text" name="id" id="id" class="form-control input-lg blue" placeholder="storeID"/><br> 
-		<input type="text" name="imgDir" id="imgDir" class="form-control input-lg blue" placeholder="이미지"/><br> 
-		<input type="text" name="major" id="major" class="form-control input-lg blue" placeholder="major"/><br> 
+		<p align="left" style="color: blue;">이 메 일 : </p>
+		<input type="text" name="email" id="email" class="form-control input-lg blue"/><br> 
+		<p align="left" style="color: blue;">비밀번호 : </p>
+		<input type="password" name="password" id="password" class="form-control input-lg blue"/><br> 
+		<p align="left" style="color: blue;">이    름 : </p>
+		<input type="text" name="name" id="name" class="form-control input-lg blue"/><br> 
+		<p align="left" style="color: blue;">전화번호 : </p>
+		<input type="text" name="tel" id="tel" class="form-control input-lg blue"/><br> 
+		<p align="left" style="color: blue;">생년월일 : </p>
+		<input type="text" name="birth" id="birth" class="form-control input-lg blue"/><br> 
+		<p align="left" style="color: blue;">언어코드 : </p>
+		<input type="text" name="lanCode" id="lanCode" class="form-control input-lg blue"/><br> 
+		<p align="left" style="color: blue;">카 페 ID : </p>
+		<input type="text" name="id" id="id" class="form-control input-lg blue"/><br> 
+		<p align="left" style="color: blue;">이 미 지 : </p>
+		<input type="text" name="imgDir" id="imgDir" class="form-control input-lg blue"/><br> 
+		<p align="left" style="color: blue;">Major : </p>
+		<input type="text" name="major" id="major" class="form-control input-lg blue"/><br> 
+		
 		<input class="btn btn-default blue blue-background radius" type="submit" value="운영자 등록" onclick="shin()">
+		<hr>
 	</form>
 	</div>
 	</div>
