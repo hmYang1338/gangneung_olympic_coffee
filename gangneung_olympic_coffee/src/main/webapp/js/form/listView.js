@@ -63,7 +63,7 @@ function listView(data){
 	for(i=0 ;i<json.length;i++){
 		innerTableDiv = document.createElement('div');
 		innerTableDiv.id = innerSet['tableId'];
-		innerTableDiv.className = innerSet['tableClass'];
+		innerTableDiv.className = innerSet['tableClass']+" "+innerSet['tableClass']+i;
 		
 		//히든 태그가 NULL이면 동작하지 않으며, 히든 태그 선언시, input type=hidden의 Element 생성
 		if(innerSet['hiddenColumn']!=null){

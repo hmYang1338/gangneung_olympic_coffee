@@ -224,6 +224,7 @@
 	<script src="js/form/listView.js"></script>
 	<script src="js/ajax/storeList.js"></script>
 	<script src="js/ajax/storeSearch.js"></script>
+	<script src="js/form/starRating.js"></script>
   </body>
 
 </html>

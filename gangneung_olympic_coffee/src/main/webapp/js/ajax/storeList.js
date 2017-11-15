@@ -13,12 +13,12 @@ function storeListAjax() {
 	if (storeListRequest.readyState == 4 && storeListRequest.status == 200) {
 		var data ={
 				'json': storeListRequest.responseText,//json 객체
-				'column' : ['NAME','ADDR','STOREHOURS','PRODUCTRATING','STORERATING'], //JSON객체의 열 이름
-				'columnId' : ['name','addr','storeHour','productRating','storeRating'], //열 id
-				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'], //열 class
+				'column' : ['NAME','ADDR','STOREHOURS'], //JSON객체의 열 이름
+				'columnId' : ['name','addr','storeHour'], //열 id
+				'columnClass' : ['divTableCell','divTableCell','divTableCell',], //열 class
 				'elementId' : 'storeListView', //넣으려는 div의 id 값
 				'innerSet' : {
-						hiddenColumn:['ID'],
+						hiddenColumn:['ID','PRODUCTRATING','STORERATING'],
 						divId:'innerDiv',
 						divClass:'divTableBody',
 						tableId:'innerTableDiv',
@@ -32,11 +32,28 @@ function storeListAjax() {
 
 //열 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
 function storeSelectById(element){
+	var elementId = element.firstChild.getAttribute("value");
+	element.appendChild(starRatingView("PRODUCTRATING",element,elementId));
+	element.appendChild(starRatingView("STORERATING",element,elementId));
 	element.addEventListener("click", function() {
-		var id = this.firstChild.getAttribute("value");
 		//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
-		storeSelectByIdRequest = sendRequest("storeSelectById.do", "lanCode="+lanCode+"&id="+id, storeAjax, "POST");
+	storeSelectByIdRequest = sendRequest("storeSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeAjax, "POST");
 	});
+}
+
+//별 표시를 위한 span 테그 생성 및 리턴
+function starRatingView(elementName,element,index){
+	var divTag = document.createElement("div");
+	divTag.id = elementName+index;
+	var i;
+	for(i=1 ; i<=5; i++){
+		var star = document.createElement('span');
+		star.className="divTableCell fa fa-star-o "+elementName+index;
+		star.setAttribute("data-rating", i);
+		divTag.appendChild(star);
+	}
+	starRating(elementName, element, false);
+	return divTag;
 }
 
 //해당 매장에 대한 상세 정보를 출력 함 -> (storeRating,productRating) 호출 예정
