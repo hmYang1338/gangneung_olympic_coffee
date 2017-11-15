@@ -51,7 +51,7 @@
 			</form>
 		</div>
 	</div>
-	
+	<%-- 
 	<form name=updateForm method=post action="updateManager.do" onSubmit='return checkValid()'>
 		<input type="hidden" name="email" value="${resultContent.email}"/>
 		<table align="center" cellpadding="5" cellspacing="1" width="600" border="1">
@@ -116,7 +116,12 @@
 				</td>
 		    </tr>
 		</table>
-	</form>
+	</form> --%>
+	
+	<div id="storeListView">
+	</div>
+
+<script src="js/ajax/httpRequest.js"></script>
 	
 </body>
 </html>
