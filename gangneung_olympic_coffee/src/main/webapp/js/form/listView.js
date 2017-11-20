@@ -26,7 +26,6 @@ var lanCode = 1;
 
 
 function listView(data){
-	
 	//한번에 담아오는 data 배열을 사용하기 쉽게 풀어 줌
 	var json = data['json'];
 	var column = data['column'];
@@ -58,6 +57,9 @@ function listView(data){
 		jsonTemp.push(json)
 		json = jsonTemp;
 	}
+	if(json.length==0){
+		return;
+	}
 	
 	//각 행별 데이터를 차곡차곡 쌓습니다.
 	for(i=0 ;i<json.length;i++){
@@ -72,6 +74,7 @@ function listView(data){
 				temp = document.createElement('input');
 				temp.setAttribute("type", "hidden");
 				temp.setAttribute("name", innerSet['hiddenColumn'][j]);
+				temp.setAttribute("id", innerSet['hiddenColumn'][j]);
 				temp.setAttribute("value", json[i][innerSet['hiddenColumn'][j]]);
 				innerTableDiv.appendChild(temp);	
 			}
@@ -92,16 +95,17 @@ function listView(data){
 		}
 		
 		//각 열별 추가할 DIV, 클릭 이밴트 등을 넣음
-		if(innerFunction!=null){
-			innerFunction(innerTableDiv);
-		}
 		innerDiv.appendChild(innerTableDiv);
 		innerDiv.id = innerSet['divId'];
 		innerDiv.className = innerSet['divClass'];
-		
+		if(innerFunction!=null){
+			innerFunction(innerTableDiv);
+		}
 	}
-	//최종적으로 DIV CHILDE로 추가해 줌
+	//최종적으로 DIV CHILD로 추가해 줌
 	elementDiv.appendChild(innerDiv);
+	
+	//최종 처리 후 메소드에 처리할 내용이 있는지 확인
 	if(executeFunction!=null){
 		executeFunction(elementDiv);
 	}

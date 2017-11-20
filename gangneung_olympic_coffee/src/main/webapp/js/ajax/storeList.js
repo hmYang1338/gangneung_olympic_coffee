@@ -7,6 +7,8 @@
 //메인 화면 실행시 비동기 통신으로 커피숍 목록을 출력함
 var storeListRequest = sendRequest("storeListMap.do", "lanCode=1", storeListAjax, "POST");
 var storeSelectByIdRequest;
+var productRatingListRequest;
+var storeRatingListRequest;
 
 //받아온 ajax 객체를 DIV로 출력
 function storeListAjax() {
@@ -15,7 +17,7 @@ function storeListAjax() {
 				'json': storeListRequest.responseText,//json 객체
 				'column' : ['NAME','ADDR','STOREHOURS'], //JSON객체의 열 이름
 				'columnId' : ['name','addr','storeHour'], //열 id
-				'columnClass' : ['divTableCell','divTableCell','divTableCell',], //열 class
+				'columnClass' : ['divTableCell','divTableCell','divTableCell'], //열 class
 				'elementId' : 'storeListView', //넣으려는 div의 id 값
 				'innerSet' : {
 						hiddenColumn:['ID','PRODUCTRATING','STORERATING'],
@@ -32,12 +34,17 @@ function storeListAjax() {
 
 //열 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
 function storeSelectById(element){
+	//rating 별 출력
 	var elementId = element.firstChild.getAttribute("value");
+	
 	element.appendChild(starRatingView("PRODUCTRATING",element,elementId));
 	element.appendChild(starRatingView("STORERATING",element,elementId));
+	
 	element.addEventListener("click", function() {
 		//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
-	storeSelectByIdRequest = sendRequest("storeSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeAjax, "POST");
+		storeSelectByIdRequest = sendRequest("storeSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeAjax, "POST");
+		storeRatingListRequest = sendRequest("storeRatingSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeRatingListAjax, "POST");
+		productRatingListRequest = sendRequest("productRatingSelectById.do", "lanCode="+lanCode+"&id="+elementId, productRatingListAjax, "POST");
 	});
 }
 
@@ -52,7 +59,7 @@ function starRatingView(elementName,element,index){
 		star.setAttribute("data-rating", i);
 		divTag.appendChild(star);
 	}
-	starRating(elementName, element, false);
+	starRating(elementName, element, index, false);
 	return divTag;
 }
 
@@ -75,15 +82,58 @@ function storeAjax(){
 						tableId:'sinnerTableDiv',
 						tableClass:'sdivTableRow'
 				},
-				'executeFunction' : storeBackGroundSettng
+				'executeFunction' : storeBackGroundSettingAndRating
 		};
 		listView(data);
 	}
 }
 
-//DB에서 가지고 온 해당 스토어에 해당하는 Background를 출력합니다.
+//DB에서 가지고 온 해당 스토어에 해당하는 Background를 출력함
 //일단은 문자열로 설정한 뒤 추후 변경 예정
-function storeBackGroundSettng(element){
+function storeBackGroundSettingAndRating(element){
 	element.className="text-vertical-center bgBlur";
 	element.style.backgroundImage="url(img/portfolio-2.jpg)";
+	
+	//요소의 상하 위치를 변경. product 리뷰를 하단으로 옮기기를 위함.
+	element.insertBefore(element.lastChild,element.firstChild)
+}
+
+function productRatingListAjax(){
+	if (productRatingListRequest.readyState == 4 && productRatingListRequest.status == 200) {
+		var data = {
+				'json' : productRatingListRequest.responseText,
+				'column' : ['email','id','code','oz','taste','ratComment','ratDate'],
+				'columnId' :['email','id','code','oz','taste','ratComment','ratDate'],
+				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'],
+				'elementId' : 'storeView',
+				'innerSet' : {
+						hiddenColumn:['lanCode','ratNum'],
+						divId:'productRatingListView',
+						divClass:'container bg-gray',
+						tableId:'sinnerTableDiv',
+						tableClass:'sdivTableRow'
+				}
+		};
+		listView(data);
+	}
+}
+
+function storeRatingListAjax(){
+	if (storeRatingListRequest.readyState == 4 && storeRatingListRequest.status == 200) {
+		var data = {
+				'json' : storeRatingListRequest.responseText,
+				'column' : ['email','id','interior','ratAccess','costEffect','ratComment','ratDate'],
+				'columnId' :['email','id','interior','ratAccess','costEffect','ratComment','ratDate'],
+				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'],
+				'elementId' : 'storeView',
+				'innerSet' : {
+						hiddenColumn:['lanCode','ratNum'],
+						divId:'storeRatingListView',
+						divClass:'container bg-gray',
+						tableId:'sinnerTableDiv',
+						tableClass:'sdivTableRow'
+				}
+		};
+		listView(data);
+	}
 }

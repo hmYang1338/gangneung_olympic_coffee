@@ -25,7 +25,8 @@
   </head>
 
 <body>
-    <!-- Navigation -->
+
+	<!-- Navigation -->
     <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle">
       <i class="fa fa-bars"></i>
     </a>
@@ -35,16 +36,16 @@
           <i class="fa fa-times"></i>
         </a>
         <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#top">Start Bootstrap</a>
+          <a class="js-scroll-trigger" href="#top">강릉 커피 거리</a>
+        </li>
+         <li>
+          <a class="js-scroll-trigger" onclick="loginBtn();">로그인/회원가입</a>
         </li>
         <li>
-          <a class="js-scroll-trigger" href="#top">Home</a>
+          <a class="js-scroll-trigger" href="#top">메인으로</a>
         </li>
         <li>
-          <a class="js-scroll-trigger" href="#about">About</a>
-        </li>
-        <li>
-          <a class="js-scroll-trigger" href="#services">Services</a>
+          <a class="js-scroll-trigger" href="#about">스토어 목록</a>
         </li>
         <li>
           <a class="js-scroll-trigger" href="#portfolio">Portfolio</a>
@@ -64,6 +65,23 @@
         <a href="#about" class="btn btn-dark btn-lg js-scroll-trigger">Find Out More</a>
       </div>
     </header>
+    
+    <!-- 로그인 모달 -->
+
+	<div class="container">
+		<div class="modal fade" id="modalLP" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content" id="modalMember">
+<!-- 					<div class="modal-header"> -->
+<!-- 						<button type="button" class="close" data-dismiss="modal">&times;</button> -->
+<!-- 						<h4 class="modal-title">Modal Header</h4> -->
+<!-- 					</div> -->
+<!-- 					<div class="modal-body"> -->
+<!-- 					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
 
     <!-- About -->
     <section id="about" class="about">
@@ -92,7 +110,7 @@
 
     <!-- Callout -->
     <aside class="callout">
-      <div class="text-vertical-center" id="storeView">
+      <div class="text-vertical-center container" id="storeView">
       <!-- 여기에 store가 나타납니다 -->
       </div>
     </aside>
@@ -224,6 +242,7 @@
 	<script src="js/form/listView.js"></script>
 	<script src="js/ajax/storeList.js"></script>
 	<script src="js/ajax/storeSearch.js"></script>
+	<script src="js/ajax/memberLoginJoin.js"></script>
 	<script src="js/form/starRating.js"></script>
   </body>
 

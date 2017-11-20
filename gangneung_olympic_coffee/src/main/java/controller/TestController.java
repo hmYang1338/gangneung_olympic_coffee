@@ -17,9 +17,11 @@ import com.sun.xml.internal.ws.developer.MemberSubmissionEndpointReference;
 import dao.MemberDAO;
 import dao.ProductRatingDAO;
 import dao.StoreDAO;
+import dao.StoreRatingDAO;
 import dto.Member;
 import dto.ProductRating;
 import dto.Store;
+import dto.StoreRating;
 import dto.UserGPS;
 
 @Controller
@@ -30,6 +32,8 @@ public class TestController {
 	private StoreDAO storeDAO;
 	@Autowired
 	private ProductRatingDAO productRatingDAO;
+	@Autowired
+	private StoreRatingDAO storeRatingDAO;
 	
 	@RequestMapping("/test.do")
 	public String TestGo(Model model) {
@@ -108,5 +112,42 @@ public class TestController {
 		}
 	}
 	
+	@RequestMapping("/storeRatingSelect.do")
+	public @ResponseBody List<StoreRating> storeRatingSelect(){
+		return storeRatingDAO.selectAllStoreRating();
+	}
+	
+	@RequestMapping("/storeRatingSelectById.do")
+	public @ResponseBody List<StoreRating> storeRatingSelectById(@ModelAttribute StoreRating storeRating){
+		System.out.println(storeRating);
+		return storeRatingDAO.selectAllStoreRatingById(storeRating);
+	}
+	
+	@RequestMapping("/storeRatingDelete.do")
+	public @ResponseBody String storeRatingDelete(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession) {
+		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+			return "need login";
+		} else {
+			return storeRatingDAO.deleteStoreRating(storeRating)>0?"success":"fail";
+		}
+	}
+	
+	@RequestMapping("/storeRatingUpdate.do")
+	public @ResponseBody String storeRatingUpdate(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession) {
+		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+			return "need login";
+		} else {
+			return storeRatingDAO.updateStoreRating(storeRating)>0?"success":"fail";
+		}
+	}
+	
+	@RequestMapping("/storeRatingInsert.do")
+	public @ResponseBody String storeRatingInsert(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession) {
+		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+			return "need login";
+		} else {
+			return storeRatingDAO.insertStoreRating(storeRating)>0?"success":"fail";
+		}
+	}
 }
 

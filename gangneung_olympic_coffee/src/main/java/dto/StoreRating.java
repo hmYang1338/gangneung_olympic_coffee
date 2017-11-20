@@ -3,7 +3,7 @@ package dto;
 import java.util.Date;
 
 public class StoreRating {
-	private int rat_num;
+	private int ratNum;
 	private String email;
 	private int lanCode;
 	private int id;
@@ -15,9 +15,9 @@ public class StoreRating {
 	
 	public StoreRating() {}
 
-	public StoreRating(int rat_num, String email, int lanCode, int id, int interior, int ratAccess, int costEffect,
+	public StoreRating(int ratNum, String email, int lanCode, int id, int interior, int ratAccess, int costEffect,
 			String ratComment, Date ratDate) {
-		this.rat_num = rat_num;
+		this.ratNum = ratNum;
 		this.email = email;
 		this.lanCode = lanCode;
 		this.id = id;
@@ -28,12 +28,12 @@ public class StoreRating {
 		this.ratDate = ratDate;
 	}
 
-	public int getRat_num() {
-		return rat_num;
+	public int getRatNum() {
+		return ratNum;
 	}
 
-	public void setRat_num(int rat_num) {
-		this.rat_num = rat_num;
+	public void setRatNum(int ratNum) {
+		this.ratNum = ratNum;
 	}
 
 	public String getEmail() {
@@ -103,8 +103,8 @@ public class StoreRating {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("StoreRating [rat_num=");
-		builder.append(rat_num);
+		builder.append("StoreRating [ratNum=");
+		builder.append(ratNum);
 		builder.append(", email=");
 		builder.append(email);
 		builder.append(", lanCode=");
@@ -137,7 +137,7 @@ public class StoreRating {
 		result = prime * result + ratAccess;
 		result = prime * result + ((ratComment == null) ? 0 : ratComment.hashCode());
 		result = prime * result + ((ratDate == null) ? 0 : ratDate.hashCode());
-		result = prime * result + rat_num;
+		result = prime * result + ratNum;
 		return result;
 	}
 
@@ -175,7 +175,7 @@ public class StoreRating {
 				return false;
 		} else if (!ratDate.equals(other.ratDate))
 			return false;
-		if (rat_num != other.rat_num)
+		if (ratNum != other.ratNum)
 			return false;
 		return true;
 	}
