@@ -2,8 +2,12 @@ package controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import com.sun.xml.internal.ws.developer.MemberSubmissionEndpointReference;
-
-import dao.MemberDAO;
 import dao.ProductRatingDAO;
 import dao.StoreDAO;
 import dao.StoreRatingDAO;
@@ -34,7 +37,11 @@ public class TestController {
 	private ProductRatingDAO productRatingDAO;
 	@Autowired
 	private StoreRatingDAO storeRatingDAO;
-	
+	@Autowired 
+	private SessionLocaleResolver localeResolver; 
+	@Autowired 
+	private MessageSource messageSource;
+
 	@RequestMapping("/test.do")
 	public String TestGo(Model model) {
 		return "index";

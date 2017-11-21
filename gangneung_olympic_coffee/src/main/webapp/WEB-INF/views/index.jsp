@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -9,11 +10,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>우리의 커피</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <title><spring:message code="site.title"/></title>
+    
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
@@ -25,6 +24,13 @@
   </head>
 
 <body>
+	<p>
+		<a href="<c:url value="/test.do?lang=ko" />">한국어</a> 
+		<a href="<c:url value="/test.do?lang=en" />">English</a>
+		<a href="<c:url value="/test.do?lang=zh" />">Chinese</a>
+	</p>
+
+
 
 	<!-- Navigation -->
     <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle">
@@ -36,54 +42,87 @@
           <i class="fa fa-times"></i>
         </a>
         <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#top">강릉 커피 거리</a>
+          <a class="js-scroll-trigger" href="#top"><spring:message code="site.list.top"/></a>
         </li>
          <li>
-          <a class="js-scroll-trigger" onclick="loginBtn();">로그인/회원가입</a>
+          <a class="js-scroll-trigger" href="#fff" onclick="loginBtn();"><spring:message code="site.list.loginJoin"/></a>
         </li>
         <li>
-          <a class="js-scroll-trigger" href="#top">메인으로</a>
+          <a class="js-scroll-trigger" href="#top"><spring:message code="site.list.toMain"/></a>
         </li>
         <li>
-          <a class="js-scroll-trigger" href="#about">스토어 목록</a>
+          <a class="js-scroll-trigger" href="#about"><spring:message code="site.list.storeList"/></a>
         </li>
         <li>
           <a class="js-scroll-trigger" href="#portfolio">Portfolio</a>
         </li>
         <li>
-          <a class="js-scroll-trigger" href="#contact" onclick='$( "#menu-close").click();'>Contact</a>
+          <a class="js-scroll-trigger" href="#contact" onclick='$("#menu-close").click();'>Contact</a>
         </li>
       </ul>
     </nav>
 
     <!-- Header -->
     <header class="header" id="top">
-      <div class="text-vertical-center">
-        <h1>GangNeung Coffee</h1>
-        <h3>Start You're Coffee Life In GangNeung</h3>
-        <br>
-        <a href="#about" class="btn btn-dark btn-lg js-scroll-trigger">Find Out More</a>
-      </div>
-    </header>
+		<div id="myCarousel" class="carousel slide">
+			<ol class="carousel-indicators">
+				<li class="item1 active"></li>
+				<li class="item2"></li>
+				<li class="item3"></li>
+				<li class="item4"></li>
+			</ol>
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<img src="img/gangneung-coffee-1.jpg" alt="GangNeung" width="460" height="345">
+					<div class="carousel-caption">
+						<h3><spring:message code="site.main.imgTitle1"/></h3>
+						<p><spring:message code="site.main.imgSubTitle1"/></p>
+					</div>
+				</div>
+				<div class="item">
+					<img src="img/gangneung-coffee-2.jpg" alt="GangNeung" width="460" height="345">
+					<div class="carousel-caption">
+						<h3><spring:message code="site.main.imgTitle2"/></h3>
+						<p><spring:message code="site.main.imgSubTitle2"/></p>
+					</div>
+				</div>
+
+				<div class="item">
+					<img src="img/gangneung-coffee-3.jpg" alt="GangNeung" width="460" height="345">
+					<div class="carousel-caption">
+						<h3><spring:message code="site.main.imgTitle3"/></h3>
+						<p><spring:message code="site.main.imgSubTitle3"/></p>
+					</div>
+				</div>
+
+				<div class="item">
+					<img src="img/gangneung-coffee-4.jpg" alt="GangNeung" width="460" height="345">
+					<div class="carousel-caption">
+						<h3><spring:message code="site.main.imgTitle4"/></h3>
+						<p><spring:message code="site.main.imgSubTitle4"/></p>
+					</div>
+				</div>
+
+			</div>
+			<a class="left carousel-control" href="#myCarousel" role="button">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only"><spring:message code="site.main.previous"/></span>
+			</a> <a class="right carousel-control" href="#myCarousel" role="button">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only"><spring:message code="site.main.next"/></span>
+			</a>
+		</div>
+	</header>
     
     <!-- 로그인 모달 -->
-
-	<div class="container">
-		<div class="modal fade" id="modalLP" role="dialog">
-			<div class="modal-dialog">
-				<div class="modal-content" id="modalMember">
-<!-- 					<div class="modal-header"> -->
-<!-- 						<button type="button" class="close" data-dismiss="modal">&times;</button> -->
-<!-- 						<h4 class="modal-title">Modal Header</h4> -->
-<!-- 					</div> -->
-<!-- 					<div class="modal-body"> -->
-<!-- 					</div> -->
-				</div>
+	<div class="modal fade" id="loginLP" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content" id="modalMember">
 			</div>
 		</div>
 	</div>
 
-    <!-- About -->
+	<!-- About -->
     <section id="about" class="about">
       <div class="container text-center">
         <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
@@ -244,6 +283,7 @@
 	<script src="js/ajax/storeSearch.js"></script>
 	<script src="js/ajax/memberLoginJoin.js"></script>
 	<script src="js/form/starRating.js"></script>
+	<script src="js/effect/mainImageSlide.js"></script>
   </body>
 
 </html>

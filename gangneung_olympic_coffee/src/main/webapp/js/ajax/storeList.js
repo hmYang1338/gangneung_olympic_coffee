@@ -41,10 +41,16 @@ function storeSelectById(element){
 	element.appendChild(starRatingView("STORERATING",element,elementId));
 	
 	element.addEventListener("click", function() {
-		//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
-		storeSelectByIdRequest = sendRequest("storeSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeAjax, "POST");
-		storeRatingListRequest = sendRequest("storeRatingSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeRatingListAjax, "POST");
-		productRatingListRequest = sendRequest("productRatingSelectById.do", "lanCode="+lanCode+"&id="+elementId, productRatingListAjax, "POST");
+		$(document).ready(function(){
+			//fadeToggle->이전에 있던 DIV를 지워지는 듯한 효과를 줌
+			$('#storeView').fadeToggle();
+			//fadeIn->비워진 DIV에 새로운 항목이 나타나는 듯한 효과를 줌
+			$('#storeView').fadeIn();
+			//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
+			storeSelectByIdRequest = sendRequest("storeSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeAjax, "POST");
+			storeRatingListRequest = sendRequest("storeRatingSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeRatingListAjax, "POST");
+			productRatingListRequest = sendRequest("productRatingSelectById.do", "lanCode="+lanCode+"&id="+elementId, productRatingListAjax, "POST");
+		});
 	});
 }
 
@@ -70,10 +76,7 @@ function storeAjax(){
 				'json' : storeSelectByIdRequest.responseText,
 				'column' : ['name','tel','addr','storeHours'],
 				'columnId' :['name','tel','addr','storeHours'],
-				'columnClass' : ['store-name',
-					'',
-					'',
-					''],
+				'columnClass' : ['store-name','',''],
 				'elementId' : 'storeView',
 				'innerSet' : {
 						hiddenColumn:['id','let','longi'],
