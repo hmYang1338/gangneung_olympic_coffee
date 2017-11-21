@@ -45,7 +45,7 @@
 	<div class="container col-centered text-center">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 blue-background">
 	<h1>카페 정보 입력</h1>
-	<form class="form-group blue" name="insertStore"  method="post" id="insertStore">
+	<form class="form-group brown" name="insertStore"  method="post" action="insertStore.do" id="insertStore">
 		<p align="left" style="color: blue;">카 페 ID : </p>
 		<input type="text" name="id" id="id" class="form-control input-lg blue"/><br>
 		<p align="left" style="color: blue;">이	   름 : </p>
@@ -86,9 +86,7 @@
 	
 			if (nameCheck) {
 				console.log("storeInsert Test2");
-				document.insertStore.action ="../updateStoreForm.do";
 				document.getElementById("insertStore").submit();
-				document.insertStore.submit();
 			} else {
 				alert("회원가입에 실패하였습니다.");
 			}

@@ -6,6 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>admin.jsp</title>
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 <style type="text/css">
 .brown-background {
 	background: #f2e6d9;
@@ -77,7 +79,20 @@
 		</div>
 	</div>
 	<hr>
-	<div id="selectform" align="center"></div>
+	<div class="container">
+        <div class="row text-center">
+          <div class="col-lg-10 divTable" id="managerListView">
+          <!-- 여기에 managerList가 나타납니다. -->
+          </div>
+          <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <div class="text-vertical-center container" id="managerView">
+      <!-- 여기에 store가 나타납니다 -->
+    </div>
+    
+    <div id="selectform" align="center"></div>
 	<div id="insertform" align="center"></div>
 
 	<div class="container col-centered text-center">
@@ -105,7 +120,10 @@
 	<hr>
 	<div id="updatePasswordform" align="center"></div>
 
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 	<script src="js/ajax/httpRequest.js"></script>
+	<script src="js/form/listView.js"></script>
+	<script src="js/ajax/managerList.js"></script>
 	<script type="text/javascript">
 		var managerListRequest;
 		var managerInsertRequest;

@@ -79,15 +79,15 @@
 		VALUES(#{lanCode},#{id},#{name},#{tel},#{addr},#{lat},#{longi},#{storeHours})
 	</insert>
 	
-	<update id="updateStore" parameterType="store">
+	<update id="updateStore" parameterType="java.util.HashMap">
 		UPDATE store 
-		SET name = #{name}, tel = #{tel}, storeHours = #{storeHours}
-		WHERE lan_code = #{lanCode} AND id = #{id}
+		SET tel = #{tel}
+		WHERE id = #{id}
 	</update>
 	
-	<delete id="deleteStore" parameterType="store">
+	<delete id="deleteStore" parameterType="int">
 		DELETE
 		FROM store
-		WHERE lan_code = #{lanCode} and id = #{id}
+		WHERE id = #{id}
 	</delete>
 </mapper>	

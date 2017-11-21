@@ -51,12 +51,12 @@
 	<!-- </select> -->
 
 	<!-- 관리자 상세 조회를 위한 SELECT JOIN문 -->
-	<select id="selectOneManagerDetail" parameterType="String"
+	<select id="selectOneManagerDetail" parameterType="java.util.HashMap"
 		resultMap="managerstoreSelectmap">
 		SELECT m.email as email, m.name as name, m.tel as tel, s.name as s_name,
 		s.addr as s_addr, s.tel as s_tel
 		FROM manager m, store s
-		WHERE email=#{email} AND m.id=s.id AND m.lan_code=s.lan_code
+		WHERE email=#{email} AND m.id=s.id AND m.lan_code=#{lanCode}
 	</select>
 
 	<select id="selectOneManagerByEmail" parameterType="String" resultMap="managerMap">

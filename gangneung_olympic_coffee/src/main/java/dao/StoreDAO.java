@@ -81,17 +81,21 @@ public class StoreDAO {
 	 * @param managerstore
 	 * @return update 안되었다면 0, 되었다면 update된 행의 개수
 	 */
-	public int updateManager(Store store) {
-		return sqlSession.update("storeMapper.updateStore", store);
+	public int updateStore(int id, String tel) {
+		HashMap<String,Object> updateStore = new HashMap<>();
+		updateStore.put("id", id);
+		updateStore.put("tel", tel);
+		return sqlSession.update("storeMapper.updateStore", updateStore);
 	}
+	
 	
 	/**
 	 * 카페 정보 삭제
 	 * @param email
 	 * @return delete 안되었다면 0, 되었다면 delete된 행의 개수
 	 */
-	public int deleteManager(Store store) {
-		return sqlSession.delete("storeMapper.deleteStore", store);
+	public int deleteStore(int id) {
+		return sqlSession.delete("storeMapper.deleteStore", id);
 	}
 	
 	/***********************************************************************/

@@ -106,7 +106,7 @@
 			checkEmail();
 			checkName();
 			console.log("managerInsert Test1");
-			
+
 			if (emailCheck && nameCheck) {
 				console.log("managerInsert Test2");
 				document.getElementById("insertManager").submit();
