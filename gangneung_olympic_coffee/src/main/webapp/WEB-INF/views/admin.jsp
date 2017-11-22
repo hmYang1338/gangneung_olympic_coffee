@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -6,8 +6,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>admin.jsp</title>
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap core JavaScript -->
 <script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for this template -->
+<script src="js/stylish-portfolio.js"></script>
+    
+<!-- Custom Fonts -->
+<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+<!-- Custom CSS -->
+<link href="css/stylish-portfolio.css" rel="stylesheet">
+<link href="css/custom.css" rel="stylesheet">
 <style type="text/css">
 .brown-background {
 	background: #f2e6d9;
@@ -84,12 +100,10 @@
           <div class="col-lg-10 divTable" id="managerListView">
           <!-- 여기에 managerList가 나타납니다. -->
           </div>
-          <!-- /.col-lg-10 -->
         </div>
-        <!-- /.row -->
     </div>
     <div class="text-vertical-center container" id="managerView">
-      <!-- 여기에 store가 나타납니다 -->
+      <!-- 여기에 manager가 나타납니다 -->
     </div>
     
     <div id="selectform" align="center"></div>

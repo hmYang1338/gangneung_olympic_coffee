@@ -25,8 +25,7 @@
 
 	<!-- 운영자 전체 조회 -->
 	<select id="selectManagerAll" resultMap="managerMap">
-		SELECT email, name,
-		birth, tel, lan_code, id, img_dir, major
+		SELECT email, name, birth, tel, lan_code, id, img_dir, major
 		FROM manager
 	</select>
 
