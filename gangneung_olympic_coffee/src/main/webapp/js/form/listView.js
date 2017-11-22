@@ -22,8 +22,7 @@
  */
 
 //임시 공용 객체
-var lanCode = 1;
-
+var lanCode = 2;
 
 function listView(data){
 	//한번에 담아오는 data 배열을 사용하기 쉽게 풀어 줌

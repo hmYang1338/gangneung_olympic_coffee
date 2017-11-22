@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- @author 양현모 -->
+
+<mapper namespace="reportingMapper">
+	<resultMap type="reporting" id="reportingMap">
+		<result column="seq" property="seq"/>
+		<result column="email" property="email"/>
+		<result column="srat_num" property="sratNum"/>
+		<result column="prat_num" property="pratNum"/>
+		<result column="memail" property="memail"/>
+		<result column="req_date" property="reqDate"/>
+	</resultMap>
+	
+	<sql id="reportingColumn">
+		seq, email, srat_num, prat_num, memail, req_date
+	</sql>
+	
+	<!-- 신고 데이터 삽입 -->
+	<insert id="insertReporting" parameterType="reporting">
+		INSERT INTO Reporting(
+			<include refid="reportingColumn" />
+		)
+		VALUES(#{seq},#{email},#{sratNum},#{pratNum},#{memail},SYS-DATE)
+	</insert>
+	
+	<!-- 하나의 카페의 신고건수 조회 -->
+	<select id="selectReportingByEmail" resultMap="reportingMap" parameterType="java.util.HashMap">
+		SELECT <include refid="reportingColumn" />
+		FROM Reporting 
+		WHERE email=#{email} AND seq=#{seq}
+	</select>
+	
+	<!-- 전체 카페의 신고건수 -->
+	<select id="selectReporting" resultMap="reportingMap">
+		SELECT <include refid="reportingColumn" />
+		FROM Reporting
+	</select>
+	
+	<!-- 신고번호로 신고 삭제 -->
+	<delete id="deleteReporting" parameterType="int">
+		DELETE
+		FROM Reporting
+		WHERE seq=#{seq}
+	</delete>
+</mapper>

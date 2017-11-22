@@ -1,7 +1,8 @@
 
 //관리자 화면 실행시 비동기 통신으로 운영자 목록을 출력함
-var managerListRequest = sendRequest("selectAllManager.do", null, managerListAjax, "POST");
+var managerListRequest = sendRequest("selectAllManager.do", "lanCode=2", managerListAjax, "POST");
 var managerSelectByIdRequest;
+var managerSelectByEmailRequest;
 
 //받아온 ajax 객체를 DIV로 출력
 function managerListAjax() {
@@ -26,9 +27,9 @@ function managerListAjax() {
 
 //행 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
 function managerSelectByEmail(element){
-	var elementId= element.firstChild.getAttribute("value");
-	
 	element.addEventListener("click", function() {
+		var elementId = element.firstChild.innerText;
+		lanCode=2;
 		//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
 		managerSelectByEmailRequest = sendRequest("managerSelectByEmail.do", "lanCode="+lanCode+"&email="+elementId, managerAjax, "POST");
 	});
@@ -40,8 +41,8 @@ function managerAjax(){
 	if (managerSelectByEmailRequest.readyState == 4 && managerSelectByEmailRequest.status == 200) {
 		var data = {
 				'json' : managerSelectByEmailRequest.responseText,
-				'column' : ['email','name','tel','s_name','s_addr','s_tel'],
-				'columnId' :['email','name','tel','s_name','s_addr','s_tel'],
+				'column' : ['email','name','tel','sName','sAddr','sTel'],
+				'columnId' :['email','name','tel','sName','sAddr','sTel'],
 				'columnClass' : ['store-name',
 					'',
 					'',
@@ -53,7 +54,7 @@ function managerAjax(){
 						tableId:'sinnerTableDiv',
 						tableClass:'sdivTableRow'
 				},
-				'executeFunction' : storeBackGroundSettingAndRating
+				'executeFunction' : managerBackGroundSetting
 		};
 		listView(data);
 	}
@@ -61,9 +62,9 @@ function managerAjax(){
 
 //DB에서 가지고 온 해당 스토어에 해당하는 Background를 출력함
 //일단은 문자열로 설정한 뒤 추후 변경 예정
-function storeBackGroundSettingAndRating(element){
+function managerBackGroundSetting(element){
 	element.className="text-vertical-center bgBlur";
-	element.style.backgroundImage="url(img/portfolio-2.jpg)";
+	/*element.style.backgroundImage="url(img/portfolio-2.jpg)";*/
 	
 	//요소의 상하 위치를 변경. product 리뷰를 하단으로 옮기기를 위함.
 	element.insertBefore(element.lastChild,element.firstChild)

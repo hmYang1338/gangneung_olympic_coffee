@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="EUC-KR"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,14 +8,14 @@
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+ <script src="vendor/jquery/jquery.min.js"></script>
+ <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+ <!-- Plugin JavaScript -->
+ <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Custom scripts for this template -->
-<script src="js/stylish-portfolio.js"></script>
+ <!-- Custom scripts for this template -->
+ <script src="js/stylish-portfolio.js"></script>
     
 <!-- Custom Fonts -->
 <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -61,36 +61,41 @@
 	<div class="container col-centered text-center">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 brown-background">
 			<form class="form-group brown">
-				<h1>°ü¸®ÀÚ ÆäÀÌÁö</h1>
+				<h1>ê´€ë¦¬ì í˜ì´ì§€</h1>
 				<hr>
-				<h3>¿î¿µÀÚ ÅëÇÕ°ü¸®</h3>
+				<h3>ìš´ì˜ì í†µí•©ê´€ë¦¬</h3>
 				<hr>
 				<input type="button"
 					class="btn btn-default brown brown-background radius" id="select"
-					name="select" onclick="managerListBtn()" value="¿î¿µÀÚ Á¶È¸"> <input
+					name="select" onclick="managerListBtn()" value="ìš´ì˜ì ì¡°íšŒ"> <input
 					type="button" class="btn btn-default brown brown-background radius"
 					id="insert" name="insert" onclick="managerInsertBtn()"
-					value="¿î¿µÀÚ µî·Ï">
+					value="ìš´ì˜ì ë“±ë¡">
 				<hr>
 			</form>
 			<form class="from-group brown" name="requestForm" method="POST">
-				<h3>Ä«Æä ÅëÇÕ°ü¸®</h3>
+				<h3>ì¹´í˜ í†µí•©ê´€ë¦¬</h3>
 				<hr>
 				<input type="button"
 					class="btn btn-default brown brown-background radius"
 					id="selectStore" name="selectStore" onclick="selectStoreBtn()"
-					value="Ä«ÆäÁ¤º¸ Á¶È¸">
+					value="ì¹´í˜ì •ë³´ ì¡°íšŒ">
 				<input type="button"
 					class="btn btn-default brown brown-background radius"
 					id="insertStore" name="insertStore" onclick="insertStoreBtn()"
-					value="Ä«ÆäÁ¤º¸ ÀÔ·Â"> 
+					value="ì¹´í˜ì •ë³´ ì…ë ¥"> 
 					<!-- <input type="button"
 						class="btn btn-default brown brown-background radius" id="updateStore"
-						name="updateStore" onclick="updateStoreBtn()" value="Ä«ÆäÁ¤º¸ ¼öÁ¤">
+						name="updateStore" onclick="updateStoreBtn()" value="ì¹´í˜ì •ë³´ ìˆ˜ì •">
 					<input type="button"
 						class="btn btn-default brown brown-background radius" id="deleteStore"
-						name="deleteStore" onclick="deleteStoreBtn()" value="Ä«ÆäÁ¤º¸ »èÁ¦"> -->
+						name="deleteStore" onclick="deleteStoreBtn()" value="ì¹´í˜ì •ë³´ ì‚­ì œ"> -->
 				<hr>
+			</form>
+			<form class="from-group brown" name="" method="">
+				<h3>CHART</h3>
+				<hr>
+				
 			</form>
 		</div>
 	</div>
@@ -98,12 +103,13 @@
 	<div class="container">
         <div class="row text-center">
           <div class="col-lg-10 divTable" id="managerListView">
-          <!-- ¿©±â¿¡ managerList°¡ ³ªÅ¸³³´Ï´Ù. -->
+          <!-- ì—¬ê¸°ì— managerListê°€ ë‚˜íƒ€ë‚©ë‹ˆë‹¤. -->
           </div>
         </div>
-    </div>
+      </div>
+      <br>
     <div class="text-vertical-center container" id="managerView">
-      <!-- ¿©±â¿¡ manager°¡ ³ªÅ¸³³´Ï´Ù -->
+      <!-- ì—¬ê¸°ì— managerê°€ ë‚˜íƒ€ë‚©ë‹ˆë‹¤ -->
     </div>
     
     <div id="selectform" align="center"></div>
@@ -112,21 +118,21 @@
 	<div class="container col-centered text-center">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 blue-background">
 			<form class="form-group blue">
-				<h1>¿î¿µÀÚ ÆäÀÌÁö</h1>
+				<h1>ìš´ì˜ì í˜ì´ì§€</h1>
 				<hr>
-				<h3>¿î¿µÀÚ º»ÀÎÀÇ ºñ¹Ğ¹øÈ£ ¼öÁ¤</h3>
+				<h3>ìš´ì˜ì ë³¸ì¸ì˜ ë¹„ë°€ë²ˆí˜¸ ìˆ˜ì •</h3>
 				<hr>
 				<input type="button"
 					class="btn btn-default blue blue-background radius"
 					id="updatePassword" name="updatePassword"
-					onclick="updatePasswordBtn()" value="ÆĞ½º¿öµå ¼öÁ¤"><br>
+					onclick="updatePasswordBtn()" value="íŒ¨ìŠ¤ì›Œë“œ ìˆ˜ì •"><br>
 				<hr>
-				<h3>³» Ä«Æä °ü¸®</h3>
+				<h3>ë‚´ ì¹´í˜ ê´€ë¦¬</h3>
 				<hr>
 				<input type="button"
 					class="btn btn-default blue blue-background radius"
 					id="updateMyStore" name="updateMyStore"
-					onclick="updateMyStoreBtn()" value="³» Ä«ÆäÁ¤º¸ ¼öÁ¤">
+					onclick="updateMyStoreBtn()" value="ë‚´ ì¹´í˜ì •ë³´ ìˆ˜ì •">
 				<hr>
 			</form>
 		</div>
@@ -143,7 +149,7 @@
 		var managerInsertRequest;
 		var updatePasswordRequest;
 
-		/* ¿î¿µÀÚ °èÁ¤ Á¶È¸ */
+		/* ìš´ì˜ì ê³„ì • ì¡°íšŒ */
 		function managerListBtn() {
 			managerListRequest = sendRequest("listAjax.do", null, managerList,
 					"GET")
@@ -156,7 +162,7 @@
 			}
 		}
 
-		/* ¿î¿µÀÚ °èÁ¤ ÀÔ·Â */
+		/* ìš´ì˜ì ê³„ì • ì…ë ¥ */
 		function managerInsertBtn() {
 			managerInsertRequest = sendRequest("insertForm.do", null,
 					managerInsert, "GET")
@@ -169,7 +175,7 @@
 			}
 		}
 
-		/* ¿î¿µÀÚ ÆĞ½º¿öµå ¼öÁ¤ */
+		/* ìš´ì˜ì íŒ¨ìŠ¤ì›Œë“œ ìˆ˜ì • */
 		function updatePasswordBtn() {
 			updatePasswordRequest = sendRequest("updatePasswordForm.do", null,
 					updatePassword, "GET")
@@ -182,36 +188,46 @@
 			}
 		}
 		
-		/* °ü¸®ÀÚ_Ä«ÆäÁ¤º¸ Á¶È¸ */
+		/* ê´€ë¦¬ì_ì¹´í˜ì •ë³´ ì¡°íšŒ */
 		function selectStoreBtn() {
 			document.requestForm.action = "selectAllStore.do";
 			document.requestForm.submit();
 		}
 		
-		/* °ü¸®ÀÚ_Ä«ÆäÁ¤º¸ ÀÔ·Â */
+		/* ê´€ë¦¬ì_ì¹´í˜ì •ë³´ ì…ë ¥ */
 		function insertStoreBtn() {
 			document.requestForm.action = "insertStoreForm.do";
 			document.requestForm.submit();
 		}
 
-		/* °ü¸®ÀÚ_Ä«ÆäÁ¤º¸ ¼öÁ¤ */
+		/* ê´€ë¦¬ì_ì¹´í˜ì •ë³´ ìˆ˜ì • */
 		function updateStoreBtn() {
 			/* document.requestForm.action ="updateStoreForm.do";
 			document.requestForm.submit(); */
 			location.href = "storeUpdate.jsp"
 		}
 
-		/* °ü¸®ÀÚ_Ä«ÆäÁ¤º¸ »èÁ¦ */
+		/* ê´€ë¦¬ì_ì¹´í˜ì •ë³´ ì‚­ì œ */
 		function deleteStoreBtn() {
 			document.requestForm.action = "updateStoreForm.do";
 			document.requestForm.submit();
 		}
 
-		/* ¿î¿µÀÚ_³» Ä«ÆäÁ¤º¸ ¼öÁ¤ */
+		/* ìš´ì˜ì_ë‚´ ì¹´í˜ì •ë³´ ìˆ˜ì • */
 		function updateMyStoreBtn() {
 			document.requestForm.action = "updateMyStoreForm.do";
 			document.requestForm.submit();
 		}
+		
+		/************************************************************/
+		
+		
+		
+		
+		
+		
+		
+		
 	</script>
 </body>
 </html>

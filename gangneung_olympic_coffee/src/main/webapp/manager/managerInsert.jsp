@@ -70,6 +70,39 @@
 	</div>
 	</div>
 	
+	<div class="col-lg-6">
+		<div class="well bs-component live-less-edior-hovercontainer" 
+		data-relatedvars="legend-color,legend-border-color,input-color,input-height-base,input-bg,input-border,input-border-radius,input-border-focus,input-color-placeholder,input-bg-disabled,input-height-small,input-height-large,state-success-text,state-success-bg,state-warning-text,state-warning-bg,state-danger-text,state-danger-bg,input-group-addon-bg,input-group-addon-border-color,input-border-radius-large,input-border-radius-small">
+			<form class="form-horizontal">
+				<fieldset>
+					<legend>운영자 계정 생성</legend>
+					<div class="form-group">
+						<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+						<div class="col-lg-10">
+							<input type="text" class="form-control" id="inputEmail" placeholder="Email">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail" class="col-lg-2 control-label">Email</label>
+						<div class="col-lg-10">
+							<input type="text" class="form-control" id="inputEmail" placeholder="Email">
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<script type="text/javascript">
 		var emailCheck = false;
 		var nameCheck = false;

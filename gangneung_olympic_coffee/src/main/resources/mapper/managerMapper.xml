@@ -18,9 +18,9 @@
 		<result column="email" property="email" />
 		<result column="name" property="name" />
 		<result column="tel" property="tel" />
-		<result column="s.name" property="s_name" />
-		<result column="s.addr" property="s_addr" />
-		<result column="s.tel" property="s_tel" />
+		<result column="s.name" property="sName" />
+		<result column="s.addr" property="sAddr" />
+		<result column="s.tel" property="sTel" />
 	</resultMap>
 
 	<!-- 운영자 전체 조회 -->
@@ -50,12 +50,10 @@
 	<!-- </select> -->
 
 	<!-- 관리자 상세 조회를 위한 SELECT JOIN문 -->
-	<select id="selectOneManagerDetail" parameterType="java.util.HashMap"
-		resultMap="managerstoreSelectmap">
-		SELECT m.email as email, m.name as name, m.tel as tel, s.name as s_name,
-		s.addr as s_addr, s.tel as s_tel
+	<select id="selectOneManagerDetail" parameterType="java.util.HashMap" resultMap="managerstoreSelectmap">
+		SELECT m.email as email, m.name as name, m.tel as tel, m.lan_code as lan_code, s.name as sName, s.addr as sAddr, s.tel as sTel
 		FROM manager m, store s
-		WHERE email=#{email} AND m.id=s.id AND m.lan_code=#{lanCode}
+		WHERE m.id=s.id AND m.email=#{email} AND m.lan_code=#{lanCode}
 	</select>
 
 	<select id="selectOneManagerByEmail" parameterType="String" resultMap="managerMap">

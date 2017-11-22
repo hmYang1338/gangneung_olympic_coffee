@@ -16,7 +16,7 @@
 	</sql>
 	
 	<insert id="insertCounting" parameterType="counting">
-		INSERT INTO product(
+		INSERT INTO Counting(
 			<include refid="countingColum" />
 		)
 		VALUES(#{seq},#{lanCode},#{id},#{code},#{oz},SYS-DATE)

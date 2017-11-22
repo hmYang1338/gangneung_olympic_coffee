@@ -69,9 +69,9 @@ public class ManagerDAO {
 	
 	public ManagerStoreJOIN selectOneManagerDetail(int lanCode, String email) {
 		HashMap<String,Object> data = new HashMap<>();
-		data.put("email", email);
 		data.put("lanCode", lanCode);
-		return sqlSession.selectOne("managerMapper.selectOneManagerDetail", email);
+		data.put("email", email);
+		return sqlSession.selectOne("managerMapper.selectOneManagerDetail", data);
 	}
 	/**
 	 * 운영자 계정 생성
