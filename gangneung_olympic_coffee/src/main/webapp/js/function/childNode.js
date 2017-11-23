@@ -3,15 +3,28 @@
  * @author 신승엽
  */
 
-
-//
-function elementChildselector(element,childeName){
-	console.log(element);
+function elementChildSelectorName(element,childName){
 	var elements = element.childNodes;
+	var child;
 	var i = 0;
-	
 	for(i;i<elements.length;i++){
-		console.log(elements[i].name);
-		//if(elements[i].name)
+		if(elements[i].name==childName){
+			child=elements[i];
+			break;
+		}
 	}
+	return child;
+}
+
+function elementChildSelectorClass(element,childClass){
+	var elements = element.childNodes;
+	var child;
+	var i = 0;
+	for(i;i<elements.length;i++){
+		if(elements[i].className==childClass){
+			child=elements[i];
+			break;
+		}
+	}
+	return child;
 }

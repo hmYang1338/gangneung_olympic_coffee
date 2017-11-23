@@ -85,6 +85,10 @@ store출력을 위한 css
 	font-size: 35px;
 	border-bottom: 5px solid white;
 }
+.store-div{
+	height: 500px;
+	background-size: 100% 100%;
+}
 /*
 이미지 효과를 위한 css
 */

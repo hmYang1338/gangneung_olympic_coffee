@@ -83,6 +83,7 @@ function listView(data){
 			//json 객체의 i번째 인덱스의 컬럼명을 이용하여 값을 가지고 옴 (예, column[1] ->NAME)
 			temp.appendChild(text);
 			temp.id = columnId[j]+(i+1);
+			temp.setAttribute("name", columnId[j]);
 			temp.className = columnClass[j];
 			if(columnFunction!=null&&columnFunction[[column[j]]]!=null){
 				columnFunction[[column[j]]](temp);

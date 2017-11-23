@@ -23,7 +23,7 @@
 	</resultMap>
 	
 	<sql id="storeColum">
-		lan_code, id, name, tel, addr, lat, longi, store_hours, smoking_room, store_url, store_source
+		lan_code, id, name, tel, addr, lat, longi, store_hours, smoking_room, store_url, img, store_source
 	</sql>
 	
 	<select id="selectStore" resultMap="storeSelectMap" parameterType="int">
@@ -33,7 +33,7 @@
 	
 	<select id="selectStoreAndRating" resultType="java.util.HashMap" parameterType="int">
 		SELECT s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
-			   s.lat as lat, s.longi as longi, s.store_hours as storeHours,
+			   s.lat as lat, s.longi as longi, s.store_hours as storeHours, s.img as img,
 			   s.smoking_room as smokingRoom, s.store_url as storeUrl,
 			   AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as storeRating, 
                AVG(CAST(pR.taste as DECIMAL(10,6))) as productRating
@@ -41,7 +41,7 @@
 		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
 		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
 		WHERE s.lan_code = #{lanCode}
-		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.smoking_room, s.store_url
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.img, s.smoking_room, s.store_url
 	</select>
 	
 	<select id="selectStoreById" resultMap="storeSelectMap" parameterType="java.util.HashMap">
@@ -51,7 +51,7 @@
 	
 	<select id="selectStoreByName" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		SELECT s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
-	 		s.lat as lat, s.longi as longi, s.store_hours as storeHours,
+	 		s.lat as lat, s.longi as longi, s.store_hours as storeHours, s.img as img,
 			s.smoking_room as smokingRoom, s.store_url as storeUrl
 			AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as storeRating, 
            	AVG(CAST(pR.taste as DECIMAL(10,6))) as productRating
@@ -59,7 +59,7 @@
 		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
 		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
 		WHERE s.lan_code = #{lanCode} AND s.name LIKE '%'||#{name}||'%'
-		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.smoking_room, s.store_url
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.img, s.smoking_room, s.store_url
 	</select>
 	
 	<select id="selectStoreByDistance" resultMap="storeSelectMap" parameterType="userGPS">
@@ -69,7 +69,7 @@
 	
 	<select id="selectStoreByDistanceAndRating" resultType="java.util.HashMap" parameterType="userGPS">
 		SELECT s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
-			   s.lat as lat, s.longi as longi, s.store_hours as storeHours,
+			   s.lat as lat, s.longi as longi, s.store_hours as storeHours, s.img as img,
 			   s.smoking_room as smokingRoom, s.store_url as storeUrl
 			   AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as storeRating, 
                AVG(CAST(pR.taste as DECIMAL(10,6))) as productRating
@@ -77,7 +77,7 @@
 		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
 		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
 		WHERE s.lan_code = #{lanCode}
-		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.smoking_room, s.store_url
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.img, s.smoking_room, s.store_url
 		ORDER BY ABS((s.lat-#{lat})*(s.longi-#{longi}))
 	</select>
 	
@@ -85,7 +85,7 @@
 		INSERT INTO store(
 			<include refid="storeColum" />
 		)
-		VALUES(#{lanCode},#{id},#{name},#{tel},#{addr},#{lat},#{longi},#{storeHours},#{smokingRoom},#{storeUrl},#{storeSource})
+		VALUES(#{lanCode},#{id},#{name},#{tel},#{addr},#{lat},#{longi},#{storeHours},#{smokingRoom},#{storeUrl},#{img},#{storeSource})
 	</insert>
 	
 	<update id="updateStore" parameterType="java.util.HashMap">
