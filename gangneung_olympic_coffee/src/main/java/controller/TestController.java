@@ -28,7 +28,7 @@ import dto.StoreRating;
 import dto.UserGPS;
 
 @Controller
-@SessionAttributes({"memberSession"})
+@SessionAttributes({"memberSession","lanCode"})
 public class TestController {
 	
 	@Autowired
@@ -43,34 +43,43 @@ public class TestController {
 	private MessageSource messageSource;
 
 	@RequestMapping("/test.do")
-	public String TestGo(Model model) {
+	public String TestGo(Model data,HttpServletRequest request) {
+		String language = localeResolver.resolveLocale(request).getLanguage();
+		String[] languageCode = {"","en","ko","zh"};
+		for(int i = 1; i < languageCode.length;i++) {
+			if(language.equals(languageCode[i])) {
+				data.addAttribute("lanCode", i);
+				System.out.println(i);
+				break;
+			}
+		}
 		return "index";
 	}
 	
 	@RequestMapping("/storeList.do")
-	public @ResponseBody List<Store> StoreList() {
-		return storeDAO.getStoreSelectMap(1);
+	public @ResponseBody List<Store> StoreList(@ModelAttribute("lanCode") Integer lanCode) {
+		return storeDAO.getStoreSelectMap(lanCode);
 	}
 	
 	@RequestMapping("/storeListMap.do")
-	public @ResponseBody List<HashMap<String,Object>> StoreListMap(@RequestParam int lanCode) {
+	public @ResponseBody List<HashMap<String,Object>> StoreListMap(@ModelAttribute("lanCode") Integer lanCode) {
 		return storeDAO.getStoreSelectHashMap(lanCode);
 	}
 	
 	@RequestMapping("/nearByStore.do")
-	public @ResponseBody List<HashMap<String,Object>> nearByStore(@ModelAttribute UserGPS userGPS) {
-		userGPS.setLanCode(1);
+	public @ResponseBody List<HashMap<String,Object>> nearByStore(@ModelAttribute UserGPS userGPS,@ModelAttribute("lanCode") Integer lanCode) {
+		userGPS.setLanCode(lanCode);
 		System.out.println(userGPS);
 		return storeDAO.getStoreSelectMapByDistance(userGPS);
 	}
 	
 	@RequestMapping("/storeSelectByName.do")
-	public @ResponseBody List<HashMap<String,Object>> storeSelectByName(@RequestParam String name) {
-		return storeDAO.getStoreSelectByName(name,1);
+	public @ResponseBody List<HashMap<String,Object>> storeSelectByName(@RequestParam String name,@ModelAttribute("lanCode") Integer lanCode) {
+		return storeDAO.getStoreSelectByName(name,lanCode);
 	}
 	
 	@RequestMapping("/storeSelectById.do")
-	public @ResponseBody Store storeSelectById(@RequestParam int lanCode,@RequestParam int id) {
+	public @ResponseBody Store storeSelectById(@ModelAttribute("lanCode") Integer lanCode,@RequestParam int id) {
 		System.out.println(storeDAO.getStoreSelectById(id, lanCode));
 		return storeDAO.getStoreSelectById(id, lanCode);
 	}
@@ -87,34 +96,37 @@ public class TestController {
 	}
 	
 	@RequestMapping("/productRatingSelectById.do")
-	public @ResponseBody List<ProductRating> productRatingSelectById(@ModelAttribute ProductRating productRating){
-		System.out.println(productRating);
+	public @ResponseBody List<ProductRating> productRatingSelectById(@ModelAttribute ProductRating productRating,@ModelAttribute("lanCode") Integer lanCode){
+		productRating.setLanCode(lanCode);
 		return productRatingDAO.selectAllProductRatingById(productRating);
 	}
 	
 	@RequestMapping("/productRatingDelete.do")
-	public @ResponseBody String productRatingDelete(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession) {
+	public @ResponseBody String productRatingDelete(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession,@ModelAttribute("lanCode") Integer lanCode) {
 		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
+			productRating.setLanCode(lanCode);
 			return productRatingDAO.deleteProductRating(productRating)>0?"success":"fail";
 		}
 	}
 	
 	@RequestMapping("/productRatingUpdate.do")
-	public @ResponseBody String productRatingUpdate(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession) {
+	public @ResponseBody String productRatingUpdate(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession,@ModelAttribute("lanCode") Integer lanCode) {
 		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
+			productRating.setLanCode(lanCode);
 			return productRatingDAO.updateProductRating(productRating)>0?"success":"fail";
 		}
 	}
 	
 	@RequestMapping("/productRatingInsert.do")
-	public @ResponseBody String productRatingInsert(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession) {
+	public @ResponseBody String productRatingInsert(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
 		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
+			productRating.setLanCode(lanCode);
 			return productRatingDAO.insertProductRating(productRating)>0?"success":"fail";
 		}
 	}
@@ -125,34 +137,38 @@ public class TestController {
 	}
 	
 	@RequestMapping("/storeRatingSelectById.do")
-	public @ResponseBody List<StoreRating> storeRatingSelectById(@ModelAttribute StoreRating storeRating){
+	public @ResponseBody List<StoreRating> storeRatingSelectById(@ModelAttribute StoreRating storeRating,@ModelAttribute("lanCode") Integer lanCode){
 		System.out.println(storeRating);
+		storeRating.setLanCode(lanCode);
 		return storeRatingDAO.selectAllStoreRatingById(storeRating);
 	}
 	
 	@RequestMapping("/storeRatingDelete.do")
-	public @ResponseBody String storeRatingDelete(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession) {
+	public @ResponseBody String storeRatingDelete(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
 		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
+			storeRating.setLanCode(lanCode);
 			return storeRatingDAO.deleteStoreRating(storeRating)>0?"success":"fail";
 		}
 	}
 	
 	@RequestMapping("/storeRatingUpdate.do")
-	public @ResponseBody String storeRatingUpdate(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession) {
+	public @ResponseBody String storeRatingUpdate(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
 		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
+			storeRating.setLanCode(lanCode);
 			return storeRatingDAO.updateStoreRating(storeRating)>0?"success":"fail";
 		}
 	}
 	
 	@RequestMapping("/storeRatingInsert.do")
-	public @ResponseBody String storeRatingInsert(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession) {
+	public @ResponseBody String storeRatingInsert(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
 		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
+			storeRating.setLanCode(lanCode);
 			return storeRatingDAO.insertStoreRating(storeRating)>0?"success":"fail";
 		}
 	}

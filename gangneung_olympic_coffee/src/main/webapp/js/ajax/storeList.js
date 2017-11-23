@@ -5,7 +5,7 @@
  */
 
 //메인 화면 실행시 비동기 통신으로 커피숍 목록을 출력함
-var storeListRequest = sendRequest("storeListMap.do", "lanCode=1", storeListAjax, "POST");
+var storeListRequest = sendRequest("storeListMap.do", null, storeListAjax, "POST");
 var storeSelectByIdRequest;
 var productRatingListRequest;
 var storeRatingListRequest;
@@ -15,16 +15,16 @@ function storeListAjax() {
 	if (storeListRequest.readyState == 4 && storeListRequest.status == 200) {
 		var data ={
 				'json': storeListRequest.responseText,//json 객체
-				'column' : ['NAME','ADDR','STOREHOURS'], //JSON객체의 열 이름
-				'columnId' : ['name','addr','storeHour'], //열 id
-				'columnClass' : ['divTableCell','divTableCell','divTableCell'], //열 class
+				'column' : ['NAME'], //JSON객체의 열 이름
+				'columnId' : ['name'], //행 id
+				'columnClass' : [''], //행 class
 				'elementId' : 'storeListView', //넣으려는 div의 id 값
 				'innerSet' : {
-						hiddenColumn:['ID','PRODUCTRATING','STORERATING'],
-						divId:'innerDiv',
-						divClass:'divTableBody',
-						tableId:'innerTableDiv',
-						tableClass:'divTableRow',
+						'hiddenColumn' : ['ID','PRODUCTRATING','STORERATING','ADDR','STOREHOURS','IMG'],
+						'divClass' : '',
+						'divId' : '',
+						'tableClass' : 'store-list col-xs-6 col-ms-4 col-md-4 col-lg-4',
+						'tableId' : ''
 				},
 				'innerFunction' : storeSelectById,
 		};
@@ -33,23 +33,28 @@ function storeListAjax() {
 }
 
 //열 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
-function storeSelectById(element){
-	//rating 별 출력
-	var elementId = element.firstChild.getAttribute("value");
-	
-	element.appendChild(starRatingView("PRODUCTRATING",element,elementId));
-	element.appendChild(starRatingView("STORERATING",element,elementId));
-	
-	element.addEventListener("click", function() {
-		$(document).ready(function(){
+function storeSelectById(element) {
+	$(document).ready(function() {
+		//자식 객체의 값을 받아와 id값을 받아옴
+		var elementId = element.firstChild.getAttribute("value");
+		var cafeImage = document.createElement('img');
+		cafeImage.src = 'img/callout.jpg';
+		cafeImage.className = 'store-list-image';
+		element.insertBefore(cafeImage,element.lastChild);
+		//이름과 사진의 위치를 변경 
+		element.addEventListener("click", function() {
+			//storeView로 스크롤을 이동함.
+			$('html, body').animate({
+				scrollTop : $("#storeView").offset().top
+			}, 1000);
 			//fadeToggle->이전에 있던 DIV를 지워지는 듯한 효과를 줌
 			$('#storeView').fadeToggle();
 			//fadeIn->비워진 DIV에 새로운 항목이 나타나는 듯한 효과를 줌
 			$('#storeView').fadeIn();
 			//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
-			storeSelectByIdRequest = sendRequest("storeSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeAjax, "POST");
-			storeRatingListRequest = sendRequest("storeRatingSelectById.do", "lanCode="+lanCode+"&id="+elementId, storeRatingListAjax, "POST");
-			productRatingListRequest = sendRequest("productRatingSelectById.do", "lanCode="+lanCode+"&id="+elementId, productRatingListAjax, "POST");
+			storeSelectByIdRequest = sendRequest("storeSelectById.do", "id=" + elementId, storeAjax, "POST");
+			storeRatingListRequest = sendRequest("storeRatingSelectById.do", "id=" + elementId, storeRatingListAjax, "POST");
+			productRatingListRequest = sendRequest("productRatingSelectById.do", "id=" + elementId, productRatingListAjax, "POST");
 		});
 	});
 }

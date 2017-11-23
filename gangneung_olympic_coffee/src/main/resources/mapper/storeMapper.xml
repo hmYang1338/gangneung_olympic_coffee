@@ -13,11 +13,17 @@
 		<result column="lat" property="lat"/>
 		<result column="longi" property="longi"/>
 		<result column="store_hours" property="storeHours"/>
+		<result column="smoking_room" property="smokingRoom"/>
+		<result column="store_url" property="storeUrl"/>
+		<result column="store_source" property="storeSource" jdbcType="CLOB" javaType="java.lang.String"/>
 	</resultMap>
 	
-
+	<resultMap id="storeSourceSelectMap" type="java.util.HashMap">
+		<result column="storeSource" javaType="java.lang.String" jdbcType="CLOB" />
+	</resultMap>
+	
 	<sql id="storeColum">
-		lan_code, id, name, tel, addr, lat, longi, store_hours
+		lan_code, id, name, tel, addr, lat, longi, store_hours, smoking_room, store_url, store_source
 	</sql>
 	
 	<select id="selectStore" resultMap="storeSelectMap" parameterType="int">
@@ -28,13 +34,14 @@
 	<select id="selectStoreAndRating" resultType="java.util.HashMap" parameterType="int">
 		SELECT s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
 			   s.lat as lat, s.longi as longi, s.store_hours as storeHours,
+			   s.smoking_room as smokingRoom, s.store_url as storeUrl,
 			   AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as storeRating, 
                AVG(CAST(pR.taste as DECIMAL(10,6))) as productRating
 		FROM store s 
 		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
 		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
 		WHERE s.lan_code = #{lanCode}
-		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.smoking_room, s.store_url
 	</select>
 	
 	<select id="selectStoreById" resultMap="storeSelectMap" parameterType="java.util.HashMap">
@@ -45,13 +52,14 @@
 	<select id="selectStoreByName" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		SELECT s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
 	 		s.lat as lat, s.longi as longi, s.store_hours as storeHours,
+			s.smoking_room as smokingRoom, s.store_url as storeUrl
 			AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as storeRating, 
            	AVG(CAST(pR.taste as DECIMAL(10,6))) as productRating
 		FROM store s 
 		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
 		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
 		WHERE s.lan_code = #{lanCode} AND s.name LIKE '%'||#{name}||'%'
-		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.smoking_room, s.store_url
 	</select>
 	
 	<select id="selectStoreByDistance" resultMap="storeSelectMap" parameterType="userGPS">
@@ -62,13 +70,14 @@
 	<select id="selectStoreByDistanceAndRating" resultType="java.util.HashMap" parameterType="userGPS">
 		SELECT s.lan_code as lanCode, s.id as id, s.name as name, s.tel as tel, s.addr as addr,
 			   s.lat as lat, s.longi as longi, s.store_hours as storeHours,
+			   s.smoking_room as smokingRoom, s.store_url as storeUrl
 			   AVG(CAST(((sR.interior+sR.rat_access+sR.cost_effect)/3) as DECIMAL(10,6))) as storeRating, 
                AVG(CAST(pR.taste as DECIMAL(10,6))) as productRating
 		FROM store s 
 		LEFT OUTER JOIN storeRating sR ON s.lan_code = sR.lan_code AND s.id = sR.id
 		LEFT OUTER JOIN productRating pR ON s.lan_code = pR.lan_code AND s.id = pR.id
 		WHERE s.lan_code = #{lanCode}
-		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours
+		GROUP BY s.lan_code, s.id, s.name, s.tel, s.addr, s.lat, s.longi, s.store_hours, s.smoking_room, s.store_url
 		ORDER BY ABS((s.lat-#{lat})*(s.longi-#{longi}))
 	</select>
 	
@@ -76,7 +85,7 @@
 		INSERT INTO store(
 			<include refid="storeColum" />
 		)
-		VALUES(#{lanCode},#{id},#{name},#{tel},#{addr},#{lat},#{longi},#{storeHours})
+		VALUES(#{lanCode},#{id},#{name},#{tel},#{addr},#{lat},#{longi},#{storeHours},#{smokingRoom},#{storeUrl},#{storeSource})
 	</insert>
 	
 	<update id="updateStore" parameterType="java.util.HashMap">

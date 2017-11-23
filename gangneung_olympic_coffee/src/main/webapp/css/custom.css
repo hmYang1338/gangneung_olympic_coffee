@@ -68,6 +68,16 @@ Div 로 Table을 구성하기 위한 생성자
 .divTableBody {
 	display: table-row-group;
 }
+
+/*
+storeList 출력을 위한 css
+*/
+.store-list{
+	display: inline-block;
+}
+.store-list-image{
+	width: 100%;
+}
 /*
 store출력을 위한 css
 */
@@ -107,11 +117,10 @@ store출력을 위한 css
 .star-rating .fa-star{color: yellow;}
 
 /*Main View 구현*/
-.main-title{
-	color: white;
+.main-title {
+	color: black;
 }
 
-.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+.carousel-inner img {
 	width: 100%;
-	margin: auto;
 }
