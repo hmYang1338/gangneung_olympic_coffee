@@ -207,6 +207,9 @@
 	<script src="js/ajax/storeSearch.js"></script>
 	<script src="js/ajax/memberLoginJoin.js"></script>
 	<script src="js/form/starRating.js"></script>
+	<script src="js/ajax/member.js"></script>
+	<script src="js/function/childNode.js"></script>
+	<script src="js/function/timeStamp.js"></script>
   </body>
 
 </html>

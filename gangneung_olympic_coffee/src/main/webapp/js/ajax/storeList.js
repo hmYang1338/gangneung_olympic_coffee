@@ -110,20 +110,25 @@ function productRatingListAjax(){
 	if (productRatingListRequest.readyState == 4 && productRatingListRequest.status == 200) {
 		var data = {
 				'json' : productRatingListRequest.responseText,
-				'column' : ['email','id','code','oz','taste','ratComment','ratDate'],
-				'columnId' :['email','id','code','oz','taste','ratComment','ratDate'],
-				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'],
+				'column' : ['email','id','code','oz','taste','ratComment'],
+				'columnId' :['email','id','code','oz','taste','ratComment'],
+				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'],
 				'elementId' : 'storeView',
 				'innerSet' : {
-						hiddenColumn:['lanCode','ratNum'],
+						hiddenColumn:['lanCode','ratNum','ratDate'],
 						divId:'productRatingListView',
 						divClass:'container bg-gray',
 						tableId:'sinnerTableDiv',
 						tableClass:'sdivTableRow'
-				}
+				},
+				'innerFunction' : timeAppand
 		};
 		listView(data);
 	}
+}
+
+function timeAppand(element){
+	
 }
 
 function storeRatingListAjax(){
