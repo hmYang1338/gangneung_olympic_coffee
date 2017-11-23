@@ -1,30 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login Member</title>
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <style type="text/css">
-	.brown-background{
-		background: #f2e6d9;
-	}
-	.brown{
-		color: #996633;
-	}
 	.blue-background{
 		background: #f0f0f5;
 	}
 	.blue{
 		color: #666699;
 	}
- 	.green-background{ 
- 		background: #daffda; 
- 	} 
- 	.green{ 
- 		color: #009933; 
- 	} 
 	.radius{
 		border-width: 3px;
 		border-color: white;
@@ -54,12 +37,9 @@
 	}
 </style>
 
-</head>
-<body>
 
 	<!-- 로그인 구현 -->
-		<div class="container">
-		<div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 blue-background">
+		<div class="blue-background">
 		<form action="loginPage.do" method="POST"><br>
 			<hr class="hr-white">
 			<h3 class="blue text-center"> Login </h3><hr class="hr-white">
@@ -76,11 +56,19 @@
 					<input class="btn btn-danger btn pull-right" type="reset" value="Reset">
 					<!-- 로그인 버튼(Submit) -->
 					<input class="btn btn-primary btn pull-right" type="submit" value="Login">
-				<br></div><br>
+				<br>
+					<input type="button" id="joinButton" value="Join" onclick="">
+				</div>
+				
+				<br>
 		</form>
 		</div>
-		</div>
-	<br>
 
-</body>
-</html>
+
+	<script type="text/javascript">
+		
+		function joinButton(){
+			document.getElementById("joinButton").submit();
+		}
+	
+	</script>

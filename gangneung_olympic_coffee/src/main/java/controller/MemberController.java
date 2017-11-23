@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import dao.LanguageDAO;
 import dao.MemberDAO;
@@ -33,15 +34,16 @@ public class MemberController {
 	
 	@Autowired
 	private LanguageDAO languageDAO;
-	
+
 	@Resource(name = "shaEncoder")
 	private ShaEncoder encoder;
+
 	
 	@RequestMapping("/member.do")
 	public String TestGo(Model model) {
 		model.addAttribute("nationList",nationDAO.selectNation());
 		model.addAttribute("languageList",languageDAO.selectLanguage());
-		return "memberJoin";
+		return "forward:member/memberJoin.jsp";
 	}
 
 	@RequestMapping(value = "/loginPage.do", method = RequestMethod.POST)
@@ -58,10 +60,10 @@ public class MemberController {
 				System.out.println("성공");
 				memberDAO.updateMemberByLastDate(email);
 				model.addAttribute("memberSession", member);
-				return "memberUpdate";
+				return "forward:member/memberUpdate.jsp";
 			}else {
 				System.out.println("비밀번호 MissMatch");
-				return "memberJoin";
+				return "forward:member/memberJoin.jsp";
 			}
 		}
 		
@@ -77,17 +79,17 @@ public class MemberController {
 			System.out.println("error"); // test
 		} else {
 			System.out.println(result); // test
-			uri = "memberJoin";
+			uri = "forward:member/memberList.jsp";
 		}
 		return uri;
 	}
 	
 	//회원리스트
-	@RequestMapping(value = "/selectMemberAll.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/selectMemberAll.do")
 	public String selectMember(Model model) {
 		List<Member> list = memberDAO.selectMember();
 		model.addAttribute("memberList",list);
-		return "memberList";
+		return "forward:memeber/memberList.jsp";
 	}
 	
 	//회원탈퇴(관리자)
@@ -95,7 +97,7 @@ public class MemberController {
 	public String deleteMemberByManager(@RequestParam String email, Model model) {
 		System.out.println(email);//test
 		memberDAO.deleteMemberByManager(email);
-		return "memberList";
+		return "forward:member/memberList.jsp";
 	}
 	
 	//회원탈퇴(자발적인) - 자발적이라 썼지만 우선 admin으로도 못함...
@@ -109,10 +111,10 @@ public class MemberController {
 		if (encoder.matches(password, passwordDB)) {
 			System.out.println("삭제 완료");	// test
 			memberDAO.deleteMember(memberSession.getEmail());
-			return "memberDelete";//추후 index로 바꿔줄 것
+			return "forward:member/memberDelete.jsp";//추후 index로 바꿔줄 것
 		} else {
 			System.out.println("삭제 실패");
-			return "memberJoin";
+			return "forward:member/memberJoin.jsp";
 		}
 	}
 	
@@ -123,18 +125,18 @@ public class MemberController {
 		if(encoder.matches(passwordBefore, passwordDB)) {
 			if(password==null) {
 				memberDAO.updateMember(memberSession);
-				return "memberList";
+				return "forward:member/memberList.jsp";
 			}else if(password.length()>=8) {
 				memberSession.setPassword(encoder.encoding(memberSession.getPassword()));
 				memberDAO.updateMember(memberSession);
-				return "memberList";
+				return "forward:member/memberList.jsp";
 			}else {
 				System.out.println("Inner 실패");
-				return "memberJoin";
+				return "forward:member/memberJoin.jsp";
 			}
 		}else {
 		System.out.println("Outter 실패 - 이전 비밀번호가 틀림");
-		return "memberJoin";
+		return "forward:member/memberJoin.jsp";
 		}
 		
 	}

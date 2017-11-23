@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Join Member</title>
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <style type="text/css">
 	.brown-background{
 		background: #f2e6d9;
@@ -55,17 +50,13 @@
 	}
 </style>
 
-</head>
-<body>
 
 	<a href="selectMemberAll.do">리스트 보기</a>
-	<a href="memberLogin.jsp">로그인</a>
+	<a href="member.do">로그인</a>
 	
 	<br><hr><br>
 	
 	<!-- 회원 가입 구현 -->
-	<div class="container">
-		<div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 blue-background">
 			<form action="insertMember.do" id="joinMember" name="joinMember" role="form" method="POST"><br>
 			<hr class="hr-white">
 			<h3 class="blue text-center"> Member Join </h3><hr class="hr-white">
@@ -156,8 +147,6 @@
 			
 			</form>
 		
-		</div>
-	</div>
 	
 	<!-- 회원가입 판별 -->
 	<script type="text/javascript">
@@ -200,7 +189,7 @@
     	
     	/* 이메일 패턴 확인 */
     	function checkEmail(){
-    		var email = document.getElementById("email").trim().value;
+    		var email = document.getElementById("email").value;
     		if(validateEmail(email)){
     			emailCheck = true;
     		}else{
@@ -211,8 +200,9 @@
     
     	/* 이름 확인 - NULL 불가 */
     	function checkName(){
-    		var name = document.getElementById("name").trim().value;
+    		var name = document.getElementById("name").value;
     		if(name.length>0){
+    			console.log("이메일 확인 들어감");//test
     			nameCheck = true;
     		}else{
     			nameCheck = false;
@@ -246,5 +236,3 @@
     	}
     	
     </script>
-</body>
-</html>
