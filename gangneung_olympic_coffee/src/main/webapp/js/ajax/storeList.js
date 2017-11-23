@@ -128,7 +128,8 @@ function productRatingListAjax(){
 }
 
 function timeAppand(element){
-	
+	console.log('timeAppand 들어옴');
+	elementChildselector(element,'ratDate');
 }
 
 function storeRatingListAjax(){

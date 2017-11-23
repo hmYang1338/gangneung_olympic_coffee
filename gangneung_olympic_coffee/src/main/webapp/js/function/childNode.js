@@ -6,11 +6,12 @@
 
 //
 function elementChildselector(element,childeName){
+	console.log(element);
 	var elements = element.childNodes;
 	var i = 0;
 	
 	for(i;i<elements.length;i++){
-		console.log(elemts[i].name);
+		console.log(elements[i].name);
 		//if(elements[i].name)
 	}
 }
