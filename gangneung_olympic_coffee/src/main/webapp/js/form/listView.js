@@ -60,8 +60,8 @@ function listView(data){
 	//각 행별 데이터를 차곡차곡 쌓습니다.
 	for(i=0 ;i<json.length;i++){
 		innerTableDiv = document.createElement('div');
-		innerTableDiv.id = innerSet['tableId'];
-		innerTableDiv.className = innerSet['tableClass']+" "+innerSet['tableClass']+i;
+		innerTableDiv.id = innerSet['tableId']+i;
+		innerTableDiv.className = innerSet['tableClass'];
 		
 		//히든 태그가 NULL이면 동작하지 않으며, 히든 태그 선언시, input type=hidden의 Element 생성
 		if(innerSet['hiddenColumn']!=null){

@@ -17,13 +17,13 @@ function storeListAjax() {
 				'json': storeListRequest.responseText,//json 객체
 				'column' : ['NAME'], //JSON객체의 열 이름
 				'columnId' : ['name'], //행 id
-				'columnClass' : ['col-xs-10 col-ms-10 col-md-10 col-lg-10'], //행 class
+				'columnClass' : ['col-xs-12 col-ms-12 col-md-12 col-lg-12 store-list-name'], //행 class
 				'elementId' : 'storeListView', //넣으려는 div의 id 값
 				'innerSet' : {
 						'hiddenColumn' : ['ID','PRODUCTRATING','STORERATING','ADDR','STOREHOURS','IMG'],
 						'divClass' : '',
 						'divId' : '',
-						'tableClass' : 'store-list col-xs-6 col-ms-4 col-md-4 col-lg-4',
+						'tableClass' : 'store-list pic col-xs-6 col-ms-4 col-md-4 col-lg-4',
 						'tableId' : ''
 				},
 				'innerFunction' : storeSelectById,
@@ -40,7 +40,7 @@ function storeSelectById(element) {
 		var cafeImage = document.createElement('img');
 		//각 카페별 대표 이미지 값들을 받아옴. 거기에서 가벼운 파일인 preview파일로 바꾸기 위하여 치환 함.
 		cafeImage.src = elementChildSelectorName(element,'IMG').value.replace('.JPG', '_preview.JPG');
-		cafeImage.className = 'store-list-image';
+		cafeImage.className = 'store-list-image pic-image';
 		element.insertBefore(cafeImage,element.lastChild);
 		//이름과 사진의 위치를 변경 
 		element.addEventListener("click", function() {
@@ -57,6 +57,15 @@ function storeSelectById(element) {
 			storeRatingListRequest = sendRequest("storeRatingSelectById.do", "id=" + elementId, storeRatingListAjax, "POST");
 			productRatingListRequest = sendRequest("productRatingSelectById.do", "id=" + elementId, productRatingListAjax, "POST");
 		});
+		
+		//호버시 돋보기 이펙트를 줌
+		var hoverEffect = document.createElement('span');
+		var hoverImage = document.createElement('img');
+		hoverImage.src = 'img/glass.svg';
+		hoverImage.className = 'pic-title hover-img-effect';
+		hoverEffect.appendChild(hoverImage);
+		hoverEffect.className='pic-caption bottom-to-top cursor';
+		element.appendChild(hoverEffect);
 	});
 }
 
@@ -74,11 +83,12 @@ function storeAjax(){
 				'innerSet' : {
 						hiddenColumn:['id','let','longi','smokingRoom','storeUrl','img','storeSource'],
 						divId:'sinnerDiv',
-						divClass:'bg-gray store-div',
+						divClass:'bg-gray',
 						tableId:'sinnerTableDiv',
-						tableClass:'sdivTableRow'
+						tableClass:'text-center bgBlur store-info col-sm-12'
 				},
-				'innerFunction' : storeExecute
+				'innerFunction' : storeExecute,
+				'executeFunction' : storeExecutePlus
 		};
 		listView(data);
 	}
@@ -94,10 +104,17 @@ function storeExecute(element){
 		}
 	});
 	//커피숍의 백그라운드 이미지를 지정하는 코드
-	element.parentElement.style.backgroundImage='url("'+elementChildSelectorName(element,'img').value+'")';
-	element.className="text-vertical-center bgBlur";
+//	var parent = element.parentElement;
+//	parent.style.backgroundImage='url("'+elementChildSelectorName(element,'img').value+'")';
 	//요소의 상하 위치를 변경. product 리뷰를 하단으로 옮기기를 위함.
-	element.insertBefore(element.lastChild,element.firstChild)
+}
+
+function storeExecutePlus(element){
+	//정보가 있는 엘리멘트를 받아옴
+	var resourceElement = element.lastChild.firstChild;
+	element.style.backgroundImage='url("'+elementChildSelectorName(resourceElement,'img').value+'")';
+	//요소의 상하 위치를 변경. product 리뷰를 하단으로 옮기기를 위함.
+	element.insertBefore(element.lastChild,element.lastChild.previousElementSibling);
 }
 
 //별 표시를 위한 span 테그 생성 및 리턴
@@ -130,10 +147,17 @@ function productRatingListAjax(){
 						tableId:'sinnerTableDiv',
 						tableClass:'sdivTableRow'
 				},
-				'innerFunction' : timeAppand
+				'innerFunction' : timeAppandProductStoreRating
 		};
 		listView(data);
 	}
+}
+
+//Date타입을 사용자가 보기 편하게 바꿔주는 메소드, Table안에 지정
+function timeAppandProductStoreRating(element){
+	var time = timeAppand(element);
+	element.lastChild.className = 'divTableCell';
+	element.lastChild.id = 'date';
 }
 
 function storeRatingListAjax(){
@@ -151,7 +175,7 @@ function storeRatingListAjax(){
 						tableId:'sinnerTableDiv',
 						tableClass:'sdivTableRow'
 				},
-				'innerFunction' : timeAppand
+				'innerFunction' : timeAppandProductStoreRating
 		};
 		listView(data);
 	}

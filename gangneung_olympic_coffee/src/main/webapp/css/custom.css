@@ -78,16 +78,30 @@ storeList 출력을 위한 css
 .store-list-image{
 	width: 100%;
 }
+.store-list-name{
+	background-color: white;
+	text-align: center;
+	font-size: 15px;
+}
+.hover-img-effect{
+	width: 150px;
+    height: auto;
+    margin: auto;
+}
 /*
 store출력을 위한 css
 */
-.store-name{
-	font-size: 35px;
-	border-bottom: 5px solid white;
-}
 .store-div{
 	height: 500px;
 	background-size: 100% 100%;
+	display: table-cell;
+}
+.store-info{
+	
+}
+.store-name{
+	font-size: 35px;
+	border-bottom: 5px solid white;
 }
 /*
 이미지 효과를 위한 css
@@ -127,4 +141,29 @@ store출력을 위한 css
 
 .carousel-inner img {
 	width: 100%;
+}
+
+/*커서 효과*/
+.cursor {
+	cursor: pointer;
+}
+/*우선 순위*/
+#absolute-index{
+	position: absolute;
+}
+
+#index-one{
+	z-index: 1;
+}
+#index-two{
+	z-index: 2;
+}
+#index-three{
+	z-index: 3;
+}
+#index-four{
+	z-index: 4;
+}
+#index-five{
+	z-index: 5;
 }
