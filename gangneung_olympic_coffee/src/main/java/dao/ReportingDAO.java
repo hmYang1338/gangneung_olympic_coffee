@@ -20,24 +20,6 @@ public class ReportingDAO {
 	private SqlSession sqlSession;
 	
 	/**
-	 * 운영자가 신고하였을 때, 테이블에 저장함
-	 * @param reporting
-	 * @return 
-	 */
-	public int insertReport(Reporting reporting) {
-		return sqlSession.insert("reportingMapper.insertReporting", reporting);
-	}
-	
-	/**
-	 * 신고삭제
-	 * @param seq
-	 * @return
-	 */
-	public int deleteReport(int seq) {
-		return sqlSession.delete("reportingMapper.deleteReporting", seq);
-	}
-	
-	/**
 	 * 전체 신고건수 조회
 	 * @return
 	 */
@@ -56,4 +38,23 @@ public class ReportingDAO {
 		data.put("email", email);
 		return sqlSession.selectOne("reportingMapper.selectReportingByEmail", data);
 	}
+	
+	/**
+	 * 운영자가 신고하였을 때, 테이블에 저장함
+	 * @param reporting
+	 * @return 
+	 */
+	public int insertReport(Reporting reporting) {
+		return sqlSession.insert("reportingMapper.insertReporting", reporting);
+	}
+	
+	/**
+	 * 신고삭제
+	 * @param seq
+	 * @return
+	 */
+	public int deleteReport(int seq) {
+		return sqlSession.delete("reportingMapper.deleteReporting", seq);
+	}
+	
 }

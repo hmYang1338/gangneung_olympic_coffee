@@ -1,4 +1,7 @@
-
+/**
+ * 운영자 리스트
+ * @author 양현모
+ */
 //관리자 화면 실행시 비동기 통신으로 운영자 목록을 출력함
 var managerListRequest = sendRequest("selectAllManager.do", "lanCode=2", managerListAjax, "POST");
 var managerSelectByIdRequest;

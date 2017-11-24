@@ -92,25 +92,30 @@
 						name="deleteStore" onclick="deleteStoreBtn()" value="카페정보 삭제"> -->
 				<hr>
 			</form>
-			<form class="from-group brown" name="" method="">
-				<h3>CHART</h3>
-				<hr>
-				
-			</form>
 		</div>
 	</div>
 	<hr>
+	<!-- managerList 비동기 -->
 	<div class="container">
-        <div class="row text-center">
-          <div class="col-lg-10 divTable" id="managerListView">
-          <!-- 여기에 managerList가 나타납니다. -->
-          </div>
-        </div>
-      </div>
-      <br>
-    <div class="text-vertical-center container" id="managerView">
-      <!-- 여기에 manager가 나타납니다 -->
-    </div>
+		<div class="row text-center">
+			<div class="col-lg-10 divTable" id="managerListView">
+				<!-- 여기에 managerList가 나타납니다. -->
+			</div>
+		</div>
+	</div>
+    <br>
+	<div class="text-vertical-center container" id="managerView">
+		<!-- 여기에 manager가 나타납니다 -->
+	</div>
+    
+    <!-- reportingList 비동기 -->
+    <div class="container">
+		<div class="row text-center">
+			<div class="col-lg-10 divTable" id="reportingListView">
+				<!-- 여기에 reportingList가 나타납니다. -->
+			</div>
+		</div>
+	</div>
     
     <div id="selectform" align="center"></div>
 	<div id="insertform" align="center"></div>
@@ -127,13 +132,13 @@
 					id="updatePassword" name="updatePassword"
 					onclick="updatePasswordBtn()" value="패스워드 수정"><br>
 				<hr>
-				<h3>내 카페 관리</h3>
+				<!-- <h3>내 카페 관리</h3>
 				<hr>
 				<input type="button"
 					class="btn btn-default blue blue-background radius"
 					id="updateMyStore" name="updateMyStore"
 					onclick="updateMyStoreBtn()" value="내 카페정보 수정">
-				<hr>
+				<hr> -->
 			</form>
 		</div>
 	</div>
