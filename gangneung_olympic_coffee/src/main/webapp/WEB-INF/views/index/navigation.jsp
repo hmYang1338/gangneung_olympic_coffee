@@ -20,13 +20,17 @@
 			<a href="<c:url value="/test.do?lang=en" />"><spring:message code="site.language.english"/></a>
 			<a href="<c:url value="/test.do?lang=zh" />"><spring:message code="site.language.chinese"/></a>
         </div>
-        <!-- 관리자/운영자 모드 -->
-        <li>
-          <a class="js-scroll-trigger" href="#fff" onclick="">관리자/운영자</a>
-        </li>
         <!-- 로그인/회원가입 -->
         <li>
-          <a class="js-scroll-trigger" href="#fff" onclick="loginBtn();"><spring:message code="site.list.loginJoin"/></a>
+        <c:choose>
+          <c:when test="${empty memberSession.email}">
+          	<a class="js-scroll-trigger" href="#fff" onclick="loginBtn();"><spring:message code="site.list.loginJoin"/></a>
+          </c:when>
+          <c:when test="${not empty memberSession.email}">
+        	<a class="js-scroll-trigger" href="logout.do"><spring:message code="site.list.logout"/></a>
+        	<a class="js-scroll-trigger" href="#fff" onclick="updateBtn();"><spring:message code="site.list.update"/></a>
+          </c:when>
+        </c:choose>
         </li>
         <!-- 메인으로 -->
         <li>

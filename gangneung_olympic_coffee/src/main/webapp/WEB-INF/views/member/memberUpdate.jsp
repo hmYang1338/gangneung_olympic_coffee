@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>회원 정보 수정</title>
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <style type="text/css">
 	.brown-background{
 		background: #f2e6d9;
@@ -53,15 +48,12 @@
 	    float: right!important;
 	    margin-right: 20px;
 	}
+	.btn-bottom-margin{
+		margin-bottom: 20px;
+	}
 </style>
-</head>
-<body>
-
 	<!-- 회원 정보 수정 -->
-	<div class="container">
-		<div class="col-xs-10 col-sm-8 col-md-8 col-lg-8 blue-background">
-			
-			<form method="POST" id="updateMember" name="updateMember" action="updateMember.do">
+			<form id="updateMember" name="updateMember" action="updateMember.do" method="POST">
 			<br>
 			<hr class="hr-white">
 			<h3 class="blue text-center"> Update Member </h3><hr class="hr-white">
@@ -90,7 +82,7 @@
 				<!-- 회원 국가 변경 -->
 				<div class="form-group">
 					<label for="nationCode" class="control-label blue">Update Nation&nbsp;:&nbsp;</label>
-					<select name="nationCode" id="nationCode">
+					<select name="nationCode" id="nationCode" class="form-control input-lg blue">
 					  <c:if test="${not empty requestScope.nationList}">
 						<c:forEach items="${requestScope.nationList}" var="nation" >
 						  <option value="${nation.nationCode}">${nation.nation}</option>
@@ -102,8 +94,8 @@
 					<!-- 회원 언어 변경 -->
 					<div class="form-group">
 						<label for="lanCode" class="control-label blue">Update Language&nbsp;:&nbsp;</label>
-					 	<select name="lanCode" id="lanCode" required="required">
-					 	  <c:if test="${not empty requestScope.languageList}"><!-- not empty일 때 설정 필요 -->
+					 	<select name="lanCode" id="lanCode" class="form-control input-lg blue">
+					 	  <c:if test="${not empty requestScope.languageList}">
 					 		<c:forEach var="language" items="${requestScope.languageList}">
 					 		  <option value="${language.lanCode}">${language.language}</option>
 					 		</c:forEach>
@@ -114,13 +106,13 @@
 					<!-- 회원 이름 변경 -->
 					<div class="form-group">
 						<label for="lanCode" class="control-label blue">Update Name&nbsp;:&nbsp;</label>
-						<input type="text" id="name" name="name" maxlength="20" value="${memberSession.name}" required="required">
+						<input type="text" id="name" name="name" class="form-control input-lg blue" maxlength="20" value="${memberSession.name}" required="required">
 					</div><br>
 					
 					<!-- 회원 국가 변경 -->
 					<div class="form-group">
 						<label for="lanCode" class="control-label blue">Update CellPhone&nbsp;:&nbsp;</label>
-						<input type="tel" id="tel" name="tel" maxlength="20" value="${memberSession.tel}">
+						<input type="tel" id="tel" name="tel" class="form-control input-lg blue" maxlength="20" value="${memberSession.tel}">
 					</div><br>
 					
 					<!-- 회원 성별 변경 -->
@@ -158,114 +150,7 @@
 				
 					
 					
-					<input type="date" id="birth" name="birth" value="${memberSession.birth}" required="required"><br>
-					<input type="text" id="imgDir" name="imgDir" value="${memberSession.imgDir}"><br>
-					<input type="submit" value="변경">
+					<input type="date" id="birth" class="form-control input-lg blue" name="birth" value="${memberSession.birth}" required="required"><br>
+					<input type="text" id="imgDir" class="form-control input-lg blue" name="imgDir" value="${memberSession.imgDir}"><br>
+					<input type="submit" class="btn-bottom-margin" value="변경">
 			</form>
-			
-		</div>
-	</div>
-	
-	<script type="text/javascript">
-	
-	var emailCheck = false;
-	var passwordCheck = false;
-	var passwordLengthCheck = false;
-	var nameCheck = false;
-	//var genderCheck = false;
-	//var birthCheck = false;
-	
-		/* 비밀번호 재확인 글 나오기  */
-    	function compare(){
-    		var alert = document.getElementById("alert");
-    		var pw1 = document.getElementById("password").value;
-    		var pw2 = document.getElementById("password2").value;
-    		if(pw1.length>=8&&pw2.length>=8){
-    			passwordLengthCheck = true;
-	    		if(pw1!=pw2){
-	    			passwordCheck = false;
-	    			alert.innerHTML = "<font color='red'>일치하지 않습니다</font>";
-	    		} else {
-	    			passwordCheck = true;
-	    			alert.innerHTML = "<font color='green'>일치합니다</font>";
-	    		}
-    		}else{
-    			passwordLengthCheck = false;
-    			alert.innerHTML = "<font color='red'>비밀번호는 8자 이상입니다.</font>";
-    		}
-    	}
-		
-    	/* 이메일 패턴 설정 */
-    	function validateEmail(email) {
-    		  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    		  return re.test(email);
-   		}
-    	
-    	/* 이메일 패턴 확인 */
-    	function checkEmail(){
-    		var email = document.getElementById("email").value;
-    		if(validateEmail(email)){
-    			emailCheck = true;
-    		}else{
-    			emailCheck = false;
-    			alert("올바른 이메일을 입력하여 주세요.");
-    		}
-    	}
-    
-    	/* 이름 확인 - NULL 불가 */
-    	function checkName(){
-    		var name = document.getElementById("name").value;
-    		if(name.length>0){
-    			nameCheck = true;
-    		}else{
-    			nameCheck = false;
-    			alert("올바른 이름을 입력하여 주세요");
-    		}
-    	}
-    	/*
-    	// 성별 확인 - 보안성  
-    	function checkGender(){
-    		var radioVal = $(':radio[name="gender"]:checked').val();
-    		var gender1 = document.getElementsById("gender1").value;
-    		var gender2 = document.getElementsById("gender2").value;
-    		if(radioVal=='1'||radioVal=='2'){
-    			genderCheck = true;
-    			console.log("들어갔다");
-    		}else{
-    			genderCheck = false;
-    			alert("성별을 선택하여 주세요");
-    		}
-    	}
-    	
-    	// 생년월일 확인 
-    	function checkBirth(){
-    		var birth = document.getElementsById("birth").value;
-    		if(birth.length>0){
-    			birthCheck = true;
-    		}else{
-    			birthCheck = false;
-    			alert("생일을 선택하여 주세요");
-    		}
-    	}
-    	*/
-    	function shin1(){
-    		checkEmail();
-    		checkName();
-    			console.log("들어감1");
-    		//checkGender();
-    		//checkBirth();
-    		
-    		//emailCheck&&passwordCheck&&passwordLengthCheck&&nameCheck&&genderCheck&&birthCheck
-    		if(emailCheck&&passwordCheck&&passwordLengthCheck&&nameCheck){
-    			//alert("회원가입을 축하드립니다.");
-    			console.log("들어감2");
-    			document.getElementById("joinMember").submit();
-    		}else{
-    			alert("회원가입에 실패하였습니다.");
-    		}
-    	}
-    	
-    </script>
-
-</body>
-</html>

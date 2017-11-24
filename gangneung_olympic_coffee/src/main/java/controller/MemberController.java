@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import dao.LanguageDAO;
@@ -38,14 +39,30 @@ public class MemberController {
 	@Resource(name = "shaEncoder")
 	private ShaEncoder encoder;
 
+	/**
+	 * 버튼 클릭시 로그인 페이지 이동
+	 * @return 로그인 페이지
+	 */
+	@RequestMapping("/loginBtn.do")
+	public String loginBtn(Model model) {
+		model.addAttribute("languageList",languageDAO.selectLanguage());
+		return "member/memberLogin";
+	}
 	
-	@RequestMapping("/member.do")
-	public String TestGo(Model model) {
+	@RequestMapping("/memberJoinBtn.do")
+	public String memberJoinBtn(Model model) {
 		model.addAttribute("nationList",nationDAO.selectNation());
 		model.addAttribute("languageList",languageDAO.selectLanguage());
-		return "forward:member/memberJoin.jsp";
+		return "member/memberJoin";
 	}
 
+	@RequestMapping("/memberUpdateBtn.do")
+	public String memberUpdateBtn(@ModelAttribute Member memberSession, Model model) {
+		model.addAttribute("nationList",nationDAO.selectNation());
+		model.addAttribute("languageList",languageDAO.selectLanguage());
+		return "member/memberUpdate";
+	}
+	
 	@RequestMapping(value = "/loginPage.do", method = RequestMethod.POST)
 	public String loginPage(@RequestParam String email, @RequestParam String password, Model model) {
 		Member member = memberDAO.selectMemberByEmail(email);
@@ -60,16 +77,30 @@ public class MemberController {
 				System.out.println("성공");
 				memberDAO.updateMemberByLastDate(email);
 				model.addAttribute("memberSession", member);
-				return "forward:member/memberUpdate.jsp";
+				return "redirect:test.do";
 			}else {
 				System.out.println("비밀번호 MissMatch");
 				return "forward:member/memberJoin.jsp";
 			}
 		}
-		
+	}
+	/**
+	 * Logout시에 session 제거
+	 * @param status
+	 * @return Main Page 이동
+	 */
+	@RequestMapping("/logout.do")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		return "redirect:test.do";
 	}
 
-	//회원가입
+	/**
+	 * 회원가입
+	 * @param member
+	 * @param model
+	 * @return Main Page 이동
+	 */
 	@RequestMapping(value = "/insertMember.do", method = RequestMethod.POST)
 	public String insertMember(@ModelAttribute Member member, Model model) {
 		String uri = null;
@@ -78,8 +109,7 @@ public class MemberController {
 		if (result == 0) {
 			System.out.println("error"); // test
 		} else {
-			System.out.println(result); // test
-			uri = "forward:member/memberList.jsp";
+			uri = "redirect:test.do";
 		}
 		return uri;
 	}

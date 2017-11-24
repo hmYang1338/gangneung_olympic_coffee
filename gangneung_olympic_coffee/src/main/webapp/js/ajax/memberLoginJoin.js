@@ -4,7 +4,7 @@
  */
 var memberLogin;
 function loginBtn(){
-	memberLogin = sendRequest("member/memberLogin.jsp", null, memberLoginAjax, "GET");
+	memberLogin = sendRequest("loginBtn.do", null, memberLoginAjax, "GET");
 }
 
 //받아온 ajax 객체를 DIV로 출력

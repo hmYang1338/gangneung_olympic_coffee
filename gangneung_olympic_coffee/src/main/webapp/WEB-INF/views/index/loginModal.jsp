@@ -5,7 +5,7 @@
   <!-- 로그인 모달 -->
 	<div class="modal fade" id="loginLP" role="dialog">
 		<div class="modal-dialog">
-			<div class="modal-content" id="modalMember">
+			<div class="modal-content container blue-background" id="modalMember">
 			</div>
 		</div>
 	</div>
