@@ -17,18 +17,23 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import dao.LanguageDAO;
+import dao.ManagerDAO;
 import dao.MemberDAO;
 import dao.NationDAO;
+import dto.Manager;
 import dto.Member;
 import sercurity.ShaEncoder;
 
 
 @Controller
-@SessionAttributes({"memberSession"})
+@SessionAttributes({"memberSession","managerSession"})
 public class MemberController {
 	
 	@Autowired
 	private MemberDAO memberDAO;
+	
+	@Autowired
+	private ManagerDAO managerDAO;
 	
 	@Autowired
 	private NationDAO nationDAO;
@@ -66,15 +71,27 @@ public class MemberController {
 	@RequestMapping(value = "/loginPage.do", method = RequestMethod.POST)
 	public String loginPage(@RequestParam String email, @RequestParam String password, Model model) {
 		Member member = memberDAO.selectMemberByEmail(email);
+		Manager manager = managerDAO.selectManagerByEmail(email);
 		System.out.println(member);
+		System.out.println(manager);
 		model.addAttribute("nationList",nationDAO.selectNation());
 		model.addAttribute("languageList",languageDAO.selectLanguage());
 		if (member == null) {// ID가 없는경우
-			System.out.println("없는 회원입니다.");	// test
-			throw new UsernameNotFoundException(email + "는 없는 회원입니다.");
+			if(manager == null) {
+				System.out.println("없는 회원입니다.");	// test
+				throw new UsernameNotFoundException(email + "는 없는 회원입니다.");
+			}else {
+				if(encoder.matches(password, manager.getPassword())) {
+					System.out.println(manager.getId()+"Manager님 입장");//test
+					model.addAttribute("managerSession",manager);
+					return "redirect:test.do";
+				}else {
+					System.out.println("Error");//test
+				}
+			}
 		}else {
 			if(encoder.matches(password, member.getPassword())) {
-				System.out.println("성공");
+				System.out.println("성공");//test
 				memberDAO.updateMemberByLastDate(email);
 				model.addAttribute("memberSession", member);
 				return "redirect:test.do";
@@ -83,6 +100,7 @@ public class MemberController {
 				return "forward:member/memberJoin.jsp";
 			}
 		}
+		return "redirect:test.do";
 	}
 	/**
 	 * Logout시에 session 제거
@@ -155,11 +173,11 @@ public class MemberController {
 		if(encoder.matches(passwordBefore, passwordDB)) {
 			if(password==null) {
 				memberDAO.updateMember(memberSession);
-				return "forward:member/memberList.jsp";
+				return "redirect:test.do";
 			}else if(password.length()>=8) {
 				memberSession.setPassword(encoder.encoding(memberSession.getPassword()));
 				memberDAO.updateMember(memberSession);
-				return "forward:member/memberList.jsp";
+				return "redirect:test.do";
 			}else {
 				System.out.println("Inner 실패");
 				return "forward:member/memberJoin.jsp";

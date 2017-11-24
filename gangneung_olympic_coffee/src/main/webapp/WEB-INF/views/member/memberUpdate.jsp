@@ -59,61 +59,63 @@
 			<h3 class="blue text-center"> Update Member </h3><hr class="hr-white">
 				
 				<!-- 회원 Email -->
-				<div class="form-group">
 					<label for="email" class="control-label blue">Email&nbsp;:&nbsp;</label>
 					<input type="hidden" name="email" value="${memberSession.email}">
 					<p class="form-control-static">${memberSession.email}</p>
-				</div><br>
+				
+				<br>
 				
 				<!-- 회원 기존 Password -->
-				<div class="form-group">
 					<label for="passwordBefore" class="control-label blue">Before PassWord&nbsp;:&nbsp;</label>
 					<input type="password" name="passwordBefore" maxlength="16" placeholder="Enter Before Password" class="form-control input-lg blue"><br>
-				</div><br>
+				
+				<br>
 				
 				<!-- 회원 변경 Password -->
-				<div class="form-group">
 					<label for="password" class="control-label blue">Update PassWord&nbsp;:&nbsp;</label>
 					<input type="password" id="password" name="password" maxlength="16" placeholder="Enter Update Password" class="form-control input-lg blue" onchange="compare()"><br>
 					<input type="password" id="password2" name="password2" maxlength="16" placeholder="Reconfirm Update Password" class="form-control input-lg blue" onchange="compare()">
 					<div id="alert"></div>
-				</div><br>
+				
+				<br>
 				
 				<!-- 회원 국가 변경 -->
-				<div class="form-group">
 					<label for="nationCode" class="control-label blue">Update Nation&nbsp;:&nbsp;</label>
-					<select name="nationCode" id="nationCode" class="form-control input-lg blue">
+					<select name="nationCode" id="nationCode" class="form-control input-lg blue" required="required">
 					  <c:if test="${not empty requestScope.nationList}">
 						<c:forEach items="${requestScope.nationList}" var="nation" >
+					  <%-- <option selected="selected" value="${memberSession.nationCode}">${memberSession.nation}</option> --%>
 						  <option value="${nation.nationCode}">${nation.nation}</option>
 						</c:forEach>
 					  </c:if>
 					</select>
-					</div><br>
+				
+				<br>
 					
 					<!-- 회원 언어 변경 -->
-					<div class="form-group">
 						<label for="lanCode" class="control-label blue">Update Language&nbsp;:&nbsp;</label>
 					 	<select name="lanCode" id="lanCode" class="form-control input-lg blue">
 					 	  <c:if test="${not empty requestScope.languageList}">
+					 	 <%--  <option selected="selected" value="${memberSession.languageCode}">${memberSession.language}</option> --%>
 					 		<c:forEach var="language" items="${requestScope.languageList}">
 					 		  <option value="${language.lanCode}">${language.language}</option>
 					 		</c:forEach>
 					 	  </c:if>
 						</select>
-					</div><br>
+				
+				<br>
 					
 					<!-- 회원 이름 변경 -->
-					<div class="form-group">
 						<label for="lanCode" class="control-label blue">Update Name&nbsp;:&nbsp;</label>
 						<input type="text" id="name" name="name" class="form-control input-lg blue" maxlength="20" value="${memberSession.name}" required="required">
-					</div><br>
+				
+				<br>
 					
 					<!-- 회원 국가 변경 -->
-					<div class="form-group">
 						<label for="lanCode" class="control-label blue">Update CellPhone&nbsp;:&nbsp;</label>
 						<input type="tel" id="tel" name="tel" class="form-control input-lg blue" maxlength="20" value="${memberSession.tel}">
-					</div><br>
+				
+				<br>
 					
 					<!-- 회원 성별 변경 -->
 					<!-- memberSession.gender==1 일 때 checked Male, memeberSession.gender==2일 때 checked Female -->
@@ -150,7 +152,81 @@
 				
 					
 					
-					<input type="date" id="birth" class="form-control input-lg blue" name="birth" value="${memberSession.birth}" required="required"><br>
-					<input type="text" id="imgDir" class="form-control input-lg blue" name="imgDir" value="${memberSession.imgDir}"><br>
-					<input type="submit" class="btn-bottom-margin" value="변경">
+					<input type="text" id="imgDir" class="form-control input-lg blue" name="imgDir" value="${memberSession.imgDir}">
+				
+				<br>
+				
+					<input type="button" class="btn-bottom-margin" value="변경" onclick="updateChecking()">
+			
 			</form>
+
+			
+			
+			
+			
+	<!-- 회원가입 판별 -->
+	<script type="text/javascript">
+
+	
+	var passwordCheck = false;
+	var passwordLengthCheck = false;
+	var nameCheck = false;
+	var genderCheck = false;
+	
+		/* 비밀번호 재확인 글 나오기  */
+    	function compare(){
+    		var alert = document.getElementById("alert");
+    		var pw1 = document.getElementById("password").value;
+    		var pw2 = document.getElementById("password2").value;
+    		if(pw1.length>=8&&pw2.length>=8){
+    			passwordLengthCheck = true;
+	    		if(pw1!=pw2){
+	    			passwordCheck = false;
+	    			alert.innerHTML = "<font color='red'>일치하지 않습니다</font>";
+	    		} else {
+	    			passwordCheck = true;
+	    			alert.innerHTML = "<font color='green'>일치합니다</font>";
+	    		}
+    		}else{
+    			passwordLengthCheck = false;
+    			alert.innerHTML = "<font color='red'>비밀번호는 8자 이상입니다.</font>";
+    		}
+    	}
+    
+    	/* 이름 확인 - NULL 불가 */
+    	function checkName(){
+    		var name = document.getElementById("name").value;
+    		if(name.length>0){
+    			console.log("이메일 확인 들어감");//test
+    			nameCheck = true;
+    		}else{
+    			nameCheck = false;
+    			alert("올바른 이름을 입력하여 주세요");
+    		}
+    	}
+    	
+    	// 성별 확인 - 보안성  
+    	function checkGender(){
+    		var gender = document.getElementById("gender").value;
+    		if(gender==1||gender==2){
+    			genderCheck = true;
+    		}else{
+    			genderCheck = false;
+    			alert("성별을 선택하여 주세요");
+    		}
+    	}
+    	
+    	function updateChecking(){
+    		checkName();
+    		checkGender();
+    		
+    		//emailCheck&&passwordCheck&&passwordLengthCheck&&nameCheck&&genderCheck&&birthCheck
+    		if(passwordCheck&&passwordLengthCheck&&nameCheck&&genderCheck){
+    			alert("회원정보 수정을 완료하였습니다.");
+    			document.getElementById("updateMember").submit();
+    		}else{
+    			alert("회원정보 수정에 실패하였습니다.");
+    		}
+    	}
+    	
+    </script>

@@ -26,7 +26,7 @@
 	<select id="selectMemberByEmail" parameterType="String" resultMap="memberMap">
 		SELECT email, password, name, tel, gender, birth, nation_code, lan_code, join_date, last_date, img_dir, access_code
 		FROM member
-		WHERE email LIKE #{email}
+		WHERE email = #{email}
 	</select>
 	
 	<!-- User가 User 정보 검색 -->

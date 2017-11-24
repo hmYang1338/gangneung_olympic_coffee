@@ -48,6 +48,9 @@
 	    float: right!important;
 	    margin-right: 20px;
 	}
+	.btn-bottom-margin{
+		margin-bottom: 20px;
+	}
 </style>
 
 
@@ -59,23 +62,22 @@
 	<!-- 회원 가입 구현 -->
 			<form action="insertMember.do" id="joinMember" name="joinMember" role="form" method="POST"><br>
 			<hr class="hr-white">
-			<h3 class="blue text-center"> Member Join </h3><hr class="hr-white">
-				<div class="form-group">
-					<label for="email" class="control-label blue">Email&nbsp;:&nbsp;</label>
-					<input type="email" id="email" name="email" maxlength="30" placeholder="Enter Email" class="form-control input-lg blue" required="required">
-				</div><br>
+			<h3 class="blue text-center"><spring:message code="site.member.join"/></h3><hr class="hr-white">
+					<label for="email" class="control-label blue"><spring:message code="site.member.email"/>&nbsp;:&nbsp;</label>
+					<input type="email" id="email" name="email" maxlength="30" placeholder='<spring:message code="site.member.email"/>' class="form-control input-lg blue" required="required">
+
+				<br>
 				
 				<!-- 비밀번호 -->
-				<div class="form-group">
-					<label for="password" class="control-label blue">PassWord&nbsp;:&nbsp;</label>
-					<input type="password" id="password" name="password" maxlength="16" placeholder="Enter Password" class="form-control input-lg blue" required="required" onchange="compare()"><br>
-					<input type="password" id="password2" name="password2" maxlength="16" placeholder="Reconfirm Password" class="form-control input-lg blue" required="required" onchange="compare()">
+					<label for="password" class="control-label blue"><spring:message code="site.member.password"/>&nbsp;:&nbsp;</label>
+					<input type="password" id="password" name="password" maxlength="16" placeholder='<spring:message code="site.member.passwordPlaceHolder"/>' class="form-control input-lg blue" required="required" onchange="compare()"><br>
+					<input type="password" id="password2" name="password2" maxlength="16" placeholder='<spring:message code="site.member.repassword"/>' class="form-control input-lg blue" required="required" onchange="compare()">
 				<div id="alert"></div>
-				</div><br>
+				
+				<br>
 				
 				<!-- 국가 설정 -->
-				<div class="form-group">
-					<label for="nationCode" class="control-label blue">Nation&nbsp;:&nbsp;</label>
+					<label for="nationCode" class="control-label blue"><spring:message code="site.member.nation"/>&nbsp;:&nbsp;</label>
 					<select name="nationCode" id="nationCode" class="form-control input-lg blue" required="required">
 					  <c:if test="${not empty requestScope.nationList}">
 						<c:forEach items="${requestScope.nationList}" var="nation" >
@@ -83,11 +85,11 @@
 						</c:forEach>
 					  </c:if>
 					</select>
-				</div><br>
+
+				<br>
 				
 				<!-- 언어 설정 -->
-				<div class="form-group">
-					<label for="lanCode" class="control-label blue">Language&nbsp;:&nbsp;</label>
+					<label for="lanCode" class="control-label blue"><spring:message code="site.member.language"/>&nbsp;:&nbsp;</label>
 				 	<select name="lanCode" id="lanCode" class="form-control input-lg blue" required="required">
 				 	  <c:if test="${not empty requestScope.languageList}">
 				 		<c:forEach var="language" items="${requestScope.languageList}">
@@ -95,54 +97,56 @@
 				 		</c:forEach>
 				 	  </c:if>
 					</select>
-				</div><br>
+
+				<br>
 				
 				<!-- 이름 -->
-				<div class="form-group">
-					<label for="name" class="control-label blue">Name&nbsp;:&nbsp;</label>
+					<label for="name" class="control-label blue"><spring:message code="site.member.name"/>&nbsp;:&nbsp;</label>
 					<input type="text" id="name" name="name" maxlength="20" class="form-control input-lg blue" placeholder="Enter Name" required="required">
-				</div><br>
+
+				<br>
 				
 				<!-- 전화번호 -->
-				<div class="form-group">
-					<label for="tel" class="control-label blue">CellPhone&nbsp;:&nbsp;</label>
+					<label for="tel" class="control-label blue"><spring:message code="site.member.cellphone"/>&nbsp;:&nbsp;</label>
 					<input type="tel" id="tel" name="tel" class="form-control input-lg blue" placeholder="Enter CellPhone Number" maxlength="20">
-				</div><br>
+					
+					
+				<br>
 				
 				<!-- 성별 -->
-					<label for="gender" class="control-label blue">Gender&nbsp;:&nbsp;</label>
-					<div class="raio-group">
+					<label for="gender" class="control-label blue"><spring:message code="site.member.gender"/>&nbsp;:&nbsp;</label>
+				<div class="raio-group">
 					<label class="custom-control custom-radio">
 					  <input id="gender" name="gender" type="radio" class="custom-control-input" value="1">
 					  <span class="custom-control-indicator"></span>
-					  <span class="custom-control-description">Male</span>
+					  <span class="custom-control-description"><spring:message code="site.member.man"/></span>
 					</label><br>
 					<label class="custom-control custom-radio">
 					  <input id="gender" name="gender" type="radio" class="custom-control-input" value="2">
 					  <span class="custom-control-indicator"></span>
-					  <span class="custom-control-description">Female</span>
+					  <span class="custom-control-description"><spring:message code="site.member.woman"/></span>
 					</label>
 				</div><br>
 				
 				<!-- 생년월일 -->
-				<div class="form-group">
-					<label for="birth" class="control-label blue">BirthDay&nbsp;:&nbsp;</label>
-					<input type="date" id="birth" name="birth" class="form-control input-lg blue" value="1992-01-01" min="1917-01-01" max="2017-11-15" title="Birth Day" required="required">
-				</div><br>
+					<label for="birth" class="control-label blue"><spring:message code="site.member.birthday"/>&nbsp;:&nbsp;</label>
+					<input type="date" id="birth" name="birth" class="form-control input-lg blue" value="1992-01-01" min="1917-01-01" max="2017-11-24" title='<spring:message code="site.member.birthday"/>' required="required">
+				
+				<br>
 				
 				<!-- 프로필 사진 -->
-				<div class="form-group">
-					<label for="imgDir" class="control-label blue">Profile Image&nbsp;:&nbsp;</label>
-					<input type="text" id="imgDir" name="imgDir" class="form-control input-lg blue" placeholder="Enter Your Profile Image">
-				</div><br>
+					<label for="imgDir" class="control-label blue"><spring:message code="site.member.profileimg"/>&nbsp;:&nbsp;</label>
+					<input type="text" id="imgDir" name="imgDir" class="form-control input-lg blue" placeholder='<spring:message code="site.member.profileimg"/>'>
+<!-- text가 아닌 파일 업로드로 변환 필요 -->
+				<br>
 				
 				<!-- 승인코드 -->
-				<div class="form-group">
-					<label for="imgDir" class="control-label blue">Profile Image&nbsp;:&nbsp;</label>
+					<label for="imgDir" class="control-label blue">지울 내용 Access위해 잠시&nbsp;:&nbsp;</label>
 					<input type="text" id="accessCode" name="accessCode" class="form-control input-lg blue" title="accessCode">
 					<br>
-					<input type="button" class="btn btn-primary btn pull-right" id="button" value="submit" onclick="checking();">
-				<br></div><br>
+					<input type="button" class="btn btn-default pull-right btn-bottom-margin" id="button" value='<spring:message code="site.member.join"/>' onclick="checking();">
+					
+				<br>
 				
 			
 			</form>

@@ -23,7 +23,7 @@
         <!-- 로그인/회원가입 -->
         <li>
         <c:choose>
-          <c:when test="${empty memberSession.email}">
+          <c:when test="${empty memberSession.email&&empty managerSession.email}">
           	<a class="js-scroll-trigger" href="#fff" onclick="loginBtn();"><spring:message code="site.list.loginJoin"/></a>
           </c:when>
           <c:when test="${not empty memberSession.email}">
@@ -31,7 +31,8 @@
         	<a class="js-scroll-trigger" href="#fff" onclick="updateBtn();"><spring:message code="site.list.update"/></a>
           </c:when>
           <c:when test="${not empty managerSession.email}">
-          <a class="js-scroll-trigger" href="#fff" onclick="manageBtn();">사이트 관리</a>
+       		<a class="js-scroll-trigger" href="logout.do"><spring:message code="site.list.logout"/></a>
+          	<a class="js-scroll-trigger" href="#fff" onclick="manageBtn();"><spring:message code="site.list.siteAdmin"/></a>
           </c:when>
         </c:choose>
         </li>

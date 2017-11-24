@@ -89,8 +89,14 @@
 	<update id="updatePassword" parameterType="java.util.HashMap">
 		UPDATE manager
 		SET password=#{password}
-		WHERE email=#{email}
+		WHERE email = #{email}
 	</update>
 	
+	<!-- 관리자&운영자  -->
+	<select id="selectManagerByEmail" parameterType="String" resultMap="managerMap">
+		SELECT email,password,name,tel,birth,lan_code,id,img_dir,major
+		FROM manager
+		WHERE email=#{email}
+	</select>
 
 </mapper>	

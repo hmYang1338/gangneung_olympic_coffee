@@ -115,4 +115,8 @@ public class ManagerDAO {
 		updatePassword.put("password", password);
 		return sqlSession.update("managerMapper.updatePassword", updatePassword);
 	}
+	
+	public Manager selectManagerByEmail(String email) {
+		return sqlSession.selectOne("managerMapper.selectManagerByEmail",email);
+	}
 }

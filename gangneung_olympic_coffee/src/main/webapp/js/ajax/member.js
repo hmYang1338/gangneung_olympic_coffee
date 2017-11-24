@@ -27,6 +27,7 @@ function updateBtn(){
 	memberUpdate = sendRequest("memberUpdateBtn.do",null,memberUpdateAjax,"GET");
 }
 
+
 function memberUpdateAjax(){
 	if(memberUpdate.readyState == 4 && memberUpdate.status == 200) {
 		$(document).ready(function(){
