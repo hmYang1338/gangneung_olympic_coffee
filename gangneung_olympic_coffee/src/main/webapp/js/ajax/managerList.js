@@ -33,7 +33,6 @@ function managerSelectByEmail(element){
 	element.addEventListener("click", function() {
 		var elementId = element.firstChild.innerText;
 		lanCode=2;
-		//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
 		managerSelectByEmailRequest = sendRequest("managerSelectByEmail.do", "lanCode="+lanCode+"&email="+elementId, managerAjax, "POST");
 	});
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import dao.LanguageDAO;
 import dao.ManagerDAO;
 import dao.ReportingDAO;
 import dao.StoreDAO;
@@ -35,7 +36,8 @@ public class ManagerController {
 	private ManagerDAO managerDao;
 	@Autowired
 	private ReportingDAO reportingDao;
-	
+	@Autowired
+	private LanguageDAO languageDAO;
 	
 	@Resource(name = "shaEncoder")
 	private ShaEncoder encoder;
@@ -46,6 +48,23 @@ public class ManagerController {
 		return "admin";
 	}
 
+	/**
+	 * manager가 관리하는 창을 띄움
+	 * @return
+	 */
+	@RequestMapping(value="/showManage.do")
+	public String showManage() {
+		return "manager/showManage";
+	}
+	@RequestMapping(value="/showManagerManage.do")
+	public String showManagerManage() {
+		return "manager/managerManage";
+	}
+	@RequestMapping(value="/showStoreManage.do")
+	public String showStoreManage() {
+		return "manager/storeManage";
+	}
+	
 	
 	/**
 	 * (폼)운영자 계정 생성하는 폼
@@ -53,8 +72,9 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insertForm.do")
-	public String showInsertForm() {
-		return "test/managerInsert";
+	public String showInsertForm(Model model) {
+		model.addAttribute("languageList", languageDAO.selectLanguage());
+		return "manager/managerInsert";
 	}
 
 	/**
@@ -77,12 +97,11 @@ public class ManagerController {
 		}
 		manager.setPassword(encoder.encoding(manager.getPassword())); // 비밀번호암호화
 		int result = managerDao.insertManager(manager);
-		/* data.addAttribute(attributeName, attributeValue) */
 		if (result == 0) {
 			System.out.println("error"); // test//계정 생성 실패시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 			uri = "test/error";
 		} else {
-			uri = "admin"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
+			uri = "redirect:test.do"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		}
 		return uri;
 	}
@@ -97,7 +116,7 @@ public class ManagerController {
 	public String listAjax(Model data) {
 		String url = "test/error";
 		data.addAttribute("list", managerDao.selectManagerAll());
-		url = "test/managerList"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
+		url = "manager/managerList"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		return url;
 	}
 
@@ -131,14 +150,15 @@ public class ManagerController {
 		String url = "test/error";
 		ManagerStoreJOIN managerstore = null;
 		managerstore = managerDao.selectOneManagerDetail(email);
-
+		
 		if (managerstore == null) {
 			data.addAttribute("error", "해당 게시글이 존재하지 않습니다");
 		} else {
 			data.addAttribute("resultContent", managerstore);
 			managerstore.setEmail(email);
-			url = "test/managerDetail";
+			url = "manager/managerDetail";
 		}
+		System.out.println("test read");
 		return url;
 	}
 

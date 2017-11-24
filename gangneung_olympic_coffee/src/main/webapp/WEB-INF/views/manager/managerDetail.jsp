@@ -45,7 +45,7 @@
 	        </td>
 	        <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.s_name}</b>
+	        		<b>${sessionScope.resultContent.sName}</b>
 				</span>
 			</td>
 	    </tr>
@@ -55,7 +55,7 @@
 	        </td>
 	        <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.s_addr}</b>
+	        		<b>${sessionScope.resultContent.sAddr}</b>
 				</span>
 			</td>
 	    </tr>
@@ -65,7 +65,7 @@
 	        </td>
 	        <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.s_tel}</b>
+	        		<b>${sessionScope.resultContent.sTel}</b>
 				</span>
 			</td>
 	    </tr>

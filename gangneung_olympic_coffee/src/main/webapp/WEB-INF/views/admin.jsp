@@ -67,7 +67,8 @@
 				<hr>
 				<input type="button"
 					class="btn btn-default brown brown-background radius" id="select"
-					name="select" onclick="managerListBtn()" value="운영자 조회"> <input
+					name="select" onclick="managerListBtn()" value="운영자 조회"> 
+				<input
 					type="button" class="btn btn-default brown brown-background radius"
 					id="insert" name="insert" onclick="managerInsertBtn()"
 					value="운영자 등록">
@@ -153,8 +154,8 @@
 		var managerListRequest;
 		var managerInsertRequest;
 		var updatePasswordRequest;
-
-		/* 운영자 계정 조회 */
+/* 
+		// 운영자 계정 조회 
 		function managerListBtn() {
 			managerListRequest = sendRequest("listAjax.do", null, managerList,
 					"GET")
@@ -166,8 +167,9 @@
 				document.getElementById("selectform").innerHTML = resData;
 			}
 		}
-
-		/* 운영자 계정 입력 */
+ */
+ /*
+		// 운영자 계정 입력 
 		function managerInsertBtn() {
 			managerInsertRequest = sendRequest("insertForm.do", null,
 					managerInsert, "GET")
@@ -179,7 +181,7 @@
 				document.getElementById("insertform").innerHTML = resData;
 			}
 		}
-
+ */
 		/* 운영자 패스워드 수정 */
 		function updatePasswordBtn() {
 			updatePasswordRequest = sendRequest("updatePasswordForm.do", null,
