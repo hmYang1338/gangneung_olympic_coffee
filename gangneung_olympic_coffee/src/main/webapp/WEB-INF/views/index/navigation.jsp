@@ -30,6 +30,9 @@
         	<a class="js-scroll-trigger" href="logout.do"><spring:message code="site.list.logout"/></a>
         	<a class="js-scroll-trigger" href="#fff" onclick="updateBtn();"><spring:message code="site.list.update"/></a>
           </c:when>
+          <c:when test="${not empty managerSession.email}">
+          <a class="js-scroll-trigger" href="#fff" onclick="manageBtn();">사이트 관리</a>
+          </c:when>
         </c:choose>
         </li>
         <!-- 메인으로 -->

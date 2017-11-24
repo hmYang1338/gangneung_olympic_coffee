@@ -18,8 +18,8 @@
     </section>
 
     <!-- Callout -->
-    <aside class="callout container">
-      <div class="text-vertical-center container" id="storeView">
+    <aside class="callout">
+      <div class="text-vertical-center" id="storeView">
       <!-- 여기에 store가 나타납니다 -->
       </div>
     </aside>

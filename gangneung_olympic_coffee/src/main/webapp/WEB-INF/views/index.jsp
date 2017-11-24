@@ -24,6 +24,7 @@
 	<jsp:include page="index/navigation.jsp"></jsp:include>
 	<jsp:include page="index/header.jsp"></jsp:include>
 	<jsp:include page="index/loginModal.jsp"></jsp:include>
+	<jsp:include page="index/managerModal.jsp"></jsp:include>
 	<jsp:include page="index/store.jsp"></jsp:include>
 	<jsp:include page="index/footer.jsp"></jsp:include>
 
@@ -43,7 +44,8 @@
 	<script src="js/form/listView.js"></script>
 	<script src="js/ajax/storeList.js"></script>
 	<script src="js/ajax/storeSearch.js"></script>
-	<script src="js/ajax/memberLoginJoin.js"></script>
+	<script src="js/ajax/memberLoginJoin.js"></scrip>
+	<script src="js/ajax/manager.js"></scrip>
 	<script src="js/form/starRating.js"></script>
 	<script src="js/ajax/member.js"></script>
 	<script src="js/function/childNode.js"></script>
