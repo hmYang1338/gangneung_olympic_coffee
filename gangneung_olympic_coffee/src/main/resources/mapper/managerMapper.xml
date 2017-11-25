@@ -53,7 +53,7 @@
 	<select id="selectOneManagerDetail" parameterType="java.util.HashMap" resultMap="managerstoreSelectmap">
 		SELECT m.email as email, m.name as name, m.tel as tel, m.lan_Code as lan_Code, s.name as sName, s.addr as sAddr, s.tel as sTel
 		FROM manager m, store s
-		WHERE m.id=s.id AND m.email=#{email} AND m.lan_Code=#{lanCode}
+		WHERE m.id=s.id AND m.email=#{email} AND m.lan_Code=2 AND m.lan_Code=s.lan_Code
 	</select>
 
 	<select id="selectOneManagerByEmail" parameterType="String" resultMap="managerMap">

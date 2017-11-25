@@ -97,13 +97,9 @@
 	</div>
 	<hr>
 	<!-- managerList 비동기 -->
-	<div class="container">
-		<div class="row text-center">
 			<div class="col-lg-10 divTable" id="managerListView">
 				<!-- 여기에 managerList가 나타납니다. -->
 			</div>
-		</div>
-	</div>
     <br>
 	<div class="text-vertical-center container" id="managerView">
 		<!-- 여기에 manager가 나타납니다 -->
@@ -227,14 +223,6 @@
 		}
 		
 		/************************************************************/
-		
-		
-		
-		
-		
-		
-		
-		
 	</script>
 </body>
 </html>

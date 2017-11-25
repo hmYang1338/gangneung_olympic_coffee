@@ -7,13 +7,7 @@
 	<tr>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">이메일</span></b></font>
-			</p>
-		</td>
-		<td bgcolor="#f2e6d9">
-			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">카페
-							id</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">ID</span></b></font>
 			</p>
 		</td>
 		<td bgcolor="#f2e6d9">
@@ -23,17 +17,32 @@
 		</td>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
+				<font color="white"><b><span style="font-size: 9pt;">주소</span></b></font>
+			</p>
+		</td>
+		<td bgcolor="#f2e6d9">
+			<p align="center">
 				<font color="white"><b><span style="font-size: 9pt;">전화번호</span></b></font>
 			</p>
 		</td>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">생년월일</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">운영시간</span></b></font>
 			</p>
 		</td>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">major</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">언어코드</span></b></font>
+			</p>
+		</td>
+		<td bgcolor="#f2e6d9">
+			<p align="center">
+				<font color="white"><b><span style="font-size: 9pt;">경도</span></b></font>
+			</p>
+		</td>
+		<td bgcolor="#f2e6d9">
+			<p align="center">
+				<font color="white"><b><span style="font-size: 9pt;">위도</span></b></font>
 			</p>
 		</td>
 
@@ -42,21 +51,21 @@
 		<tr>
 			<td bgcolor="">
 				<form action="post">
-					<p align="center">
+					<p>
 						<span style="font-size: 9pt;"> <a
-							<%-- href="detail.do/${data.email}.do" --%> onclick="managerDetailA();">${data.email}</a>
+							href="detailStore.do/${data.id}.do">${data.id}</a>
 						</span>
 					</p>
 				</form>
 			</td>
 			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${data.id}</span>
+					<span style="font-size: 9pt;">${data.name}</span>
 				</p>
 			</td>
 			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${data.name}</span>
+					<span style="font-size: 9pt;">${data.addr}</span>
 				</p>
 			</td>
 			<td bgcolor="">
@@ -66,12 +75,22 @@
 			</td>
 			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${data.birth}</span>
+					<span style="font-size: 9pt;">${data.storeHours}</span>
 				</p>
 			</td>
 			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${data.major}</span>
+					<span style="font-size: 9pt;">${data.lanCode}</span>
+				</p>
+			</td>
+			<td bgcolor="">
+				<p align="center">
+					<span style="font-size: 9pt;">${data.lat}</span>
+				</p>
+			</td>
+			<td bgcolor="">
+				<p align="center">
+					<span style="font-size: 9pt;">${data.longi}</span>
 				</p>
 			</td>
 		</tr>

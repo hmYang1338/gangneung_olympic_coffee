@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <style type="text/css">
@@ -15,12 +14,6 @@
 .blue{
 	color: #666699;
 }
-/* 	.green-background{ */
-/* 		background: #daffda; */
-/* 	} */
-/* 	.green{ */
-/* 		color: #009933; */
-/* 	} */
 .radius{
 	border-width: 3px;
 	border-color: white;
@@ -58,7 +51,7 @@
 	<h3 class="blue text-center">운영자 계정 생성</h3><hr class="hr-white">
 		<!-- 이메일 -->
 		<label for="email" class="control-label blue">이 메 일&nbsp;:&nbsp;</label>
-		<input type="text" name="email" id="email" maxlength="30" placeholder="Email" class="form-control input-lg blue" required="required"/><br> 
+		<input type="email" name="email" id="email" maxlength="30" placeholder="Email" class="form-control input-lg blue" required="required"/><br> 
 		
 		<!-- 비밀번호 -->
 		<label for="password" class="control-label blue">비밀번호&nbsp;:&nbsp;</label>
@@ -146,11 +139,9 @@
 		function checking() {
 			checkEmail();
 			checkName();
-			console.log("managerInsert Test1");
 			
 			if (emailCheck && nameCheck) {
-				console.log("managerInsert Test2");
-				alert("운영자 계정 생성 완료!")
+				alert("운영자 계정 생성 완료!");
 				document.getElementById("insertManager").submit();
 			} else {
 				alert("운영자 계정 생성에 실패하였습니다.");

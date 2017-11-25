@@ -45,8 +45,9 @@
 	<script src="js/form/listView.js"></script>
 	<script src="js/ajax/storeList.js"></script>
 	<script src="js/ajax/storeSearch.js"></script>
-	<script src="js/ajax/memberLoginJoin.js"></scrip>
-	<script src="js/ajax/manager.js"></scrip>
+	<script src="js/ajax/memberLoginJoin.js"></script>
+	<script src="js/ajax/manager.js"></script>
+	<script src="js/ajax/managerList.js"></script>
 	<script src="js/form/starRating.js"></script>
 	<script src="js/ajax/member.js"></script>
 	<script src="js/function/childNode.js"></script>

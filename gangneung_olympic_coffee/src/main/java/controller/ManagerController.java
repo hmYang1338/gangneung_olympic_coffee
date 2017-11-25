@@ -159,6 +159,8 @@ public class ManagerController {
 			url = "manager/managerDetail";
 		}
 		System.out.println("test read");
+		System.out.println(url);
+		System.out.println(email);
 		return url;
 	}
 
@@ -276,11 +278,11 @@ public class ManagerController {
 	 * @param data
 	 * @return
 	 */
-	@RequestMapping(value = "/selectAllStore.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/selectAllStore.do")
 	public String selectAllStore(Model data) {
 		String url = "test/error";
 		data.addAttribute("list", storeDao.getStoreSelectMap(1));
-		url = "test/managerstoreList"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
+		url = "manager/managerstoreList"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		return url;
 	}
 	
@@ -291,7 +293,7 @@ public class ManagerController {
 	 */
 	@RequestMapping(value = "/insertStoreForm.do")
 	public String showStoreInsertForm() {
-		return "test/storeInsert";
+		return "manager/storeInsert";
 	}
 
 	
@@ -320,7 +322,7 @@ public class ManagerController {
 			System.out.println("error"); // test//계정 생성 실패시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 			uri = "test/error";
 		} else {
-			uri = "admin"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
+			uri = "redirect:test.do"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		}
 		return uri;
 	}

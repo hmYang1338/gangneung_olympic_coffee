@@ -66,4 +66,8 @@
 	<input type="button"
 			class="btn btn-default btn-bottom-margin" style="width: 350px" id="storeManage"
 			name="storeManage" onclick="storeManageBtn();" value="카페 통합관리"> 
+	
+	<input type="button"
+			class="btn btn-default btn-bottom-margin" style="width: 350px" id="reportManage"
+			name="reportManage" onclick="reportManageBtn();" value="신고관리"> 
 	</span>

@@ -45,21 +45,23 @@
 		margin-bottom: 20px;
 	}
 </style>
-	<!-- 관리창 구현 -->
-	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-	
-	<hr class="hr-white">
-	<h3 class="blue text-center">운영자 통합관리</h3>
-	<hr class="hr-white">
-	<span class="btn btn-default btn-bottom-margin">
-	<input type="button"
-			class="btn btn-default btn-bottom-margin" style="width: 350px" id="select"
-			name="select" onclick="managerListBtn();" value="운영자 조회"> 			
-	
-	<input type="button"
-			class="btn btn-default btn-bottom-margin" style="width: 350px" id="insert"
-			name="insert" onclick="managerInsertBtn();" value="운영자 등록"> 
-	</span>
-	
-	<div class="text-vertical-center" id="managerListView"></div>
-	<div class="text-vertical-center container" id="managerView"></div>
+
+<!-- 운영자 관리창 구현 -->
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+
+<hr class="hr-white">
+<h3 class="blue text-center">운영자 통합관리</h3>
+<hr class="hr-white">
+<span class="btn btn-default btn-bottom-margin">
+<input type="button"
+		class="btn btn-default btn-bottom-margin" style="width: 350px" id="select"
+		name="select" onclick="managerListBtn();" value="운영자 조회"> 			
+
+<input type="button"
+		class="btn btn-default btn-bottom-margin" style="width: 350px" id="insert"
+		name="insert" onclick="managerInsertBtn();" value="운영자 등록"> 
+</span>
+
+<div class="col-lg-10 divTable" id="managerListView"></div>
+<div class="text-vertical-center container" id="managerView"></div>
+<div id="selectform" align="center"></div>
