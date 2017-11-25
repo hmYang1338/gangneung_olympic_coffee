@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,13 @@ public class StoreRatingController {
 		System.out.println(storeRating);
 		storeRating.setLanCode(lanCode);
 		return storeRatingDAO.selectAllStoreRatingById(storeRating);
+	}
+	
+	@RequestMapping("/storeRatingSelectJoinById.do")
+	public @ResponseBody List<Map<String, Object>> storeRatingSelectJoinById(@ModelAttribute StoreRating storeRating,@ModelAttribute("lanCode") Integer lanCode){
+		System.out.println(storeRating);
+		storeRating.setLanCode(lanCode);
+		return storeRatingDAO.selectAllStoreRatingJoinById(storeRating);
 	}
 	
 	@RequestMapping("/storeRatingDelete.do")

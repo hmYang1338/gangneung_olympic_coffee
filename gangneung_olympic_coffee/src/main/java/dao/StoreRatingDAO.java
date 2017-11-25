@@ -1,12 +1,15 @@
 package dao;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dto.StoreRating;
+import oracle.sql.TIMESTAMP;
 
 /**
  * 사용자가 입력한 상점에 대한 평가 정보를 관리하는 클래스
@@ -32,6 +35,25 @@ public class StoreRatingDAO {
 	 */
 	public List<StoreRating> selectAllStoreRatingById(StoreRating storeRating) {
 		return sqlSession.selectList("storeRatingMapper.selectStoreRatingById",storeRating);
+	}
+	
+	/**
+	 * 특정 상점에 관한 평가를 이용자가 보기 편하게 조인 함
+	 * @param storeRating 언어 코드와 가게 id를 가지고 있는 StoreRating DTO 객체
+	 * @return 특정 id의 정리된 상점 평가 리스트
+	 */
+	public List<Map<String,Object>> selectAllStoreRatingJoinById(StoreRating storeRating) {
+		List<Map<String,Object>> list = sqlSession.selectList("storeRatingMapper.selectStoreRatingJoinById",storeRating);
+		//타임스탬프 타입을 long 타입으로 변경
+		if (list != null)
+			list.forEach(t -> {
+				try {
+					t.put("RATDATE", ((TIMESTAMP) t.get("RATDATE")).dateValue().getTime());
+				} catch (SQLException e) {
+					t.put("RATDATE", 0);
+				}
+			});
+		return list;
 	}
 	
 	/**

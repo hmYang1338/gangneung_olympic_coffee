@@ -1,12 +1,16 @@
 package dao;
 
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dto.ProductRating;
+import oracle.sql.TIMESTAMP;
 
 
 /**
@@ -34,6 +38,25 @@ public class ProductRatingDAO {
 	public List<ProductRating> selectAllProductRatingById(ProductRating productRating) {
 		return sqlSession.selectList("productRatingMapper.selectProductRatingById",productRating);
 	}
+	
+	/**
+	 * 특정 가게에 관한 평가를 정리하여 가지고 옴
+	 * @param productRating 언어 코드와 가게 id를 가지고 있는 productRating DTO 객체
+	 * @return 정리된 특정 id의 가게 평가 리스트
+	 */
+	public List<Map<String,Object>> selectAllProductRatingJoinById(ProductRating productRating) {
+		List<Map<String,Object>> list = sqlSession.selectList("productRatingMapper.selectProductRatingJoinById",productRating);
+		//타임스탬프 타입을 long 타입으로 변경
+		if(list!=null)
+			list.forEach(t->{
+				try {
+					t.put("RATDATE",((TIMESTAMP)t.get("RATDATE")).dateValue().getTime());
+				} catch (SQLException e) {
+					t.put("RATDATE", 0);
+				}
+			});
+		return list;
+	}	
 	
 	/**
 	 * 사용자의 평가를 입력 함

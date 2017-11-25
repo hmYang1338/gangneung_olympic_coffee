@@ -54,8 +54,8 @@ function storeSelectById(element) {
 			$('#storeView').fadeIn();
 			//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
 			storeSelectByIdRequest = sendRequest("storeSelectById.do", "id=" + elementId, storeAjax, "POST");
-			storeRatingListRequest = sendRequest("storeRatingSelectById.do", "id=" + elementId, storeRatingListAjax, "POST");
-			productRatingListRequest = sendRequest("productRatingSelectById.do", "id=" + elementId, productRatingListAjax, "POST");
+			storeRatingListRequest = sendRequest("storeRatingSelectJoinById.do", "id=" + elementId, storeRatingListAjax, "POST");
+			productRatingListRequest = sendRequest("productRatingSelectJoinById.do", "id=" + elementId, productRatingListAjax, "POST");
 		});
 		
 		//호버시 돋보기 이펙트를 줌
@@ -103,10 +103,6 @@ function storeExecute(element){
 			location.href = url;
 		}
 	});
-	//커피숍의 백그라운드 이미지를 지정하는 코드
-//	var parent = element.parentElement;
-//	parent.style.backgroundImage='url("'+elementChildSelectorName(element,'img').value+'")';
-	//요소의 상하 위치를 변경. product 리뷰를 하단으로 옮기기를 위함.
 }
 
 function storeExecutePlus(element){
@@ -117,66 +113,82 @@ function storeExecutePlus(element){
 	element.insertBefore(element.lastChild,element.lastChild.previousElementSibling);
 }
 
-//별 표시를 위한 span 테그 생성 및 리턴
-function starRatingView(elementName,element,index){
-	var divTag = document.createElement("div");
-	divTag.id = elementName+index;
-	var i;
-	for(i=1 ; i<=5; i++){
-		var star = document.createElement('span');
-		star.className="divTableCell fa fa-star-o "+elementName+index;
-		star.setAttribute("data-rating", i);
-		divTag.appendChild(star);
-	}
-	starRating(elementName, element, index, false);
-	return divTag;
-}
-
 function productRatingListAjax(){
 	if (productRatingListRequest.readyState == 4 && productRatingListRequest.status == 200) {
 		var data = {
 				'json' : productRatingListRequest.responseText,
-				'column' : ['email','id','code','oz','taste','ratComment'],
-				'columnId' :['email','id','code','oz','taste','ratComment'],
-				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'],
+				'column' : ['EMAIL','PRODUCT','RATCOMMENT'],
+				'columnId' :['email','product','ratComment'],
+				'columnClass' : ['divTableCell','divTableCell','divTableCell'],
 				'elementId' : 'storeView',
 				'innerSet' : {
-						hiddenColumn:['lanCode','ratNum','ratDate'],
+						hiddenColumn:['ID','CODE','LANCODE','RATNUM','RATDATE','OZ','TASTE'],
 						divId:'productRatingListView',
 						divClass:'container bg-gray',
 						tableId:'sinnerTableDiv',
 						tableClass:'sdivTableRow'
 				},
-				'innerFunction' : timeAppandProductStoreRating
+				'innerFunction' : productRatingAppander
 		};
 		listView(data);
 	}
-}
-
-//Date타입을 사용자가 보기 편하게 바꿔주는 메소드, Table안에 지정
-function timeAppandProductStoreRating(element){
-	var time = timeAppand(element);
-	element.lastChild.className = 'divTableCell';
-	element.lastChild.id = 'date';
 }
 
 function storeRatingListAjax(){
 	if (storeRatingListRequest.readyState == 4 && storeRatingListRequest.status == 200) {
 		var data = {
 				'json' : storeRatingListRequest.responseText,
-				'column' : ['email','id','interior','ratAccess','costEffect','ratComment'],
-				'columnId' :['email','id','interior','ratAccess','costEffect','ratComment'],
-				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'],
+				'column' : ['EMAIL','RATCOMMENT'],
+				'columnId' :['email','ratComment'],
+				'columnClass' : ['divTableCell','divTableCell'],
 				'elementId' : 'storeView',
 				'innerSet' : {
-						hiddenColumn:['lanCode','ratNum','ratDate'],
+						hiddenColumn:['LANCODE','RATNUM','RATDATE','ID','INTERIOR','RATACCESS','COSTEFFECT'],
 						divId:'storeRatingListView',
 						divClass:'container bg-gray',
 						tableId:'sinnerTableDiv',
 						tableClass:'sdivTableRow'
 				},
-				'innerFunction' : timeAppandProductStoreRating
+				'innerFunction' : storeRatingAppander
 		};
 		listView(data);
 	}
+}
+
+function productRatingAppander(element) {
+	timeAppandProductStoreRating(element);
+}
+
+
+function storeRatingAppander(element) {
+	timeAppandProductStoreRating(element);
+	var ratings = [ 'INTERIOR', 'RATACCESS', 'COSTEFFECT' ];
+	var ratArr = [];
+	var i = 0;
+	for (i; i < ratings.length; i++) {
+		ratArr[i] = elementChildSelectorName(element, ratings[i])
+		element.appendChild(starRatingView(ratArr[i], ratings[i]));
+	}
+}
+
+//Date타입을 사용자가 보기 편하게 바꿔주는 메소드, Table안에 지정
+function timeAppandProductStoreRating(element) {
+	var time = timeAppand(element, 'RATDATE');
+	element.lastChild.className = 'divTableCell';
+	element.lastChild.id = 'date';
+}
+
+//별 표시를 위한 span 테그 생성 및 리턴
+function starRatingView(element,elementName){
+	var divTag = document.createElement("div");
+	divTag.id = elementName;
+	var i;
+	for(i=1 ; i<=5; i++){
+		var star = document.createElement('span');
+		star.className="fa fa-star-o";
+		star.setAttribute("data-rating", i);
+		divTag.appendChild(star);
+	}
+	starRating(element, divTag, false);
+	return divTag;
 }

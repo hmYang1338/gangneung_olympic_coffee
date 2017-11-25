@@ -4,30 +4,28 @@
  * @author 신승엽
  */
 
-function starRating(elementName, element, index, editable){
-	var $star_rating = $('#'+elementName+index+" .fa");
-	var splitClass = element.className.split(' ');
-	var SetRatingStar = function() {
+function starRating(element, tag, editable){
+	var $star_rating;
+	
+	var setRatingStar = function() {
 	  return $star_rating.each(function() {
-	    if (parseInt($('.'+splitClass[1]).children('#'+elementName).val()) >= parseInt($(this).data('rating'))) {
+	    if (parseInt($(element).val()) >= parseInt($(this).data('rating'))) {
 	      return $(this).removeClass('fa-star-o').addClass('fa-star');
 	    } else {
 	      return $(this).removeClass('fa-star').addClass('fa-star-o');
 	    }
 	  });
 	};
-
-	if (editable) {
-		$star_rating.on('click', function() {
-			$star_rating.siblings("#"+elementName).val($(this).data('rating'));
-			return SetRatingStar();
-		});
-	}
-
 	
 	$(document).ready(function() {
-		$star_rating = $('#'+elementName+index+" .fa");
-		splitClass = element.className.split(' ');
-		SetRatingStar();
+		$star_rating = $(tag).children();
+		setRatingStar();
+		if (editable) {
+			$star_rating.on('click', function() {
+				$(element).val($(this).data('rating'));
+				return setRatingStar();
+			});
+		}
 	});	
+	
 }

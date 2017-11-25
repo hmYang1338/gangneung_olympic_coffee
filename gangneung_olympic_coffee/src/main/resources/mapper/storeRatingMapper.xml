@@ -31,6 +31,14 @@
 		WHERE lan_code = #{lanCode} AND id = #{id}
 	</select>
 	
+	<!-- 조인 구문 -->
+	<select id="selectStoreRatingJoinById" resultType="java.util.HashMap"  parameterType="storeRating">
+		SELECT DISTINCT sr.rat_num as ratNum, sr.id as id, s.name as name, sr.email as email, sr.lan_code as lanCode, sr.interior as interior,
+		sr.rat_access as ratAccess, sr.cost_effect as costEffect, sr.rat_comment as ratComment, sr.rat_date as ratDate
+		FROM storeRating sr JOIN store s ON sr.lan_code = s.lan_code AND sr.id = s.id
+		WHERE sr.id = #{id} and sr.lan_code= #{lanCode}
+	</select>
+	
 	<insert id="insertStoreRating" parameterType="storeRating">
 		INSERT INTO storeRating(
 			<include refid="storeRatingColum" />

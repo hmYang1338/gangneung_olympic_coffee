@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class ProductRatingController {
 	}
 	
 	/**
-	 * 
+	 * 특정 상점에 관한 품목 평가를 받아옵니다.
 	 * @param productRating
 	 * @param lanCode
 	 * @return
@@ -43,6 +44,12 @@ public class ProductRatingController {
 	public @ResponseBody List<ProductRating> productRatingSelectById(@ModelAttribute ProductRating productRating,@ModelAttribute("lanCode") Integer lanCode){
 		productRating.setLanCode(lanCode);
 		return productRatingDAO.selectAllProductRatingById(productRating);
+	}
+	
+	@RequestMapping("/productRatingSelectJoinById.do")
+	public @ResponseBody List<Map<String,Object>> productRatingSelectJoinById(@ModelAttribute ProductRating productRating,@ModelAttribute("lanCode") Integer lanCode){
+		productRating.setLanCode(lanCode);
+		return productRatingDAO.selectAllProductRatingJoinById(productRating);
 	}
 	
 	@RequestMapping("/productRatingDelete.do")

@@ -17,8 +17,8 @@ function timeConverter(timestamp){
 }
 
 //시간을 추가해주는 메소드
-function timeAppand(element){
+function timeAppand(element,name){
 	var time = document.createElement('div');
-	time.appendChild(document.createTextNode(timeConverter(elementChildSelectorName(element,'ratDate').value)));
+	time.appendChild(document.createTextNode(timeConverter(elementChildSelectorName(element,name).value)));
 	element.appendChild(time);
 }
