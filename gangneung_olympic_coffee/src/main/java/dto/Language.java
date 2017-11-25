@@ -1,6 +1,13 @@
 package dto;
 
+import java.util.Locale;
+
 public class Language {
+	public static final int ENGLISH = 1;
+	public static final int KOREAN = 2;
+	public static final int CHINESE = 3;
+	public static final Locale[] LANGUAGE_VALUE = {null,new Locale("en"),new Locale("ko"),new Locale("zh")};
+
 	private int lanCode;
 	private String language;
 	

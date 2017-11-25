@@ -31,13 +31,18 @@
 	</select>
 	
 	<!-- 조인문 -->
-	<select id="selectProductRatingJoinById" resultType="java.util.HashMap" parameterType="productRating">
-		SELECT DISTINCT pr.rat_num as RATNUM, pr.lan_code as LANCODE, pr.email as EMAIL, pr.lan_code as LANCODE, 
-		s.name as NAME, p.product as PRODUCT, pr.code as CODE, pr.oz as OZ, pr.taste as TASTE, pr.rat_comment as RATCOMMENT, pr.rat_date as RATDATE
-		FROM productRating pr JOIN product p ON p.code=pr.code AND p.code=p.code AND p.lan_code = pr.lan_code
-		JOIN STORE s ON pr.id = s.id AND pr.lan_code = s.lan_code WHERE s.id = #{id} AND s.lan_code = #{lanCode}
-	</select>
+ 	<select id="selectProductRatingJoinById" resultType="java.util.HashMap" parameterType="productRating">
+ 		SELECT DISTINCT pr.rat_num as RATNUM, pr.lan_code as LANCODE, pr.email as EMAIL, pr.lan_code as LANCODE, 
+ 		s.name as NAME, p.product as PRODUCT, pr.code as CODE, pr.oz as OZ, pr.taste as TASTE, pr.rat_comment as RATCOMMENT, pr.rat_date as RATDATE
+ 		FROM productRating pr JOIN product p ON p.code=pr.code AND p.code=p.code AND p.lan_code = pr.lan_code
+ 		JOIN STORE s ON pr.id = s.id AND pr.lan_code = s.lan_code WHERE s.id = #{id} AND s.lan_code = #{lanCode}
+ 	</select>
 	
+	<select id="selectProductRaingByRatNum" resultMap="productRatingSelectMap" parameterType="String">
+		SELECT max(rat_num)
+		FROM storeRating
+		WHERE email = #{email}
+	</select>
 	
 	<insert id="insertProductRating" parameterType="productRating">
 		INSERT INTO productRating(

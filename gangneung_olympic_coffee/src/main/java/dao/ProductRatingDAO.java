@@ -59,6 +59,15 @@ public class ProductRatingDAO {
 	}	
 	
 	/**
+	 * 해당 email에 있는 가장 큰 ratNum값 가져오기
+	 * @param email 접속되어 있는 email
+	 * @return 해당 email에 있는 가장 큰 ratNum값을 가져옴
+	 */
+	public int selectProductRaingByRatNum(String email) {
+		return sqlSession.selectOne("productRatingMapper.selectProductRaingByRatNum",email);
+	}
+	
+	/**
 	 * 사용자의 평가를 입력 함
 	 * @param productRating 사용자의 평가 DTO
 	 * @return 입력이 실패하면 0을 입력이 성공하면 1을 리턴

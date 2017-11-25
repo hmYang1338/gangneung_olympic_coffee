@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -20,8 +21,14 @@ import dao.LanguageDAO;
 import dao.ManagerDAO;
 import dao.MemberDAO;
 import dao.NationDAO;
+import dao.ProductRatingDAO;
+import dao.StoreDAO;
+import dao.StoreRatingDAO;
+import dto.Language;
 import dto.Manager;
 import dto.Member;
+import dto.ProductRating;
+import dto.StoreRating;
 import sercurity.ShaEncoder;
 
 
@@ -41,6 +48,18 @@ public class MemberController {
 	@Autowired
 	private LanguageDAO languageDAO;
 
+	@Autowired
+	private ProductRatingDAO productRatingDAO;
+	
+	@Autowired
+	private StoreRatingDAO storeRatingDAO;
+	
+	@Autowired
+	private StoreDAO storeDAO;//test
+	
+	@Autowired 
+	private SessionLocaleResolver localeResolver; 
+	
 	@Resource(name = "shaEncoder")
 	private ShaEncoder encoder;
 
@@ -93,6 +112,7 @@ public class MemberController {
 			if(encoder.matches(password, member.getPassword())) {
 				System.out.println("성공");//test
 				memberDAO.updateMemberByLastDate(email);
+				localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[member.getLanCode()]);
 				model.addAttribute("memberSession", member);
 				return "redirect:test.do";
 			}else {
@@ -150,16 +170,16 @@ public class MemberController {
 	
 	//회원탈퇴(자발적인) - 자발적이라 썼지만 우선 admin으로도 못함...
 	@RequestMapping(value = "/deleteMember.do", method = RequestMethod.POST)
-	public String deleteMember(@RequestParam String password, @ModelAttribute Member memberSession) {
+	public String deleteMember(@RequestParam String passwordBefore, @ModelAttribute Member memberSession) {
 		//select 구문을 이용해서 password만 가지고오는 dao를 하나 제작!
 		//그 다음 DB에서 암호를 가지고 왔다고 가정함!!
 		System.out.println("자발적 탈퇴 들어옴");//test
 		String passwordDB = memberDAO.selectMemberByPassword(memberSession.getEmail());
 		System.out.println(passwordDB);//test
-		if (encoder.matches(password, passwordDB)) {
+		if (encoder.matches(passwordBefore, passwordDB)) {
 			System.out.println("삭제 완료");	// test
 			memberDAO.deleteMember(memberSession.getEmail());
-			return "forward:member/memberDelete.jsp";//추후 index로 바꿔줄 것
+			return "redirect:test.do";//추후 index로 바꿔줄 것
 		} else {
 			System.out.println("삭제 실패");
 			return "forward:member/memberJoin.jsp";
@@ -171,12 +191,15 @@ public class MemberController {
 	public String updateMember(@RequestParam String passwordBefore, @RequestParam String password, @ModelAttribute Member memberSession) {
 		String passwordDB = memberDAO.selectMemberByPassword(memberSession.getEmail());
 		if(encoder.matches(passwordBefore, passwordDB)) {
-			if(password==null) {
+			if(password==null||password.trim().equals("")) {
+				memberSession.setPassword(encoder.encoding(passwordBefore));
 				memberDAO.updateMember(memberSession);
+				localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
 				return "redirect:test.do";
 			}else if(password.length()>=8) {
 				memberSession.setPassword(encoder.encoding(memberSession.getPassword()));
 				memberDAO.updateMember(memberSession);
+				localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
 				return "redirect:test.do";
 			}else {
 				System.out.println("Inner 실패");
@@ -188,4 +211,46 @@ public class MemberController {
 		}
 		
 	}
+	
+	//test
+	@RequestMapping("/storeRatingInsertBtn.do")
+	public String storeRatingInsertBtn(@ModelAttribute Member memberSession, Model model) {
+		System.out.println("storeRatingInsert");//test
+		return "storerating";
+	}
+
+	
+	@RequestMapping("/insertStoreRating.do")
+	public String insertStoreRating(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute StoreRating storeRating) {
+		System.out.println("storeRating 들어옴");//test
+		memberSession.setLanCode(Language.KOREAN);
+		System.out.println(memberSession);
+		int maxNum =storeRatingDAO.selectStoreRaingByRatNum(memberSession.getEmail());
+		System.out.println(maxNum);
+		storeRating.setEmail(memberSession.getEmail());
+		storeRating.setRatNum(++maxNum);
+		storeRating.setLanCode(memberSession.getLanCode());
+		System.out.println(storeRating);
+		if(storeRatingDAO.insertStoreRating(storeRating)==1) {
+			System.out.println("성공하였습니다.");
+		} else {
+			System.out.println("실패하였습니다.");
+		}
+		return "redirect:test.do";
+	}
+	
+	@RequestMapping("/insertProductRating.do")
+	public String insertProductRating(@ModelAttribute Member memberSession, ProductRating productRating) {
+		productRating.setEmail(memberSession.getEmail());
+		productRating.setLanCode(memberSession.getLanCode());
+//		productRating.setId();
+		if(productRatingDAO.selectProductRaingByRatNum(memberSession.getEmail())!=0) {
+			productRating.setRatNum(productRating.getRatNum()+1);
+		}else {
+			productRating.setRatNum(1);
+		}
+		productRatingDAO.insertProductRating(productRating);
+		return "redirect:test.do";
+	}
+	
 }

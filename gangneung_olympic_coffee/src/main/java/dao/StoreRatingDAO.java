@@ -66,6 +66,15 @@ public class StoreRatingDAO {
 	}
 	
 	/**
+	 * 해당 email에 있는 가장 큰 ratNum값 가져오기
+	 * @param email 접속되어 있는 email
+	 * @return 해당 email에 있는 가장 큰 ratNum값을 가져옴
+	 */
+	public int selectStoreRaingByRatNum(String email) {
+		return sqlSession.selectOne("storeRatingMapper.selectStoreRaingByRatNum",email);
+	}
+	
+	/**
 	 * 사용자의 평가를 수정함
 	 * @param storeRating 사용자의 평가 DTO
 	 * @return 수정에 실패하면 0을 수정에 성공하면 1을 리턴

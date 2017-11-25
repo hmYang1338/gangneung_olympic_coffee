@@ -39,6 +39,12 @@
 		WHERE sr.id = #{id} and sr.lan_code= #{lanCode}
 	</select>
 	
+	<select id="selectStoreRaingByRatNum" resultType="int" parameterType="String">
+		SELECT max(rat_num)
+		FROM storeRating
+		WHERE email = #{email}
+	</select>
+	
 	<insert id="insertStoreRating" parameterType="storeRating">
 		INSERT INTO storeRating(
 			<include refid="storeRatingColum" />

@@ -28,6 +28,14 @@ public class StoreRating {
 		this.ratDate = ratDate;
 	}
 
+	public StoreRating(int id, int interior, int ratAccess, int costEffect, String ratComment) {
+		this.id = id;
+		this.interior = interior;
+		this.ratAccess = ratAccess;
+		this.costEffect = costEffect;
+		this.ratComment = ratComment;
+	}
+
 	public int getRatNum() {
 		return ratNum;
 	}

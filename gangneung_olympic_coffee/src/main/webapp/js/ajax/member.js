@@ -36,3 +36,18 @@ function memberUpdateAjax(){
 		});
 	}
 }
+
+
+var storeRatingInsert;
+function storeRatingInsertBtn(){
+	storeRatingInsert = sendRequest("storeRatingInsertBtn.do",null,storeRatingInsertAjax,"GET");
+}
+
+function storeRatingInsertAjax(){
+	if(storeRatingInsert.readyState == 4 && storeRatingInsert.status == 200){
+		$(document).ready(function(){
+			$("#loginLP").modal();
+			$("#modalMember").html(storeRatingInsert.responseText);
+		});
+	}
+}
