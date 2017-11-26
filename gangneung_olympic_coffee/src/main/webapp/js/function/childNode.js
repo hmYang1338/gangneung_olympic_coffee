@@ -8,7 +8,7 @@ function elementChildSelectorName(element,childName){
 	var child;
 	var i = 0;
 	for(i;i<elements.length;i++){
-		if(elements[i].name==childName){
+		if(elements[i].getAttribute('name')==childName){
 			child=elements[i];
 			break;
 		}

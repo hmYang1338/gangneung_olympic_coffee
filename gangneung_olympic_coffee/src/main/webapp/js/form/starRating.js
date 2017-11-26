@@ -4,7 +4,7 @@
  * @author 신승엽
  */
 
-function starRating(element, tag, editable){
+function starRating(element, tag, updatable){
 	var $star_rating;
 	
 	var setRatingStar = function() {
@@ -20,7 +20,7 @@ function starRating(element, tag, editable){
 	$(document).ready(function() {
 		$star_rating = $(tag).children();
 		setRatingStar();
-		if (editable) {
+		if (updatable) {
 			$star_rating.on('click', function() {
 				$(element).val($(this).data('rating'));
 				return setRatingStar();

@@ -16,7 +16,7 @@
  * 			tableId : 하나의 배열을 감싸는 div 객체의 id
  * 			tableClass : 하나의 배열을 감싸는 div 객체의 class
  * 		]
- * 		innerFunction : 열 클릭시 실행되는 DIV등의 함수 지정 ['key':function] [배열]
+ * 		innerFunction : 행 클릭시 실행되는 DIV등의 함수 지정 ['key':function] [배열]
  * 		executeFunction : 모든 작업이 끝난 후 최종적으로 실행되는 메소드
  * ]
  */

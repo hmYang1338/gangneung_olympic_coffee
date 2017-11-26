@@ -42,7 +42,7 @@ function storeSelectById(element) {
 		cafeImage.src = elementChildSelectorName(element,'IMG').value.replace('.JPG', '_preview.JPG');
 		cafeImage.className = 'store-list-image pic-image';
 		element.insertBefore(cafeImage,element.lastChild);
-		//이름과 사진의 위치를 변경 
+		//이름과 사진의 위치를 변경
 		element.addEventListener("click", function() {
 			//storeView로 스크롤을 이동함.
 			$('html, body').animate({
@@ -57,7 +57,7 @@ function storeSelectById(element) {
 			storeRatingListRequest = sendRequest("storeRatingSelectJoinById.do", "id=" + elementId, storeRatingListAjax, "POST");
 			productRatingListRequest = sendRequest("productRatingSelectJoinById.do", "id=" + elementId, productRatingListAjax, "POST");
 		});
-		
+
 		//호버시 돋보기 이펙트를 줌
 		var hoverEffect = document.createElement('span');
 		var hoverImage = document.createElement('img');
@@ -162,14 +162,17 @@ function productRatingAppander(element) {
 
 
 function storeRatingAppander(element) {
+	//시간을 추가하는 메소드 추가
 	timeAppandProductStoreRating(element);
+	//스토어 레이팅(별)을 추가하는 메소드
 	var ratings = [ 'INTERIOR', 'RATACCESS', 'COSTEFFECT' ];
 	var ratArr = [];
 	var i = 0;
 	for (i; i < ratings.length; i++) {
 		ratArr[i] = elementChildSelectorName(element, ratings[i])
-		element.appendChild(starRatingView(ratArr[i], ratings[i]));
+		element.appendChild(starRatingView(ratArr[i], ratings[i], false));
 	}
+	element.insertBefore(elementChildSelectorName(element,'ratComment'),elementChildSelectorName(element,'COSTEFFECT'));
 }
 
 //Date타입을 사용자가 보기 편하게 바꿔주는 메소드, Table안에 지정
@@ -180,9 +183,10 @@ function timeAppandProductStoreRating(element) {
 }
 
 //별 표시를 위한 span 테그 생성 및 리턴
-function starRatingView(element,elementName){
+function starRatingView(element,elementName,updatable){
 	var divTag = document.createElement("div");
 	divTag.id = elementName;
+	divTag.setAttribute('name',elementName+"DIV");
 	var i;
 	for(i=1 ; i<=5; i++){
 		var star = document.createElement('span');
@@ -190,6 +194,6 @@ function starRatingView(element,elementName){
 		star.setAttribute("data-rating", i);
 		divTag.appendChild(star);
 	}
-	starRating(element, divTag, false);
+	starRating(element, divTag, updatable);
 	return divTag;
 }
