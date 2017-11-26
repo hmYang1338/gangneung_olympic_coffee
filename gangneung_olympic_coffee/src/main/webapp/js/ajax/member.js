@@ -48,6 +48,9 @@ function storeRatingInsertAjax(){
 		$(document).ready(function(){
 			$("#loginLP").modal();
 			$("#modalMember").html(storeRatingInsert.responseText);
+			insertStarRating();
 		});
 	}
 }
+
+

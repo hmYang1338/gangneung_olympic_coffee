@@ -33,7 +33,7 @@ import sercurity.ShaEncoder;
 
 
 @Controller
-@SessionAttributes({"memberSession","managerSession"})
+@SessionAttributes({"memberSession","managerSession","lanCode"})
 public class MemberController {
 	
 	@Autowired
@@ -170,7 +170,7 @@ public class MemberController {
 	
 	//회원탈퇴(자발적인) - 자발적이라 썼지만 우선 admin으로도 못함...
 	@RequestMapping(value = "/deleteMember.do", method = RequestMethod.POST)
-	public String deleteMember(@RequestParam String passwordBefore, @ModelAttribute Member memberSession) {
+	public String deleteMember(@RequestParam String passwordBefore, @ModelAttribute Member memberSession, SessionStatus status, Model model) {
 		//select 구문을 이용해서 password만 가지고오는 dao를 하나 제작!
 		//그 다음 DB에서 암호를 가지고 왔다고 가정함!!
 		System.out.println("자발적 탈퇴 들어옴");//test
@@ -178,14 +178,16 @@ public class MemberController {
 		System.out.println(passwordDB);//test
 		if (encoder.matches(passwordBefore, passwordDB)) {
 			System.out.println("삭제 완료");	// test
+			model.addAttribute("msg", "삭제되었습니다."); 
+			model.addAttribute("url","test.do");
 			memberDAO.deleteMember(memberSession.getEmail());
-			return "redirect:test.do";//추후 index로 바꿔줄 것
+			status.setComplete();
+			return "redirect:message.jsp";//추후 index로 바꿔줄 것
 		} else {
 			System.out.println("삭제 실패");
 			return "forward:member/memberJoin.jsp";
 		}
 	}
-	
 	//회원정보 수정
 	@RequestMapping(value = "/updateMember.do", method = RequestMethod.POST)
 	public String updateMember(@RequestParam String passwordBefore, @RequestParam String password, @ModelAttribute Member memberSession) {
@@ -223,7 +225,7 @@ public class MemberController {
 	@RequestMapping("/insertStoreRating.do")
 	public String insertStoreRating(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute StoreRating storeRating) {
 		System.out.println("storeRating 들어옴");//test
-		memberSession.setLanCode(Language.KOREAN);
+		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
 		System.out.println(memberSession);
 		int maxNum =storeRatingDAO.selectStoreRaingByRatNum(memberSession.getEmail());
 		System.out.println(maxNum);
@@ -240,16 +242,18 @@ public class MemberController {
 	}
 	
 	@RequestMapping("/insertProductRating.do")
-	public String insertProductRating(@ModelAttribute Member memberSession, ProductRating productRating) {
+	public String insertProductRating(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute ProductRating productRating) {
+		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+		int maxNum = productRatingDAO.selectProductRaingByRatNum(memberSession.getEmail());
 		productRating.setEmail(memberSession.getEmail());
+		productRating.setRatNum(++maxNum);
 		productRating.setLanCode(memberSession.getLanCode());
-//		productRating.setId();
-		if(productRatingDAO.selectProductRaingByRatNum(memberSession.getEmail())!=0) {
-			productRating.setRatNum(productRating.getRatNum()+1);
+		System.out.println(productRating);
+		if(productRatingDAO.insertProductRating(productRating)==1) {
+			System.out.println("성공하였습니다.");
 		}else {
-			productRating.setRatNum(1);
+			System.out.println("실패하였습니다.");
 		}
-		productRatingDAO.insertProductRating(productRating);
 		return "redirect:test.do";
 	}
 	

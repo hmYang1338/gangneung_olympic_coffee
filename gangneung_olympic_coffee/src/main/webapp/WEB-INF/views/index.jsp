@@ -44,6 +44,7 @@
 	<script src="js/ajax/httpRequest.js"></script>
 	<script src="js/form/listView.js"></script>
 	<script src="js/ajax/storeList.js"></script>
+	<script src="js/ajax/storeRating.js"></script>
 	<script src="js/ajax/storeSearch.js"></script>
 	<script src="js/ajax/memberLoginJoin.js"></script>
 	<script src="js/ajax/manager.js"></script>

@@ -4,18 +4,21 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 	<form action="insertStoreRating.do" method="GET">
+		<div id ="insertStoreRatingForm">
 		<input type="number" name="id" id="id" min="1" max="14" step="1">
 		<br>
-		interior:
-		<input type="range" name="interior" id="interior" min="0" max="5" step="1">
+		interior:<div id="interior_view"></div>
+		<input type="hidden" name="interior" id="interior" min="0" max="5" step="1">
 		<br>
-		access:
-		<input type="range" name="ratAccess" id="ratAccess" min="0" max="5" step="1">
+		access:<div id="access_view"></div>
+		<input type="hidden" name="ratAccess" id="ratAccess" min="0" max="5" step="1">
 		<br>
-		cost_effect:
-		<input type="range" name="costEffect" id="costEffect" min="0" max="5" step="1">
+		cost_effect:<div id="cost_effect_view"></div>
+		<input type="hidden" name="costEffect" id="costEffect" min="0" max="5" step="1">
 		<br>
 		<input type="text" name="ratComment" id="ratComment">
 		<br>
 		<input type="submit">&nbsp;&nbsp;&nbsp;<input type="reset">
+		</div>
 	</form>
+s

@@ -5,44 +5,51 @@
  * @author 정태준
  */
 
-var storeRatingByIdRequest;
-var storeRatingRequest;
-var insertStoreRatingRequest;
-var updateStoreRatingRequest;
+var storeOneRequest = sendRequest(null,null,storeOneAjax,"POST");
+var storeSelectByIdRequest;
 
-function storeRatingByIdBtn(){
-	var id = document.getElementById('storeId').value;
-	storeRatingByIdRequest = sendRequest("storeRatingSelectById.do","lanCode=1&id="+id, storeRatingById, "POST");
-}
-
-function storeRatingRequest(){
-	if(storeRatingByIdRequest.readyState == 4 && storeRatingByIdRequest.status == 200){
-		var json = storeRatingByIdRequest.responseText;
-		json = JSON.parse(json);
-		console.log(json);
+function insertStarRating(){
+	var element = document.getElementById('insertStoreRatingForm');
+	console.log(element);
+	var ratings = [ 'interior', 'ratAccess', 'costEffect' ];
+	var insertDiv = [ 'interior_view', 'access_view', 'cost_effect_view' ];
+	var ratArr = [];
+	var i = 0;
+	for (i; i < ratings.length; i++) {
+		ratArr[i] = elementChildSelectorName(element, ratings[i]);
+		document.getElementById(insertDiv[i]).appendChild(starRatingView(ratArr[i], ratings[i],true));
 	}
 }
 
-function storeRatingBtn(){
-	storeRatingRequest = sendRequest("storeRatingSelect.do","lanCode=1", storeRating, "POST");
-}
-
-function storeRating(){
-	if(storeRatingRequest.readyState == 4 && storeRatingRequest.status == 200){
-		var json = storeRatingRequest.responseText;
-		json = JSON.parse(json);
-		console.log(json);
+function storeOneAjax(){
+	if(storeOneRequest.readyState == 4 && storeOneRequest.status == 200){
+		var data = {
+				'json':storeOneRequest.responseText,//json 객체
+				'column' : ['interior','rat_access','cost_effect','rat_comment'],
+				'columnId' : ['store-name'],
+				'columnClass' : ['divTableCell','divTableCell','divTableCell','divTableCell','divTableCell'],
+				'elementId' : 'storeOneInsert',
+				'innerSet' : {
+					hiddenColumn : ['id','date'],
+					divId : '',
+					divClass : '',
+					tableId : '',
+					tableClass : ''
+				},
+				'innerFunction' : storeRatingAppender
+		};
+		listView(data);
 	}
 }
 
-function insertStoreRating(){
-	
-}
-
-function updateStoreRating(){
-	
-}
-
-function deleteStoreRating(){
-	
-}
+//storeList에 있는 함수 - starRatingView도 있음. 굳이 안씀.
+/*function storeRatingAppender(element){
+	timeAppandProductStoreRating(element);
+	var ratings = ['INTERIOR','RATACCESS','COSTEFFECT'];
+	var ratArr = [];
+	var i = 0;
+	for (i; i < ratings.length; i++){
+		ratArr[i] = elementChildSelectorName(element, ratings[i])
+		element.appendChild(starRatingView(ratArr[i],ratings[i]));
+	}
+}*/

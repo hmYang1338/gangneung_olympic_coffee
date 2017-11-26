@@ -16,12 +16,12 @@ function starRating(element, tag, updatable){
 	    }
 	  });
 	};
-	
+
 	$(document).ready(function() {
 		$star_rating = $(tag).children();
 		setRatingStar();
 		if (updatable) {
-			$star_rating.on('click', function() {
+			$star_rating.click(function() {
 				$(element).val($(this).data('rating'));
 				return setRatingStar();
 			});

@@ -8,10 +8,12 @@ function elementChildSelectorName(element,childName){
 	var child;
 	var i = 0;
 	for(i;i<elements.length;i++){
-		if(elements[i].getAttribute('name')==childName){
-			child=elements[i];
-			break;
-		}
+		try{f
+			if(elements[i].getAttribute('name')==childName){
+				child=elements[i];
+				break;
+			}
+		} catch(Exception){}
 	}
 	return child;
 }
