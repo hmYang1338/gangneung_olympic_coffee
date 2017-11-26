@@ -77,8 +77,8 @@ function storeAjax(){
 		var data = {
 				'json' : storeSelectByIdRequest.responseText,
 				'column' : ['name','tel','addr','storeHours'],
-				'columnId' :['name','tel','addr','storeHours'],
-				'columnClass' : ['store-name','',''],
+				'columnId' :['store-name','tel','addr','storeHours'],
+				'columnClass' : ['store-name cursor','','',''],
 				'elementId' : 'storeView',
 				'innerSet' : {
 						hiddenColumn:['id','let','longi','smokingRoom','storeUrl','img','storeSource'],
@@ -97,7 +97,7 @@ function storeAjax(){
 //DB에서 가지고 온 후 따로 div를 구성할 객체들
 function storeExecute(element){
 	//제목을 클릭하면 해당 페이지로 이동하는 코드
-	elementChildSelectorClass(element,'store-name').addEventListener("click",function(){
+	elementChildSelectorClass(element,'store-name cursor').addEventListener("click",function(){
 		var url = elementChildSelectorName(element,'storeUrl').value;
 		if(url!="null"){
 			location.href = url;
@@ -157,6 +157,7 @@ function storeRatingListAjax(){
 
 function productRatingAppander(element) {
 	timeAppandProductStoreRating(element);
+	element.appendChild(starRatingView(elementChildSelectorName(element,"TASTE"),"TASTE"));
 }
 
 
