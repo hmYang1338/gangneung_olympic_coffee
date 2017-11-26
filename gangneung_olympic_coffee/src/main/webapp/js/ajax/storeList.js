@@ -110,6 +110,7 @@ function storeExecutePlus(element){
 	var resourceElement = element.lastChild.firstChild;
 	element.style.backgroundImage='url("'+elementChildSelectorName(resourceElement,'img').value+'")';
 	//요소의 상하 위치를 변경. product 리뷰를 하단으로 옮기기를 위함.
+
 	element.insertBefore(element.lastChild,element.lastChild.previousElementSibling);
 }
 
@@ -140,7 +141,7 @@ function storeRatingListAjax(){
 				'json' : storeRatingListRequest.responseText,
 				'column' : ['EMAIL','RATCOMMENT'],
 				'columnId' :['email','ratComment'],
-				'columnClass' : ['divTableCell','divTableCell'],
+				'columnClass' : ['rating_email','rating_rat_comment'],
 				'elementId' : 'storeView',
 				'innerSet' : {
 						hiddenColumn:['LANCODE','RATNUM','RATDATE','ID','INTERIOR','RATACCESS','COSTEFFECT'],
@@ -166,19 +167,40 @@ function storeRatingAppander(element) {
 	timeAppandProductStoreRating(element);
 	//스토어 레이팅(별)을 추가하는 메소드
 	var ratings = [ 'INTERIOR', 'RATACCESS', 'COSTEFFECT' ];
+	var ratingLanguage = [0,['INTERIOR', 'ACCESS', 'COSTEFFECT'],
+		['인테리어','접근성','가성비'],
+		['室内','无障碍','性价比']];
+	//스토어 레이팅을 언어마다 각기 다른 번역을
 	var ratArr = [];
 	var i = 0;
+	//스토어 레이팅을 만들 DIV 객체를 생성
+	var ratingElement = document.createElement('div');
+	ratingElement.setAttribute('name','storeRating_div');
+	ratingElement.className='rating_element';
+	//스토어 레이팅 객체를 생성
 	for (i; i < ratings.length; i++) {
+		//각 레이팅 이름을 더함
 		ratArr[i] = elementChildSelectorName(element, ratings[i])
-		element.appendChild(starRatingView(ratArr[i], ratings[i], false));
+		var ratingName = document.createElement('div');
+		ratingName.className='rating_name';
+		ratingName.appendChild(document.createTextNode(ratingLanguage[parseInt(elementChildSelectorName(element,'LANCODE').value)][i]));
+
+		//실제 레이팅 스타를 더함
+		ratingElement.appendChild(ratingName);
+		var ratingStar = starRatingView(ratArr[i], ratings[i], false);
+		ratingStar.className='rating_star';
+		ratingElement.appendChild(ratingStar);
 	}
-	element.insertBefore(elementChildSelectorName(element,'ratComment'),elementChildSelectorName(element,'COSTEFFECT'));
-}
+	//요소별 위치를 재정의
+	element.insertBefore(elementChildSelectorName(element,'ratComment'),elementChildSelectorName(element,'INTERIORDIV'));
+	element.insertBefore(ratingElement,elementChildSelectorName(element,'ratComment'));
+
+	}
 
 //Date타입을 사용자가 보기 편하게 바꿔주는 메소드, Table안에 지정
 function timeAppandProductStoreRating(element) {
 	var time = timeAppand(element, 'RATDATE');
-	element.lastChild.className = 'divTableCell';
+	element.lastChild.className = 'rating_time';
 	element.lastChild.id = 'date';
 }
 

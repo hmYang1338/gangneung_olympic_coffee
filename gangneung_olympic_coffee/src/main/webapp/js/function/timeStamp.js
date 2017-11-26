@@ -20,5 +20,6 @@ function timeConverter(timestamp){
 function timeAppand(element,name){
 	var time = document.createElement('div');
 	time.appendChild(document.createTextNode(timeConverter(elementChildSelectorName(element,name).value)));
+	time.setAttribute('name',name+'TIME');
 	element.appendChild(time);
 }

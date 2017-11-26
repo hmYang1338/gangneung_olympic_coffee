@@ -103,6 +103,28 @@ store출력을 위한 css
 	font-size: 35px;
 	border-bottom: 5px solid white;
 }
+.rating_element{
+	
+}
+.rating_name{
+	display: inline-block;
+	width: 50%;
+}
+.rating_star{
+	display: inline-block;
+	width: 50%;
+}
+.rating_email{
+	display: inline-block;
+	border-bottom:1 solid white;
+	float:left;
+	width: 30%;
+}
+.rating_time{
+	display: inline-block;
+	border-bottom:1 solid white;
+	float:left;
+}
 /*
 이미지 효과를 위한 css
 */
