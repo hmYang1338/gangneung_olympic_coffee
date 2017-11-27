@@ -9,11 +9,11 @@ public class Manager {
 	private int lanCode;
 	private int id;	// storeID
 	private String imgDir;
-	private String major;
+	private int major;
 
 	public Manager() {}
 	public Manager(String email, String password, String name, String tel, String birth, int lanCode,
-			int id, String imgDir, String major) {
+			int id, String imgDir, int major) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -74,10 +74,10 @@ public class Manager {
 	public void setImgDir(String imgDir) {
 		this.imgDir = imgDir;
 	}
-	public String getMajor() {
+	public int getMajor() {
 		return major;
 	}
-	public void setMajor(String major) {
+	public void setMajor(int major) {
 		this.major = major;
 	}
 
@@ -105,7 +105,6 @@ public class Manager {
 		builder.append("]");
 		return builder.toString();
 	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -115,13 +114,12 @@ public class Manager {
 		result = prime * result + id;
 		result = prime * result + ((imgDir == null) ? 0 : imgDir.hashCode());
 		result = prime * result + lanCode;
-		result = prime * result + ((major == null) ? 0 : major.hashCode());
+		result = prime * result + major;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((tel == null) ? 0 : tel.hashCode());
 		return result;
 	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -150,10 +148,7 @@ public class Manager {
 			return false;
 		if (lanCode != other.lanCode)
 			return false;
-		if (major == null) {
-			if (other.major != null)
-				return false;
-		} else if (!major.equals(other.major))
+		if (major != other.major)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -172,4 +167,6 @@ public class Manager {
 			return false;
 		return true;
 	}
+	
+	
 }

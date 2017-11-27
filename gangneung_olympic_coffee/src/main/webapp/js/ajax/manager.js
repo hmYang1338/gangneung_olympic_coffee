@@ -52,6 +52,22 @@ function storeManageAjax() {
 	}
 }
 
+/**
+ * 신고 관리 창
+ */
+var reportManage;
+function reportManageBtn() {
+	reportManage = sendRequest("showReportManage.do", null, reportManageAjax, "GET");
+}
+function reportManageAjax() {
+	if (reportManage.readyState == 4 && reportManage.status == 200){
+		$(document).ready(function() {
+			$("#manager-modal").modal();
+			$("#modal-manager").html(reportManage.responseText);
+		});
+	}
+}
+
 /* 운영자 계정 입력 */
 var managerInsertRequest;
 function managerInsertBtn() {
@@ -132,3 +148,24 @@ function memberListAjax(){
 		});
 	}
 }
+
+/*************************************운영자*************************************/
+var manager;
+function managermBtn() {
+	manager = sendRequest("showManager.do", null, managermAjax, "GET");
+}
+function managermAjax() {
+	if (manager.readyState == 4 && manager.status == 200) {
+		$(document).ready(function() {
+			$("#manager-modal").modal();
+			$("#modal-manager").html(manager.responseText);
+		});	
+	}
+}
+
+
+
+
+
+
+

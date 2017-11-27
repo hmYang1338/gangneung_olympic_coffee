@@ -9,11 +9,11 @@
 		<result column="srat_num" property="sratNum"/>
 		<result column="prat_num" property="pratNum"/>
 		<result column="memail" property="memail"/>
-		<result column="req_date" property="reqDate"/>
+		<result column="rep_date" property="repDate"/>
 	</resultMap>
 	
 	<sql id="reportingColumn">
-		seq, email, srat_num, prat_num, memail, req_date
+		seq, email, srat_num, prat_num, memail, rep_date
 	</sql>
 	
 	<!-- 신고 데이터 삽입 -->

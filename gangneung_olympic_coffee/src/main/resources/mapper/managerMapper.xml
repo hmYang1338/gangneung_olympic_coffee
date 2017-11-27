@@ -99,7 +99,7 @@
 		WHERE email=#{email}
 	</select>
 
-	<select id="selectManagerByMajor" parameterType="String" resultType="String">
+	<select id="selectManagerByMajor" parameterType="String" resultType="int">
 		SELECT major
 		FROM manager
 		WHERE email=#{email}

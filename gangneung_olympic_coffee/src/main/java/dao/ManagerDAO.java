@@ -125,7 +125,13 @@ public class ManagerDAO {
 		return sqlSession.selectOne("managerMapper.selectManagerByEmail",email);
 	}
 	
-	public String selectManagerByMajor(String email) {
-		return sqlSession.selectOne("managerMapper.selectManagerByMajor",email);
+	public int selectManagerByMajor(String email) {
+		int num;
+		try {
+			num = sqlSession.selectOne("managerMapper.selectManagerByMajor",email);
+		} catch(NullPointerException e) {
+			num = 0;
+		}
+		return num;
 	}
 }

@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class Reporting {
 	private int seq;
-	private String email;
+	private String email;	//manager의 email
 	private int sratNum;
 	private int pratNum;
-	private String memail;
+	private String memail;	//member의 email
 	private Date repDate;
 	
 	public Reporting() {}

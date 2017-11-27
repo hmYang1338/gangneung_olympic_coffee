@@ -63,7 +63,7 @@ public class MainController {
 			}
 			Manager manager = (Manager) session.getAttribute("managerSession");
 			if(manager.getEmail() != null && !manager.getEmail().trim().equals("")) {
-				if(manager.getMajor() != null && !manager.getMajor().trim().equals("")) {
+				if(manager.getMajor()!=0) {
 					return 3;
 				} else {
 					return 2;

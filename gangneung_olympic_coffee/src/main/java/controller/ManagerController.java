@@ -49,7 +49,7 @@ public class ManagerController {
 	}
 
 	/**
-	 * manager가 관리하는 창을 띄움
+	 * 관리자가 관리하는 창을 띄움
 	 * @return
 	 */
 	@RequestMapping(value="/showManage.do")
@@ -63,6 +63,18 @@ public class ManagerController {
 	@RequestMapping(value="/showStoreManage.do")
 	public String showStoreManage() {
 		return "manager/storeManage";
+	}
+	@RequestMapping(value="/showReportManage.do")
+	public String showReportManage() {
+		return "manager/reportManage";
+	}
+	
+	/**
+	 * 운영자가 관리하는 창을 띄움
+	 */
+	@RequestMapping(value="/showManager.do")
+	public String showManager() {
+		return "manager/showManager";
 	}
 	
 	
@@ -90,9 +102,7 @@ public class ManagerController {
 				|| manager.getPassword().trim().length() == 0 || manager.getName() == null
 				|| manager.getName().trim().length() == 0 || manager.gettel() == null
 				|| manager.gettel().trim().length() == 0 || manager.getBirth() == null
-				|| manager.getBirth().trim().length() == 0 || manager.getId() == 0 || manager.getImgDir() == null
-				|| manager.getImgDir().trim().length() == 0 || manager.getMajor() == null
-				|| manager.getMajor().trim().length() == 0) { // 계정 생성시 빈칸이 있는지 확인
+				|| manager.getBirth().trim().length() == 0) { // 계정 생성시 빈칸이 있는지 확인
 			return "test/loginPage"; // 빈칸 있을시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		}
 		manager.setPassword(encoder.encoding(manager.getPassword())); // 비밀번호암호화
@@ -101,7 +111,7 @@ public class ManagerController {
 			System.out.println("error"); // test//계정 생성 실패시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 			uri = "test/error";
 		} else {
-			uri = "redirect:test.do"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
+			uri = "redirect:index.do"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		}
 		return uri;
 	}

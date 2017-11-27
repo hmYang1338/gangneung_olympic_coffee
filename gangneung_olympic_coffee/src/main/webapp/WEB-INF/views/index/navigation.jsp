@@ -35,7 +35,7 @@
           </c:when>
           <c:when test="${not empty managerSession.email}">
        		<a class="js-scroll-trigger" href="logout.do"><spring:message code="site.list.logout"/></a>
-          	<a class="js-scroll-trigger" href="#fff" onclick="manageBtn();"><spring:message code="site.member.siteAdmin"/></a>
+          	<a class="js-scroll-trigger" href="#fff" onclick="managermBtn();"><spring:message code="site.member.siteAdmin"/></a>
           </c:when>
           <c:when test="${not empty adminSession.email}">
           	<a class="js-scroll-trigger" href="logout.do"><spring:message code="site.list.logout"/></a>

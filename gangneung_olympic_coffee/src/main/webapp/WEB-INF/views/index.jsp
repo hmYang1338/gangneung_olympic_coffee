@@ -55,6 +55,7 @@
 	<script src="js/ajax/manager.js"></script>
 	<script src="js/ajax/managerList.js"></script>
 	<script src="js/ajax/member.js"></script>
+	<script src="js/ajax/reportingList.js"></script>
 	<script src="js/function/childNode.js"></script>
 	<script src="js/function/timeStamp.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwUF9LDOFrejQdPb7FvfCNwbW1zf8aow4"></script>

@@ -93,7 +93,7 @@ public class MemberController {
 	public String loginPage(@RequestParam String email, @RequestParam String password, Model model) {
 		Member member = memberDAO.selectMemberByEmail(email);
 		Manager manager = managerDAO.selectManagerByEmail(email);
-		String major = managerDAO.selectManagerByMajor(email);
+		int major = managerDAO.selectManagerByMajor(email);
 		System.out.println("---major : "+major);//test
 		System.out.println(member);//test
 		System.out.println(manager);//test
@@ -105,14 +105,14 @@ public class MemberController {
 				throw new UsernameNotFoundException(email + "는 없는 회원입니다.");
 			}else {
 				if(encoder.matches(password, manager.getPassword())) {
-					if(major.toUpperCase().equals("PM")) {
+					if(major == 0) {
 						System.out.println("관리자님 입장");//test
 						model.addAttribute("adminSession",manager);
 						return "redirect:index.do";
 					}else {
-					System.out.println(manager.getId()+"Manager님 입장");//test
-					model.addAttribute("managerSession",manager);
-					return "redirect:index.do";
+						System.out.println(manager.getId()+"Manager님 입장");//test
+						model.addAttribute("managerSession",manager);
+						return "redirect:index.do";
 					}
 				}else {
 					System.out.println("Error");//test

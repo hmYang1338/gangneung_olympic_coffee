@@ -46,7 +46,7 @@
 }
 </style>
 	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-	<form action='<c:url value="insertManager.do"/>' method="post" id="insertManager" name="insertManager" role="form">
+	<form action="insertManager.do" method="post" id="insertManager" name="insertManager" role="form">
 	<hr class="hr-white">
 	<h3 class="blue text-center">운영자 계정 생성</h3><hr class="hr-white">
 		<!-- 이메일 -->
