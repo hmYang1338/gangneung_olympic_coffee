@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-lg-10 mx-auto text-center">
             <h4>
-              <strong>Start Bootstrap</strong>
+              <strong>강릉 커피</strong>
             </h4>
             <p>3481 Melrose Place
               <br>Beverly Hills, CA 90210</p>

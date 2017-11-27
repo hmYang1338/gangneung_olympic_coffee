@@ -3,14 +3,13 @@
  * @author 신승엽
  */
 
-function initMap(lat,longi) {
-  var uluru = {lat: lat, lng: longi};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
-  });
-  var marker = new google.maps.Marker({
-    position: uluru,
-    map: map
-  });
+var initMap = function(mapLat, mapLongi){
+        	var map = new google.maps.Map(document.getElementById('store-modal-view'), {
+                zoom: 11,
+                center: {lat: mapLat,lng: mapLongi}
+              });
+        	new google.maps.Marker({
+                position: {lat: mapLat,lng: mapLongi},
+                map: map
+              });
 }

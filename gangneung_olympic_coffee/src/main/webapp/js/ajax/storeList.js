@@ -74,7 +74,6 @@ function storeSelectById(element) {
 
 function storeListExcute(element){
 	//store,product Rating을 저장할 새로운 div 객체 생성
-	console.log('fjasdkflsdjklfvdfha;nivldfhakvhfadkljgfhsk')
 	var storeDiv = document.createElement('div');
 	
 	storeDiv.id = 'rating_view';
@@ -119,22 +118,25 @@ function storeExecute(element){
 			location.href = url;
 		}
 	});
-	
 	//비동기 통신으로 스토어 위치를 구글 맵에 표시
 	iconMaker(nameElement, 'store_icon', 'img/map-icon.svg', function(e){
 		e.stopPropagation();
 		$(document).ready(function() {
 			$("#store-modal").modal();
+			var modalView = document.getElementById('store-modal-view');
+			modalView.innerHTML='';
+			modalView.className='map';
 			initMap(parseFloat(elementChildSelectorName(element,'lat').value),
 					parseFloat(elementChildSelectorName(element,'longi').value));
 		});	
 	});
+	
+	//즐겨찾기
 	//if (auth == 1) {
 		iconMaker(nameElement, 'store_icon', 'img/coffee-icon.svg', function(e) {
 			e.stopPropagation();
 			var id = elementChildSelectorName(element, 'id').value;
 			//현재 스토어의 ID 값을 받아옴
-
 			//추후 구현 되면 이 항목에 만든 메소드를 넣을 것
 			/**
 			 * 구현을 요함
@@ -142,7 +144,32 @@ function storeExecute(element){
 			alert('안녕하세요');
 		});
 	//}
-
+		
+		//코맨트 입력
+		iconMaker(nameElement, 'store_icon left', 'img/comment-icon.svg', function(e){
+			e.stopPropagation();
+			$(document).ready(function() {
+				$("#store-modal").modal();
+				//$(#store-modal-view).html();
+				var id = elementChildSelectorName(element, 'id').value;
+				/**
+				 * 구현을 요함
+				 */
+				//store-modal-view
+				//innerHTML로 떠서 
+			});	
+		});
+		
+		//메뉴 리스트
+		iconMaker(nameElement, 'store_icon left', 'img/coffee-menu.svg', function(e){
+			e.stopPropagation();
+			$(document).ready(function() {
+				var modalView = document.getElementById('store-modal-view');
+				modalView.innerHTML='';
+				$("#store-modal").modal();
+				menuList(elementChildSelectorName(element, 'id').value);
+			});	
+		});
 }
 
 function storeExecutePlus(element){

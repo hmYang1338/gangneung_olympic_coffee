@@ -25,9 +25,9 @@
 	<jsp:include page="index/navigation.jsp"></jsp:include>
 	<jsp:include page="index/header.jsp"></jsp:include>
 	<jsp:include page="index/loginModal.jsp"></jsp:include>
+	<jsp:include page="index/map.jsp"></jsp:include>
 	<jsp:include page="index/managerModal.jsp"></jsp:include>
 	<jsp:include page="index/store.jsp"></jsp:include>
-	<jsp:include page="index/map.jsp"></jsp:include>
 	<jsp:include page="index/footer.jsp"></jsp:include>
 
 
@@ -43,10 +43,12 @@
 
 	<!-- 사용자 지정 js 추가 -->
 	<script src="js/ajax/httpRequest.js"></script>
+	<script src="js/form/map.js"></script>
 	<script src="js/form/listView.js"></script>
 	<script src="js/form/iconMaker.js"></script>
 	<script src="js/form/starRating.js"></script>
-	<script src="js/form/map.js"></script>
+	<script src="js/ajax/productList.js"></script>
+	<script src="js/ajax/productRating.js"></script>
 	<script src="js/ajax/sessionAuth.js"></script>
 	<script src="js/ajax/storeList.js"></script>
 	<script src="js/ajax/storeRating.js"></script>
@@ -55,7 +57,6 @@
 	<script src="js/ajax/manager.js"></script>
 	<script src="js/ajax/managerList.js"></script>
 	<script src="js/ajax/member.js"></script>
-	<script src="js/ajax/reportingList.js"></script>
 	<script src="js/function/childNode.js"></script>
 	<script src="js/function/timeStamp.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwUF9LDOFrejQdPb7FvfCNwbW1zf8aow4"></script>

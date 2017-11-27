@@ -4,18 +4,22 @@ public class Product {
 	private int lanCode;
 	private int id;
 	private int code;
+	private String product;
 	private int oz;
-	private int price;
+	private int hotPrice;
+	private int icePrice;
 	
 	public Product() {}
 
-	public Product(int lanCode, int id, int code, int oz, int price) {
+	public Product(int lanCode, int id, int code, String product, int oz, int hotPrice, int icePrice) {
 		super();
 		this.lanCode = lanCode;
 		this.id = id;
 		this.code = code;
+		this.product = product;
 		this.oz = oz;
-		this.price = price;
+		this.hotPrice = hotPrice;
+		this.icePrice = icePrice;
 	}
 
 	public int getLanCode() {
@@ -42,6 +46,14 @@ public class Product {
 		this.code = code;
 	}
 
+	public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = product;
+	}
+
 	public int getOz() {
 		return oz;
 	}
@@ -50,12 +62,20 @@ public class Product {
 		this.oz = oz;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getHotPrice() {
+		return hotPrice;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setHotPrice(int hotPrice) {
+		this.hotPrice = hotPrice;
+	}
+
+	public int getIcePrice() {
+		return icePrice;
+	}
+
+	public void setIcePrice(int icePrice) {
+		this.icePrice = icePrice;
 	}
 
 	@Override
@@ -67,10 +87,14 @@ public class Product {
 		builder.append(id);
 		builder.append(", code=");
 		builder.append(code);
+		builder.append(", product=");
+		builder.append(product);
 		builder.append(", oz=");
 		builder.append(oz);
-		builder.append(", price=");
-		builder.append(price);
+		builder.append(", hotPrice=");
+		builder.append(hotPrice);
+		builder.append(", icePrice=");
+		builder.append(icePrice);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -80,10 +104,12 @@ public class Product {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + code;
+		result = prime * result + hotPrice;
+		result = prime * result + icePrice;
 		result = prime * result + id;
 		result = prime * result + lanCode;
 		result = prime * result + oz;
-		result = prime * result + price;
+		result = prime * result + ((product == null) ? 0 : product.hashCode());
 		return result;
 	}
 
@@ -98,15 +124,22 @@ public class Product {
 		Product other = (Product) obj;
 		if (code != other.code)
 			return false;
+		if (hotPrice != other.hotPrice)
+			return false;
+		if (icePrice != other.icePrice)
+			return false;
 		if (id != other.id)
 			return false;
 		if (lanCode != other.lanCode)
 			return false;
 		if (oz != other.oz)
 			return false;
-		if (price != other.price)
+		if (product == null) {
+			if (other.product != null)
+				return false;
+		} else if (!product.equals(other.product))
 			return false;
 		return true;
 	}
-
+	
 }

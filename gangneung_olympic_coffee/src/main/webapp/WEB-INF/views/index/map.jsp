@@ -3,7 +3,7 @@
 	<div class="modal fade" id="store-modal" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content container blue-background" id="modal-manager">
-				<div id="map"></div>
+				<div id="store-modal-view"></div>
 			</div>
 		</div>
 	</div>

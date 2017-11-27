@@ -14,7 +14,7 @@
 			</ul>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="img/gangneung-coffee-1.jpg" alt="gangneung">
+					<img src="img/main_01.JPG" alt="gangneung">
 					<div class="carousel-caption main-title">
 						<h3>
 							<spring:message code="site.main.imgTitle1" />
@@ -25,7 +25,7 @@
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="img/gangneung-coffee-2.jpg" alt="gangneung">
+					<img src="img/main_02.JPG" alt="gangneung">
 					<div class="carousel-caption main-title">
 						<h3>
 							<spring:message code="site.main.imgTitle2" />
@@ -36,7 +36,7 @@
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="img/gangneung-coffee-3.jpg" alt="gangneung">
+					<img src="img/main_03.JPG" alt="gangneung">
 					<div class="carousel-caption main-title">
 						<h3>
 							<spring:message code="site.main.imgTitle3" />
@@ -47,7 +47,7 @@
 					</div>
 				</div>
 				<div class="carousel-item">
-					<img src="img/gangneung-coffee-4.jpg" alt="gangneung">
+					<img src="img/main_04.JPG" alt="gangneung">
 					<div class="carousel-caption main-title">
 						<h3>
 							<spring:message code="site.main.imgTitle4" />

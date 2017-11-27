@@ -8,17 +8,24 @@
 		<result column="lan_code" property="lanCode"/>
 		<result column="id" property="id"/>
 		<result column="code" property="code"/>
+		<result column="product" property="product"/>
 		<result column="oz" property="oz"/>
-		<result column="price" property="price"/>
+		<result column="hot_price" property="hotPrice"/>
+		<result column="ice_price" property="icePrice"/>
 	</resultMap>
 
 	<sql id="productColum">
-		lan_code, id, code, oz, price
+		lan_code, id, code, product, oz, hot_price, ice_price 
 	</sql>
 	
 	<select id="selectProduct" resultMap="productSelectMap">
 		SELECT <include refid="productColum"/>
 		FROM product
+	</select>
+	
+	<select id="selectProductById" resultMap="productSelectMap" parameterType="java.util.HashMap">
+		SELECT <include refid="productColum"/>
+		FROM product WHERE id = #{id} and lan_code = #{lanCode}
 	</select>
 	
 	<insert id="insertProduct" parameterType="product">
