@@ -16,7 +16,7 @@ import dto.Store;
 import dto.UserGPS;
 
 @Controller
-@SessionAttributes({"memberSession","lanCode"})
+@SessionAttributes({"memberSession","managerSession","lanCode"})
 public class StoreController {
 	@Autowired
 	private StoreDAO storeDAO;

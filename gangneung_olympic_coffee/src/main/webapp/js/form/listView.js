@@ -100,9 +100,13 @@ function listView(data){
 		}
 	}
 	//최종적으로 DIV CHILD로 추가해 줌
-	elementDiv.appendChild(innerDiv);
-	
+	try{
+		elementDiv.appendChild(innerDiv);
+	} catch(e){
+		console.log(e);
+	}
 	//최종 처리 후 메소드에 처리할 내용이 있는지 확인
+	console.log(executeFunction);
 	if(executeFunction!=null){
 		executeFunction(elementDiv);
 	}

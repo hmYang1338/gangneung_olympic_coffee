@@ -99,6 +99,13 @@ store출력을 위한 css
 .store-info{
 	
 }
+.rating_list{
+	height: 70%;
+	overflow: auto;
+}
+.rating_list_column{
+	margin-bottom: 5px;
+}
 .store-name{
 	font-size: 35px;
 	border-bottom: 5px solid white;
@@ -115,16 +122,38 @@ store출력을 위한 css
 	width: 50%;
 }
 .rating_email{
-	display: inline-block;
-	border-bottom:1 solid white;
+	background-color: #ffffffaa;
+	color: black;
+	display: inline-table;
+	border-bottom: 3px solid white;
 	float:left;
 	width: 30%;
 }
 .rating_time{
+	background-color: #ffffffaa;
+	color: black;
 	display: inline-block;
-	border-bottom:1 solid white;
+	border-bottom: 3px solid white;
 	float:left;
+	width: 70%;
 }
+.rating_rat_comment{
+	border: 1px solid white;
+}
+.store_icon > img{
+	float: right;
+	width: 50px;
+	height: 50px;
+}
+.store_icon > img:hover{
+	background-color: #ffffffaa;
+}
+/*google map 크기*/
+#map {
+	height: 400px;
+	width: 100%;
+}
+
 /*
 이미지 효과를 위한 css
 */

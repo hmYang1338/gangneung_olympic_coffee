@@ -3,6 +3,7 @@
  * 비동기 방식으로 div 태그를 추가함.
  * @author 신승엽
  */
+var auth = checkSession();
 
 //메인 화면 실행시 비동기 통신으로 커피숍 목록을 출력함
 var storeListRequest = sendRequest("storeListMap.do", null, storeListAjax, "POST");
@@ -27,12 +28,14 @@ function storeListAjax() {
 						'tableId' : ''
 				},
 				'innerFunction' : storeSelectById,
+				'executeFunction' : storeListExcute
 		};
 		listView(data);
 	}
 }
 
-//열 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
+
+//행 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
 function storeSelectById(element) {
 	$(document).ready(function() {
 		//자식 객체의 값을 받아와 id값을 받아옴
@@ -41,8 +44,8 @@ function storeSelectById(element) {
 		//각 카페별 대표 이미지 값들을 받아옴. 거기에서 가벼운 파일인 preview파일로 바꾸기 위하여 치환 함.
 		cafeImage.src = elementChildSelectorName(element,'IMG').value.replace('.JPG', '_preview.JPG');
 		cafeImage.className = 'store-list-image pic-image';
-		element.insertBefore(cafeImage,element.lastChild);
 		//이름과 사진의 위치를 변경
+		element.insertBefore(cafeImage,element.lastChild);
 		element.addEventListener("click", function() {
 			//storeView로 스크롤을 이동함.
 			$('html, body').animate({
@@ -69,6 +72,18 @@ function storeSelectById(element) {
 	});
 }
 
+function storeListExcute(element){
+	//store,product Rating을 저장할 새로운 div 객체 생성
+	console.log('fjasdkflsdjklfvdfha;nivldfhakvhfadkljgfhsk')
+	var storeDiv = document.createElement('div');
+	
+	storeDiv.id = 'rating_view';
+	storeDiv.className = 'rating_list';
+	storeDiv.setAttribute("name", 'rating_view')
+	
+	document.getElementById('storeView').appendChild(storeDiv);
+	console.log(document.getElementById('storeView').id);
+}
 
 
 //해당 매장에 대한 상세 정보를 출력 함 -> (storeRating,productRating) 호출 예정
@@ -81,7 +96,7 @@ function storeAjax(){
 				'columnClass' : ['store-name cursor','','',''],
 				'elementId' : 'storeView',
 				'innerSet' : {
-						hiddenColumn:['id','let','longi','smokingRoom','storeUrl','img','storeSource'],
+						hiddenColumn:['id','lat','longi','smokingRoom','storeUrl','img','storeSource'],
 						divId:'sinnerDiv',
 						divClass:'bg-gray',
 						tableId:'sinnerTableDiv',
@@ -97,12 +112,37 @@ function storeAjax(){
 //DB에서 가지고 온 후 따로 div를 구성할 객체들
 function storeExecute(element){
 	//제목을 클릭하면 해당 페이지로 이동하는 코드
-	elementChildSelectorClass(element,'store-name cursor').addEventListener("click",function(){
+	var nameElement = elementChildSelectorName(element,'store-name');
+	nameElement.addEventListener("click",function(){
 		var url = elementChildSelectorName(element,'storeUrl').value;
 		if(url!="null"){
 			location.href = url;
 		}
 	});
+	
+	//비동기 통신으로 스토어 위치를 구글 맵에 표시
+	iconMaker(nameElement, 'store_icon', 'img/map-icon.svg', function(e){
+		e.stopPropagation();
+		$(document).ready(function() {
+			$("#store-modal").modal();
+			initMap(parseFloat(elementChildSelectorName(element,'lat').value),
+					parseFloat(elementChildSelectorName(element,'longi').value));
+		});	
+	});
+	//if (auth == 1) {
+		iconMaker(nameElement, 'store_icon', 'img/coffee-icon.svg', function(e) {
+			e.stopPropagation();
+			var id = elementChildSelectorName(element, 'id').value;
+			//현재 스토어의 ID 값을 받아옴
+
+			//추후 구현 되면 이 항목에 만든 메소드를 넣을 것
+			/**
+			 * 구현을 요함
+			 */
+			alert('안녕하세요');
+		});
+	//}
+
 }
 
 function storeExecutePlus(element){
@@ -110,7 +150,6 @@ function storeExecutePlus(element){
 	var resourceElement = element.lastChild.firstChild;
 	element.style.backgroundImage='url("'+elementChildSelectorName(resourceElement,'img').value+'")';
 	//요소의 상하 위치를 변경. product 리뷰를 하단으로 옮기기를 위함.
-
 	element.insertBefore(element.lastChild,element.lastChild.previousElementSibling);
 }
 
@@ -118,12 +157,12 @@ function productRatingListAjax(){
 	if (productRatingListRequest.readyState == 4 && productRatingListRequest.status == 200) {
 		var data = {
 				'json' : productRatingListRequest.responseText,
-				'column' : ['EMAIL','PRODUCT','RATCOMMENT'],
-				'columnId' :['email','product','ratComment'],
-				'columnClass' : ['divTableCell','divTableCell','divTableCell'],
-				'elementId' : 'storeView',
+				'column' : ['EMAIL','RATCOMMENT'],
+				'columnId' :['email','ratComment'],
+				'columnClass' : ['rating_email','rating_rat_comment',],
+				'elementId' : 'rating_view',
 				'innerSet' : {
-						hiddenColumn:['ID','CODE','LANCODE','RATNUM','RATDATE','OZ','TASTE'],
+						hiddenColumn:['ID','CODE','LANCODE','PRODUCT','RATNUM','RATDATE','OZ','TASTE'],
 						divId:'productRatingListView',
 						divClass:'container bg-gray',
 						tableId:'sinnerTableDiv',
@@ -142,13 +181,13 @@ function storeRatingListAjax(){
 				'column' : ['EMAIL','RATCOMMENT'],
 				'columnId' :['email','ratComment'],
 				'columnClass' : ['rating_email','rating_rat_comment'],
-				'elementId' : 'storeView',
+				'elementId' : 'rating_view',
 				'innerSet' : {
 						hiddenColumn:['LANCODE','RATNUM','RATDATE','ID','INTERIOR','RATACCESS','COSTEFFECT'],
 						divId:'storeRatingListView',
 						divClass:'container bg-gray',
 						tableId:'sinnerTableDiv',
-						tableClass:'sdivTableRow'
+						tableClass:'rating_list_column'
 				},
 				'innerFunction' : storeRatingAppander
 		};
@@ -157,14 +196,46 @@ function storeRatingListAjax(){
 }
 
 function productRatingAppander(element) {
-	timeAppandProductStoreRating(element);
-	element.appendChild(starRatingView(elementChildSelectorName(element,"TASTE"),"TASTE"));
+	timeAppandProductStoreRating(element,parseInt(elementChildSelectorName(element,'LANCODE').value));
+	var ratingLanguage = ['','TASTE','풍미','味'];
+	var ozLanguage = ['','oz','크기','盎司']
+	
+	//새로운 레이팅 element를 생성
+	var ratingElement = document.createElement('div');
+	ratingElement.setAttribute('name','productRating_div');
+	ratingElement.className='rating_element';
+	
+	//음료의 이름을 출력할 element
+	var productName = document.createElement('div');
+	productName.className='rating_name';
+	productName.appendChild(document.createTextNode(elementChildSelectorName(element, 'PRODUCT').value));
+	ratingElement.appendChild(productName);
+	
+	//음료의 크기를 출력할 element
+	var ozName = document.createElement('div');
+	ozName.className='rating_name';
+	ozName.appendChild(document.createTextNode(ozLanguage[parseInt(elementChildSelectorName(element,'LANCODE').value)]+' : '+elementChildSelectorName(element, 'OZ').value));
+	ratingElement.appendChild(ozName);
+	
+	//레이팅 바 구현
+	var ratingName = document.createElement('div');
+	ratingName.className='rating_name';
+	ratingName.appendChild(document.createTextNode(ratingLanguage[parseInt(elementChildSelectorName(element,'LANCODE').value)]));
+	ratingElement.appendChild(ratingName);
+	var ratingStar = starRatingView(elementChildSelectorName(element, 'TASTE'), 'TASTE', false);
+	ratingStar.className='rating_star';
+	ratingElement.appendChild(ratingStar);
+	
+	//요소별 위치를 재정의
+	
+	element.insertBefore(elementChildSelectorName(element,'ratComment'),elementChildSelectorName(element,'TASTEDIV'));
+	element.insertBefore(ratingElement,elementChildSelectorName(element,'ratComment'));
 }
 
 
 function storeRatingAppander(element) {
 	//시간을 추가하는 메소드 추가
-	timeAppandProductStoreRating(element);
+	timeAppandProductStoreRating(element,parseInt(elementChildSelectorName(element,'LANCODE').value));
 	//스토어 레이팅(별)을 추가하는 메소드
 	var ratings = [ 'INTERIOR', 'RATACCESS', 'COSTEFFECT' ];
 	var ratingLanguage = [0,['INTERIOR', 'ACCESS', 'COSTEFFECT'],
@@ -184,7 +255,6 @@ function storeRatingAppander(element) {
 		var ratingName = document.createElement('div');
 		ratingName.className='rating_name';
 		ratingName.appendChild(document.createTextNode(ratingLanguage[parseInt(elementChildSelectorName(element,'LANCODE').value)][i]));
-
 		//실제 레이팅 스타를 더함
 		ratingElement.appendChild(ratingName);
 		var ratingStar = starRatingView(ratArr[i], ratings[i], false);
@@ -194,12 +264,11 @@ function storeRatingAppander(element) {
 	//요소별 위치를 재정의
 	element.insertBefore(elementChildSelectorName(element,'ratComment'),elementChildSelectorName(element,'INTERIORDIV'));
 	element.insertBefore(ratingElement,elementChildSelectorName(element,'ratComment'));
-
-	}
+}
 
 //Date타입을 사용자가 보기 편하게 바꿔주는 메소드, Table안에 지정
-function timeAppandProductStoreRating(element) {
-	var time = timeAppand(element, 'RATDATE');
+function timeAppandProductStoreRating(element,language) {
+	var time = timeAppand(element, 'RATDATE',language);
 	element.lastChild.className = 'rating_time';
 	element.lastChild.id = 'date';
 }

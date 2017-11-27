@@ -15,7 +15,6 @@ function manageAjax() {
 	if (manage.readyState == 4 && manage.status == 200) {
 		$(document).ready(function() {
 			$("#manager-modal").modal();
-			$("#modal-manager").html(manage.responseText);
 		});	
 	}
 }

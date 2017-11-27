@@ -16,9 +16,9 @@
         </li>
         <!-- 다국어 선택 -->
         <div style="text-align: center;">
-        	<a href="<c:url value="/test.do?lang=ko" />"><spring:message code="site.language.korean"/></a> 
-			<a href="<c:url value="/test.do?lang=en" />"><spring:message code="site.language.english"/></a>
-			<a href="<c:url value="/test.do?lang=zh" />"><spring:message code="site.language.chinese"/></a>
+        	<a href="<c:url value="/index.do?lang=ko" />"><spring:message code="site.language.korean"/></a> 
+			<a href="<c:url value="/index.do?lang=en" />"><spring:message code="site.language.english"/></a>
+			<a href="<c:url value="/index.do?lang=zh" />"><spring:message code="site.language.chinese"/></a>
         </div>
         <!-- 로그인/회원가입 -->
         <li>
