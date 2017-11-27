@@ -23,7 +23,7 @@
         <!-- 로그인/회원가입 -->
         <li>
         <c:choose>
-          <c:when test="${empty memberSession.email&&empty managerSession.email}">
+          <c:when test="${empty memberSession.email&&empty managerSession.email&&empty adminSession.email}">
           	<a class="js-scroll-trigger" href="#fff" onclick="loginBtn();"><spring:message code="site.list.loginJoin"/></a>
           </c:when>
           <c:when test="${not empty memberSession.email}">
