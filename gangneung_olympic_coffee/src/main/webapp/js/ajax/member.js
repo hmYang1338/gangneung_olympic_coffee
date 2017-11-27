@@ -48,9 +48,36 @@ function storeRatingInsertAjax(){
 		$(document).ready(function(){
 			$("#loginLP").modal();
 			$("#modalMember").html(storeRatingInsert.responseText);
-			insertStarRating();
+			insertStarStoreRating();
 		});
 	}
 }
 
+var productRatingInsert;
+function productRatingInsertBtn(){
+	productRatingInsert = sendRequest("productRatingInsertBtn.do",null,productRatingInsertAjax,"GET");
+}
 
+function productRatingInsertAjax(){
+	if(productRatingInsert.readyState == 4 && productRatingInsert.status == 200){
+		$(document).ready(function(){
+			$("#loginLP").modal();
+			$("#modalMember").html(productRatingInsert.responseText);
+			insertStarProductRating();
+		});
+	}
+}
+
+//Favorite
+var favoriteInsertRequest;
+function favoriteInsertBtn(){
+	favoriteInsertRequest = sendRequest("favoriteBtn.do",null,favoriteInsertAjax,"GET");
+}
+function favoriteInsertAjax(){
+	if(favoriteInsertRequest.readyState == 4 && favoriteInsertRequest.status == 200){
+		$(document).ready(function(){
+			$("#loginLP").modal();
+			$("#modalMember").html(favoriteInsertRequest.responseText);
+		});
+	}
+}

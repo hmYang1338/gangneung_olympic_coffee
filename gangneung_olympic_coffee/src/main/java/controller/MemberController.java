@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import dao.FavoriteDAO;
 import dao.LanguageDAO;
 import dao.ManagerDAO;
 import dao.MemberDAO;
@@ -24,6 +25,7 @@ import dao.NationDAO;
 import dao.ProductRatingDAO;
 import dao.StoreDAO;
 import dao.StoreRatingDAO;
+import dto.Favorite;
 import dto.Language;
 import dto.Manager;
 import dto.Member;
@@ -33,7 +35,7 @@ import sercurity.ShaEncoder;
 
 
 @Controller
-@SessionAttributes({"memberSession","managerSession","lanCode"})
+@SessionAttributes({"memberSession","managerSession","adminSession","lanCode"})
 public class MemberController {
 	
 	@Autowired
@@ -55,7 +57,7 @@ public class MemberController {
 	private StoreRatingDAO storeRatingDAO;
 	
 	@Autowired
-	private StoreDAO storeDAO;//test
+	private FavoriteDAO favoriteDAO;//test
 	
 	@Autowired 
 	private SessionLocaleResolver localeResolver; 
@@ -91,8 +93,10 @@ public class MemberController {
 	public String loginPage(@RequestParam String email, @RequestParam String password, Model model) {
 		Member member = memberDAO.selectMemberByEmail(email);
 		Manager manager = managerDAO.selectManagerByEmail(email);
-		System.out.println(member);
-		System.out.println(manager);
+		String major = managerDAO.selectManagerByMajor(email);
+		System.out.println("---major : "+major);//test
+		System.out.println(member);//test
+		System.out.println(manager);//test
 		model.addAttribute("nationList",nationDAO.selectNation());
 		model.addAttribute("languageList",languageDAO.selectLanguage());
 		if (member == null) {// ID가 없는경우
@@ -101,9 +105,15 @@ public class MemberController {
 				throw new UsernameNotFoundException(email + "는 없는 회원입니다.");
 			}else {
 				if(encoder.matches(password, manager.getPassword())) {
+					if(major.toUpperCase().equals("PM")) {
+						System.out.println("관리자님 입장");//test
+						model.addAttribute("adminSession",manager);
+						return "redirect:index.do";
+					}else {
 					System.out.println(manager.getId()+"Manager님 입장");//test
 					model.addAttribute("managerSession",manager);
-					return "redirect:test.do";
+					return "redirect:index.do";
+					}
 				}else {
 					System.out.println("Error");//test
 				}
@@ -114,13 +124,13 @@ public class MemberController {
 				memberDAO.updateMemberByLastDate(email);
 				localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[member.getLanCode()]);
 				model.addAttribute("memberSession", member);
-				return "redirect:test.do";
+				return "redirect:index.do";
 			}else {
 				System.out.println("비밀번호 MissMatch");
 				return "forward:member/memberJoin.jsp";
 			}
 		}
-		return "redirect:test.do";
+		return "redirect:index.do";
 	}
 	/**
 	 * Logout시에 session 제거
@@ -130,7 +140,7 @@ public class MemberController {
 	@RequestMapping("/logout.do")
 	public String logout(SessionStatus status) {
 		status.setComplete();
-		return "redirect:test.do";
+		return "redirect:index.do";
 	}
 
 	/**
@@ -147,25 +157,33 @@ public class MemberController {
 		if (result == 0) {
 			System.out.println("error"); // test
 		} else {
-			uri = "redirect:test.do";
+			uri = "redirect:index.do";
 		}
 		return uri;
 	}
 	
 	//회원리스트
-	@RequestMapping(value = "/selectMemberAll.do")
+	@RequestMapping(value = "/selectMemberAll.do", method = RequestMethod.GET)
 	public String selectMember(Model model) {
 		List<Member> list = memberDAO.selectMember();
 		model.addAttribute("memberList",list);
-		return "forward:memeber/memberList.jsp";
+		return "member/memberList";
 	}
 	
 	//회원탈퇴(관리자)
 	@RequestMapping(value = "/deleteMemberByManager.do", method = RequestMethod.POST)
 	public String deleteMemberByManager(@RequestParam String email, Model model) {
 		System.out.println(email);//test
-		memberDAO.deleteMemberByManager(email);
-		return "forward:member/memberList.jsp";
+		int result = memberDAO.deleteMemberByManager(email);
+		if(result == 1) {
+			model.addAttribute("msg", "삭제 성공."); 
+			model.addAttribute("url","index.do");
+		return "redirect:message.jsp";
+		}else {
+			model.addAttribute("msg", "삭제 실패."); 
+			model.addAttribute("url","index.do");
+			return "redirect:";
+		}
 	}
 	
 	//회원탈퇴(자발적인) - 자발적이라 썼지만 우선 admin으로도 못함...
@@ -179,13 +197,15 @@ public class MemberController {
 		if (encoder.matches(passwordBefore, passwordDB)) {
 			System.out.println("삭제 완료");	// test
 			model.addAttribute("msg", "삭제되었습니다."); 
-			model.addAttribute("url","test.do");
+			model.addAttribute("url","index.do");
 			memberDAO.deleteMember(memberSession.getEmail());
 			status.setComplete();
 			return "redirect:message.jsp";//추후 index로 바꿔줄 것
 		} else {
+			model.addAttribute("msg", "삭제가 실패되었습니다."); 
+			model.addAttribute("url","index.do");
 			System.out.println("삭제 실패");
-			return "forward:member/memberJoin.jsp";
+			return "redirect:";
 		}
 	}
 	//회원정보 수정
@@ -197,12 +217,12 @@ public class MemberController {
 				memberSession.setPassword(encoder.encoding(passwordBefore));
 				memberDAO.updateMember(memberSession);
 				localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
-				return "redirect:test.do";
+				return "redirect:index.do";
 			}else if(password.length()>=8) {
 				memberSession.setPassword(encoder.encoding(memberSession.getPassword()));
 				memberDAO.updateMember(memberSession);
 				localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
-				return "redirect:test.do";
+				return "redirect:index.do";
 			}else {
 				System.out.println("Inner 실패");
 				return "forward:member/memberJoin.jsp";
@@ -214,10 +234,9 @@ public class MemberController {
 		
 	}
 	
-	//test
+	//test - storeRatingInsert
 	@RequestMapping("/storeRatingInsertBtn.do")
 	public String storeRatingInsertBtn(@ModelAttribute Member memberSession, Model model) {
-		System.out.println("storeRatingInsert");//test
 		return "storerating";
 	}
 
@@ -238,13 +257,20 @@ public class MemberController {
 		} else {
 			System.out.println("실패하였습니다.");
 		}
-		return "redirect:test.do";
+		return "redirect:index.do";
+	}
+	
+	//test - productRatingInsert
+	@RequestMapping("/productRatingInsertBtn.do")
+	public String productRatingInsertBtn(@ModelAttribute Member memberSession, Model model) {
+		return "productrating";
 	}
 	
 	@RequestMapping("/insertProductRating.do")
 	public String insertProductRating(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute ProductRating productRating) {
 		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
 		int maxNum = productRatingDAO.selectProductRaingByRatNum(memberSession.getEmail());
+		System.out.println(maxNum);
 		productRating.setEmail(memberSession.getEmail());
 		productRating.setRatNum(++maxNum);
 		productRating.setLanCode(memberSession.getLanCode());
@@ -254,7 +280,30 @@ public class MemberController {
 		}else {
 			System.out.println("실패하였습니다.");
 		}
-		return "redirect:test.do";
+		return "redirect:index.do";
 	}
 	
+	//Favorite Test
+	@RequestMapping("/favoriteBtn.do")
+	public String favoriteInsertBtn(@ModelAttribute Member memberSession, Model model) {
+		return "favorite";
+	}
+	
+	@RequestMapping("/insertFavorite.do")
+	public String insertFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute Favorite favorite) {
+		System.out.println(favorite);
+		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+		int maxNum = favoriteDAO.selectFavoriteByNum(memberSession.getEmail());
+		System.out.println(maxNum);
+		favorite.setFavNum(++maxNum);
+		favorite.setEmail(memberSession.getEmail());
+		favorite.setLanCode(memberSession.getLanCode());
+		System.out.println("Result" + favorite);
+		if(favoriteDAO.insertFavorite(favorite)==1) {
+			System.out.println("성공하였습니다.");
+		}else {
+			System.out.println("실패하였습니다.");
+		}
+		return "redirect:index.do";
+	}
 }

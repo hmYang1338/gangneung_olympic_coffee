@@ -19,6 +19,12 @@
 		WHERE lan_code = #{lanCode}
 	</select>
 	
+	<select id="selectFavoriteByNum" resultType="int" parameterType="String">
+		SELECT max(fav_num)
+		FROM favorite
+		WHERE email = #{email}
+	</select>
+	
 	<insert id="insertFavorite" parameterType="favorite">
 		INSERT INTO favorite
 		VALUES(#{favNum},#{email},#{lanCode},#{id},#{code},#{oz})
@@ -27,7 +33,7 @@
 	<delete id="deleteFavorite" parameterType="favorite">
 		DELETE
 		FROM favorite
-		WHERE fav_num = #{favNum} and email = #{email} 
+		WHERE fav_num = #{favNum} and email = #{email}
 	</delete>
 	
 </mapper>	

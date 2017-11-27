@@ -38,9 +38,9 @@
  		JOIN STORE s ON pr.id = s.id AND pr.lan_code = s.lan_code WHERE s.id = #{id} AND s.lan_code = #{lanCode}
  	</select>
 	
-	<select id="selectProductRaingByRatNum" resultMap="productRatingSelectMap" parameterType="String">
+	<select id="selectProductRaingByRatNum" resultType="int" parameterType="String">
 		SELECT max(rat_num)
-		FROM storeRating
+		FROM productRating
 		WHERE email = #{email}
 	</select>
 	

@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <style type="text/css">
 	.brown-background{
 		background: #f2e6d9;
@@ -52,13 +52,6 @@
 		margin-bottom: 20px;
 	}
 </style>
-
-
-	<a href="selectMemberAll.do">리스트 보기</a>
-	<a href="member.do">로그인</a>
-	
-	<br><hr><br>
-	
 	<!-- 회원 가입 구현 -->
 			<form action="insertMember.do" id="joinMember" name="joinMember" role="form" method="POST"><br>
 			<hr class="hr-white">

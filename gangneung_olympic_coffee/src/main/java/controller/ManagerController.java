@@ -468,5 +468,4 @@ public class ManagerController {
 			return reportingDao.deleteReport(seq)>0?"success":"fail";
 		}
 	}
-	
 }

@@ -17,11 +17,10 @@
 
 </head>
 <body>
-<a href="member.do">test3.do</a>
 	<h1> Member List</h1>
-	
-	<div class="container">
+<%-- 		<form action="deleteMemberByManager.do" id="requestForm" method="POST">
 			<div class="row">
+				<input type="hidden" name="email" id="email" value="${member.email}">
 				<div class="divTableHeading">Email</div>
 				<div class="divTableHeading">Nation</div>
 				<div class="divTableHeading">Language</div>
@@ -48,35 +47,38 @@
 					<div class="col"><input type="button" name="deleteMember"  value="x" onclick="sendDelete('${member.email}')"></div>
 			</div>
 				</c:forEach>
-	</div>
-	<table>
-		<tr>
-			<th>이메일</th>
-			<th>국가</th>
-			<th>설정언어</th>
-			<th>이름</th>
-			<th>전화번호</th>
-			<th>성별</th>
-			<th>생일</th>
-			<th>가입일</th>
-			<th>최근접속일</th>
-			<th>삭제버튼</th>
-		</tr>
-		<c:forEach items="${requestScope.memberList}" var="member">
+			</form> --%>
+	<form action="deleteMemberByManager.do" id="requestForm" method="POST">
+		<input type="hidden" name="email" id="email" value="${member.email}">
+		<table>
 			<tr>
-				<td>${member.email}</td>
-				<td>${member.nationCode}</td>
-				<td>${member.lanCode}</td>
-				<td>${member.name}</td>
-				<td>${member.tel}</td>
-				<td>${member.gender}</td>
-				<td>${member.birth}</td>
-				<td>${member.joinDate}</td>
-				<td>${member.lastDate}</td>
-				<td><input type="button" name="deleteMember"  value="Delete" onclick="sendDelete('${member.email}')"></td>
+				<th>이메일</th>
+				<th>국가</th>
+				<th>설정언어</th>
+				<th>이름</th>
+				<th>전화번호</th>
+				<th>성별</th>
+				<th>생일</th>
+				<th>가입일</th>
+				<th>최근접속일</th>
+				<th>삭제버튼</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach items="${requestScope.memberList}" var="member">
+				<tr>
+					<td>${member.email}</td>
+					<td>${member.nationCode}</td>
+					<td>${member.lanCode}</td>
+					<td>${member.name}</td>
+					<td>${member.tel}</td>
+					<td>${member.gender}</td>
+					<td>${member.birth}</td>
+					<td>${member.joinDate}</td>
+					<td>${member.lastDate}</td>
+					<td><input type="button" name="deleteMember"  value="Delete" onclick="sendDelete('${member.email}')"></td>
+				</tr>
+			</c:forEach>
+		</table>
+	</form>
 	<!-- 사용자 탈퇴가 맞게 email Session 처리 해줘야함 -->
  	<script>
 		function sendDelete(email){

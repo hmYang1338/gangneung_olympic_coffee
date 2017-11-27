@@ -30,11 +30,17 @@
         	<a class="js-scroll-trigger" href="logout.do"><spring:message code="site.list.logout"/></a>
         	<a class="js-scroll-trigger" href="#fff" onclick="updateBtn();"><spring:message code="site.list.update"/></a>
         	<a class="js-scroll-trigger" href="#fff" onclick="storeRatingInsertBtn();">storeRating</a>
-        	<!-- <a class="js-scroll-trigger" href="#fff" onclick="storeRatingInsertBtn();">storeRating</a> -->
+        	<a class="js-scroll-trigger" href="#fff" onclick="productRatingInsertBtn();">productRating</a>
+    	    <a class="js-scroll-trigger" href="#fff" onclick="favoriteInsertBtn();"><spring:message code="site.favorite.favorite"/></a>
           </c:when>
           <c:when test="${not empty managerSession.email}">
        		<a class="js-scroll-trigger" href="logout.do"><spring:message code="site.list.logout"/></a>
           	<a class="js-scroll-trigger" href="#fff" onclick="manageBtn();"><spring:message code="site.member.siteAdmin"/></a>
+          </c:when>
+          <c:when test="${not empty adminSession.email}">
+          	<a class="js-scroll-trigger" href="logout.do"><spring:message code="site.list.logout"/></a>
+          	<a class="js-scroll-trigger" href="#fff" onclick="manageBtn();"><spring:message code="site.member.siteAdmin"/></a>
+          	<a class="js-scroll-trigger" href="#fff" onclick="memberAllListBtn()">Member List</a>
           </c:when>
         </c:choose>
         </li>

@@ -28,6 +28,14 @@ public class ProductRating {
 		this.ratDate = ratDate;
 	}
 	
+	public ProductRating(int id, int code, int oz, int taste, String ratComment) {
+		this.id = id;
+		this.code = code;
+		this.oz = oz;
+		this.taste = taste;
+		this.ratComment = ratComment;
+	}
+
 	public ProductRating(int lanCode, int id) {
 		this.lanCode = lanCode;
 		this.id = id;

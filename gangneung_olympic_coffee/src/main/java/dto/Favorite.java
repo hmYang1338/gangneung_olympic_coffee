@@ -9,6 +9,12 @@ public class Favorite {
 	private int oz;
 	
 	public Favorite() {}
+	
+	public Favorite(int id, int code, int oz) {
+		this.id = id;
+		this.code = code;
+		this.oz = oz;
+	}
 
 	public Favorite(int favNum, String email, int lanCode, int id, int code, int oz) {
 		this.favNum = favNum;

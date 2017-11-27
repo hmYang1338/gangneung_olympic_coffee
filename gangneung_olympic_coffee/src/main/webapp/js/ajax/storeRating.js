@@ -8,7 +8,7 @@
 var storeOneRequest = sendRequest(null,null,storeOneAjax,"POST");
 var storeSelectByIdRequest;
 
-function insertStarRating(){
+function insertStarStoreRating(){
 	var element = document.getElementById('insertStoreRatingForm');
 	console.log(element);
 	var ratings = [ 'interior', 'ratAccess', 'costEffect' ];
@@ -53,3 +53,17 @@ function storeOneAjax(){
 		element.appendChild(starRatingView(ratArr[i],ratings[i]));
 	}
 }*/
+
+//productRating 값들
+function insertStarProductRating(){
+	var element = document.getElementById('insertProductRatingForm');
+	console.log(element);
+	var ratings = [ 'taste'];
+	var insertDiv = [ 'taste_view' ];
+	var ratArr = [];
+	var i = 0;
+	for (i; i < ratings.length; i++) {
+		ratArr[i] = elementChildSelectorName(element, ratings[i]);
+		document.getElementById(insertDiv[i]).appendChild(starRatingView(ratArr[i], ratings[i],true));
+	}
+}

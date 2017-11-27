@@ -116,7 +116,16 @@ public class ManagerDAO {
 		return sqlSession.update("managerMapper.updatePassword", updatePassword);
 	}
 	
+	/**
+	 * 관리자&운영자 로그인
+	 * @param email
+	 * @return 로그인된 Manager의 정보
+	 */
 	public Manager selectManagerByEmail(String email) {
 		return sqlSession.selectOne("managerMapper.selectManagerByEmail",email);
+	}
+	
+	public String selectManagerByMajor(String email) {
+		return sqlSession.selectOne("managerMapper.selectManagerByMajor",email);
 	}
 }

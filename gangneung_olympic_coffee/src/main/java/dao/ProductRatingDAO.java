@@ -1,6 +1,5 @@
 package dao;
 
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -64,7 +63,13 @@ public class ProductRatingDAO {
 	 * @return 해당 email에 있는 가장 큰 ratNum값을 가져옴
 	 */
 	public int selectProductRaingByRatNum(String email) {
-		return sqlSession.selectOne("productRatingMapper.selectProductRaingByRatNum",email);
+		int maxNum;
+		try {
+			maxNum = sqlSession.selectOne("productRatingMapper.selectProductRaingByRatNum",email);
+		} catch(NullPointerException e) {
+			maxNum = 0;
+		}
+		return maxNum;
 	}
 	
 	/**
@@ -73,7 +78,7 @@ public class ProductRatingDAO {
 	 * @return 입력이 실패하면 0을 입력이 성공하면 1을 리턴
 	 */
 	public int insertProductRating(ProductRating productRating) {
-		return sqlSession.insert("productRatingMapper.insertProduct",productRating);
+		return sqlSession.insert("productRatingMapper.insertProductRating",productRating);
 	}
 	
 	/**

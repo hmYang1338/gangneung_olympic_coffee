@@ -99,4 +99,10 @@
 		WHERE email=#{email}
 	</select>
 
+	<select id="selectManagerByMajor" parameterType="String" resultType="String">
+		SELECT major
+		FROM manager
+		WHERE email=#{email}
+	</select>
+
 </mapper>	

@@ -27,6 +27,16 @@ public class FavoriteDAO {
 		return sqlSession.selectList("favoriteMapper.selectFavorite",lanCode);
 	}
 	
+	public int selectFavoriteByNum(String email) {
+		int maxNum;
+		try {
+			maxNum = sqlSession.selectOne("favoriteMapper.selectFavoriteByNum",email);
+		}catch(NullPointerException e) {
+			maxNum = 0;
+		}
+		return maxNum;
+	}
+	
 	/**
 	 * 즐겨찾기 추가
 	 * @param favorite

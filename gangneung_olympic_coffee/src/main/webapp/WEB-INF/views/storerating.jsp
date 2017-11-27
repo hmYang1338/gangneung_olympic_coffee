@@ -21,4 +21,3 @@
 		<input type="submit">&nbsp;&nbsp;&nbsp;<input type="reset">
 		</div>
 	</form>
-s

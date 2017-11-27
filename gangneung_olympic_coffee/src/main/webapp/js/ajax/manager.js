@@ -115,3 +115,19 @@ function storeInsert() {
 		});
 	}
 }
+
+/**
+* 회원List 조회 및 삭제
+*/
+var memberAllListRequest;
+function memberAllListBtn(){
+	memberAllListRequest = sendRequest("selectMemberAll.do",null,memberListAjax,"GET");
+}
+function memberListAjax(){
+	if(memberAllListRequest.readyState == 4 && memberAllListRequest.status == 200){
+		$(document).ready(function(){
+			$("#manager-modal").modal();
+			$("#modal-manager").html(memberAllListRequest.responseText);
+		});
+	}
+}
