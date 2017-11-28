@@ -16,12 +16,9 @@ function storeListAjax() {
 	if (storeListRequest.readyState == 4 && storeListRequest.status == 200) {
 		var data ={
 				'json': storeListRequest.responseText,//json 객체
-				'column' : ['NAME'], //JSON객체의 열 이름
-				'columnId' : ['name'], //행 id
-				'columnClass' : ['col-xs-12 col-ms-12 col-md-12 col-lg-12 store-list-name'], //행 class
 				'elementId' : 'storeListView', //넣으려는 div의 id 값
 				'innerSet' : {
-						'hiddenColumn' : ['ID','PRODUCTRATING','STORERATING','ADDR','STOREHOURS','IMG','LANCODE'],
+						'hiddenColumn' : ['ID','NAME','PRODUCTRATING','STORERATING','ADDR','STOREHOURS','IMG','LANCODE'],
 						'divClass' : '',
 						'divId' : '',
 						'tableClass' : 'store-list pic col-xs-6 col-ms-4 col-md-4 col-lg-4',
@@ -38,14 +35,39 @@ function storeListAjax() {
 //행 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
 function storeSelectById(element) {
 	$(document).ready(function() {
+		var gangNeung = ['','GangNeung','강릉','江陵'];
 		//자식 객체의 값을 받아와 id값을 받아옴
 		var elementId = element.firstChild.getAttribute("value");
+		//figure 생성
+		var figureElement = document.createElement('figure');
+		figureElement.className = 'snip1445';
+		//<IMG>
 		var cafeImage = document.createElement('img');
 		//각 카페별 대표 이미지 값들을 받아옴. 거기에서 가벼운 파일인 preview파일로 바꾸기 위하여 치환 함.
 		cafeImage.src = elementChildSelectorName(element,'IMG').value.replace('.JPG', '_preview.JPG');
-		cafeImage.className = 'store-list-image pic-image';
-		//이름과 사진의 위치를 변경
-		element.insertBefore(cafeImage,element.lastChild);
+		cafeImage.className = 'store-list-image';
+		//figureCaption 생성
+		var figureCaptionElement = document.createElement('figcaption');
+		//div 생성
+		var headingElement = document.createElement('div');
+		headingElement.className = 'heading';
+		var headingTextElement = document.createElement('h4');
+		headingTextElement.appendChild(document.createTextNode(gangNeung[lanCode]));
+		//var captionElement = document.createElement('div');
+		//captionElement.className = 'caption';
+		var spanElement = document.createElement('span');
+		var captionTextElement = document.createElement('h6');
+		captionTextElement.appendChild(document.createTextNode(elementChildSelectorName(element,'NAME').value));
+		spanElement.appendChild(captionTextElement);
+		//div에 상점 이름을 넣음
+		headingElement.appendChild(headingTextElement);
+		headingElement.appendChild(spanElement);
+		figureCaptionElement.appendChild(headingElement);
+		//figureCaptionElement.appendChild(captionElement);
+		figureElement.appendChild(cafeImage);
+		figureElement.appendChild(figureCaptionElement);
+		element.appendChild(figureElement);
+
 		element.addEventListener("click", function() {
 			$('#storeView').height(0);
 			//storeView로 스크롤을 이동함.
@@ -65,16 +87,6 @@ function storeSelectById(element) {
 			storeRatingListRequest = sendRequest("storeRatingSelectJoinById.do", "id=" + elementId, storeRatingListAjax, "POST");
 			productRatingListRequest = sendRequest("productRatingSelectJoinById.do", "id=" + elementId, productRatingListAjax, "POST");
 		});
-
-		//호버시 돋보기 이펙트를 줌
-		var hoverEffect = document.createElement('span');
-		var hoverImage = document.createElement('img');
-		hoverImage.src = 'img/glass.svg';
-		hoverImage.className = 'pic-title hover-img-effect';
-		hoverEffect.appendChild(hoverImage);
-		hoverEffect.className='pic-caption bottom-to-top cursor';
-		element.appendChild(hoverEffect);
-		
 		//다국어 코드
 		lanCode = parseInt(elementChildSelectorName(element,'LANCODE').value);
 	});
@@ -120,32 +132,31 @@ function storeAjax(){
 function storeExecute(element){
 	//제목을 클릭하면 해당 페이지로 이동하는 코드
 	var nameElement = elementChildSelectorName(element,'store-name');
-	
 	//비동기 통신으로 스토어 위치를 구글 맵에 표시
-	iconMaker(nameElement, 'store_icon', 'img/read-more.svg', function(e){
-		e.stopPropagation();
-		$(document).ready(function() {
-			var storeContent = $('#store-content');
-			storeContent.html(elementChildSelectorName(element, 'storeSource').value);
-			//storeView로 스크롤을 이동함.
-			$('html, body').animate({
-				scrollTop : storeContent.offset().top
-			}, 1000);
-			var closeText = ['','Close','닫기','关闭'];
-			var close = document.createElement('div');
-			close.addEventListener('click',function(){
-				storeContent.html('');
-				$('html, body').animate({
-					scrollTop : $('#storeView').offset().top
-				}, 1000);
-			});
-			close.appendChild(document.createTextNode(closeText[lanCode]));
-			close.className ='cursor bg-gray';
-			close.id='read-more-btn';
-			document.getElementById('store-content').appendChild(close);
-		});	
+	 	iconMaker(nameElement, 'store_icon', 'img/read-more.svg', function(e){
+	 		e.stopPropagation();
+	 		$(document).ready(function() {
+	 			var storeContent = $('#store-content');
+	 			storeContent.html(elementChildSelectorName(element, 'storeSource').value);
+	 			//storeView로 스크롤을 이동함.
+	 			$('html, body').animate({
+	 				scrollTop : storeContent.offset().top
+	 			}, 1000);
+	 			var closeText = ['','Close','닫기','关闭'];
+	 			var close = document.createElement('div');
+	 			close.addEventListener('click',function(){
+	 				storeContent.html('');
+	 				$('html, body').animate({
+	 					scrollTop : $('#storeView').offset().top
+	 				}, 1000);
+	 			});
+	 			close.appendChild(document.createTextNode(closeText[lanCode]));
+	 			close.className ='cursor bg-gray';
+	 			close.id='read-more-btn';
+	 			document.getElementById('store-content').appendChild(close);
+	 		});	
 	});
-	
+	 	
 	//비동기 통신으로 스토어 위치를 구글 맵에 표시
 	iconMaker(nameElement, 'store_icon', 'img/gps.svg', function(e){
 		e.stopPropagation();
@@ -154,7 +165,7 @@ function storeExecute(element){
 			var modalView = document.getElementById('store-modal-view');
 			modalView.innerHTML='';
 			modalView.className='map';
-			setGPS(elementChildSelectorName(element,'lat').value,elementChildSelectorName(element,'longi').value);
+			setMap(elementChildSelectorName(element,'lat').value,elementChildSelectorName(element,'longi').value)
 		});	
 	});
 	
@@ -166,9 +177,10 @@ function storeExecute(element){
 			//현재 스토어의 ID 값을 받아옴
 			//추후 구현 되면 이 항목에 만든 메소드를 넣을 것
 			/**
-			 * 구현을 요함
+			 * 구현을 요함 - 정태준
 			 */
-			favoriteInsertBtn(id);
+			//favoriteInsertBtn(id);
+			alert("Table 설계 후 구현 계획 - 가게 정보 즐겨찾기");
 		});
 	//}
 		
@@ -176,11 +188,11 @@ function storeExecute(element){
 		iconMaker(nameElement, 'store_icon', 'img/chat.svg', function(e){
 			e.stopPropagation();
 			$(document).ready(function() {
-				$("#store-modal").modal();
+				//$("#store-modal").modal();
 				//$(#store-modal-view).html();
 				var id = elementChildSelectorName(element, 'id').value;
 				/**
-				 * 구현을 요함
+				 * 구현을 요함 - 정태준
 				 */
 				storeRatingInsertBtn(id);
 				//store-modal-view
@@ -201,18 +213,18 @@ function storeExecute(element){
 		
 		//링크
 		var siteUrl = elementChildSelectorName(element,'storeUrl');
-		if(isEmpty(siteUrl.value)){
-			var siteVisit = ['','visit web site', '사이트 방문', '访问网站'];
-			var site = document.createElement('div');
-			
-			site.appendChild(document.createTextNode(siteVisit[lanCode]));
-			site.className ='cursor bg-gray';
-			site.id='visit-site-btn';
-			site.addEventListener('click',function(){
-				location.href = elementChildSelectorName(element,'storeUrl').value;
-			});
-			element.appendChild(site);
-		}
+		 		if(isEmpty(siteUrl.value)){
+		 			var siteVisit = ['','visit web site', '사이트 방문', '访问网站'];
+		 			var site = document.createElement('div');
+		 			
+		 			site.appendChild(document.createTextNode(siteVisit[lanCode]));
+		 			site.className ='cursor bg-gray';
+		 			site.id='visit-site-btn';
+		 			site.addEventListener('click',function(){
+		 				location.href = elementChildSelectorName(element,'storeUrl').value;
+		  			});
+		 			element.appendChild(site);
+		 		}
 }
 
 function storeExecutePlus(element){
@@ -360,10 +372,10 @@ function starRatingView(element,elementName,updatable){
 }
 
 var isEmpty = function(value){
-	 if( value =="null"|| value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
-		 return false;
-	 } else{
-		 return true;
+	 	 if( value =="null"|| value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+	 		 return false;
+	 	 } else{
+	 		 return true;
+	 	 }
 	 }
-}
-
+	 

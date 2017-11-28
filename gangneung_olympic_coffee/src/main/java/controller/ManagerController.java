@@ -28,7 +28,7 @@ import dto.Store;
 import sercurity.ShaEncoder;
 
 @Controller
-@SessionAttributes({ "error", "resultContent", "list" })
+@SessionAttributes({ "error", "resultContent", "list", "lanCode" })
 public class ManagerController {
 	@Autowired
 	private StoreDAO storeDao;

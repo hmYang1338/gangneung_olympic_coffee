@@ -77,19 +77,21 @@ function listView(data){
 		}
 		
 		//각 열별 데이터를 차곡차곡 쌓음
-		for(j = 0 ; j<column.length;j++){
-			temp = document.createElement('div');
-			var text = document.createTextNode(json[i][column[j]]);
-			//json 객체의 i번째 인덱스의 컬럼명을 이용하여 값을 가지고 옴 (예, column[1] ->NAME)
-			temp.appendChild(text);
-			temp.id = columnId[j]+(i+1);
-			temp.setAttribute("name", columnId[j]);
-			temp.className = columnClass[j];
-			if(columnFunction!=null&&columnFunction[[column[j]]]!=null){
-				columnFunction[[column[j]]](temp);
+		try{
+			for(j = 0 ; j<column.length;j++){
+				temp = document.createElement('div');
+				var text = document.createTextNode(json[i][column[j]]);
+				//json 객체의 i번째 인덱스의 컬럼명을 이용하여 값을 가지고 옴 (예, column[1] ->NAME)
+				temp.appendChild(text);
+				temp.id = columnId[j]+(i+1);
+				temp.setAttribute("name", columnId[j]);
+				temp.className = columnClass[j];
+				if(columnFunction!=null&&columnFunction[[column[j]]]!=null){
+					columnFunction[[column[j]]](temp);
+				}
+				innerTableDiv.appendChild(temp);
 			}
-			innerTableDiv.appendChild(temp);
-		}
+		} catch(e){}
 		
 		//각 열별 추가할 DIV, 클릭 이밴트 등을 넣음
 		innerDiv.appendChild(innerTableDiv);
