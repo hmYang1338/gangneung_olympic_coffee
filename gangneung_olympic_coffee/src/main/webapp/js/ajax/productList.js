@@ -45,13 +45,21 @@ function menuExecute(element){
 		priceElements[i].appendChild(priceSpan);
 	}
 	//제품 목록 즐겨찾기 추가
+	//정태준 - 수정함 Git충돌 방지
 	productElement = elementChildSelectorName(element,'product');
 	iconMaker(productElement,'product-icon','img/coffee-menu.svg',function(){
 		var id = elementChildSelectorName(element,'id').value;
 		var code = elementChildSelectorName(element,'code').value;
 		var oz = elementChildSelectorName(element,'oz').value;
 		//alert(code+" "+id+" "+oz)
+		favoriteInsertBtn(id,code,oz);
+	});
+	//product - 정태준
+	productRatingElement = elementChildSelectorName(element,'product');
+	iconMaker(productRatingElement,'product-icon','img/coffee-icon.svg',function(){
+		var id = elementChildSelectorName(element,'id').value;
+		var code = elementChildSelectorName(element,'code').value;
+		var oz = elementChildSelectorName(element,'oz').value;
 		productRatingInsertBtn(id,code,oz);
 	});
-	//product
 }

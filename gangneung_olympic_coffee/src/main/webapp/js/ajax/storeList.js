@@ -143,9 +143,10 @@ function storeExecute(element){
 			//현재 스토어의 ID 값을 받아옴
 			//추후 구현 되면 이 항목에 만든 메소드를 넣을 것
 			/**
-			 * 구현을 요함
+			 * 구현을 요함 - 정태준
 			 */
-			alert('안녕하세요');
+			//favoriteInsertBtn(id);
+			alert("Table 설계 후 구현 계획 - 가게 정보 즐겨찾기");
 		});
 	//}
 		
@@ -153,12 +154,13 @@ function storeExecute(element){
 		iconMaker(nameElement, 'store_icon left', 'img/comment-icon.svg', function(e){
 			e.stopPropagation();
 			$(document).ready(function() {
-				$("#store-modal").modal();
+				//$("#store-modal").modal();
 				//$(#store-modal-view).html();
 				var id = elementChildSelectorName(element, 'id').value;
 				/**
-				 * 구현을 요함
+				 * 구현을 요함 - 정태준
 				 */
+				storeRatingInsertBtn(id);
 				//store-modal-view
 				//innerHTML로 떠서 
 			});	

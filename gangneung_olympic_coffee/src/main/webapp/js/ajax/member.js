@@ -70,14 +70,14 @@ function productRatingInsertAjax(){
 
 //Favorite
 var favoriteInsertRequest;
-function favoriteInsertBtn(){
-	favoriteInsertRequest = sendRequest("favoriteBtn.do",null,favoriteInsertAjax,"GET");
+function favoriteInsertBtn(id,code,oz){
+	favoriteInsertRequest = sendRequest("favoriteBtn.do","id="+id+"&code="+code+"&oz="+oz,favoriteInsertAjax,"GET");
 }
 function favoriteInsertAjax(){
 	if(favoriteInsertRequest.readyState == 4 && favoriteInsertRequest.status == 200){
 		$(document).ready(function(){
-			$("#loginLP").modal();
-			$("#modalMember").html(favoriteInsertRequest.responseText);
+			$("#store-modal").modal();
+			$("#store-modal-view").html(favoriteInsertRequest.responseText);
 		});
 	}
 }
