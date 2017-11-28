@@ -40,7 +40,7 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="js/stylish-portfolio.js"></script>
-
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAleY05YLGGXlCg7fglyYbaxg1ygurk4IA&callback=initMap" async="" defer=""></script>
 	<!-- 사용자 지정 js 추가 -->
 	<script src="js/ajax/httpRequest.js"></script>
 	<script src="js/form/map.js"></script>
@@ -59,6 +59,5 @@
 	<script src="js/ajax/member.js"></script>
 	<script src="js/function/childNode.js"></script>
 	<script src="js/function/timeStamp.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwUF9LDOFrejQdPb7FvfCNwbW1zf8aow4"></script>
 </body>
 </html>

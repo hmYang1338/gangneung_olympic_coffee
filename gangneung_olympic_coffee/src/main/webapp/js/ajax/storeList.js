@@ -4,7 +4,7 @@
  * @author 신승엽
  */
 var auth = checkSession();
-
+var lanCode = 1;
 //메인 화면 실행시 비동기 통신으로 커피숍 목록을 출력함
 var storeListRequest = sendRequest("storeListMap.do", null, storeListAjax, "POST");
 var storeSelectByIdRequest;
@@ -47,14 +47,18 @@ function storeSelectById(element) {
 		//이름과 사진의 위치를 변경
 		element.insertBefore(cafeImage,element.lastChild);
 		element.addEventListener("click", function() {
+			$('#storeView').height(0);
 			//storeView로 스크롤을 이동함.
 			$('html, body').animate({
 				scrollTop : $("#storeView").offset().top
 			}, 1000);
-			//fadeToggle->이전에 있던 DIV를 지워지는 듯한 효과를 줌
-			$('#storeView').fadeToggle();
-			//fadeIn->비워진 DIV에 새로운 항목이 나타나는 듯한 효과를 줌
-			$('#storeView').fadeIn();
+			$('#storeView').animate({
+				height:'+=300px'
+			});
+//			//fadeToggle->이전에 있던 DIV를 지워지는 듯한 효과를 줌
+//			$('#storeView').fadeToggle();
+//			//fadeIn->비워진 DIV에 새로운 항목이 나타나는 듯한 효과를 줌
+//			$('#storeView').fadeIn();
 			//클릭시 해당 매장에 대한 상세 정보가 출력되는 비동기 통신을 시작
 			storeSelectByIdRequest = sendRequest("storeSelectById.do", "id=" + elementId, storeAjax, "POST");
 			storeRatingListRequest = sendRequest("storeRatingSelectJoinById.do", "id=" + elementId, storeRatingListAjax, "POST");
@@ -126,8 +130,8 @@ function storeExecute(element){
 			var modalView = document.getElementById('store-modal-view');
 			modalView.innerHTML='';
 			modalView.className='map';
-			initMap(parseFloat(elementChildSelectorName(element,'lat').value),
-					parseFloat(elementChildSelectorName(element,'longi').value));
+			initMap();
+			setMap(elementChildSelectorName(element,'lat').value,elementChildSelectorName(element,'longi').value)
 		});	
 	});
 	
@@ -141,8 +145,7 @@ function storeExecute(element){
 			/**
 			 * 구현을 요함
 			 */
-			favoriteInsertBtn(id)
-			//alert('안녕하세요');
+			alert('안녕하세요');
 		});
 	//}
 		
@@ -150,14 +153,12 @@ function storeExecute(element){
 		iconMaker(nameElement, 'store_icon left', 'img/comment-icon.svg', function(e){
 			e.stopPropagation();
 			$(document).ready(function() {
-				//$("#store-modal").modal();
+				$("#store-modal").modal();
 				//$(#store-modal-view).html();
 				var id = elementChildSelectorName(element, 'id').value;
 				/**
 				 * 구현을 요함
 				 */
-				storeRatingInsertBtn(id);
-				
 				//store-modal-view
 				//innerHTML로 떠서 
 			});	
@@ -173,6 +174,31 @@ function storeExecute(element){
 				menuList(elementChildSelectorName(element, 'id').value);
 			});	
 		});
+		
+		//더보기
+		var moreText = ['','Read More', '더 보기', '查看更多'];
+		var closeText = ['','Close','닫기','关闭'];
+		var moreInfo = document.createElement('div');
+		
+		moreInfo.appendChild(document.createTextNode(moreText[lanCode]));
+		moreInfo.className ='cursor bg-gray';
+		moreInfo.id='read-more-btn';
+		moreInfo.addEventListener('click',function(){
+			$(document).ready(function(){
+				var storeContent = $('#store-content');
+				storeContent.html(elementChildSelectorName(element, 'storeSource').value);
+				//storeView로 스크롤을 이동함.
+				$('html, body').animate({
+					scrollTop : storeContent.offset().top
+				}, 1000);
+				var close = document.createElement('div');
+				close.appendChild(document.createTextElement(closeText[lanCode]));
+				close.className ='cursor bg-gray';
+				close.id='read-more-btn';
+				storeContent.appendChild(close);
+			});
+		});
+		element.appendChild(moreInfo);
 }
 
 function storeExecutePlus(element){

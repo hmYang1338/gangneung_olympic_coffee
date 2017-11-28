@@ -23,3 +23,7 @@
       <!-- 여기에 store가 나타납니다 -->
       </div>
     </aside>
+    
+    <div id='store-content' class='store-content blue-background'>
+    <!-- 여기에 store image가 나타납니다. -->
+    </div>
