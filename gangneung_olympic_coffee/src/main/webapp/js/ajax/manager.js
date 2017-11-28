@@ -163,6 +163,12 @@ function managermAjax() {
 	}
 }
 
+function myManageBtn() {
+	
+}
+function myManageAjax() {
+	
+}
 
 
 

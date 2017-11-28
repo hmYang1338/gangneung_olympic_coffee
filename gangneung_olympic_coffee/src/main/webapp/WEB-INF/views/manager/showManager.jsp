@@ -61,7 +61,7 @@
 	<span class="btn btn-default btn-bottom-margin">
 		<input type="button"
 				class="btn btn-default btn-bottom-margin" style="width: 350px" id="myManage"
-				name="myManage" onclick="myManageManageBtn();" value="내 정보관리"> <!-- 비밀번호 수정 -->		
+				name="myManage" onclick="myManageBtn();" value="내 정보관리"> <!-- 비밀번호 수정 -->		
 		
 		<input type="button"
 				class="btn btn-default btn-bottom-margin" style="width: 350px" id="myStoreManage"
