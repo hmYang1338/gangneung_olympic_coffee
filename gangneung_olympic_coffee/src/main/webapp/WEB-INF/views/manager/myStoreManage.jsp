@@ -53,19 +53,28 @@
 	}
 </style>
 
-	<!-- 운영자 관리창 구현 -->
-	
-	<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-	<hr class="hr-white">
-	<h3 class="blue text-center">운영자 페이지</h3>
-	<hr class="hr-white">
-	<span class="btn btn-default btn-bottom-margin">
-		<input type="hidden" name="email" id="email" value="${managerSession.email}">
-		<input type="button"
-				class="btn btn-default btn-bottom-margin" style="width: 350px" id="myManage"
-				name="myManage" onclick="myManageBtn();" value="내 정보관리"> <!-- 비밀번호 수정 -->		
-		
-		<input type="button"
-				class="btn btn-default btn-bottom-margin" style="width: 350px" id="myStoreManage"
-				name="myStoreManage" onclick="myStoreManageBtn();" value="내 카페관리"> <!-- 내카페 정보수정, 내카페 신고관리 -->
-	</span>
+<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+
+<hr class="hr-white">
+<h3 class="blue text-center">내 카페 관리</h3>
+<hr class="hr-white">
+<span class="btn btn-default btn-bottom-margin">
+<input type="button"
+		class="btn btn-default btn-bottom-margin" style="width: 350px" id="selectMyStore"
+		name="selectMyStore" onclick="selectMyStoreBtn();" value="내 카페 조회"> 			
+
+<input type="button"
+		class="btn btn-default btn-bottom-margin" style="width: 350px" id="myReport"
+		name="myReport" onclick="myReport();" value="신고 관리"> 
+</span>
+
+<div class="col-lg-10 divTable" id="myStore"></div>
+
+
+
+
+
+
+
+
+

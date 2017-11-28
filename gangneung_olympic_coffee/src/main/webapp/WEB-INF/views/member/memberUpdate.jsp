@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <style type="text/css">
@@ -83,8 +82,8 @@
 					<select name="nationCode" id="nationCode" class="form-control input-lg blue" required="required">
 					  <c:if test="${not empty requestScope.nationList}">
 						<c:forEach items="${requestScope.nationList}" var="nation" >
-						  <option value="${nation.nationCode}"
-						  <c:if test="${memberSession.nationCode==nation.nationCode}">
+						  <option value="${nation.nationCode}" 
+						  	<c:if test="${memberSession.nationCode==nation.nationCode}">
 						  	 selected
 						  </c:if>
 						  >${nation.nation}</option>

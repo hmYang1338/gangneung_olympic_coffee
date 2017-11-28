@@ -134,4 +134,9 @@ public class ManagerDAO {
 		}
 		return num;
 	}
+	
+	
+	public Manager selectManagerOneByEmail(String email) {
+		return sqlSession.selectOne("managerMapper.selectManagerOneByEmail", email);
+	}
 }

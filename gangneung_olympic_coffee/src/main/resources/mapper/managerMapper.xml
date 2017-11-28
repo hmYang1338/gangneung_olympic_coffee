@@ -98,6 +98,12 @@
 		FROM manager
 		WHERE email=#{email}
 	</select>
+	
+	<select id="selectManagerOneByEmail" parameterType="String" resultMap="managerMap">
+		SELECT email, name, birth, tel, lan_code, id, img_dir, major
+		FROM manager
+		WHERE email=#{email}
+	</select>
 
 	<select id="selectManagerByMajor" parameterType="String" resultType="int">
 		SELECT major

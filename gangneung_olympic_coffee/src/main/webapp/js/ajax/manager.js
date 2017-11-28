@@ -149,7 +149,10 @@ function memberListAjax(){
 	}
 }
 
-/*************************************운영자*************************************/
+/*************************************운영자 페이지*************************************/
+/**
+ * 운영자 관리 페이지 모달
+ */
 var manager;
 function managermBtn() {
 	manager = sendRequest("showManager.do", null, managermAjax, "GET");
@@ -163,15 +166,49 @@ function managermAjax() {
 	}
 }
 
+/**
+ * 내 정보 관리
+ */
+var myManage;
 function myManageBtn() {
-	
+	myManage = sendRequest("showMyManage.do", null, myManageAjax, "GET");
 }
 function myManageAjax() {
-	
+	if (myManage.readyState == 4 && myManage.status == 200) {
+		$(document).ready(function() {
+			$("#manager-modal").modal();
+			$("#modal-manager").html(myManage.responseText);
+		});
+	}
 }
 
+/**
+ * 내 카페 관리
+ */
+var myStoreManage;
+function myStoreManageBtn() {
+	myStoreManage = sendRequest("showMyStoreManage.do", null, myStoreManageAjax, "GET");
+}
+function myStoreManageAjax() {
+	if (myStoreManage.readyState == 4 && myStoreManage.status == 200) {
+		$(document).ready(function() {
+			$("#manager-modal").modal();
+			$("#modal-manager").html(myStoreManage.responseText);
+		});
+	}
+}
 
-
+/* 내 카페 정보 조회 */
+var myStoreRequest;
+function selectMyStoreBtn() {
+	myStoreRequest = sendRequest("selectMyStore.do", null, storeList, "GET");
+}
+function storeList() {
+	if (myStoreRequest.readyState == 4 && myStoreRequest.status == 200) {
+		var resData = myStoreRequest.responseText;
+		document.getElementById("myStore").innerHTML = resData;
+	}
+}
 
 
 
