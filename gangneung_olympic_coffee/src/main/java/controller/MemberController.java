@@ -245,13 +245,13 @@ public class MemberController {
 	public String insertStoreRating(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute StoreRating storeRating) {
 		System.out.println("storeRating 들어옴");//test
 		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
-		System.out.println(memberSession);
+		System.out.println(memberSession);//test
 		int maxNum =storeRatingDAO.selectStoreRaingByRatNum(memberSession.getEmail());
-		System.out.println(maxNum);
+		System.out.println(maxNum);//test
 		storeRating.setEmail(memberSession.getEmail());
 		storeRating.setRatNum(++maxNum);
 		storeRating.setLanCode(memberSession.getLanCode());
-		System.out.println(storeRating);
+		System.out.println(storeRating);//test
 		if(storeRatingDAO.insertStoreRating(storeRating)==1) {
 			System.out.println("성공하였습니다.");
 		} else {
@@ -262,7 +262,8 @@ public class MemberController {
 	
 	//test - productRatingInsert
 	@RequestMapping("/productRatingInsertBtn.do")
-	public String productRatingInsertBtn(@ModelAttribute Member memberSession, Model model) {
+	public String productRatingInsertBtn(@ModelAttribute Member memberSession, Model model,@ModelAttribute ProductRating productRating) {
+		model.addAttribute("productRating",productRating);
 		return "productrating";
 	}
 	

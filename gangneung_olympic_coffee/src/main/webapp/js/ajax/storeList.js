@@ -141,7 +141,8 @@ function storeExecute(element){
 			/**
 			 * 구현을 요함
 			 */
-			alert('안녕하세요');
+			favoriteInsertBtn(id)
+			//alert('안녕하세요');
 		});
 	//}
 		
@@ -149,12 +150,14 @@ function storeExecute(element){
 		iconMaker(nameElement, 'store_icon left', 'img/comment-icon.svg', function(e){
 			e.stopPropagation();
 			$(document).ready(function() {
-				$("#store-modal").modal();
+				//$("#store-modal").modal();
 				//$(#store-modal-view).html();
 				var id = elementChildSelectorName(element, 'id').value;
 				/**
 				 * 구현을 요함
 				 */
+				storeRatingInsertBtn(id);
+				
 				//store-modal-view
 				//innerHTML로 떠서 
 			});	

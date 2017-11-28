@@ -39,30 +39,30 @@ function memberUpdateAjax(){
 
 
 var storeRatingInsert;
-function storeRatingInsertBtn(){
-	storeRatingInsert = sendRequest("storeRatingInsertBtn.do",null,storeRatingInsertAjax,"GET");
+function storeRatingInsertBtn(id){
+	storeRatingInsert = sendRequest("storeRatingInsertBtn.do","id="+id,storeRatingInsertAjax,"GET");
 }
 
 function storeRatingInsertAjax(){
 	if(storeRatingInsert.readyState == 4 && storeRatingInsert.status == 200){
 		$(document).ready(function(){
-			$("#loginLP").modal();
-			$("#modalMember").html(storeRatingInsert.responseText);
+			$("#store-modal").modal();
+			$("#store-modal-view").html(storeRatingInsert.responseText);
 			insertStarStoreRating();
 		});
 	}
 }
 
 var productRatingInsert;
-function productRatingInsertBtn(){
-	productRatingInsert = sendRequest("productRatingInsertBtn.do",null,productRatingInsertAjax,"GET");
+function productRatingInsertBtn(id,code,oz){
+	productRatingInsert = sendRequest("productRatingInsertBtn.do","id="+id+"&code="+code+"&oz="+oz,productRatingInsertAjax,"GET");
 }
 
 function productRatingInsertAjax(){
 	if(productRatingInsert.readyState == 4 && productRatingInsert.status == 200){
 		$(document).ready(function(){
-			$("#loginLP").modal();
-			$("#modalMember").html(productRatingInsert.responseText);
+			$("#store-modal").modal();
+			$("#store-modal-view").html(productRatingInsert.responseText);
 			insertStarProductRating();
 		});
 	}

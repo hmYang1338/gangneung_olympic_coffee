@@ -47,10 +47,11 @@ function menuExecute(element){
 	//제품 목록 즐겨찾기 추가
 	productElement = elementChildSelectorName(element,'product');
 	iconMaker(productElement,'product-icon','img/coffee-menu.svg',function(){
-		var code = elementChildSelectorName(element,'code').value;
 		var id = elementChildSelectorName(element,'id').value;
+		var code = elementChildSelectorName(element,'code').value;
 		var oz = elementChildSelectorName(element,'oz').value;
-		alert(code+" "+id+" "+oz)
+		//alert(code+" "+id+" "+oz)
+		productRatingInsertBtn(id,code,oz);
 	});
 	//product
 }
