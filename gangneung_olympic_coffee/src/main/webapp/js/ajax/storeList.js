@@ -21,7 +21,7 @@ function storeListAjax() {
 				'columnClass' : ['col-xs-12 col-ms-12 col-md-12 col-lg-12 store-list-name'], //행 class
 				'elementId' : 'storeListView', //넣으려는 div의 id 값
 				'innerSet' : {
-						'hiddenColumn' : ['ID','PRODUCTRATING','STORERATING','ADDR','STOREHOURS','IMG'],
+						'hiddenColumn' : ['ID','PRODUCTRATING','STORERATING','ADDR','STOREHOURS','IMG','LANCODE'],
 						'divClass' : '',
 						'divId' : '',
 						'tableClass' : 'store-list pic col-xs-6 col-ms-4 col-md-4 col-lg-4',
@@ -55,6 +55,7 @@ function storeSelectById(element) {
 			$('#storeView').animate({
 				height:'+=300px'
 			});
+			$('#store-content').html('');
 //			//fadeToggle->이전에 있던 DIV를 지워지는 듯한 효과를 줌
 //			$('#storeView').fadeToggle();
 //			//fadeIn->비워진 DIV에 새로운 항목이 나타나는 듯한 효과를 줌
@@ -73,6 +74,9 @@ function storeSelectById(element) {
 		hoverEffect.appendChild(hoverImage);
 		hoverEffect.className='pic-caption bottom-to-top cursor';
 		element.appendChild(hoverEffect);
+		
+		//다국어 코드
+		lanCode = parseInt(elementChildSelectorName(element,'LANCODE').value);
 	});
 }
 
@@ -96,7 +100,7 @@ function storeAjax(){
 				'json' : storeSelectByIdRequest.responseText,
 				'column' : ['name','tel','addr','storeHours'],
 				'columnId' :['store-name','tel','addr','storeHours'],
-				'columnClass' : ['store-name cursor','','',''],
+				'columnClass' : ['store-name','','',''],
 				'elementId' : 'storeView',
 				'innerSet' : {
 						hiddenColumn:['id','lat','longi','smokingRoom','storeUrl','img','storeSource'],
@@ -116,49 +120,67 @@ function storeAjax(){
 function storeExecute(element){
 	//제목을 클릭하면 해당 페이지로 이동하는 코드
 	var nameElement = elementChildSelectorName(element,'store-name');
-	nameElement.addEventListener("click",function(){
-		var url = elementChildSelectorName(element,'storeUrl').value;
-		if(url!="null"){
-			location.href = url;
-		}
-	});
+	
 	//비동기 통신으로 스토어 위치를 구글 맵에 표시
-	iconMaker(nameElement, 'store_icon', 'img/map-icon.svg', function(e){
+	iconMaker(nameElement, 'store_icon', 'img/read-more.svg', function(e){
+		e.stopPropagation();
+		$(document).ready(function() {
+			var storeContent = $('#store-content');
+			storeContent.html(elementChildSelectorName(element, 'storeSource').value);
+			//storeView로 스크롤을 이동함.
+			$('html, body').animate({
+				scrollTop : storeContent.offset().top
+			}, 1000);
+			var closeText = ['','Close','닫기','关闭'];
+			var close = document.createElement('div');
+			close.addEventListener('click',function(){
+				storeContent.html('');
+				$('html, body').animate({
+					scrollTop : $('#storeView').offset().top
+				}, 1000);
+			});
+			close.appendChild(document.createTextNode(closeText[lanCode]));
+			close.className ='cursor bg-gray';
+			close.id='read-more-btn';
+			document.getElementById('store-content').appendChild(close);
+		});	
+	});
+	
+	//비동기 통신으로 스토어 위치를 구글 맵에 표시
+	iconMaker(nameElement, 'store_icon', 'img/gps.svg', function(e){
 		e.stopPropagation();
 		$(document).ready(function() {
 			$("#store-modal").modal();
 			var modalView = document.getElementById('store-modal-view');
 			modalView.innerHTML='';
 			modalView.className='map';
-			initMap();
-			setMap(elementChildSelectorName(element,'lat').value,elementChildSelectorName(element,'longi').value)
+			setGPS(elementChildSelectorName(element,'lat').value,elementChildSelectorName(element,'longi').value);
 		});	
 	});
 	
 	//즐겨찾기
 	//if (auth == 1) {
-		iconMaker(nameElement, 'store_icon', 'img/coffee-icon.svg', function(e) {
+		iconMaker(nameElement, 'store_icon', 'img/bookmark.svg', function(e) {
 			e.stopPropagation();
 			var id = elementChildSelectorName(element, 'id').value;
 			//현재 스토어의 ID 값을 받아옴
 			//추후 구현 되면 이 항목에 만든 메소드를 넣을 것
 			/**
-			 * 구현을 요함 - 정태준
+			 * 구현을 요함
 			 */
-			//favoriteInsertBtn(id);
-			alert("Table 설계 후 구현 계획 - 가게 정보 즐겨찾기");
+			favoriteInsertBtn(id);
 		});
 	//}
 		
 		//코맨트 입력
-		iconMaker(nameElement, 'store_icon left', 'img/comment-icon.svg', function(e){
+		iconMaker(nameElement, 'store_icon', 'img/chat.svg', function(e){
 			e.stopPropagation();
 			$(document).ready(function() {
-				//$("#store-modal").modal();
+				$("#store-modal").modal();
 				//$(#store-modal-view).html();
 				var id = elementChildSelectorName(element, 'id').value;
 				/**
-				 * 구현을 요함 - 정태준
+				 * 구현을 요함
 				 */
 				storeRatingInsertBtn(id);
 				//store-modal-view
@@ -167,7 +189,7 @@ function storeExecute(element){
 		});
 		
 		//메뉴 리스트
-		iconMaker(nameElement, 'store_icon left', 'img/coffee-menu.svg', function(e){
+		iconMaker(nameElement, 'store_icon', 'img/restaurant-menu.svg', function(e){
 			e.stopPropagation();
 			$(document).ready(function() {
 				var modalView = document.getElementById('store-modal-view');
@@ -177,30 +199,20 @@ function storeExecute(element){
 			});	
 		});
 		
-		//더보기
-		var moreText = ['','Read More', '더 보기', '查看更多'];
-		var closeText = ['','Close','닫기','关闭'];
-		var moreInfo = document.createElement('div');
-		
-		moreInfo.appendChild(document.createTextNode(moreText[lanCode]));
-		moreInfo.className ='cursor bg-gray';
-		moreInfo.id='read-more-btn';
-		moreInfo.addEventListener('click',function(){
-			$(document).ready(function(){
-				var storeContent = $('#store-content');
-				storeContent.html(elementChildSelectorName(element, 'storeSource').value);
-				//storeView로 스크롤을 이동함.
-				$('html, body').animate({
-					scrollTop : storeContent.offset().top
-				}, 1000);
-				var close = document.createElement('div');
-				close.appendChild(document.createTextElement(closeText[lanCode]));
-				close.className ='cursor bg-gray';
-				close.id='read-more-btn';
-				storeContent.appendChild(close);
+		//링크
+		var siteUrl = elementChildSelectorName(element,'storeUrl');
+		if(isEmpty(siteUrl.value)){
+			var siteVisit = ['','visit web site', '사이트 방문', '访问网站'];
+			var site = document.createElement('div');
+			
+			site.appendChild(document.createTextNode(siteVisit[lanCode]));
+			site.className ='cursor bg-gray';
+			site.id='visit-site-btn';
+			site.addEventListener('click',function(){
+				location.href = elementChildSelectorName(element,'storeUrl').value;
 			});
-		});
-		element.appendChild(moreInfo);
+			element.appendChild(site);
+		}
 }
 
 function storeExecutePlus(element){
@@ -346,3 +358,12 @@ function starRatingView(element,elementName,updatable){
 	starRating(element, divTag, updatable);
 	return divTag;
 }
+
+var isEmpty = function(value){
+	 if( value =="null"|| value == "" || value == null || value == undefined || ( value != null && typeof value == "object" && !Object.keys(value).length ) ){
+		 return false;
+	 } else{
+		 return true;
+	 }
+}
+

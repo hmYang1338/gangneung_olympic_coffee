@@ -19,7 +19,6 @@
 <link href="css/stylish-portfolio.css" rel="stylesheet">
 <link href="css/style-effect.css" rel="stylesheet">
 <link href="css/custom.css" rel="stylesheet">
-
 </head>
 <body>
 	<jsp:include page="index/navigation.jsp"></jsp:include>
@@ -40,7 +39,7 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="js/stylish-portfolio.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAleY05YLGGXlCg7fglyYbaxg1ygurk4IA&callback=initMap" async="" defer=""></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAleY05YLGGXlCg7fglyYbaxg1ygurk4IA" async defer></script>
 	<!-- 사용자 지정 js 추가 -->
 	<script src="js/ajax/httpRequest.js"></script>
 	<script src="js/form/map.js"></script>

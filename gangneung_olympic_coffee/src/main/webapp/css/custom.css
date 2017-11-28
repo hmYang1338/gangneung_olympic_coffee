@@ -1,3 +1,5 @@
+ @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+
 .brown-background {
 	background: #f2e6d9;
 }
@@ -46,7 +48,7 @@ Div 로 Table을 구성하기 위한 생성자
 	display: table-header-group;
 }
 
-.divTableCell, .divTableHead {
+.divTableCell .divTableHead {
 	width: 50%;
 	border-bottom: 5px solid white;
 	display: table-cell;
@@ -106,6 +108,7 @@ store출력을 위한 css
 	margin-bottom: 5px;
 }
 .store-name{
+	padding-left: 175px;
 	font-size: 35px;
 	border-bottom: 5px solid white;
 }
@@ -139,10 +142,14 @@ store출력을 위한 css
 .rating_rat_comment{
 	border: 1px solid white;
 }
+.store_icon{
+}
+
 .store_icon > img{
 	float: right;
-	width: 50px;
-	height: 50px;
+	margin-top: 15px;
+	width: 35px;
+	height: 35px;
 }
 .store_icon > img:hover{
 	background-color: #ffffffaa;
@@ -198,6 +205,7 @@ store출력을 위한 css
 }
 
 .store-content{
+	font-family: 'Hanna', serif;
 	margin-top: 20px;
 	text-align: center;
 	font-size: 18px;
@@ -228,11 +236,12 @@ store출력을 위한 css
 
 /*rating 구현*/
 .star-rating {
-  line-height:32px;
-  font-size:1.25em;
+ 	line-height:32px;
+  	font-size:1.25em;
 }
-
-.star-rating .fa-star{color: yellow;}
+.fa-star {
+	color:yellow !important;
+}
 
 /*Main View 구현*/
 .main-title {
