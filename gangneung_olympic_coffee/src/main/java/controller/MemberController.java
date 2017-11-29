@@ -17,19 +17,21 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import dao.FavoriteDAO;
+import dao.ProductFavoriteDAO;
 import dao.LanguageDAO;
 import dao.ManagerDAO;
 import dao.MemberDAO;
 import dao.NationDAO;
 import dao.ProductRatingDAO;
 import dao.StoreDAO;
+import dao.StoreFavoriteDAO;
 import dao.StoreRatingDAO;
-import dto.Favorite;
+import dto.ProductFavorite;
 import dto.Language;
 import dto.Manager;
 import dto.Member;
 import dto.ProductRating;
+import dto.StoreFavorite;
 import dto.StoreRating;
 import sercurity.ShaEncoder;
 
@@ -57,7 +59,10 @@ public class MemberController {
 	private StoreRatingDAO storeRatingDAO;
 	
 	@Autowired
-	private FavoriteDAO favoriteDAO;//test
+	private ProductFavoriteDAO productFavoriteDAO;
+	
+	@Autowired
+	private StoreFavoriteDAO storeFavoriteDAO;
 	
 	@Autowired 
 	private SessionLocaleResolver localeResolver; 
@@ -284,26 +289,48 @@ public class MemberController {
 		return "redirect:index.do";
 	}
 	
-	//Favorite Test
-	@RequestMapping("/favoriteBtn.do")
+	//ProductFavorite Test
+	@RequestMapping("/productFavoriteBtn.do")
 	public String favoriteInsertBtn(@ModelAttribute Member memberSession, Model model) {
-		return "favorite";
+		return "productFavorite";
 	}
 	
-	@RequestMapping("/insertFavorite.do")
-	public String insertFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute Favorite favorite) {
-		System.out.println(favorite);
+	@RequestMapping("/insertProductFavorite.do")
+	public String insertFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute ProductFavorite productFavorite) {
+		System.out.println(productFavorite);
 		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
-		int maxNum = favoriteDAO.selectFavoriteByNum(memberSession.getEmail());
+		int maxNum = productFavoriteDAO.selectProductFavoriteByNum(memberSession.getEmail());
 		System.out.println(maxNum);
-		favorite.setFavNum(++maxNum);
-		favorite.setEmail(memberSession.getEmail());
-		favorite.setLanCode(memberSession.getLanCode());
-		System.out.println("Result" + favorite);
-		if(favoriteDAO.insertFavorite(favorite)==1) {
+		productFavorite.setFavNum(++maxNum);
+		productFavorite.setEmail(memberSession.getEmail());
+		productFavorite.setLanCode(memberSession.getLanCode());
+		System.out.println("Result" + productFavorite);
+		if(productFavoriteDAO.insertProductFavorite(productFavorite)==1) {
 			System.out.println("성공하였습니다.");
 		}else {
 			System.out.println("실패하였습니다.");
+		}
+		return "redirect:index.do";
+	}
+	
+	
+	//StoreFavorite
+	@RequestMapping("/storeFavoriteBtn.do")
+	public String storeFavoriteInsertBtn(@ModelAttribute Member memberSession, Model model) {
+		return "storeFavorite";
+	}
+	
+	@RequestMapping("/insertStoreFavorite.do")
+	public String insertStoreFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute StoreFavorite storeFavorite) {
+		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+		int maxNum = storeFavoriteDAO.selectStoreFavoriteByNum(memberSession.getEmail());
+		storeFavorite.setFavNum(++maxNum);
+		storeFavorite.setEmail(memberSession.getEmail());
+		storeFavorite.setLanCode(memberSession.getLanCode());
+		if(storeFavoriteDAO.insertStoreFavorite(storeFavorite)==1) {
+			System.out.println("성공");
+		}else {
+			System.out.println("실패");
 		}
 		return "redirect:index.do";
 	}

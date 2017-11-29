@@ -1,30 +1,35 @@
 package dto;
 
-public class Favorite {
+import java.util.Date;
+
+public class ProductFavorite {
 	private int favNum;
 	private String email;
 	private int lanCode;
 	private int id;
 	private int code;
 	private int oz;
+	private Date favDate;
 	
-	public Favorite() {}
+	public ProductFavorite() {}
 	
-	public Favorite(int id, int code, int oz) {
+	public ProductFavorite(int id, int code, int oz, Date favDate) {
 		this.id = id;
 		this.code = code;
 		this.oz = oz;
+		this.favDate = favDate;
 	}
 
-	public Favorite(int favNum, String email, int lanCode, int id, int code, int oz) {
+	public ProductFavorite(int favNum, String email, int lanCode, int id, int code, int oz, Date favDate) {
 		this.favNum = favNum;
 		this.email = email;
 		this.lanCode = lanCode;
 		this.id = id;
 		this.code = code;
 		this.oz = oz;
+		this.favDate = favDate;
 	}
-
+	
 	public int getFavNum() {
 		return favNum;
 	}
@@ -73,10 +78,18 @@ public class Favorite {
 		this.oz = oz;
 	}
 
+	public Date getFavDate() {
+		return favDate;
+	}
+
+	public void setFavDate(Date favDate) {
+		this.favDate = favDate;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Favorite [favNum=");
+		builder.append("ProductFavorite [favNum=");
 		builder.append(favNum);
 		builder.append(", email=");
 		builder.append(email);
@@ -88,6 +101,8 @@ public class Favorite {
 		builder.append(code);
 		builder.append(", oz=");
 		builder.append(oz);
+		builder.append(", favDate=");
+		builder.append(favDate);
 		builder.append("]");
 		return builder.toString();
 	}
@@ -98,6 +113,7 @@ public class Favorite {
 		int result = 1;
 		result = prime * result + code;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((favDate == null) ? 0 : favDate.hashCode());
 		result = prime * result + favNum;
 		result = prime * result + id;
 		result = prime * result + lanCode;
@@ -113,13 +129,18 @@ public class Favorite {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Favorite other = (Favorite) obj;
+		ProductFavorite other = (ProductFavorite) obj;
 		if (code != other.code)
 			return false;
 		if (email == null) {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (favDate == null) {
+			if (other.favDate != null)
+				return false;
+		} else if (!favDate.equals(other.favDate))
 			return false;
 		if (favNum != other.favNum)
 			return false;
@@ -131,5 +152,5 @@ public class Favorite {
 			return false;
 		return true;
 	}
-
+	
 }

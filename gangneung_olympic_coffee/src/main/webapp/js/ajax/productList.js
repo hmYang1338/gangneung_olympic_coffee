@@ -52,7 +52,7 @@ function menuExecute(element){
 		var code = elementChildSelectorName(element,'code').value;
 		var oz = elementChildSelectorName(element,'oz').value;
 		//alert(code+" "+id+" "+oz)
-		favoriteInsertBtn(id,code,oz);
+		productFavoriteInsertBtn(id,code,oz);
 	});
 	//product - 정태준
 	productRatingElement = elementChildSelectorName(element,'product');

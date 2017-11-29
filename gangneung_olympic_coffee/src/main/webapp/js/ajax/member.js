@@ -68,16 +68,30 @@ function productRatingInsertAjax(){
 	}
 }
 
-//Favorite
-var favoriteInsertRequest;
-function favoriteInsertBtn(id,code,oz){
-	favoriteInsertRequest = sendRequest("favoriteBtn.do","id="+id+"&code="+code+"&oz="+oz,favoriteInsertAjax,"GET");
+//Product Favorite
+var productFavoriteInsertRequest;
+function productFavoriteInsertBtn(id,code,oz){
+	productFavoriteInsertRequest = sendRequest("productFavoriteBtn.do","id="+id+"&code="+code+"&oz="+oz,productFavoriteInsertAjax,"GET");
 }
-function favoriteInsertAjax(){
-	if(favoriteInsertRequest.readyState == 4 && favoriteInsertRequest.status == 200){
+function productFavoriteInsertAjax(){
+	if(productFavoriteInsertRequest.readyState == 4 && productFavoriteInsertRequest.status == 200){
 		$(document).ready(function(){
 			$("#store-modal").modal();
-			$("#store-modal-view").html(favoriteInsertRequest.responseText);
+			$("#store-modal-view").html(productFavoriteInsertRequest.responseText);
+		});
+	}
+}
+
+//Store Favorite
+var storeFavoriteInsertRequest;
+function storeFavoriteInsertBtn(id){
+	storeFavoriteInsertRequest = sendRequest("storeFavoriteBtn.do","id="+id,storeFavoriteInserAjax,"GET");
+}
+function storeFavoriteInserAjax(){
+	if(storeFavoriteInsertRequest.readyState == 4 && storeFavoriteInsertRequest.status ==200){
+		$(document).ready(function(){
+			$("#store-modal").modal();
+			$("#store-modal-view").html(storeFavoriteInsertRequest.responseText);
 		});
 	}
 }

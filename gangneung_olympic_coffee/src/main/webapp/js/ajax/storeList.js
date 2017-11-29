@@ -35,12 +35,14 @@ function storeListAjax() {
 //행 별로 클릭 이벤트를 주는 메소드 -> Data의 innerFunction에 넣음
 function storeSelectById(element) {
 	$(document).ready(function() {
+		//다국어 코드
+		lanCode = parseInt(elementChildSelectorName(element,'LANCODE').value);
 		var gangNeung = ['','GangNeung','강릉','江陵'];
 		//자식 객체의 값을 받아와 id값을 받아옴
 		var elementId = element.firstChild.getAttribute("value");
 		//figure 생성
 		var figureElement = document.createElement('figure');
-		figureElement.className = 'snip1445';
+		figureElement.className = 'snip1445 cursor';
 		//<IMG>
 		var cafeImage = document.createElement('img');
 		//각 카페별 대표 이미지 값들을 받아옴. 거기에서 가벼운 파일인 preview파일로 바꾸기 위하여 치환 함.
@@ -87,8 +89,6 @@ function storeSelectById(element) {
 			storeRatingListRequest = sendRequest("storeRatingSelectJoinById.do", "id=" + elementId, storeRatingListAjax, "POST");
 			productRatingListRequest = sendRequest("productRatingSelectJoinById.do", "id=" + elementId, productRatingListAjax, "POST");
 		});
-		//다국어 코드
-		lanCode = parseInt(elementChildSelectorName(element,'LANCODE').value);
 	});
 }
 
@@ -179,8 +179,8 @@ function storeExecute(element){
 			/**
 			 * 구현을 요함 - 정태준
 			 */
-			//favoriteInsertBtn(id);
-			alert("Table 설계 후 구현 계획 - 가게 정보 즐겨찾기");
+			storeFavoriteInsertBtn(id);
+			//alert("Table 설계 후 구현 계획 - 가게 정보 즐겨찾기");
 		});
 	//}
 		
