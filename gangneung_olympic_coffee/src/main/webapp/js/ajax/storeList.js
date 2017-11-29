@@ -179,10 +179,13 @@ function storeExecute(element){
 			/**
 			 * 구현을 요함 - 정태준
 			 */
+			var modalView = document.getElementById('store-modal-view');
+			modalView.innerHTML='';
 			storeFavoriteInsertBtn(id);
 			//alert("Table 설계 후 구현 계획 - 가게 정보 즐겨찾기");
 		});
 	//}
+		
 		
 		//코맨트 입력
 		iconMaker(nameElement, 'store_icon', 'img/chat.svg', function(e){
@@ -194,6 +197,9 @@ function storeExecute(element){
 				/**
 				 * 구현을 요함 - 정태준
 				 */
+				//alert(id);
+				var modalView = document.getElementById('store-modal-view');
+				modalView.innerHTML='';
 				storeRatingInsertBtn(id);
 				//store-modal-view
 				//innerHTML로 떠서 

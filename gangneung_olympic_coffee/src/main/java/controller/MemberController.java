@@ -239,10 +239,10 @@ public class MemberController {
 		
 	}
 	
-	//test - storeRatingInsert
-	@RequestMapping("/storeRatingInsertBtn.do")
+	//StoreRatingInsert
+	@RequestMapping("/storeRatingBtn.do")
 	public String storeRatingInsertBtn(@ModelAttribute Member memberSession, Model model) {
-		return "storerating";
+		return "storeRating";
 	}
 
 	
@@ -265,11 +265,10 @@ public class MemberController {
 		return "redirect:index.do";
 	}
 	
-	//test - productRatingInsert
-	@RequestMapping("/productRatingInsertBtn.do")
-	public String productRatingInsertBtn(@ModelAttribute Member memberSession, Model model,@ModelAttribute ProductRating productRating) {
-		model.addAttribute("productRating",productRating);
-		return "productrating";
+	//productRatingInsert
+	@RequestMapping("/productRatingBtn.do")
+	public String productRatingInsertBtn(@ModelAttribute Member memberSession, Model model) {
+		return "productRating";
 	}
 	
 	@RequestMapping("/insertProductRating.do")
@@ -277,8 +276,8 @@ public class MemberController {
 		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
 		int maxNum = productRatingDAO.selectProductRaingByRatNum(memberSession.getEmail());
 		System.out.println(maxNum);
-		productRating.setEmail(memberSession.getEmail());
 		productRating.setRatNum(++maxNum);
+		productRating.setEmail(memberSession.getEmail());
 		productRating.setLanCode(memberSession.getLanCode());
 		System.out.println(productRating);
 		if(productRatingDAO.insertProductRating(productRating)==1) {

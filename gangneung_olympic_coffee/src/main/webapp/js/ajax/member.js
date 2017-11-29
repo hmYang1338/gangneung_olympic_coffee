@@ -38,31 +38,32 @@ function memberUpdateAjax(){
 }
 
 
-var storeRatingInsert;
+var storeRatingRequest;
 function storeRatingInsertBtn(id){
-	storeRatingInsert = sendRequest("storeRatingInsertBtn.do","id="+id,storeRatingInsertAjax,"GET");
+	storeRatingRequest = sendRequest("storeRatingBtn.do","id="+id,storeRatingInsertAjax,"GET");
 }
 
 function storeRatingInsertAjax(){
-	if(storeRatingInsert.readyState == 4 && storeRatingInsert.status == 200){
+	if(storeRatingRequest.readyState == 4 && storeRatingRequest.status == 200){
 		$(document).ready(function(){
 			$("#store-modal").modal();
-			$("#store-modal-view").html(storeRatingInsert.responseText);
+			$("#store-modal-view").html(storeRatingRequest.responseText);
 			insertStarStoreRating();
 		});
 	}
 }
 
-var productRatingInsert;
-function productRatingInsertBtn(id,code,oz){
-	productRatingInsert = sendRequest("productRatingInsertBtn.do","id="+id+"&code="+code+"&oz="+oz,productRatingInsertAjax,"GET");
+
+var productRatingInsertRequest;
+function productRatingBtn(id,code,oz){
+	productRatingInsertRequest = sendRequest("productRatingBtn.do","id="+id+"&code="+code+"&oz="+oz,productRatingInsertAjax,"GET");
 }
 
 function productRatingInsertAjax(){
-	if(productRatingInsert.readyState == 4 && productRatingInsert.status == 200){
+	if(productRatingInsertRequest.readyState == 4 && productRatingInsertRequest.status == 200){
 		$(document).ready(function(){
 			$("#store-modal").modal();
-			$("#store-modal-view").html(productRatingInsert.responseText);
+			$("#store-modal-view").html(productRatingInsertRequest.responseText);
 			insertStarProductRating();
 		});
 	}
