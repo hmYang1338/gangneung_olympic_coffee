@@ -1,4 +1,4 @@
-package sercurity;
+package security;
 
 import javax.annotation.Resource;
 

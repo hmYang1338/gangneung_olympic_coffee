@@ -25,7 +25,7 @@ import dto.Member;
 import dto.ProductRating;
 import dto.Reporting;
 import dto.Store;
-import sercurity.ShaEncoder;
+import security.ShaEncoder;
 
 @Controller
 @SessionAttributes({ "error", "resultContent", "list", "lanCode" })

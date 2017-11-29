@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
  <!-- Services -->
-    <section id="services" class="services text-center brown-background">
+    <section id="services" class="services text-center store-background">
       <h2>You're Best Friend</h2>
       <div class="container">
         <div class="row text-center">

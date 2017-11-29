@@ -20,7 +20,7 @@ import dao.StoreDAO;
 import dto.Manager;
 import dto.ManagerStoreJOIN;
 import dto.Store;
-import sercurity.ShaEncoder;
+import security.ShaEncoder;
 
 /*@Controller
 @SessionAttributes({ "error", "resultContent", "list" })*/
