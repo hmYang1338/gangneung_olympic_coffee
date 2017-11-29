@@ -21,14 +21,12 @@ import dao.ReportingDAO;
 import dao.StoreDAO;
 import dto.Manager;
 import dto.ManagerStoreJOIN;
-import dto.Member;
-import dto.ProductRating;
 import dto.Reporting;
 import dto.Store;
 import security.ShaEncoder;
 
 @Controller
-@SessionAttributes({ "error", "resultContent", "list", "lanCode" })
+@SessionAttributes({ "error", "resultContent", "list","managerSession","adminSession","lanCode" })
 public class ManagerController {
 	@Autowired
 	private StoreDAO storeDao;
@@ -75,6 +73,22 @@ public class ManagerController {
 	@RequestMapping(value="/showManager.do")
 	public String showManager() {
 		return "manager/showManager";
+	}
+	@RequestMapping(value = "/showMyManage.do")
+	public String myManage(@ModelAttribute("managerSession") Manager managerSession, Model model) {
+		model.addAttribute("myManagerList", managerDao.selectManagerByEmail(managerSession.getEmail()));
+		return "manager/showMyManage";
+	}
+	@RequestMapping(value="/showMyStoreManage.do")
+	public String showMyStoreManager(@ModelAttribute("managerSession") Manager managerSession, Model model) {
+		model.addAttribute("myManagerList", managerDao.selectManagerByEmail(managerSession.getEmail()));
+		return "manager/myStoreManage";
+	}
+	
+	@RequestMapping(value="/selectMyStore.do")
+	public String selectMyStore(@ModelAttribute("managerSession") Manager managerSession, Model model) {
+		model.addAttribute("myStoreList", managerDao.selectOneManagerDetail(managerSession.getEmail()));
+		return "manager/managerDetail";
 	}
 	
 	
@@ -478,4 +492,5 @@ public class ManagerController {
 			return reportingDao.deleteReport(seq)>0?"success":"fail";
 		}
 	}
+	
 }
