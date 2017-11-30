@@ -1,5 +1,5 @@
  @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
-
+ @import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 .store-background {
 	background: white;
 	background-image: url('../img/background-patterns.svg');
@@ -240,7 +240,7 @@ store출력을 위한 css
 /*
 스토어 간단한 소개
 */
-.store-content> a > img {
+/* .store-content> a > img {
 	width: 80%;
 	margin-top: 15px;
 	margin-bottom: 15px;
@@ -257,10 +257,10 @@ store출력을 위한 css
 		margin-right: 25%;
 		margin-left: 25%;
 	}
-}
+} */
 
 .store-content{
-	font-family: 'Hanna', serif;
+	font-family: 'Hanna', serif !important;
 	margin-top: 20px;
 	text-align: center;
 	font-size: 18px;
@@ -299,4 +299,43 @@ store출력을 위한 css
 /*커서 효과*/
 .cursor {
 	cursor: pointer;
+}
+
+
+/*정태준 CSS 243Line*/
+.store-content> a > img {
+	width: 80%;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-right: 10%;
+	margin-left: 10%;
+    border-radius: 4px;
+    box-shadow: 10px 10px 40px 5px #888888;
+}
+@media screen and (min-width: 768px){
+	.store-content> a > img {
+		width: 50%;
+		margin-right: 25%;
+		margin-left: 25%;
+	}
+}
+/*새로 생성한 HTML CSS*/
+.detail-background {
+    background: gray; /* For browsers that do not support gradients */    
+    background: -webkit-linear-gradient(left, #f2f2f2, #d9d9d9, #bfbfbf); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #f2f2f2, #d9d9d9, #bfbfbf); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #f2f2f2, #d9d9d9, #bfbfbf); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #f2f2f2, #d9d9d9, #bfbfbf); /* Standard syntax (must be last) */
+}
+.tel-color{
+	color:#add8ff;
+}
+.footer-title{
+	color:#d86d6d;
+}
+.footer-background{
+	background-color: #363636;
+}
+.footer-font-white{
+	color:white;
 }
