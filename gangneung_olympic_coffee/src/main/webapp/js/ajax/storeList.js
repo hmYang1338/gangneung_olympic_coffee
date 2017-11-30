@@ -169,7 +169,8 @@ function storeExecute(element){
 				parseFloat(elementChildSelectorName(element,'longi').value));
 		setTimeout(function () {
 		    google.maps.event.trigger(map, 'resize');
-		    initMap();
+		    setMap(parseFloat(elementChildSelectorName(element,'lat').value),
+					parseFloat(elementChildSelectorName(element,'longi').value));
 		}, 1000);
 	});
 	paddingName= paddingName+paddingValue;
