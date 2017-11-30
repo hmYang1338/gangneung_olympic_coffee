@@ -255,18 +255,23 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteManager.do", method = RequestMethod.POST)
-	public String delete(@ModelAttribute("managerSession") Manager managerSession, @RequestParam String email, Model data) {
-		String url = null;
-		if (email == null || email.trim().length() == 0) {
-			return "test/managerList";
+	public String delete(@ModelAttribute("adminSession") Manager adminSession, @RequestParam String email, Model model) {
+		if(adminSession != null && adminSession.getEmail().trim().length()!=0) {
+			System.out.println(adminSession + "Test1");
+			int result = managerDAO.deleteManager(email);
+			System.out.println("Test2" + result);
+			if(result == 1) {
+				model.addAttribute("msg", "삭제 성공."); 
+				model.addAttribute("url","index.do");
+				return "redirect:message.jsp";
+			}else {
+				model.addAttribute("msg", "삭제 실패."); 
+				model.addAttribute("url","index.do");
+				return "redirect:";
+			}
+		}else {
+			return null;//처리할 것
 		}
-		int result = managerDAO.deleteManager(email);
-		if (result == 0) {
-			data.addAttribute("error", "삭제하려는 게시글이 존재하지 않습니다.");
-		} else {
-			url = "home2";
-		}
-		return url;
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////
