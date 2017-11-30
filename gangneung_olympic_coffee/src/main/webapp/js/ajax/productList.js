@@ -44,16 +44,19 @@ function menuExecute(element){
 		priceSpan.appendChild(document.createTextNode(spanName[i]));
 		priceElements[i].appendChild(priceSpan);
 	}
-	productElement = elementChildSelectorName(element,'product');
-	iconMaker(productElement,'product-icon','img/coffee-menu.svg',function(){
-		var id = elementChildSelectorName(element,'id').value;
-		var code = elementChildSelectorName(element,'code').value;
-		var oz = elementChildSelectorName(element,'oz').value;
-		//alert(code+" "+id+" "+oz)
-		var modalView = document.getElementById('store-modal-view');
-		modalView.innerHTML='';
-		productFavoriteInsertBtn(id,code,oz);
-	});
+	if(auth.authority==1){
+		productElement = elementChildSelectorName(element,'product');
+		iconMaker(productElement,'product-icon','img/coffee-menu.svg',function(){
+			var id = elementChildSelectorName(element,'id').value;
+			var code = elementChildSelectorName(element,'code').value;
+			var oz = elementChildSelectorName(element,'oz').value;
+			//alert(code+" "+id+" "+oz)
+			var modalView = document.getElementById('store-modal-view');
+			modalView.innerHTML='';
+			productFavoriteInsertBtn(id,code,oz);
+		});
+}
+if(auth.authority==1){
 	productRatingElement = elementChildSelectorName(element,'product');
 	iconMaker(productRatingElement,'product-icon','img/coffee-icon.svg',function(){
 		var id = elementChildSelectorName(element,'id').value;
@@ -64,4 +67,5 @@ function menuExecute(element){
 		modalView.innerHTML='';
 		productRatingBtn(id,code,oz);
 	});
+}
 }

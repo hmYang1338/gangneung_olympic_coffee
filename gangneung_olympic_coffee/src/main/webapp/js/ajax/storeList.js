@@ -3,7 +3,6 @@
  * 비동기 방식으로 div 태그를 추가함.
  * @author 신승엽
  */
-var auth = checkSession();
 var lanCode = 1;
 //메인 화면 실행시 비동기 통신으로 커피숍 목록을 출력함
 var storeListRequest = sendRequest("storeListMap.do", null, storeListAjax, "POST");
@@ -95,11 +94,11 @@ function storeSelectById(element) {
 function storeListExcute(element){
 	//store,product Rating을 저장할 새로운 div 객체 생성
 	var storeDiv = document.createElement('div');
-	
+
 	storeDiv.id = 'rating_view';
 	storeDiv.className = 'rating_list';
 	storeDiv.setAttribute("name", 'rating_view')
-	
+
 	document.getElementById('storeView').appendChild(storeDiv);
 	console.log(document.getElementById('storeView').id);
 }
@@ -154,9 +153,9 @@ function storeExecute(element){
 	 			close.className ='cursor bg-gray';
 	 			close.id='read-more-btn';
 	 			document.getElementById('store-content').appendChild(close);
-	 		});	
+	 		});
 	});
-	 	
+
 	//비동기 통신으로 스토어 위치를 구글 맵에 표시
 	iconMaker(nameElement, 'store_icon', 'img/gps.svg', function(e){
 		e.stopPropagation();
@@ -166,28 +165,21 @@ function storeExecute(element){
 			modalView.innerHTML='';
 			modalView.className='map';
 			setMap(elementChildSelectorName(element,'lat').value,elementChildSelectorName(element,'longi').value)
-		});	
+		});
 	});
-	
+
 	//즐겨찾기
-	//if (auth == 1) {
+	if(auth.authority==1)
 		iconMaker(nameElement, 'store_icon', 'img/bookmark.svg', function(e) {
 			e.stopPropagation();
 			var id = elementChildSelectorName(element, 'id').value;
-			//현재 스토어의 ID 값을 받아옴
-			//추후 구현 되면 이 항목에 만든 메소드를 넣을 것
-			/**
-			 * 구현을 요함 - 정태준
-			 */
-			var modalView = document.getElementById('store-modal-view');
-			modalView.innerHTML='';
 			storeFavoriteInsertBtn(id);
 			//alert("Table 설계 후 구현 계획 - 가게 정보 즐겨찾기");
 		});
-	//}
-		
-		
+
+
 		//코맨트 입력
+		if(auth.authority==1)
 		iconMaker(nameElement, 'store_icon', 'img/chat.svg', function(e){
 			e.stopPropagation();
 			$(document).ready(function() {
@@ -202,10 +194,10 @@ function storeExecute(element){
 				modalView.innerHTML='';
 				storeRatingInsertBtn(id);
 				//store-modal-view
-				//innerHTML로 떠서 
-			});	
+				//innerHTML로 떠서
+			});
 		});
-		
+
 		//메뉴 리스트
 		iconMaker(nameElement, 'store_icon', 'img/restaurant-menu.svg', function(e){
 			e.stopPropagation();
@@ -214,15 +206,15 @@ function storeExecute(element){
 				modalView.innerHTML='';
 				$("#store-modal").modal();
 				menuList(elementChildSelectorName(element, 'id').value);
-			});	
+			});
 		});
-		
+
 		//링크
 		var siteUrl = elementChildSelectorName(element,'storeUrl');
 		 		if(isEmpty(siteUrl.value)){
 		 			var siteVisit = ['','visit web site', '사이트 방문', '访问网站'];
 		 			var site = document.createElement('div');
-		 			
+
 		 			site.appendChild(document.createTextNode(siteVisit[lanCode]));
 		 			site.className ='cursor bg-gray';
 		 			site.id='visit-site-btn';
@@ -287,24 +279,24 @@ function productRatingAppander(element) {
 	timeAppandProductStoreRating(element,parseInt(elementChildSelectorName(element,'LANCODE').value));
 	var ratingLanguage = ['','TASTE','풍미','味'];
 	var ozLanguage = ['','oz','크기','盎司']
-	
+
 	//새로운 레이팅 element를 생성
 	var ratingElement = document.createElement('div');
 	ratingElement.setAttribute('name','productRating_div');
 	ratingElement.className='rating_element';
-	
+
 	//음료의 이름을 출력할 element
 	var productName = document.createElement('div');
 	productName.className='rating_name';
 	productName.appendChild(document.createTextNode(elementChildSelectorName(element, 'PRODUCT').value));
 	ratingElement.appendChild(productName);
-	
+
 	//음료의 크기를 출력할 element
 	var ozName = document.createElement('div');
 	ozName.className='rating_name';
 	ozName.appendChild(document.createTextNode(ozLanguage[parseInt(elementChildSelectorName(element,'LANCODE').value)]+' : '+elementChildSelectorName(element, 'OZ').value));
 	ratingElement.appendChild(ozName);
-	
+
 	//레이팅 바 구현
 	var ratingName = document.createElement('div');
 	ratingName.className='rating_name';
@@ -313,9 +305,9 @@ function productRatingAppander(element) {
 	var ratingStar = starRatingView(elementChildSelectorName(element, 'TASTE'), 'TASTE', false);
 	ratingStar.className='rating_star';
 	ratingElement.appendChild(ratingStar);
-	
+
 	//요소별 위치를 재정의
-	
+
 	element.insertBefore(elementChildSelectorName(element,'ratComment'),elementChildSelectorName(element,'TASTEDIV'));
 	element.insertBefore(ratingElement,elementChildSelectorName(element,'ratComment'));
 }
@@ -384,4 +376,3 @@ var isEmpty = function(value){
 	 		 return true;
 	 	 }
 	 }
-	 

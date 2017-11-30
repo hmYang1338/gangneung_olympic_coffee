@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -55,26 +57,32 @@ public class MainController {
 	 * @return int (0은 비로그인 1는 회원 2는 운영자 3은 관리자)
 	 */
 	@RequestMapping("/session.do")
-	public @ResponseBody int SessionConnected(HttpSession session) {
+	public @ResponseBody HashMap<String,Object> SessionConnected(HttpSession session) {
+		HashMap<String,Object> map = new HashMap<>();
 		try {
 			Member member = (Member) session.getAttribute("memberSession");
 			if (member.getEmail() != null && !member.getEmail().trim().equals("")) {
-				return 1;
+				map.put("authority", 1);
+				map.put("email",member.getEmail());
+				return map;
 			}
 			Manager manager = (Manager) session.getAttribute("managerSession");
 			if(manager.getEmail() != null && !manager.getEmail().trim().equals("")) {
+				map.put("email",manager.getEmail());
 				if(manager.getMajor()!=0) {
-					return 3;
+					map.put("authority", 3);
+					return map;
 				} else {
-					return 2;
+					map.put("authority", 2);
+					return map;
 				}
 			}
 		} catch (NullPointerException e) {
-			return 0;
+			map.put("authority", 0);
+			map.put("email","");
+			return map;
 		}
-		
-		
-		return 0;
+		return map;
 	}
 	
 	@RequestMapping("/gps.do")

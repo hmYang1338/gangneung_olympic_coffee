@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -319,18 +320,21 @@ public class MemberController {
 		return "storeFavorite";
 	}
 	
-	@RequestMapping("/insertStoreFavorite.do")
-	public String insertStoreFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute StoreFavorite storeFavorite) {
+	@RequestMapping(value="/insertStoreFavorite.do",produces = "application/json; charset=utf8")
+	public @ResponseBody String insertStoreFavorite(@ModelAttribute("memberSession") Member memberSession, @RequestParam("id") int id) {
 		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+		
 		int maxNum = storeFavoriteDAO.selectStoreFavoriteByNum(memberSession.getEmail());
+		StoreFavorite storeFavorite = new StoreFavorite();
+		
+		storeFavorite.setId(id);
 		storeFavorite.setFavNum(++maxNum);
 		storeFavorite.setEmail(memberSession.getEmail());
 		storeFavorite.setLanCode(memberSession.getLanCode());
-		if(storeFavoriteDAO.insertStoreFavorite(storeFavorite)==1) {
-			System.out.println("성공");
-		}else {
-			System.out.println("실패");
-		}
-		return "redirect:index.do";
+		
+		String[][] resultArr = {{"","ADD failure!","즐겨찾기 추가 실패","最喜欢的失败"},
+				{"","ADD Success!","즐겨찾기 추가 성공","书签成功"}};
+		
+		return resultArr[storeFavoriteDAO.insertStoreFavorite(storeFavorite)][memberSession.getLanCode()];
 	}
 }

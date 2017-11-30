@@ -86,13 +86,12 @@ function productFavoriteInsertAjax(){
 //Store Favorite
 var storeFavoriteInsertRequest;
 function storeFavoriteInsertBtn(id){
-	storeFavoriteInsertRequest = sendRequest("storeFavoriteBtn.do","id="+id,storeFavoriteInserAjax,"GET");
+	storeFavoriteInsertRequest = sendRequest("insertStoreFavorite.do","id="+id,storeFavoriteInserAjax,"POST");
 }
 function storeFavoriteInserAjax(){
 	if(storeFavoriteInsertRequest.readyState == 4 && storeFavoriteInsertRequest.status ==200){
 		$(document).ready(function(){
-			$("#store-modal").modal();
-			$("#store-modal-view").html(storeFavoriteInsertRequest.responseText);
+			alert(storeFavoriteInsertRequest.responseText);
 		});
 	}
 }

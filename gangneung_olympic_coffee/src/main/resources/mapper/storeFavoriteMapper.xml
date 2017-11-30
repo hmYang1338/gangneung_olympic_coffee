@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="storeFavoriteMapper">
+	
+	<!-- @author 정태준 -->
+	
+	<resultMap type="storeFavorite" id="storeFavoriteSelectMap">
+		<result column="fav_num" property="favNum"/>
+		<result column="email" property="email"/>
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="fav_date" property="favDate"/>
+	</resultMap>
+	
+	<select id="selectStoreFavorite" resultMap="storeFavoriteSelectMap" parameterType="String">
+		SELECT fav_num, email, lan_code, id, fav_date
+		FROM storeFavorite
+		WHERE email = #{email}
+		ORDER BY fav_date DESC
+	</select>
+	
+	<select id="selectStoreFavoriteByNum" resultType="int" parameterType="String">
+		SELECT MAX(fav_num)
+		FROM storeFavorite
+		WHERE email = #{email}
+	</select>
+	
+	<insert id="insertStoreFavorite" parameterType="storeFavorite">
+		INSERT INTO storeFavorite
+		VALUES(#{favNum},#{email},#{lanCode},#{id},systimestamp)
+	</insert>
+	
+	<delete id="deleteStoreFavorite" parameterType="storeFavorite">
+		DELETE
+		FROM storeFavorite
+		WHERE fav_num = #{favNum} and email = #{email}
+	</delete>
+	
+</mapper>	

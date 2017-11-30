@@ -4,12 +4,14 @@
  */
 
 var sessionAuthAjax;
-
-function checkSession(){
-	var auth = 0;
+var auth;
+(function(){
+	var json;
 	sessionAuthAjax = sendRequest("session.do", null, function(){
-		auth = parseInt(sessionAuthAjax.responseText);
+		if (sessionAuthAjax.readyState == 4 && sessionAuthAjax.status == 200) {
+			json = sessionAuthAjax.responseText;
+			console.log(json);
+			auth = JSON.parse(json);
+	}
 	}, "POST");
-	console.log(auth);
-	return auth;
-}
+})();
