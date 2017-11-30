@@ -7,3 +7,10 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="map-modal" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content container blue-background" id="">
+				<div id="map" class="map"></div>
+			</div>
+		</div>
+	</div>

@@ -78,7 +78,6 @@ public class MainController {
 				return map;
 			}
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			map.put("authority", 0);
 			map.put("email","");
 		}
@@ -91,7 +90,6 @@ public class MainController {
 				return map;
 			}
 		} catch (NullPointerException e) {
-			e.printStackTrace();
 			map.put("authority", 0);
 			map.put("email","");
 		}

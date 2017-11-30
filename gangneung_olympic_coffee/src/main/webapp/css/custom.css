@@ -31,6 +31,15 @@
 	background-color: white;
 	color: black;
 }
+/*
+*/
+.active >ul> div{
+	text-align: right;
+	background-color: silver;
+}
+.active >ul> div> a{
+	color: black;
+}
 
 /**
 Div 로 Table을 구성하기 위한 생성자
@@ -103,7 +112,11 @@ store출력을 위한 css
 	height: 100%;
 	background-size: cover;
 	margin: auto;
+	pading: 0;
 	display: table-cell;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+  	background-color: rgba(0, 0, 0, 0.3);
 }
 .store-info{
 	
@@ -116,7 +129,6 @@ store출력을 위한 css
 	margin-bottom: 5px;
 }
 .store-name{
-	padding-left: 175px;
 	font-size: 35px;
 	border-bottom: 5px solid white;
 }
@@ -167,8 +179,9 @@ store출력을 위한 css
 }
 /*google map 크기*/
 .map {
-	height: 600px;
-	width: 100%;
+	margin: auto;
+	height: 500px;
+	width: 80%;
 }
 /*메뉴 리스트를 정리하기 위한 css*/
 .menu_list{
@@ -260,21 +273,7 @@ store출력을 위한 css
 .bg-gray {
 	background-color: #00000033;
 }
-.bgBlur:before {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: inherit;
-	z-index: -1;
-	filter: blur(6px);
-	-webkit-filter: blur(6px);
-	-moz-filter: blur(6px);
-	-o-filter: blur(6px);
-	filter: url(#blur);
-}
+
 
 /*rating 구현*/
 .star-rating {
@@ -287,7 +286,10 @@ store출력을 위한 css
 
 /*Main View 구현*/
 .main-title {
-	color: black;
+	text-shadow: 0 0 8px #000;
+	-moz-text-shadow: 0 0 8px #000;
+	-webkit-text-shadow: 0 0 8px #000;
+	color: white;
 }
 
 .carousel-inner img {

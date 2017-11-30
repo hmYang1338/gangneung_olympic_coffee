@@ -118,7 +118,7 @@ function storeAjax(){
 						divId:'sinnerDiv',
 						divClass:'bg-gray',
 						tableId:'sinnerTableDiv',
-						tableClass:'text-center bgBlur store-info col-sm-12'
+						tableClass:'text-center store-info col-sm-12'
 				},
 				'innerFunction' : storeExecute,
 				'executeFunction' : storeExecutePlus
@@ -131,6 +131,8 @@ function storeAjax(){
 function storeExecute(element){
 	//제목을 클릭하면 해당 페이지로 이동하는 코드
 	var nameElement = elementChildSelectorName(element,'store-name');
+	var paddingValue = 35;
+	var paddingName = 0;
 	//비동기 통신으로 스토어 위치를 구글 맵에 표시
 	 	iconMaker(nameElement, 'store_icon', 'img/read-more.svg', function(e){
 	 		e.stopPropagation();
@@ -147,39 +149,45 @@ function storeExecute(element){
 	 				storeContent.html('');
 	 				$('html, body').animate({
 	 					scrollTop : $('#storeView').offset().top
-	 				}, 1000);
+	 				}, 2000);
 	 			});
 	 			close.appendChild(document.createTextNode(closeText[lanCode]));
 	 			close.className ='cursor bg-gray';
 	 			close.id='read-more-btn';
 	 			document.getElementById('store-content').appendChild(close);
 	 		});
-	});
-
-	//비동기 통신으로 스토어 위치를 구글 맵에 표시
+	 	});
+	 	paddingName= paddingName+paddingValue;
+	//스토어 위치를 구글 맵에 표시
 	iconMaker(nameElement, 'store_icon', 'img/gps.svg', function(e){
+		$("#map").html('');
 		e.stopPropagation();
 		$(document).ready(function() {
-			$("#store-modal").modal();
-			var modalView = document.getElementById('store-modal-view');
-			modalView.innerHTML='';
-			modalView.className='map';
-			setMap(elementChildSelectorName(element,'lat').value,elementChildSelectorName(element,'longi').value)
+			$("#map-modal").modal();
 		});
+		setMap(parseFloat(elementChildSelectorName(element,'lat').value),
+				parseFloat(elementChildSelectorName(element,'longi').value));
+		setTimeout(function () {
+		    google.maps.event.trigger(map, 'resize');
+		    initMap();
+		}, 1000);
 	});
+	paddingName= paddingName+paddingValue;
 
 	//즐겨찾기
-	if(auth.authority==1)
+	if(auth.authority==1){
 		iconMaker(nameElement, 'store_icon', 'img/bookmark.svg', function(e) {
 			e.stopPropagation();
 			var id = elementChildSelectorName(element, 'id').value;
 			storeFavoriteInsertBtn(id);
 			//alert("Table 설계 후 구현 계획 - 가게 정보 즐겨찾기");
 		});
+		paddingName= paddingName+paddingValue;
+	}
 
 
 		//코맨트 입력
-		if(auth.authority==1)
+		if(auth.authority==1){
 		iconMaker(nameElement, 'store_icon', 'img/chat.svg', function(e){
 			e.stopPropagation();
 			$(document).ready(function() {
@@ -197,6 +205,8 @@ function storeExecute(element){
 				//innerHTML로 떠서
 			});
 		});
+		paddingName= paddingName+paddingValue;
+		}
 
 		//메뉴 리스트
 		iconMaker(nameElement, 'store_icon', 'img/restaurant-menu.svg', function(e){
@@ -207,8 +217,10 @@ function storeExecute(element){
 				$("#store-modal").modal();
 				menuList(elementChildSelectorName(element, 'id').value);
 			});
+			
 		});
-
+		paddingName= paddingName+paddingValue;
+		 nameElement.style.paddingLeft = ""+paddingName+"px";
 		//링크
 		var siteUrl = elementChildSelectorName(element,'storeUrl');
 		 		if(isEmpty(siteUrl.value)){
@@ -228,7 +240,7 @@ function storeExecute(element){
 function storeExecutePlus(element){
 	//정보가 있는 엘리멘트를 받아옴
 	var resourceElement = element.lastChild.firstChild;
-	element.style.backgroundImage='url("'+elementChildSelectorName(resourceElement,'img').value+'")';
+	document.getElementById('store-background-blur').style.backgroundImage='url("'+elementChildSelectorName(resourceElement,'img').value+'")';
 	//요소의 상하 위치를 변경. product 리뷰를 하단으로 옮기기를 위함.
 	element.insertBefore(element.lastChild,element.lastChild.previousElementSibling);
 }

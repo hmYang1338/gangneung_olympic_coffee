@@ -2,63 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<style>
-body {margin: 0;}
-
-ul.sidenav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 25%;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-}
-
-ul.sidenav li a {
-    display: block;
-    color: #000;
-    padding: 8px 16px;
-    text-decoration: none;
-}
- 
-ul.sidenav li a.active {
-    background-color: #4CAF50;
-    color: white;
-}
-
-ul.sidenav li a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-}
-
-div.content {
-    margin-left: 25%;
-    padding: 1px 16px;
-    height: 1000px;
-}
-
-@media screen and (max-width: 900px) {
-    ul.sidenav {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-    ul.sidenav li a {
-        float: left;
-        padding: 15px;
-    }
-    div.content {margin-left: 0;}
-}
-
-@media screen and (max-width: 400px) {
-    ul.sidenav li a {
-        text-align: center;
-        float: none;
-    }
-}
-</style>
 <!-- 네비게이션 바 -->
 <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"> <i
 	class="fa fa-bars"></i>
@@ -74,7 +17,7 @@ div.content {
 			</a>
 		</li>
 		<!-- 다국어 선택 -->
-		<div style="text-align: center;">
+		<div>
 			<a href="<c:url value="/index.do?lang=ko" />">
 				<spring:message code="site.language.korean" />
 			</a> 
@@ -119,7 +62,7 @@ div.content {
 		<li><a class="js-scroll-trigger" href="#top"><spring:message
 					code="site.list.toMain" /></a></li>
 		<!-- 상점 목록으로 -->
-		<li><a class="js-scroll-trigger" href="#about"><spring:message
+		<li><a class="js-scroll-trigger" href="#storeListView"><spring:message
 					code="site.list.storeList" /></a></li>
 	</ul>
 </nav>

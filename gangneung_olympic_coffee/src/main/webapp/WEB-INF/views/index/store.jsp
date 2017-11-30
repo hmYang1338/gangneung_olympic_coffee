@@ -3,11 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
  <!-- Services -->
-    <section id="services" class="services text-center store-background">
+    <section id="services" class="services text-center">
       <h2>You're Best Friend</h2>
       <div class="container">
         <div class="row text-center">
-          <div id="storeListView">
+          <div id="storeListView" class="store-background">
           <!-- 여기에 storeList가 나타납니다. -->
           </div>
           <!-- /.col-lg-10 -->
@@ -18,8 +18,8 @@
     </section>
 
     <!-- Callout -->
-    <aside class="callout">
-      <div class="text-center store-div bgBlur" id="storeView">
+    <aside class="callout store-background-blur" id="store-background-blur">
+      <div class="text-center store-div" id="storeView">
       <!-- 여기에 store가 나타납니다 -->
       </div>
     </aside>
