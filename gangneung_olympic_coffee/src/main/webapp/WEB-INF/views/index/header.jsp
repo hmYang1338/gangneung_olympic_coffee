@@ -3,6 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
  <!-- 해더 -->
+ <style>
+ .carousel-inner img {
+      /* width: 100%;
+      height: 100%; */
+ }
+ @media screen and (max-width: 600px){
+ 	.carousel-inner img {
+ 		height: 200;
+ 	}
+ }
+ </style>
     <header class="header" id="top">
 		<!-- 안목해변/강릉 소개 이미지 폼 -->
 		<div id="headerImage" class="carousel slide" data-ride="carousel">
@@ -14,7 +25,7 @@
 			</ul>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
-					<img src="img/main_01.JPG" alt="gangneung">
+					<img src="img/main_01.JPG" alt="gangneung" >
 					<div class="carousel-caption main-title">
 						<h3>
 							<spring:message code="site.main.imgTitle1" />

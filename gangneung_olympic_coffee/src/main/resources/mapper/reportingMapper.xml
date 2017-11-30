@@ -25,10 +25,10 @@
 	</insert>
 	
 	<!-- 하나의 카페의 신고건수 조회 -->
-	<select id="selectReportingByEmail" resultMap="reportingMap" parameterType="java.util.HashMap">
+	<select id="selectReportingByEmail" resultMap="reportingMap" parameterType="String">
 		SELECT <include refid="reportingColumn" />
 		FROM Reporting 
-		WHERE email=#{email} AND seq=#{seq}
+		WHERE email=#{email}
 	</select>
 	
 	<!-- 전체 카페의 신고건수 -->

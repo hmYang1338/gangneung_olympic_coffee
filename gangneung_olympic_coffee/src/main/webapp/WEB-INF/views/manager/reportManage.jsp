@@ -57,7 +57,8 @@
 		class="btn btn-default btn-bottom-margin" style="width: 350px" id="list"
 		name="list" onclick="reportListBtn();" value="신고 조회"> 			
 </span>
-<div class="col-lg-10 divTable" id="reportingListView"></div>
+
+<div id="reportingListView"></div>
 
 
 

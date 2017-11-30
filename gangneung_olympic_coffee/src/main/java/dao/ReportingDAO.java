@@ -29,14 +29,11 @@ public class ReportingDAO {
 	
 	/**
 	 * 해당 운영자에 대한 신고건수 조회
-	 * @param seq, email
+	 * @param email
 	 * @return
 	 */
-	public Reporting selectOneReportingByEmail(int seq, String email) {
-		HashMap<String, Object> data = new HashMap<>();
-		data.put("seq", seq);
-		data.put("email", email);
-		return sqlSession.selectOne("reportingMapper.selectReportingByEmail", data);
+	public List<Reporting> selectOneReportingByEmail(String email) {
+		return sqlSession.selectList("reportingMapper.selectReportingByEmail", email);
 	}
 	
 	/**

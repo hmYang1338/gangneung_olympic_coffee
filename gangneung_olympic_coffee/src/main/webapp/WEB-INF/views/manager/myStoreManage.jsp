@@ -65,7 +65,7 @@
 
 <input type="button"
 		class="btn btn-default btn-bottom-margin" style="width: 350px" id="myReport"
-		name="myReport" onclick="myReport();" value="신고 관리"> 
+		name="myReport" onclick="myReportBtn();" value="신고 관리"> 
 </span>
 
 <div class="col-lg-10 divTable" id="myStore"></div>

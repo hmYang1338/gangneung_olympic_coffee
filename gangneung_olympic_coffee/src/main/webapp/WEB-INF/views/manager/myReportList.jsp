@@ -2,81 +2,94 @@
 	pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
-<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button><br>
-<hr class="hr-white">
-<h3 class="blue text-center">내 정보 관리</h3>
-<hr class="hr-white">
-<input type="hidden" name="email" value="${managerSession.email}">
+<hr>
+<form>
 <table align="center" border="0" cellpadding="5" cellspacing="2" width="100%">
 	<tr>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">이메일</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">번호</span></b></font>
 			</p>
 		</td>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">카페
-							id</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">신고자</span></b></font>
 			</p>
 		</td>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">이름</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">카페평가</span></b></font>
 			</p>
 		</td>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">전화번호</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">제품평가</span></b></font>
 			</p>
 		</td>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">생년월일</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">회원</span></b></font>
 			</p>
 		</td>
 		<td bgcolor="#f2e6d9">
 			<p align="center">
-				<font color="white"><b><span style="font-size: 9pt;">major</span></b></font>
+				<font color="white"><b><span style="font-size: 9pt;">신고날짜</span></b></font>
 			</p>
 		</td>
-
+		<c:choose>
+			<c:when test="${not empty adminSession.email}">
+				<td bgcolor="#f2e6d9">
+					<p align="center">
+						<font color="white"><b><span style="font-size: 9pt;">비고</span></b></font>
+					</p>
+				</td>
+			</c:when>
+		</c:choose>
 	</tr>
+	<c:forEach items="${reportList}" var="data">
 		<tr>
 			<td bgcolor="">
-				<form action="post">
-					<p align="center">
-						<span style="font-size: 9pt;"> ${managerSession.email}</span>
-					</p>
-				</form>
-			</td>
-			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${managerSession.id}</span>
+					<span style="font-size: 9pt;">${data.seq}</span>
 				</p>
 			</td>
 			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${managerSession.name}</span>
+					<span style="font-size: 9pt;">${data.email}</span>
 				</p>
 			</td>
 			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${managerSession.tel}</span>
+					<span style="font-size: 9pt;">${data.sratNum}</span>
 				</p>
 			</td>
 			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${managerSession.birth}</span>
+					<span style="font-size: 9pt;">${data.pratNum}</span>
 				</p>
 			</td>
 			<td bgcolor="">
 				<p align="center">
-					<span style="font-size: 9pt;">${managerSession.major}</span>
+					<span style="font-size: 9pt;">${data.memail}</span>
 				</p>
 			</td>
+			<td bgcolor="">
+				<p align="center">
+					<span style="font-size: 9pt;">${data.repDate}</span>
+				</p>
+			</td>
+			<c:choose>
+				<c:when test="${not empty adminSession.email}">
+					<td bgcolor="">
+						<p align="center">
+							<span><input type="button" value="x" onclick="deleteReport('${data.seq}')"></span>
+						</p>
+					</td>
+				</c:when>
+			</c:choose>
+			
 		</tr>
+	</c:forEach>
 
 	<tr>
 		<td bgcolor="">
@@ -101,8 +114,8 @@
 		</td>
 	</tr>
 </table>
+</form>
 
-<input type="button"
-			class="btn btn-default" style="width: 350px" id="updatePW"
-			name="updatePW" onclick="updatePwBtn();" value="비밀번호 수정"> 
-<hr>
+<script>
+
+</script>

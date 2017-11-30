@@ -301,9 +301,12 @@ function productRatingAppander(element) {
 				if (auth.authority == 1) {
 					alert('일반 사용자!');
 					// 여기에 메소드를 추가하세요! (일반 로그인 사용자의 자신의 글 삭제)
-				} else if (auth.authority == 2 && auth.authority == 3) {
+				} else if (auth.authority == 2) { //운영자
+					managerProductReportingBtn(elementChildSelectorName(element, 'email').firstChild.nodeValue, ratNum);
 					alert('관리자/운영자!');
 					// 여기에 메소드를 추가하세요! (관리자는 삭제를, 운영자는 신고 기능으로)
+				} else if( auth.authority == 3){ //관리자
+					adminProductReportingBtn(elementChildSelectorName(element, 'email').firstChild.nodeValue, ratNum);
 				}
 			});
 		}
@@ -359,9 +362,12 @@ function storeRatingAppander(element) {
 				if (auth.authority == 1) {
 					alert('일반 사용자!');
 					// 여기에 메소드를 추가하세요! (일반 로그인 사용자의 자신의 글 삭제)
-				} else if (auth.authority == 2 && auth.authority == 3) {
+				} else if (auth.authority == 2) {
 					alert('관리자/운영자!');
+					managerStoreReportingBtn(elementChildSelectorName(element, 'email').firstChild.nodeValue, ratNum);
 					// 여기에 메소드를 추가하세요! (관리자는 삭제를, 운영자는 신고 기능으로)
+				} else if (auth.authority == 3) {
+					adminStoreReportingBtn(elementChildSelectorName(element, 'email').firstChild.nodeValue, ratNum);
 				}
 			});
 		}

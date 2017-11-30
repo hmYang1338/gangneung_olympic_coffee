@@ -1,88 +1,103 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Member List</title>
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-.divTableHeading {
-	background-color: #EEE;
-	display: table-header-group;
-	font-weight: bold;
-}
-</style>
-
-</head>
-<body>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 	<h1> Member List</h1>
-<%-- 		<form action="deleteMemberByManager.do" id="requestForm" method="POST">
-			<div class="row">
-				<input type="hidden" name="email" id="email" value="${member.email}">
-				<div class="divTableHeading">Email</div>
-				<div class="divTableHeading">Nation</div>
-				<div class="divTableHeading">Language</div>
-				<div class="divTableHeading">Name</div>
-				<div class="divTableHeading">CellPhone</div>
-				<div class="divTableHeading">Gender</div>
-				<div class="divTableHeading">BirthDay</div>
-				<div class="divTableHeading">JoinDate</div>
-				<div class="divTableHeading">LastDate</div>
-				<div class="divTableHeading">Delete</div>
-			</div>
-				<c:forEach items="${requestScope.memberList}" var="member">
-				<br>
-			<div class="row">
-					<div class="col">${member.email}</div>
-					<div class="col">${member.nationCode}</div>
-					<div class="col">${member.lanCode}</div>
-					<div class="col">${member.name}</div>
-					<div class="col">${member.tel}</div>
-					<div class="col">${member.gender}</div>
-					<div class="col">${member.birth}</div>
-					<div class="col">${member.joinDate}</div>
-					<div class="col">${member.lastDate}</div>
-					<div class="col"><input type="button" name="deleteMember"  value="x" onclick="sendDelete('${member.email}')"></div>
-			</div>
-				</c:forEach>
-			</form> --%>
 	<form action="deleteMemberByManager.do" id="requestForm" method="POST">
 		<input type="hidden" name="email" id="email" value="${member.email}">
-		<table>
+		<table align="center" border="0" cellpadding="5" cellspacing="2" width="100%">
 			<tr>
-				<th>ì´ë©”ì¼</th>
-				<th>êµ­ê°€</th>
-				<th>ì„¤ì •ì–¸ì–´</th>
-				<th>ì´ë¦„</th>
-				<th>ì „í™”ë²ˆí˜¸</th>
-				<th>ì„±ë³„</th>
-				<th>ìƒì¼</th>
-				<th>ê°€ì…ì¼</th>
-				<th>ìµœê·¼ì ‘ì†ì¼</th>
-				<th>ì‚­ì œë²„íŠ¼</th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">ÀÌ¸ŞÀÏ</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">±¹°¡</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">¼³Á¤¾ğ¾î</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">ÀÌ¸§</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">ÀüÈ­¹øÈ£</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">¼ºº°</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">»ıÀÏ</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">°¡ÀÔÀÏ</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">ÃÖ±ÙÁ¢¼ÓÀÏ</span></b></font>
+			</p></th>
+				<th bgcolor="#f2e6d9"><p align="center">
+				<font color="white"><b><span style="font-size: 11pt;">»èÁ¦</span></b></font>
+			</p></th>
 			</tr>
 			<c:forEach items="${requestScope.memberList}" var="member">
 				<tr>
-					<td>${member.email}</td>
-					<td>${member.nationCode}</td>
-					<td>${member.lanCode}</td>
-					<td>${member.name}</td>
-					<td>${member.tel}</td>
-					<td>${member.gender}</td>
-					<td>${member.birth}</td>
-					<td>${member.joinDate}</td>
-					<td>${member.lastDate}</td>
-					<td><input type="button" name="deleteMember"  value="Delete" onclick="sendDelete('${member.email}')"></td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.email}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.nationCode}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.lanCode}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.name}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.tel}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.gender}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.birth}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.joinDate}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;">${member.lastDate}</span>
+						</p>
+					</td>
+					<td bgcolor="">
+						<p align="center">
+							<span style="font-size: 9pt;"><input type="button" name="deleteMember"  value="Delete" onclick="sendDelete('${member.email}')"></span>
+						</p>
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</form>
-	<!-- ì‚¬ìš©ì íƒˆí‡´ê°€ ë§ê²Œ email Session ì²˜ë¦¬ í•´ì¤˜ì•¼í•¨ -->
+ 
  	<script>
 		function sendDelete(email){
-				var check = prompt("ì‚­ì œí•˜ê³  ì‹¶ìœ¼ì‹œë‹¤ë©´ yë¥¼ ");	
+				var check = prompt("»èÁ¦ÇÏ°í ½ÍÀ¸½Ã´Ù¸é y¸¦ ");	
 				if(check.toLowerCase() == 'y' || check.toLowerCase() == 'yes'){
 					document.getElementById("email").value = email;
 					document.getElementById("requestForm").submit();
@@ -91,8 +106,3 @@
 				}
 		}	
 	</script>
-	
-	
-	
-</body>
-</html>

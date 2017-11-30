@@ -2,7 +2,7 @@
  * 신고리스트
  * @author 양현모
  */
-
+/*
 //관리자 화면 실행시 비동기 통신으로 신고 목록을 출력함
 var reportingListRequest = sendRequest("selectReporting.do", null, reportListBtn, "POST");
 
@@ -21,8 +21,8 @@ function reportListBtn() {
 						tableId:'innerTableDiv',
 						tableClass:'divTableRow',
 				}
-				/*'innerFunction' : managerSelectByEmail,*/
+				'innerFunction' : managerSelectByEmail,
 		};
 		listView(data);
 	}
-}
+}*/

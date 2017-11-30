@@ -29,65 +29,76 @@ import security.ShaEncoder;
 @SessionAttributes({ "error", "resultContent", "list","managerSession","adminSession","lanCode" })
 public class ManagerController {
 	@Autowired
-	private StoreDAO storeDao;
+	private StoreDAO storeDAO;
 	@Autowired
-	private ManagerDAO managerDao;
+	private ManagerDAO managerDAO;
 	@Autowired
-	private ReportingDAO reportingDao;
+	private ReportingDAO reportingDAO;
 	@Autowired
 	private LanguageDAO languageDAO;
 	
 	@Resource(name = "shaEncoder")
 	private ShaEncoder encoder;
 
-	@RequestMapping("/test2.do")
-	public String TestGo(Model model) {
-		/*return "home2";*/
-		return "admin";
-	}
-
+	
 	/**
 	 * 관리자가 관리하는 창을 띄움
 	 * @return
 	 */
 	@RequestMapping(value="/showManage.do")
-	public String showManage() {
-		return "manager/showManage";
+	public String showManage(@ModelAttribute("adminSession") Manager adminSession) {
+		if(adminSession.getEmail()!=null && adminSession.getEmail().trim().length()!=0) {
+			return "manager/showManage";
+		} else {
+			return "test/error";
+		}
 	}
 	@RequestMapping(value="/showManagerManage.do")
-	public String showManagerManage() {
-		return "manager/managerManage";
+	public String showManagerManage(@ModelAttribute("adminSession") Manager adminSession) {
+		if(adminSession.getEmail()!=null && adminSession.getEmail().trim().length()!=0) {
+			return "manager/managerManage";
+		} else {
+			return "test/error";
+		}
 	}
 	@RequestMapping(value="/showStoreManage.do")
-	public String showStoreManage() {
-		return "manager/storeManage";
+	public String showStoreManage(@ModelAttribute("adminSession") Manager adminSession) {
+		if(adminSession.getEmail()!=null && adminSession.getEmail().trim().length()!=0) {
+			return "manager/storeManage";
+		} else {
+			return "test/error";
+		}
 	}
 	@RequestMapping(value="/showReportManage.do")
-	public String showReportManage() {
-		return "manager/reportManage";
+	public String showReportManage(@ModelAttribute("adminSession") Manager adminSession) {
+		if(adminSession.getEmail()!=null && adminSession.getEmail().trim().length()!=0) {
+			return "manager/reportManage";
+		} else {
+			return "test/error";
+		}
 	}
 	
 	/**
 	 * 운영자가 관리하는 창을 띄움
 	 */
 	@RequestMapping(value="/showManager.do")
-	public String showManager() {
+	public String showManager(@ModelAttribute("managerSession") Manager managerSession) {
 		return "manager/showManager";
 	}
 	@RequestMapping(value = "/showMyManage.do")
 	public String myManage(@ModelAttribute("managerSession") Manager managerSession, Model model) {
-		model.addAttribute("myManagerList", managerDao.selectManagerByEmail(managerSession.getEmail()));
+		model.addAttribute("myManagerList", managerDAO.selectManagerByEmail(managerSession.getEmail()));
 		return "manager/showMyManage";
 	}
 	@RequestMapping(value="/showMyStoreManage.do")
 	public String showMyStoreManager(@ModelAttribute("managerSession") Manager managerSession, Model model) {
-		model.addAttribute("myManagerList", managerDao.selectManagerByEmail(managerSession.getEmail()));
+		model.addAttribute("myManagerList", managerDAO.selectManagerByEmail(managerSession.getEmail()));
 		return "manager/myStoreManage";
 	}
 	
 	@RequestMapping(value="/selectMyStore.do")
 	public String selectMyStore(@ModelAttribute("managerSession") Manager managerSession, Model model) {
-		model.addAttribute("myStoreList", managerDao.selectOneManagerDetail(managerSession.getEmail()));
+		model.addAttribute("myStoreList", managerDAO.selectOneManagerDetail(managerSession.getEmail()));
 		return "manager/managerDetail";
 	}
 	
@@ -98,7 +109,7 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insertForm.do")
-	public String showInsertForm(Model model) {
+	public String showInsertForm(@ModelAttribute("adminSession") Manager adminSession, Model model) {
 		model.addAttribute("languageList", languageDAO.selectLanguage());
 		return "manager/managerInsert";
 	}
@@ -120,7 +131,7 @@ public class ManagerController {
 			return "test/loginPage"; // 빈칸 있을시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		}
 		manager.setPassword(encoder.encoding(manager.getPassword())); // 비밀번호암호화
-		int result = managerDao.insertManager(manager);
+		int result = managerDAO.insertManager(manager);
 		if (result == 0) {
 			System.out.println("error"); // test//계정 생성 실패시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 			uri = "test/error";
@@ -137,9 +148,9 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/listAjax.do")
-	public String listAjax(Model data) {
+	public String listAjax(@ModelAttribute Manager manager, Model data) {
 		String url = "test/error";
-		data.addAttribute("list", managerDao.selectManagerAll());
+		data.addAttribute("list", managerDAO.selectManagerAll());
 		url = "manager/managerList"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		return url;
 	}
@@ -151,11 +162,16 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/selectAllManager.do")
-	public @ResponseBody List<Manager> selectAllManager(Model data) {
+	public @ResponseBody List<Manager> selectAllManager(@ModelAttribute("adminSession") Manager adminSession, Model data) {
+		if(adminSession.getEmail()!=null && adminSession.getEmail().trim().length()!=0) {
+			return managerDAO.selectManagerAll();
+		} else {
+			return null;
+		}
 		/*String url = "test/error";
-		data.addAttribute("list", managerDao.selectManagerAll());
+		data.addAttribute("list", managerDAO.selectManagerAll());
 		url = "test/managerList"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
-*/		return managerDao.selectManagerAll();
+*/		
 	}
 
 	/**
@@ -173,7 +189,7 @@ public class ManagerController {
 		}
 		String url = "test/error";
 		ManagerStoreJOIN managerstore = null;
-		managerstore = managerDao.selectOneManagerDetail(email);
+		managerstore = managerDAO.selectOneManagerDetail(email);
 		
 		if (managerstore == null) {
 			data.addAttribute("error", "해당 게시글이 존재하지 않습니다");
@@ -182,15 +198,12 @@ public class ManagerController {
 			managerstore.setEmail(email);
 			url = "manager/managerDetail";
 		}
-		System.out.println("test read");
-		System.out.println(url);
-		System.out.println(email);
 		return url;
 	}
 
 	@RequestMapping(value = "/managerSelectByEmail.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody ManagerStoreJOIN read2(@RequestParam int lanCode, @RequestParam String email) {
-		return managerDao.selectOneManagerDetail(lanCode, email);
+		return managerDAO.selectOneManagerDetail(lanCode, email);
 	}
 	
 	/**
@@ -207,7 +220,7 @@ public class ManagerController {
 			return url;
 		}
 		ManagerStoreJOIN managerstore = null;
-		managerstore = managerDao.selectOneManagerDetail(email);
+		managerstore = managerDAO.selectOneManagerDetail(email);
 		managerstore.setEmail(email);
 
 		data.addAttribute("resultContent", managerstore);
@@ -223,9 +236,9 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateManager.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String update(@RequestParam String email, @RequestParam String tel, Model data) {
+	public String update(@ModelAttribute("managerSession") Manager managerSession, @RequestParam String email, @RequestParam String tel, Model data) {
 		String url = null;
-		int result = managerDao.updateManager(email, tel);
+		int result = managerDAO.updateManager(email, tel);
 		if (result == 0) {
 			url = "test/error";
 		} else {
@@ -242,12 +255,12 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteManager.do", method = RequestMethod.POST)
-	public String delete(@RequestParam String email, Model data) {
+	public String delete(@ModelAttribute("managerSession") Manager managerSession, @RequestParam String email, Model data) {
 		String url = null;
 		if (email == null || email.trim().length() == 0) {
 			return "test/managerList";
 		}
-		int result = managerDao.deleteManager(email);
+		int result = managerDAO.deleteManager(email);
 		if (result == 0) {
 			data.addAttribute("error", "삭제하려는 게시글이 존재하지 않습니다.");
 		} else {
@@ -262,9 +275,10 @@ public class ManagerController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/updatePasswordForm.do")
-	public String showUpdatePasswordForm() {
-		return "test/managerupdatePassword";
+	@RequestMapping(value = "/updatePasswordForm.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String showUpdatePasswordForm(@ModelAttribute("managerSession") Manager managerSession, Model data) {
+		data.addAttribute("managerInfo", managerDAO.selectManagerByEmail(managerSession.getEmail()));
+		return "manager/managerupdatePassword";
 	}
 
 	/**
@@ -275,18 +289,17 @@ public class ManagerController {
 	 * @param data
 	 * @return
 	 */
-	@RequestMapping(value = "/updatePassword.do")
-	public String updatePassword(@RequestParam Manager manager, @RequestParam String now_password, 
+	@RequestMapping(value = "/updatePassword.do", method=RequestMethod.POST)
+	public String updatePassword(@ModelAttribute("managerSession") Manager managerSession, @RequestParam String now_password, 
 								 @RequestParam String ch_password, Model data) {
 		String url = null;
-		String passwordDB = managerDao.selectOneManagerByEmail(manager.getEmail());
-		
+		String passwordDB = managerDAO.selectOneManagerByEmail(managerSession.getEmail());
 		if(encoder.matches(now_password, passwordDB)) { //현재 비밀번호가 다르면 오류
 			if(ch_password==null) {	// 변경할 패스워드가 null이라면
-				url = "home2";		// 아무런 변화없이 home2로 이동
+				url = "test/error";		// 아무런 변화없이 home2로 이동
 			} else if(ch_password.length()>=8) {	// 변경할 패스워드가 8자리 이상이라면
-				managerDao.updatePassword(manager.getEmail(), encoder.encoding(ch_password));	// 패스워드 바꾸고
-				url = "home2";		// home2로 이동
+				managerDAO.updatePassword(managerSession.getEmail(), encoder.encoding(ch_password));	// 패스워드 바꾸고
+				url = "redirect:index.do";		// home2로 이동
 			} else {
 				url = "test/error";
 			}
@@ -303,9 +316,9 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/selectAllStore.do")
-	public String selectAllStore(Model data) {
+	public String selectAllStore(@ModelAttribute("adminSession")Manager adminSession, Model data) {
 		String url = "test/error";
-		data.addAttribute("list", storeDao.getStoreSelectMap(1));
+		data.addAttribute("list", storeDAO.getStoreSelectMap(1));
 		url = "manager/managerstoreList"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		return url;
 	}
@@ -316,7 +329,7 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insertStoreForm.do")
-	public String showStoreInsertForm() {
+	public String showStoreInsertForm(@ModelAttribute("adminSession")Manager adminSession) {
 		return "manager/storeInsert";
 	}
 
@@ -328,9 +341,8 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/insertStore.do", method = RequestMethod.POST)
-	public String insertStore(@ModelAttribute Store store, Model data) {
+	public String insertStore(@ModelAttribute("adminSession")Manager adminSession, @ModelAttribute Store store, Model data) {
 		String uri = null;
-		System.out.println("insertstore test1");
 		if (store.getId() == 0 || store.getName() == null || store.getName().trim().length() == 0
 				|| store.getAddr() == null || store.getAddr().trim().length() == 0
 				|| store.getTel() == null || store.getTel().trim().length() == 0
@@ -339,11 +351,8 @@ public class ManagerController {
 				|| store.getLongi() == 0 || store.getLat() == 0) {
 			return "test/error"; // 빈칸 있을시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 		}
-		System.out.println("insertstore test2");
-		int result = storeDao.insertStore(store);
-		System.out.println("insertstore test3"+result);
+		int result = storeDAO.insertStore(store);
 		if (result == 0) {
-			System.out.println("error"); // test//계정 생성 실패시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
 			uri = "test/error";
 		} else {
 			uri = "redirect:test.do"; // 계정 생성시 이동하는 페이지 // 추후 시스템 운영에 맞게 수정
@@ -359,13 +368,13 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/detailStore.do/{id}.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String readStore(@PathVariable int id, Model data) {
+	public String readStore(@ModelAttribute("adminSession")Manager adminSession, @PathVariable int id, Model data) {
 		if (id == 0) {
 			return "test/managerstoreList";
 		}
 		String url = "test/error";
 		Store store = null;
-		store = storeDao.getStoreSelectById(id, 1);
+		store = storeDAO.getStoreSelectById(id, 1);
 
 		if (store == null) {
 			data.addAttribute("error", "해당 게시글이 존재하지 않습니다");
@@ -386,13 +395,13 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateStoreForm.do", method = RequestMethod.POST)
-	public String updateStoreForm(@RequestParam int id, Model data) {
+	public String updateStoreForm(@ModelAttribute("managerSession") Manager managerSession, @RequestParam int id, Model data) {
 		String url = "test/error";
 		if (id == 0) {
 			return url;
 		}
 		Store store = null;
-		store = storeDao.getStoreSelectById(id, 1);
+		store = storeDAO.getStoreSelectById(id, 1);
 		store.setId(id);
 
 		data.addAttribute("resultContent", store);
@@ -408,9 +417,9 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateStore.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String updateStore(@RequestParam int id, @RequestParam String tel, Model data) {
+	public String updateStore(@ModelAttribute("managerSession") Manager managerSession, @RequestParam int id, @RequestParam String tel, Model data) {
 		String url = null;
-		int result = storeDao.updateStore(id, tel);
+		int result = storeDAO.updateStore(id, tel);
 		if (result == 0) {
 			url = "test/error";
 		} else {
@@ -427,12 +436,12 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value = "/deleteStore.do", method = RequestMethod.POST)
-	public String deleteStore(@RequestParam int id, Model data) {
+	public String deleteStore(@ModelAttribute("managerSession") Manager managerSession, @RequestParam int id, Model data) {
 		String url = null;
 		if (id == 0) {
 			return "test/error";
 		}
-		int result = storeDao.deleteStore(id);
+		int result = storeDAO.deleteStore(id);
 		if (result == 0) {
 			data.addAttribute("error", "삭제하려는 게시글이 존재하지 않습니다.");
 		} else {
@@ -448,8 +457,9 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping(value="/selectReporting.do", method={RequestMethod.GET, RequestMethod.POST})
-	public @ResponseBody List<Reporting> selectReporting() {
-		return reportingDao.selectReporting();
+	public String selectReporting(@ModelAttribute("adminSession") Manager adminSession, Model data) {
+		data.addAttribute("reportList", reportingDAO.selectReporting());
+		return "manager/myReportList";
 	}
 	
 	/**
@@ -458,9 +468,10 @@ public class ManagerController {
 	 * @param email
 	 * @return
 	 */
-	@RequestMapping(value = "/selectOneReportingByEmail.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public @ResponseBody Reporting selectOneReportingByEmail(@RequestParam int seq, @RequestParam String email) {
-		return reportingDao.selectOneReportingByEmail(seq, email);
+	@RequestMapping(value = "/selectMyReport.do")
+	public String selectMyReport(@ModelAttribute("managerSession") Manager managerSession, Model data) {
+		data.addAttribute("reportList", reportingDAO.selectOneReportingByEmail(managerSession.getEmail()));
+		return "manager/myReportList";
 	}
 	
 	/**
@@ -471,10 +482,10 @@ public class ManagerController {
 	 */
 	@RequestMapping(value="/insertReporting.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public @ResponseBody String insertReporting(@ModelAttribute Reporting reporting, @ModelAttribute Manager managerSession) {
-		if(managerSession==null||!managerSession.getEmail().trim().equals("")){
+		if(managerSession==null||managerSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
-			return reportingDao.insertReport(reporting)>0?"success":"fail";
+			return reportingDAO.insertReport(reporting)>0?"success":"fail";
 		}
 	}
 	
@@ -485,11 +496,11 @@ public class ManagerController {
 	 * @return
 	 */
 	@RequestMapping("/deleteReporting.do")
-	public @ResponseBody String deleteReporting(@RequestParam int seq, @ModelAttribute Manager managerSession) {
-		if(managerSession==null||!managerSession.getEmail().trim().equals("")){
+	public @ResponseBody String deleteReporting(@RequestParam int seq, @ModelAttribute Manager adminSession) {
+		if(adminSession==null||adminSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
-			return reportingDao.deleteReport(seq)>0?"success":"fail";
+			return reportingDAO.deleteReport(seq)>0?"success":"fail";
 		}
 	}
 	

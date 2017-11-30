@@ -8,64 +8,64 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table align="center" cellpadding="5" cellspacing="2" width="600" border='1'>
+	<table align="center" cellpadding="5" cellspacing="2" width="600" border='0'>
 		<tr>
 	        <td width="100" height="20">
-	            <p align="right"><b><span style="font-size:9pt;">이메일</span></b></p>
+	            <!-- <p align="right"><b><span style="font-size:9pt;">이메일</span></b></p> -->
 	        </td>
 	        <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.email}</b>
+	        		<b>${myStoreList.email}</b>
 	        	</span>
 	        </td>
 	    </tr>
 	    <tr>
 	        <td width="100" height="20">
-	            <p align="right"><b><span style="font-size:9pt;">이름</span></b></p>
+	           <!--  <p align="right"><b><span style="font-size:9pt;">이름</span></b></p> -->
 	        </td>
 	         <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.name}</b>
+	        		<b>${myStoreList.name}</b>
 	        	</span>
 	        </td>
 	    </tr>
 	    <tr>
 	        <td width="100" height="20">
-	            <p align="right"><b><span style="font-size:9pt;">휴대폰</span></b></p>
+	           <!--  <p align="right"><b><span style="font-size:9pt;">휴대폰</span></b></p> -->
 	        </td>
 	        <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.tel}</b>
+	        		<b>${myStoreList.tel}</b>
 				</span>
 			</td>
 	    </tr>
 	    <tr>
 			<td width="100" height="20" valign="top">
-	            <p align="right"><b><span style="font-size:9pt;">카페 이름</span></b></p>
+	         <!--    <p align="right"><b><span style="font-size:9pt;">카페 이름</span></b></p> -->
 	        </td>
 	        <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.sName}</b>
+	        		<b>${myStoreList.sName}</b>
 				</span>
 			</td>
 	    </tr>
 	    <tr>
 			<td width="100" height="20" valign="top">
-	            <p align="right"><b><span style="font-size:9pt;">주소</span></b></p>
+	            <!-- <p align="right"><b><span style="font-size:9pt;">주소</span></b></p> -->
 	        </td>
 	        <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.sAddr}</b>
+	        		<b>${myStoreList.sAddr}</b>
 				</span>
 			</td>
 	    </tr>
 	    <tr>
 			<td width="100" height="20" valign="top">
-	            <p align="right"><b><span style="font-size:9pt;">전화번호</span></b></p>
+	          <!--   <p align="right"><b><span style="font-size:9pt;">전화번호</span></b></p> -->
 	        </td>
 	        <td width="450" height="20" colspan="3">
 	        	<span style="font-size:9pt;">
-	        		<b>${sessionScope.resultContent.sTel}</b>
+	        		<b>${myStoreList.sTel}</b>
 				</span>
 			</td>
 	    </tr>
@@ -79,9 +79,9 @@
 						<td>
 							<!-- 수정시 필요한 데이터들을 hidden으로 숨겨놓고 폼 데이터로 보내준다. -->
 							<form name="requestForm" method=post>
-								<input type=hidden name="email" value="${sessionScope.resultContent.email}">
+								<%-- <input type=hidden name="email" value="${myStoreList.email}">
 								<input type=button value="수정하기" onClick="sendUpdate()">
-								<input type=button value="삭제하기" onClick="sendDelete()">
+								<input type=button value="삭제하기" onClick="sendDelete()"> --%>
 							</form> 
 						</td>
 					</tr>

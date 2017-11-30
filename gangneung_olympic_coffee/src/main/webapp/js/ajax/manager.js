@@ -132,6 +132,18 @@ function storeInsert() {
 		});
 	}
 }
+/* 전체 신고조회 */
+var reportingListRequest;
+function reportListBtn() {
+	reportingListRequest = sendRequest("selectReporting.do", null, reportList, "GET");
+}
+function reportList() {
+	if (reportingListRequest.readyState == 4 && reportingListRequest.status == 200) {
+		var resData = reportingListRequest.responseText;
+		document.getElementById("reportingListView").innerHTML = resData;
+	}
+}
+
 
 /**
 * 회원List 조회 및 삭제
@@ -182,6 +194,19 @@ function myManageAjax() {
 	}
 }
 
+var updatePwRequest;
+function updatePwBtn() {
+	updatePwRequest = sendRequest("updatePasswordForm.do", null, updatePw, "GET");
+}
+function updatePw() {
+	if (updatePwRequest.readyState == 4 && updatePwRequest.status == 200) {
+		$(document).ready(function() {
+			$("#manager-modal").modal();
+			$("#modal-manager").html(updatePwRequest.responseText);
+		});
+	}
+}
+
 /**
  * 내 카페 관리
  */
@@ -201,14 +226,94 @@ function myStoreManageAjax() {
 /* 내 카페 정보 조회 */
 var myStoreRequest;
 function selectMyStoreBtn() {
-	myStoreRequest = sendRequest("selectMyStore.do", null, storeList, "GET");
+	myStoreRequest = sendRequest("selectMyStore.do", null, myStoreList, "GET");
 }
-function storeList() {
+function myStoreList() {
 	if (myStoreRequest.readyState == 4 && myStoreRequest.status == 200) {
 		var resData = myStoreRequest.responseText;
 		document.getElementById("myStore").innerHTML = resData;
 	}
 }
 
+/* 내 신고 조회 */
+var myReportRequest;
+function myReportBtn() {
+	myReportRequest = sendRequest("selectMyReport.do", null, myReportList, "GET");
+}
+function myReportList() {
+	if(myReportRequest.readyState == 4 && myReportRequest.status == 200) {
+		$(document).ready(function() {
+			$("#manager-modal").modal();
+			$("#modal-manager").html(myReportRequest.responseText);
+		});
+	}
+}
 
+/* main에서 x버튼(운영자 - 상품신고) */
+var managerProductReportingRequest;
+function managerProductReportingBtn(email, pratNum) {
+	managerProductReportingRequest = sendRequest(".do", null, managerProductReporting, "GET");
+}
+function managerProductReporting() {
+	if(managerProductReportingRequest.readyState == 4 && managerProductReportingRequest.status == 200) {
+		$(document).ready(function() {
+			if(managerProductReportingRequest.responseText==true){
+				alert('신고가 정상적으로 완료되었습니다.')
+			} else{
+				alert('신고가 정상적으로 처리되지 않았습니다.')
+			}
+		});
+	}
+}
+
+/* main에서 x버튼(운영자 - 카페신고) */
+var managerStoreReportingRequest;
+function managerStoreReportingBtn(email, sratNum) {
+	managerStoreReportingRequest = sendRequest(".do", null, managerStoreReporting, "GET");
+}
+function managerStoreReporting() {
+	if(managerStoreReportingRequest.readyState == 4 && managerStoreReportingRequest.status == 200) {
+		$(document).ready(function() {
+			if(managerStoreReportingRequest.responseText==true){
+				alert('신고가 정상적으로 완료되었습니다.')
+			} else{
+				alert('신고가 정상적으로 처리되지 않았습니다.')
+			}
+		});
+	}
+}
+
+/* main에서 x버튼(관리자 - 신고된 제품평가 삭제) */
+var adminProductReportingRequest;
+function adminProductReportingBtn(email, pratNum) {
+	adminProductReportingRequest = sendRequest(".do", null, adminProductReporting, "GET");
+}
+function adminProductReporting() {
+	if(adminProductReportingRequest.readyState == 4 && adminProductReportingRequest.status == 200) {
+		$(document).ready(function() {
+			if(adminProductReportingRequest.responseText==true){
+				alert('삭제가 정상적으로 완료되었습니다.')
+			} else{
+				alert('삭제가 정상적으로 처리되지 않았습니다.')
+			}
+		});
+	}
+}
+
+/* main에서 x버튼(관리자 - 신고된 카페평가 삭제) */
+var adminStoreReportingRequest;
+function adminStoreReportingBtn(email, sratNum) {
+	adminStoreReportingRequest = sendRequest(".do", null, adminStoreReporting, "GET");
+}
+function adminStoreReporting() {
+	if(adminStoreReportingRequest.readyState == 4 && adminStoreReportingRequest.status == 200) {
+		$(document).ready(function() {
+			if(adminStoreReportingRequest.responseText==true){
+				alert('삭제가 정상적으로 완료되었습니다.')
+			} else{
+				alert('삭제가 정상적으로 처리되지 않았습니다.')
+			}
+		});
+	}
+}
 
