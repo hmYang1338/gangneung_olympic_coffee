@@ -277,6 +277,25 @@ function storeRatingListAjax(){
 
 function productRatingAppander(element) {
 	timeAppandProductStoreRating(element,parseInt(elementChildSelectorName(element,'LANCODE').value));
+	//타임 DIV 안에 삭제 DIV를 추가하기
+	if(auth.authority!=0){
+		console.log(auth.email,elementChildSelectorName(element,'email').firstChild.nodeValue)
+		if (auth.email == elementChildSelectorName(element, 'email').firstChild.nodeValue
+				|| auth.authority != 1) {
+			var timeElement = elementChildSelectorName(element, 'RATDATETIME');
+			var ratNum = elementChildSelectorName(element, 'RATNUM').value;
+			iconMaker(timeElement, 'cancel-icon', 'img/close.svg', function() {
+				if (auth.authority == 1) {
+					alert('일반 사용자!');
+					// 여기에 메소드를 추가하세요! (일반 로그인 사용자의 자신의 글 삭제)
+				} else if (auth.authority == 2 && auth.authority == 3) {
+					alert('관리자/운영자!');
+					// 여기에 메소드를 추가하세요! (관리자는 삭제를, 운영자는 신고 기능으로)
+				}
+			});
+		}
+	}
+
 	var ratingLanguage = ['','TASTE','풍미','味'];
 	var ozLanguage = ['','oz','크기','盎司']
 
@@ -316,6 +335,25 @@ function productRatingAppander(element) {
 function storeRatingAppander(element) {
 	//시간을 추가하는 메소드 추가
 	timeAppandProductStoreRating(element,parseInt(elementChildSelectorName(element,'LANCODE').value));
+	//타임 DIV 안에 삭제 DIV를 추가하기
+	if(auth.authority!=0){
+		console.log(auth.email,elementChildSelectorName(element,'email').firstChild.nodeValue)
+		if (auth.email == elementChildSelectorName(element, 'email').firstChild.nodeValue
+				|| auth.authority != 1) {
+			var timeElement = elementChildSelectorName(element, 'RATDATETIME');
+			var ratNum = elementChildSelectorName(element, 'RATNUM').value;
+			iconMaker(timeElement, 'cancel-icon', 'img/close.svg', function() {
+				if (auth.authority == 1) {
+					alert('일반 사용자!');
+					// 여기에 메소드를 추가하세요! (일반 로그인 사용자의 자신의 글 삭제)
+				} else if (auth.authority == 2 && auth.authority == 3) {
+					alert('관리자/운영자!');
+					// 여기에 메소드를 추가하세요! (관리자는 삭제를, 운영자는 신고 기능으로)
+				}
+			});
+		}
+	}
+	
 	//스토어 레이팅(별)을 추가하는 메소드
 	var ratings = [ 'INTERIOR', 'RATACCESS', 'COSTEFFECT' ];
 	var ratingLanguage = [0,['INTERIOR', 'ACCESS', 'COSTEFFECT'],

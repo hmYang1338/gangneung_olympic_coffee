@@ -218,7 +218,12 @@ store출력을 위한 css
 .product-icon > img:hover{
 	background-color: #ffffffaa;
 }
-
+.cancel-icon > img {
+	margin: 4px;
+	float: right;
+	width: 12px;
+	height: 12px;
+}
 /*
 스토어 간단한 소개
 */

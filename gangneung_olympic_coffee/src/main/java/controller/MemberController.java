@@ -40,7 +40,6 @@ import security.ShaEncoder;
 @Controller
 @SessionAttributes({"memberSession","managerSession","adminSession","lanCode"})
 public class MemberController {
-	
 	@Autowired
 	private MemberDAO memberDAO;
 	

@@ -20,7 +20,7 @@ import dto.Member;
 import dto.UserGPS;
 
 @Controller
-@SessionAttributes({"memberSession","managerSession","lanCode"})
+@SessionAttributes({"memberSession","managerSession","adminSession","lanCode"})
 public class MainController {
 	
 	/**
@@ -66,21 +66,34 @@ public class MainController {
 				map.put("email",member.getEmail());
 				return map;
 			}
-			Manager manager = (Manager) session.getAttribute("managerSession");
-			if(manager.getEmail() != null && !manager.getEmail().trim().equals("")) {
-				map.put("email",manager.getEmail());
-				if(manager.getMajor()!=0) {
-					map.put("authority", 3);
-					return map;
-				} else {
-					map.put("authority", 2);
-					return map;
-				}
-			}
 		} catch (NullPointerException e) {
 			map.put("authority", 0);
 			map.put("email","");
-			return map;
+		}
+		try {
+			Manager manager = (Manager) session.getAttribute("managerSession");
+			if(manager.getEmail() != null && !manager.getEmail().trim().equals("")) {
+				map.put("email",manager.getEmail());
+				map.put("authority", 2);
+				return map;
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			map.put("authority", 0);
+			map.put("email","");
+		}
+		
+		try {
+			Manager manager = (Manager) session.getAttribute("adminSession");
+			if(manager.getEmail() != null && !manager.getEmail().trim().equals("")) {
+				map.put("email",manager.getEmail());
+				map.put("authority", 3);
+				return map;
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+			map.put("authority", 0);
+			map.put("email","");
 		}
 		return map;
 	}
