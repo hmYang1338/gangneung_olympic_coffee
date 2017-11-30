@@ -96,7 +96,7 @@ public class ProductRatingDAO {
 	 * @return 삭제에 실패하면 0을 삭제를 성공하면 1을 리턴
 	 */
 	public int deleteProductRating(ProductRating productRating) {
-		return sqlSession.delete("productRatingMapper.deleteProduct",productRating);
+		return sqlSession.delete("productRatingMapper.deleteProductRating",productRating);
 	}
 
 }

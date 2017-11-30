@@ -39,18 +39,25 @@ public class StoreRatingController {
 		return storeRatingDAO.selectAllStoreRatingJoinById(storeRating);
 	}
 	
-	@RequestMapping("/storeRatingDelete.do")
-	public @ResponseBody String storeRatingDelete(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
-		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
-			return "need login";
-		} else {
-			storeRating.setLanCode(lanCode);
-			return storeRatingDAO.deleteStoreRating(storeRating)>0?"success":"fail";
+	@RequestMapping(value = "/storeRatingDelete.do",produces = "application/json; charset=utf8")
+	public @ResponseBody String storeRatingDelete(@ModelAttribute StoreRating storeRating, @ModelAttribute("memberSession") Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
+		try {
+			if(memberSession.getEmail().trim().equals("")) {
+				return "need login";
+			}else if(memberSession.getEmail()!=storeRating.getEmail()) {
+				return "hacking sido??";
+			}else {
+				storeRating.setLanCode(lanCode);
+				String[][] resultArr = {{"","DELETE failure!","리뷰 삭제 실패","删除失败"},
+						{"","DELETE Success!","리뷰 삭제 성공","删除成功"}};
+				return resultArr[storeRatingDAO.deleteStoreRating(storeRating)][memberSession.getLanCode()];
+			}
+		}catch(NullPointerException e) {
+			return null;
 		}
 	}
-	
 	@RequestMapping("/storeRatingUpdate.do")
-	public @ResponseBody String storeRatingUpdate(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
+	public @ResponseBody String storeRatingUpdate(@ModelAttribute StoreRating storeRating, @ModelAttribute("memberSession") Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
 		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
@@ -60,7 +67,7 @@ public class StoreRatingController {
 	}
 	
 	@RequestMapping("/storeRatingInsert.do")
-	public @ResponseBody String storeRatingInsert(@ModelAttribute StoreRating storeRating, @ModelAttribute Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
+	public @ResponseBody String storeRatingInsert(@ModelAttribute StoreRating storeRating, @ModelAttribute("memberSession") Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
 		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {

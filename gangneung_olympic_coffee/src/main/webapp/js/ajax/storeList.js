@@ -299,8 +299,14 @@ function productRatingAppander(element) {
 			var ratNum = elementChildSelectorName(element, 'RATNUM').value;
 			iconMaker(timeElement, 'cancel-icon', 'img/close.svg', function() {
 				if (auth.authority == 1) {
-					alert('일반 사용자!');
+					//alert('일반 사용자!');
 					// 여기에 메소드를 추가하세요! (일반 로그인 사용자의 자신의 글 삭제)
+					var check = prompt("삭제하고 싶으시다면 y");
+					if(check.toLowerCase() == 'y' || check.toLowerCase() == 'yes'){
+						productRatingdeleteBtn(auth.email,ratNum);
+					}else{
+						return false;
+					}
 				} else if (auth.authority == 2) { //운영자
 					managerProductReportingBtn(elementChildSelectorName(element, 'email').firstChild.nodeValue, ratNum);
 					alert('관리자/운영자!');
@@ -360,8 +366,9 @@ function storeRatingAppander(element) {
 			var ratNum = elementChildSelectorName(element, 'RATNUM').value;
 			iconMaker(timeElement, 'cancel-icon', 'img/close.svg', function() {
 				if (auth.authority == 1) {
-					alert('일반 사용자!');
+					//alert('일반 사용자!');
 					// 여기에 메소드를 추가하세요! (일반 로그인 사용자의 자신의 글 삭제)
+					storeRatingdeleteBtn(auth.email,ratNum);
 				} else if (auth.authority == 2) {
 					alert('관리자/운영자!');
 					managerStoreReportingBtn(elementChildSelectorName(element, 'email').firstChild.nodeValue, ratNum);

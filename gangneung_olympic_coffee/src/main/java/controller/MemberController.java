@@ -1,7 +1,6 @@
 package controller;
 
 import java.util.List;
-import java.util.Locale;
 
 import javax.annotation.Resource;
 
@@ -24,7 +23,6 @@ import dao.ManagerDAO;
 import dao.MemberDAO;
 import dao.NationDAO;
 import dao.ProductRatingDAO;
-import dao.StoreDAO;
 import dao.StoreFavoriteDAO;
 import dao.StoreRatingDAO;
 import dto.ProductFavorite;
@@ -36,10 +34,10 @@ import dto.StoreFavorite;
 import dto.StoreRating;
 import security.ShaEncoder;
 
-
 @Controller
 @SessionAttributes({"memberSession","managerSession","adminSession","lanCode"})
 public class MemberController {
+	
 	@Autowired
 	private MemberDAO memberDAO;
 	
@@ -88,10 +86,14 @@ public class MemberController {
 	}
 
 	@RequestMapping("/memberUpdateBtn.do")
-	public String memberUpdateBtn(@ModelAttribute Member memberSession, Model model) {
-		model.addAttribute("nationList",nationDAO.selectNation());
-		model.addAttribute("languageList",languageDAO.selectLanguage());
-		return "member/memberUpdate";
+	public String memberUpdateBtn(@ModelAttribute("memberSession") Member memberSession, Model model) {
+		if(memberSession != null && memberSession.getEmail().trim().length() != 0) {
+			model.addAttribute("nationList",nationDAO.selectNation());
+			model.addAttribute("languageList",languageDAO.selectLanguage());
+			return "member/memberUpdate";
+		}else {
+			return null;//처리할 것
+		}
 	}
 	
 	@RequestMapping(value = "/loginPage.do", method = RequestMethod.POST)
@@ -169,31 +171,38 @@ public class MemberController {
 	
 	//회원리스트
 	@RequestMapping(value = "/selectMemberAll.do", method = RequestMethod.GET)
-	public String selectMember(Model model) {
-		List<Member> list = memberDAO.selectMember();
-		model.addAttribute("memberList",list);
-		return "member/memberList";
+	public String selectMember(Model model, @ModelAttribute("adminSession") Manager adminSession) {
+		if(adminSession != null && adminSession.getEmail().trim().length()!=0) {
+			List<Member> list = memberDAO.selectMember();
+			model.addAttribute("memberList",list);
+			return "member/memberList";
+		}else {
+			return null;//처리할것
+		}
 	}
 	
 	//회원탈퇴(관리자)
 	@RequestMapping(value = "/deleteMemberByManager.do", method = RequestMethod.POST)
-	public String deleteMemberByManager(@RequestParam String email, Model model) {
-		System.out.println(email);//test
-		int result = memberDAO.deleteMemberByManager(email);
-		if(result == 1) {
-			model.addAttribute("msg", "삭제 성공."); 
-			model.addAttribute("url","index.do");
-		return "redirect:message.jsp";
+	public String deleteMemberByManager(@ModelAttribute("adminSession") Manager adminSession, @RequestParam String email, Model model) {
+		if(adminSession != null && adminSession.getEmail().trim().length()!=0) {
+			int result = memberDAO.deleteMemberByManager(email);
+			if(result == 1) {
+				model.addAttribute("msg", "삭제 성공."); 
+				model.addAttribute("url","index.do");
+				return "redirect:message.jsp";
+			}else {
+				model.addAttribute("msg", "삭제 실패."); 
+				model.addAttribute("url","index.do");
+				return "redirect:";
+			}
 		}else {
-			model.addAttribute("msg", "삭제 실패."); 
-			model.addAttribute("url","index.do");
-			return "redirect:";
+			return null;//처리할 것
 		}
 	}
 	
 	//회원탈퇴(자발적인) - 자발적이라 썼지만 우선 admin으로도 못함...
 	@RequestMapping(value = "/deleteMember.do", method = RequestMethod.POST)
-	public String deleteMember(@RequestParam String passwordBefore, @ModelAttribute Member memberSession, SessionStatus status, Model model) {
+	public String deleteMember(@RequestParam String passwordBefore, @ModelAttribute("memberSession") Member memberSession, SessionStatus status, Model model) {
 		//select 구문을 이용해서 password만 가지고오는 dao를 하나 제작!
 		//그 다음 DB에서 암호를 가지고 왔다고 가정함!!
 		System.out.println("자발적 탈퇴 들어옴");//test
@@ -215,7 +224,7 @@ public class MemberController {
 	}
 	//회원정보 수정
 	@RequestMapping(value = "/updateMember.do", method = RequestMethod.POST)
-	public String updateMember(@RequestParam String passwordBefore, @RequestParam String password, @ModelAttribute Member memberSession) {
+	public String updateMember(@RequestParam String passwordBefore, @RequestParam String password, @ModelAttribute("memberSession") Member memberSession) {
 		String passwordDB = memberDAO.selectMemberByPassword(memberSession.getEmail());
 		if(encoder.matches(passwordBefore, passwordDB)) {
 			if(password==null||password.trim().equals("")) {
@@ -241,99 +250,113 @@ public class MemberController {
 	
 	//StoreRatingInsert
 	@RequestMapping("/storeRatingBtn.do")
-	public String storeRatingInsertBtn(@ModelAttribute Member memberSession, Model model) {
-		return "storeRating";
+	public String storeRatingInsertBtn(@ModelAttribute("memberSession") Member memberSession, Model model) {
+		try {
+			if(!memberSession.getEmail().trim().equals("")) {
+				return "storeRating";
+			}
+		}catch(NullPointerException e) {
+			return null;
+		}
+		return null;
 	}
-
 	
 	@RequestMapping("/insertStoreRating.do")
 	public String insertStoreRating(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute StoreRating storeRating) {
-		System.out.println("storeRating 들어옴");//test
-		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
-		System.out.println(memberSession);//test
-		int maxNum =storeRatingDAO.selectStoreRaingByRatNum(memberSession.getEmail());
-		System.out.println(maxNum);//test
-		storeRating.setEmail(memberSession.getEmail());
-		storeRating.setRatNum(++maxNum);
-		storeRating.setLanCode(memberSession.getLanCode());
-		System.out.println(storeRating);//test
-		if(storeRatingDAO.insertStoreRating(storeRating)==1) {
-			System.out.println("성공하였습니다.");
-		} else {
-			System.out.println("실패하였습니다.");
+		if(memberSession == null || memberSession.getEmail().trim().equals("")) {
+			return null;//처리할 것
+		}else {
+			localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+			int maxNum =storeRatingDAO.selectStoreRaingByRatNum(memberSession.getEmail());
+			storeRating.setEmail(memberSession.getEmail());
+			storeRating.setRatNum(++maxNum);
+			storeRating.setLanCode(memberSession.getLanCode());
+			if(storeRatingDAO.insertStoreRating(storeRating)==1) {
+				System.out.println("성공하였습니다.");//alert 이용하기
+			} else {
+				System.out.println("실패하였습니다.");//alert 이용하기
+			}
+			return "redirect:index.do";
 		}
-		return "redirect:index.do";
 	}
 	
 	//productRatingInsert
 	@RequestMapping("/productRatingBtn.do")
-	public String productRatingInsertBtn(@ModelAttribute Member memberSession, Model model) {
-		return "productRating";
+	public String productRatingInsertBtn(@ModelAttribute("memberSession") Member memberSession, Model model) {
+		try {
+			if(!memberSession.getEmail().trim().equals("")) {
+				return "productRating";
+			}
+		}catch(NullPointerException e) {
+			return null;
+		}
+		return null;
 	}
 	
 	@RequestMapping("/insertProductRating.do")
 	public String insertProductRating(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute ProductRating productRating) {
-		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
-		int maxNum = productRatingDAO.selectProductRaingByRatNum(memberSession.getEmail());
-		System.out.println(maxNum);
-		productRating.setRatNum(++maxNum);
-		productRating.setEmail(memberSession.getEmail());
-		productRating.setLanCode(memberSession.getLanCode());
-		System.out.println(productRating);
-		if(productRatingDAO.insertProductRating(productRating)==1) {
-			System.out.println("성공하였습니다.");
+		if(memberSession == null || memberSession.getEmail().trim().equals("")) {
+			return null;//처리할 것
 		}else {
-			System.out.println("실패하였습니다.");
+			localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+			int maxNum = productRatingDAO.selectProductRaingByRatNum(memberSession.getEmail());
+			productRating.setRatNum(++maxNum);
+			productRating.setEmail(memberSession.getEmail());
+			productRating.setLanCode(memberSession.getLanCode());
+			if(productRatingDAO.insertProductRating(productRating)==1) {
+				System.out.println("성공하였습니다.");//alert
+			}else {
+				System.out.println("실패하였습니다.");//alert
+			}
+			return "redirect:index.do";
 		}
-		return "redirect:index.do";
 	}
 	
-	//ProductFavorite Test
-	@RequestMapping("/productFavoriteBtn.do")
-	public String favoriteInsertBtn(@ModelAttribute Member memberSession, Model model) {
-		return "productFavorite";
-	}
-	
-	@RequestMapping("/insertProductFavorite.do")
-	public String insertFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute ProductFavorite productFavorite) {
-		System.out.println(productFavorite);
-		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
-		int maxNum = productFavoriteDAO.selectProductFavoriteByNum(memberSession.getEmail());
-		System.out.println(maxNum);
-		productFavorite.setFavNum(++maxNum);
-		productFavorite.setEmail(memberSession.getEmail());
-		productFavorite.setLanCode(memberSession.getLanCode());
-		System.out.println("Result" + productFavorite);
-		if(productFavoriteDAO.insertProductFavorite(productFavorite)==1) {
-			System.out.println("성공하였습니다.");
+	//Favorite
+	@RequestMapping(value = "/insertProductFavorite.do",produces = "application/json; charset=utf8")
+	public @ResponseBody String insertFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute ProductFavorite productFavorite) {
+		if(memberSession == null || memberSession.getEmail().trim().equals("")) {
+			return null;//처리할 것
 		}else {
-			System.out.println("실패하였습니다.");
+			localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+			int maxNum = productFavoriteDAO.selectProductFavoriteByNum(memberSession.getEmail());
+			productFavorite.setFavNum(++maxNum);
+			productFavorite.setEmail(memberSession.getEmail());
+			productFavorite.setLanCode(memberSession.getLanCode());
+			String[][] resultArr = {{"","ADD failure!","즐겨찾기 추가 실패","最喜欢的失败"},
+					{"","ADD Success!","즐겨찾기 추가 성공","书签成功"}};
+			return resultArr[productFavoriteDAO.insertProductFavorite(productFavorite)][memberSession.getLanCode()];
 		}
-		return "redirect:index.do";
 	}
 	
-	
-	//StoreFavorite
-	@RequestMapping("/storeFavoriteBtn.do")
-	public String storeFavoriteInsertBtn(@ModelAttribute Member memberSession, Model model) {
-		return "storeFavorite";
-	}
-	
-	@RequestMapping(value="/insertStoreFavorite.do",produces = "application/json; charset=utf8")
+	@RequestMapping(value = "/insertStoreFavorite.do",produces = "application/json; charset=utf8")
 	public @ResponseBody String insertStoreFavorite(@ModelAttribute("memberSession") Member memberSession, @RequestParam("id") int id) {
-		localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
-		
-		int maxNum = storeFavoriteDAO.selectStoreFavoriteByNum(memberSession.getEmail());
-		StoreFavorite storeFavorite = new StoreFavorite();
-		
-		storeFavorite.setId(id);
-		storeFavorite.setFavNum(++maxNum);
-		storeFavorite.setEmail(memberSession.getEmail());
-		storeFavorite.setLanCode(memberSession.getLanCode());
-		
-		String[][] resultArr = {{"","ADD failure!","즐겨찾기 추가 실패","最喜欢的失败"},
-				{"","ADD Success!","즐겨찾기 추가 성공","书签成功"}};
-		
-		return resultArr[storeFavoriteDAO.insertStoreFavorite(storeFavorite)][memberSession.getLanCode()];
+		if(memberSession == null || memberSession.getEmail().trim().equals("")) {
+			return null;//처리할 것
+		}else {
+			localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+			int maxNum = storeFavoriteDAO.selectStoreFavoriteByNum(memberSession.getEmail());
+			StoreFavorite storeFavorite = new StoreFavorite();
+			storeFavorite.setId(id);
+			storeFavorite.setFavNum(++maxNum);
+			storeFavorite.setEmail(memberSession.getEmail());
+			storeFavorite.setLanCode(memberSession.getLanCode());
+			String[][] resultArr = {{"","ADD failure!","즐겨찾기 추가 실패","最喜欢的失败"},
+					{"","ADD Success!","즐겨찾기 추가 성공","书签成功"}};
+			return resultArr[storeFavoriteDAO.insertStoreFavorite(storeFavorite)][memberSession.getLanCode()];
+		}
 	}
+	
+	@RequestMapping(value = "/listStoreFavorite.do",produces = "application/json; charset=utf8")
+	public @ResponseBody List<StoreFavorite> listStoreFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute("lanCode") Integer lanCode, @RequestParam String email) {
+		try {
+			if(!memberSession.getEmail().trim().equals("")) {
+				return storeFavoriteDAO.selectStoreFavorite(lanCode,email);
+			}
+		}catch(NullPointerException e) {
+			return null;
+		}
+		return null;
+	}
+
 }

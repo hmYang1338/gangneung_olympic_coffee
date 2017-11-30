@@ -40,7 +40,7 @@ function memberUpdateAjax(){
 
 var storeRatingRequest;
 function storeRatingInsertBtn(id){
-	storeRatingRequest = sendRequest("storeRatingBtn.do","id="+id,storeRatingInsertAjax,"GET");
+	storeRatingRequest = sendRequest("storeRatingBtn.do","id="+id,storeRatingInsertAjax,"POST");
 }
 
 function storeRatingInsertAjax(){
@@ -56,7 +56,7 @@ function storeRatingInsertAjax(){
 
 var productRatingInsertRequest;
 function productRatingBtn(id,code,oz){
-	productRatingInsertRequest = sendRequest("productRatingBtn.do","id="+id+"&code="+code+"&oz="+oz,productRatingInsertAjax,"GET");
+	productRatingInsertRequest = sendRequest("productRatingBtn.do","id="+id+"&code="+code+"&oz="+oz,productRatingInsertAjax,"POST");
 }
 
 function productRatingInsertAjax(){
@@ -72,13 +72,12 @@ function productRatingInsertAjax(){
 //Product Favorite
 var productFavoriteInsertRequest;
 function productFavoriteInsertBtn(id,code,oz){
-	productFavoriteInsertRequest = sendRequest("productFavoriteBtn.do","id="+id+"&code="+code+"&oz="+oz,productFavoriteInsertAjax,"GET");
+	productFavoriteInsertRequest = sendRequest("insertProductFavorite.do","id="+id+"&code="+code+"&oz="+oz,productFavoriteInsertAjax,"POST");
 }
 function productFavoriteInsertAjax(){
 	if(productFavoriteInsertRequest.readyState == 4 && productFavoriteInsertRequest.status == 200){
 		$(document).ready(function(){
-			$("#store-modal").modal();
-			$("#store-modal-view").html(productFavoriteInsertRequest.responseText);
+			alert(productFavoriteInsertRequest.responseText);
 		});
 	}
 }

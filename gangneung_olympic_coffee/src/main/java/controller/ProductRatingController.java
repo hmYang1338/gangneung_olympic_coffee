@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import dao.MemberDAO;
 import dao.ProductRatingDAO;
 import dto.Member;
 import dto.ProductRating;
@@ -25,6 +26,8 @@ public class ProductRatingController {
 	@Autowired
 	private ProductRatingDAO productRatingDAO;
 	
+	@Autowired
+	private MemberDAO memberDAO;
 	/**
 	 * 모든 물품에 관한 평가를 리턴 함
 	 * @return 물품 평가 리스트
@@ -52,19 +55,23 @@ public class ProductRatingController {
 		return productRatingDAO.selectAllProductRatingJoinById(productRating);
 	}
 	
-	@RequestMapping("/productRatingDelete.do")
-	public @ResponseBody String productRatingDelete(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession,@ModelAttribute("lanCode") Integer lanCode) {
-		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+	@RequestMapping(value = "/productRatingDelete.do",produces = "application/json; charset=utf8")
+	public @ResponseBody String productRatingDelete(@ModelAttribute ProductRating productRating, @ModelAttribute("memberSession") Member memberSession,@ModelAttribute("lanCode") Integer lanCode) {
+		if(memberSession==null||memberSession.getEmail().trim().equals("")){
 			return "need login";
+		} else if(memberSession.getEmail()!=productRating.getEmail()){
+			return "hacking sido??";
 		} else {
 			productRating.setLanCode(lanCode);
-			return productRatingDAO.deleteProductRating(productRating)>0?"success":"fail";
+			String[][] resultArr = {{"","DELETE failure!","리뷰 삭제 실패","删除失败"},
+					{"","DELETE Success!","리뷰 삭제 성공","删除成功"}};
+			return resultArr[productRatingDAO.deleteProductRating(productRating)][memberSession.getLanCode()];
 		}
 	}
 	
 	@RequestMapping("/productRatingUpdate.do")
-	public @ResponseBody String productRatingUpdate(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession,@ModelAttribute("lanCode") Integer lanCode) {
-		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+	public @ResponseBody String productRatingUpdate(@ModelAttribute ProductRating productRating, @ModelAttribute("memberSession") Member memberSession,@ModelAttribute("lanCode") Integer lanCode) {
+		if(memberSession==null||memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
 			productRating.setLanCode(lanCode);
@@ -73,8 +80,8 @@ public class ProductRatingController {
 	}
 	
 	@RequestMapping("/productRatingInsert.do")
-	public @ResponseBody String productRatingInsert(@ModelAttribute ProductRating productRating, @ModelAttribute Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
-		if(memberSession==null||!memberSession.getEmail().trim().equals("")){
+	public @ResponseBody String productRatingInsert(@ModelAttribute ProductRating productRating, @ModelAttribute("memberSession") Member memberSession, @ModelAttribute("lanCode") Integer lanCode) {
+		if(memberSession==null||memberSession.getEmail().trim().equals("")){
 			return "need login";
 		} else {
 			productRating.setLanCode(lanCode);

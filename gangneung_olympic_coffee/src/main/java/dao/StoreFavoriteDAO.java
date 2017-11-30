@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,8 +20,11 @@ public class StoreFavoriteDAO {
 	private SqlSession sqlSession;
 	
 
-	public List<StoreFavorite> selectStoreFavorite(String email){
-		return sqlSession.selectList("storeFavoriteMapper.selectStoreFavorite",email);
+	public List<StoreFavorite> selectStoreFavorite(int lanCode, String email){
+		HashMap<String,Object> data = new HashMap<>();
+		data.put("lanCode", lanCode);
+		data.put("email", email);
+		return sqlSession.selectList("storeFavoriteMapper.selectStoreFavorite",data);
 	}
 	
 	/**

@@ -67,3 +67,16 @@ function insertStarProductRating(){
 		document.getElementById(insertDiv[i]).appendChild(starRatingView(ratArr[i], ratings[i],true));
 	}
 }
+
+//StoreRating Delete
+var storeRatingdeleteRequest;
+function storeRatingdeleteBtn(email,ratNum){
+	storeRatingdeleteRequest = sendRequest("storeRatingDelete.do","ratNum="+ratNum+"&email="+email,storeRatingdeleteAjax,"POST");
+}
+function storeRatingdeleteAjax(){
+	if(storeRatingdeleteRequest.readyState == 4 && storeRatingdeleteRequest.status == 200){
+		$(document).ready(function(){
+			alert(storeRatingdeleteRequest.responseText);
+		});
+	}
+}

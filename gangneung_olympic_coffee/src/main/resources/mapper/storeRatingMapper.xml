@@ -61,13 +61,7 @@
 	<delete id="deleteStoreRating" parameterType="storeRating">
 		DELETE
 		FROM storeRating
-		WHERE rat_num = #{ratNum} AND email = #{email} AND lan_code = #{lanCode} AND id = #{id}
-	</delete>
-	
-	<delete id="deletestoreRatingByEmail" parameterType="storeRating">
-		DELETE
-		FROM storeRating
-		WHERE email = #{email}
+		WHERE rat_num = #{ratNum} AND email = #{email} AND lan_code = #{lanCode}
 	</delete>
 	
 </mapper>	

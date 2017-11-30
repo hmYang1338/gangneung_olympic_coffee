@@ -12,11 +12,11 @@
 		<result column="fav_date" property="favDate"/>
 	</resultMap>
 	
-	<select id="selectStoreFavorite" resultMap="storeFavoriteSelectMap" parameterType="String">
-		SELECT fav_num, email, lan_code, id, fav_date
-		FROM storeFavorite
-		WHERE email = #{email}
-		ORDER BY fav_date DESC
+	<select id="selectStoreFavorite" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT s.name, s.tel
+		FROM store s, storeFavorite sf
+		WHERE s.id = sf.id AND s.lan_code = #{lanCode} AND sf.email = #{email}
+		ORDER BY sf.fav_date DESC;
 	</select>
 	
 	<select id="selectStoreFavoriteByNum" resultType="int" parameterType="String">

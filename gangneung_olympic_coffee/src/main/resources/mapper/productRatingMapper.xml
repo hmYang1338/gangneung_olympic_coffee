@@ -60,13 +60,7 @@
 	<delete id="deleteProductRating" parameterType="productRating">
 		DELETE
 		FROM productRating
-		WHERE rat_num = #{ratNum} AND email = #{email} AND lan_code = #{lanCode} AND id = #{id} AND code = #{code} AND oz = #{oz}
-	</delete>
-	
-	<delete id="deleteProductRatingByEmail" parameterType="productRating">
-		DELETE
-		FROM productRating
-		WHERE email = #{email}
+		WHERE rat_num = #{ratNum} AND email = #{email} AND lan_code = #{lanCode}
 	</delete>
 	
 </mapper>	

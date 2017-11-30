@@ -123,7 +123,7 @@
 				
 				<!-- 생년월일 -->
 					<label for="birth" class="control-label blue"><spring:message code="site.member.birthday"/>&nbsp;:&nbsp;</label>
-					<input type="date" id="birth" name="birth" class="form-control input-lg blue" value="1992-01-01" min="1917-01-01" max="2017-11-24" title='<spring:message code="site.member.birthday"/>' required="required">
+					<input type="date" id="birth" name="birth" class="form-control input-lg blue" value="1992-01-01" min="1917-01-01" max="2017-11-30" title='<spring:message code="site.member.birthday"/>' required="required">
 				
 				<br>
 				
@@ -147,10 +147,6 @@
 	
 	<!-- 회원가입 판별 -->
 	<script type="text/javascript">
-	function nowDate(){
-		document.getElementById('birth').value = new Date().toDateInputValue();
-	}
-
 	
 	var emailCheck = false;
 	var passwordCheck = false;

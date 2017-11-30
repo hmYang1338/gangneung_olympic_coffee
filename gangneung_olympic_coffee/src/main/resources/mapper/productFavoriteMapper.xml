@@ -14,6 +14,7 @@
 		<result column="fav_date" property="favDate"/>
 	</resultMap>
 	
+	<!-- 제품 리스트 보여주기 -->
 	<select id="selectProductFavorite" resultMap="productFavoriteSelectMap" parameterType="int">
 		SELECT fav_num, email, lan_code, id, code, oz, fav_date
 		FROM productFavorite
@@ -21,17 +22,26 @@
 		ORDER BY fav_date DESC
 	</select>
 	
+	<!-- 제품 MaxNum 찾기 -->
 	<select id="selectProductFavoriteByNum" resultType="int" parameterType="String">
 		SELECT MAX(fav_num)
 		FROM productFavorite
 		WHERE email = #{email}
 	</select>
 	
+	<select id="selectProductFavoriteByEmail" resultType="String" parameterType="String">
+		SELECT DISTINCT(email)
+		FROM productFavorite
+		WHERE email = #{email}
+	</select>
+	
+	<!-- 제품 즐겨찾기 추가 -->
 	<insert id="insertProductFavorite" parameterType="productFavorite">
 		INSERT INTO productFavorite
 		VALUES(#{favNum},#{email},#{lanCode},#{id},#{code},#{oz},systimestamp)
 	</insert>
 	
+	<!-- 제품 즐겨찾기 삭제 -->
 	<delete id="deleteProductFavorite" parameterType="productFavorite">
 		DELETE
 		FROM productFavorite
