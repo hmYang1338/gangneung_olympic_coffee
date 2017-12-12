@@ -4,7 +4,9 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
  <!-- Services -->
     <section id="services" class="services text-center">
-      <h2>You're Best Friend</h2>
+    <br>
+      <h2><spring:message code="site.main.bestFriend" /></h2>
+      <br>
       <div class="container">
         <div class="row text-center">
           <div id="storeListView" class="store-background">
@@ -24,6 +26,6 @@
       </div>
     </aside>
     
-    <div id='store-content' class='store-content blue-background'>
+    <div id='store-content' class='store-content detail-background'>
     <!-- 여기에 store image가 나타납니다. -->
     </div>

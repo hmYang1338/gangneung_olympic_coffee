@@ -13,10 +13,10 @@
 	</resultMap>
 	
 	<select id="selectStoreFavorite" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		SELECT s.name, s.tel
+		SELECT s.name as name , s.tel as tel, s.id as id
 		FROM store s, storeFavorite sf
-		WHERE s.id = sf.id AND s.lan_code = #{lanCode} AND sf.email = #{email}
-		ORDER BY sf.fav_date DESC;
+		WHERE s.id = sf.id AND s.lan_code = #{lanCode} AND sf.email = #{email} <![CDATA[ AND ROWNUM <=5 ]]>
+		ORDER BY sf.fav_date DESC
 	</select>
 	
 	<select id="selectStoreFavoriteByNum" resultType="int" parameterType="String">

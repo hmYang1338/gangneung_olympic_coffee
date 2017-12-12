@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import dao.StoreDAO;
+import dao.StoreFavoriteDAO;
+import dto.Member;
+import dto.ProductFavorite;
 import dto.Store;
+import dto.StoreFavorite;
 import dto.UserGPS;
 
 @Controller
@@ -48,4 +52,5 @@ public class StoreController {
 		System.out.println(storeDAO.getStoreSelectById(id, lanCode));
 		return storeDAO.getStoreSelectById(id, lanCode);
 	}
+	
 }

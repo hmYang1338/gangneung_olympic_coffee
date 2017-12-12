@@ -1,11 +1,13 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import dto.Member;
 import dto.ProductFavorite;
 
 /**
@@ -35,6 +37,15 @@ public class ProductFavoriteDAO {
 			maxNum = 0;
 		}
 		return maxNum;
+	}
+	
+	/**
+	 * 해당 email에 있는 가장 큰 favNum값 가져오기
+	 * @param email 접속되어 있는 email
+	 * @return 해당 email에 있는 가장 큰 favNum값을 가져옴
+	 */
+	public List<Map<String,Object>> selectProductFavoriteByEmail(Member member) {
+		return sqlSession.selectList("productFavoriteMapper.selectStoreFavoriteByEmail",member);
 	}
 	
 	/**

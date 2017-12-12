@@ -178,11 +178,11 @@ store출력을 위한 css
 	float: left;
 }
 /*google map 크기*/
-.map {
-	margin: auto;
-	height: 500px;
-	width: 80%;
-}
+/* .map { */
+/* 	margin: auto; */
+/* 	height: 500px; */
+/* 	width: 80%; */
+/* } */
 /*메뉴 리스트를 정리하기 위한 css*/
 .menu_list{
 	width: 100%;
@@ -223,13 +223,13 @@ store출력을 위한 css
 .price> .ICE{
 	color: blue;
 }
-.product-icon > img {
-	float: right;
-	width: 25px;
-	height: 25px;
-}
+/* .product-icon > img { */
+/* 	float: right; */
+/* 	width: 25px; */
+/* 	height: 25px; */
+/* } */
 .product-icon > img:hover{
-	background-color: #ffffffaa;
+	background-color: #ffffff11;
 }
 .cancel-icon > img {
 	margin: 4px;
@@ -337,5 +337,61 @@ store출력을 위한 css
 	background-color: #363636;
 }
 .footer-font-white{
+	color:white;
+}
+/*신승엽*/
+
+.map {
+	margin: auto;
+	height: 500px;
+	width: 100%;
+}
+.rating_email{
+	background-color: #ffffffaa;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	color: black;
+	display: inline-table;
+	border-bottom: 1px solid white;
+	float:left;
+	width: 30%;
+}
+.rating_time{
+	background-color: #ffffffaa;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	color: black;
+	display: inline-block;
+	border-bottom: 1px solid white;
+	float:left;
+	width: 70%;
+}
+.rating_rat_comment{
+	border: 1px solid white;
+	border-radius: 3px;
+	margin-bottom: 20px;
+}
+
+.product-name{
+	position: relative;
+	height:100%;
+	width: 100%;
+}
+
+.product-icon>img{
+	width: 25px;
+	height: 25px;
+}
+
+.product-icon:nth-child(1){
+	position: absolute;
+	left: 70%;
+}
+.product-icon:nth-child(2){
+	position: absolute;
+	left: 85%;
+}
+
+.favorite-list{
 	color:white;
 }

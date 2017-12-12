@@ -3,7 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!-- 네비게이션 바 -->
-<a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"> <i
+<a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle" 
+<c:if test="${not empty memberSession.email}">
+	onclick="favoriteListBtn();"			
+</c:if>
+> <i
 	class="fa fa-bars"></i>
 </a>
 <nav id="sidebar-wrapper">
@@ -64,6 +68,13 @@
 		<!-- 상점 목록으로 -->
 		<li><a class="js-scroll-trigger" href="#storeListView"><spring:message
 					code="site.list.storeList" /></a></li>
+		<c:if test="${not empty memberSession.email}">
+			<li>
+			<div class="favorite-list" id="favorite-list">
+			</div>
+			</li>
+		</c:if>
+		
 	</ul>
 </nav>
 

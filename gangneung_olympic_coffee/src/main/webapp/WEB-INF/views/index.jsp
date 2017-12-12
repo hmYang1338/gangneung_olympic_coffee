@@ -55,6 +55,7 @@
 	<script src="js/ajax/manager.js"></script>
 	<script src="js/ajax/managerList.js"></script>
 	<script src="js/ajax/member.js"></script>
+	<script src="js/ajax/favorite.js"></script>
 	<script src="js/function/childNode.js"></script>
 	<script src="js/function/timeStamp.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD3RMgPDTVYS2nHKtZNkeB-tHnGQYfBCw" async defer></script>

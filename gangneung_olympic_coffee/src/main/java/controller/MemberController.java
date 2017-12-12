@@ -348,12 +348,15 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/listStoreFavorite.do",produces = "application/json; charset=utf8")
-	public @ResponseBody List<StoreFavorite> listStoreFavorite(@ModelAttribute("memberSession") Member memberSession, @ModelAttribute("lanCode") Integer lanCode, @RequestParam String email) {
+	public @ResponseBody List<StoreFavorite> listStoreFavorite(@ModelAttribute("memberSession") Member memberSession, @RequestParam String email) {
 		try {
+			System.out.println(memberSession.getLanCode()+","+email);
 			if(!memberSession.getEmail().trim().equals("")) {
-				return storeFavoriteDAO.selectStoreFavorite(lanCode,email);
+				System.out.println(storeFavoriteDAO.selectStoreFavorite(memberSession.getLanCode(),email));
+				return storeFavoriteDAO.selectStoreFavorite(memberSession.getLanCode(),email);
 			}
 		}catch(NullPointerException e) {
+			e.printStackTrace();
 			return null;
 		}
 		return null;
