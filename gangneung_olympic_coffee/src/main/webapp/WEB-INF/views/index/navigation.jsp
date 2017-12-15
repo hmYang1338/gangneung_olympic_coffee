@@ -74,11 +74,14 @@
 			</div>
 			</li>
 		</c:if>
-		
+		<!-- 물품 검색하기 -->
+		<li><div class="productSearch">
+			<input type="text" class="text" id="productSearch" placeholder="<spring:message code="site.list.productSearch" />"/>
+			<input type="button" class="button" id="productSearchBtn" value="<spring:message code="site.list.search" />" onclick="productSearchBtn()"/>
+		</div></li>
+
 	</ul>
 </nav>
-
-
 
 
 <%-- <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">

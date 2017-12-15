@@ -45,6 +45,7 @@
 	<script src="js/form/listView.js"></script>
 	<script src="js/form/iconMaker.js"></script>
 	<script src="js/form/starRating.js"></script>
+	<script src="js/ajax/productSearch.js"></script>
 	<script src="js/ajax/productList.js"></script>
 	<script src="js/ajax/productRating.js"></script>
 	<script src="js/ajax/sessionAuth.js"></script>
@@ -58,6 +59,10 @@
 	<script src="js/ajax/favorite.js"></script>
 	<script src="js/function/childNode.js"></script>
 	<script src="js/function/timeStamp.js"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD3RMgPDTVYS2nHKtZNkeB-tHnGQYfBCw" async defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCD3RMgPDTVYS2nHKtZNkeB-tHnGQYfBCw&<c:choose>
+	<%--구글 맵 다국어 처리 추가!--%>
+				<c:when test="${empty lanCode || lanCode==1}">language=en&region=US</c:when>
+				<c:when test="${lanCode==2}">language=ko&region=KR</c:when>
+				<c:when test="${lanCode==3}">language=zh&region=CN</c:when></c:choose>" async defer></script>
 </body>
 </html>

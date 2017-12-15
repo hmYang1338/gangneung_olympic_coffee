@@ -31,8 +31,12 @@ public class ProductController {
 	
 	@RequestMapping("/productSelectById.do")
 	public @ResponseBody List<Product> productSelectById(@ModelAttribute("lanCode") Integer lanCode,@RequestParam int id) {
-		System.out.println(productDAO.getProductSelectById(id, lanCode));
 		return productDAO.getProductSelectById(id, lanCode);
+	}
+	
+	@RequestMapping("/productSelectByName.do")
+	public @ResponseBody List<Product> productSelectByName(@ModelAttribute("lanCode") Integer lanCode,@RequestParam String product) {
+		return productDAO.getProductSelectByName(product, lanCode);
 	}
 	
 }

@@ -395,3 +395,15 @@ store출력을 위한 css
 .favorite-list{
 	color:white;
 }
+
+.productSearch{
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+}
+.productSearch> input[type="text"]{
+	width: 50%;
+}
+.productSearch> input[type="button"]{
+	width: 25%;
+}
