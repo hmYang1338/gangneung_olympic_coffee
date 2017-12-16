@@ -18,7 +18,7 @@ function favoriteListAjax(){
 				'elementId' : 'favorite-list',
 				'innerSet' : {
 						hiddenColumn:['ID','TEL'],
-						divId:'sinnerDiv',
+						divId:'sinnerDiv2',
 						divClass:'bg-gray',
 						tableId:'sinnerTableDiv',
 						tableClass:'text-center store-info col-sm-12'

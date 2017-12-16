@@ -32,7 +32,7 @@ public class ProductDAO {
 		return sqlSession.selectList("productMapper.selectProductById",data);
 	}
 	
-	public List<Product> getProductSelectByName(String product, int lanCode){
+	public List<HashMap<String,Object>> getProductSelectByName(String product, int lanCode){
 		HashMap<String,Object> data = new HashMap<>();
 		data.put("product", product);
 		data.put("lanCode", lanCode);

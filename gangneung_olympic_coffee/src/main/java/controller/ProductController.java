@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/productSelectByName.do")
-	public @ResponseBody List<Product> productSelectByName(@ModelAttribute("lanCode") Integer lanCode,@RequestParam String product) {
+	public @ResponseBody List<HashMap<String,Object>> productSelectByName(@ModelAttribute("lanCode") Integer lanCode,@RequestParam String product) {
 		return productDAO.getProductSelectByName(product, lanCode);
 	}
 	

@@ -28,9 +28,9 @@
 		FROM product WHERE id = #{id} and lan_code = #{lanCode}
 	</select>
 	
-	<select id="selectProductByName" resultMap="productSelectMap" parameterType="java.util.HashMap">
-		SELECT DISTINCT p.id as id, p.code as code, p.product as product, p.oz as oz, p.hot_price as hotprice, p.ice_price as iceprice, s.name as name
-		FROM product p INNER JOIN store s on p.id = s.id
+	<select id="selectProductByName" resultType="java.util.HashMap" parameterType="java.util.HashMap">
+		SELECT p.id as id, p.code as code, p.product as product, p.oz as oz, p.hot_price as hotprice, p.ice_price as iceprice, s.name as name
+		FROM product p JOIN store s on p.id = s.id
 		WHERE p.product LIKE #{product} AND p.lan_code = #{lanCode} AND s.lan_code = #{lanCode}
 	</select>
 	
