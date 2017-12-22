@@ -13,7 +13,7 @@
 	</resultMap>
 	
 	<select id="selectStoreFavorite" resultType="java.util.HashMap" parameterType="java.util.HashMap">
-		SELECT s.name as name , s.tel as tel, s.id as id
+		SELECT sf.fav_num as favnum, s.name as name, s.tel as tel, s.id as id
 		FROM store s, storeFavorite sf
 		WHERE s.id = sf.id AND s.lan_code = #{lanCode} AND sf.email = #{email} <![CDATA[ AND ROWNUM <=5 ]]>
 		ORDER BY sf.fav_date DESC
@@ -33,7 +33,7 @@
 	<delete id="deleteStoreFavorite" parameterType="storeFavorite">
 		DELETE
 		FROM storeFavorite
-		WHERE fav_num = #{favNum} and email = #{email}
+		WHERE fav_num = #{favNum} AND email = #{email}
 	</delete>
 	
 </mapper>	

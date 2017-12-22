@@ -56,7 +56,7 @@ public class StoreFavoriteDAO {
 	 * @param favNum
 	 * @return delete 안되었다면 0, 되었다면 1(삭제)
 	 */
-	public int deleteStoreFavorite(int favNum) {
-		return sqlSession.delete("storeFavoriteMapper.deleteStoreFavorite",favNum);
+	public int deleteStoreFavorite(StoreFavorite storeFavorite) {
+		return sqlSession.delete("storeFavoriteMapper.deleteStoreFavorite",storeFavorite);
 	}
 }

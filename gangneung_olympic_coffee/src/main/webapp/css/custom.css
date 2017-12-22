@@ -394,6 +394,11 @@ store출력을 위한 css
 	color:white;
 }
 
+.favorite-delete-span{
+	position: absolute;
+    left: 5%;
+}
+
 .productSearch{
 	margin: 0;
 	padding: 0;

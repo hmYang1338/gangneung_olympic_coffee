@@ -15,7 +15,7 @@ import dto.Member;
 import dto.StoreRating;
 
 @Controller
-@SessionAttributes({"memberSession","lanCode","admminSession"})
+@SessionAttributes({"memberSession","lanCode","adminSession"})
 public class StoreRatingController {
 	@Autowired
 	private StoreRatingDAO storeRatingDAO;

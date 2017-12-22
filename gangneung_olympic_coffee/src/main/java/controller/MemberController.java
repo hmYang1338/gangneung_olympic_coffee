@@ -362,4 +362,23 @@ public class MemberController {
 		return null;
 	}
 
+	@RequestMapping(value = "/deleteStoreFavorite.do",produces = "application/json; charset=utf8")
+	public @ResponseBody String deleteStoreFavorite(@ModelAttribute("memberSession") Member memberSession,@RequestParam("favNum") int favNum){
+		System.out.println("abcdefg");
+		if(memberSession == null || memberSession.getEmail().trim().equals("")) {
+			return null;//처리할 것
+		}else {
+			localeResolver.setDefaultLocale(Language.LANGUAGE_VALUE[memberSession.getLanCode()]);
+			StoreFavorite storeFavorite = new StoreFavorite();
+			System.out.println(storeFavorite);//test
+			storeFavorite.setEmail(memberSession.getEmail());
+			storeFavorite.setLanCode(memberSession.getLanCode());
+			storeFavorite.setFavNum(favNum);
+			System.out.println(storeFavorite);//test
+			String[][] resultArr = {{"","Delete failure!","즐겨찾기 삭제 실패","无法删除收藏夹"},
+					{"","Delete Success!","즐겨찾기 삭제 성공","已成功删除收藏夹"}};
+			return resultArr[storeFavoriteDAO.deleteStoreFavorite(storeFavorite)][memberSession.getLanCode()];
+		}
+	}
+	
 }

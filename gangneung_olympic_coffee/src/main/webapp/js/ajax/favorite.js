@@ -22,8 +22,28 @@ function favoriteListAjax(){
 						divClass:'bg-gray',
 						tableId:'sinnerTableDiv',
 						tableClass:'text-center store-info col-sm-12'
-				}
+				},
+				'innerFunction' : storeFavoriteListDelete,
 		};
 		listView(data);
 	}
+}
+
+function storeFavoriteListDelete(element){
+	var lastChild = element.lastChild;
+	var deleteDiv = document.createElement('span');
+	iconMaker(deleteDiv, 'product-icon', 'img/coffee-menu.svg', function(e) {
+		var favNum = elementChildSelectorName(element, 'FAVNUM').value;
+		storeFavoriteDeleteBtn(favNum);
+	});
+	deleteDiv.className = 'cursor favorite-delete-span';
+//	deleteDiv.addEventListener("click", function() {
+//		console.log('abcd');
+//	});
+	lastChild.appendChild(deleteDiv);
+}
+
+var storeFavoriteDelete;
+function storeFavoriteDeleteBtn(favNum){
+	storeFavoriteDelete = sendRequest("deleteStoreFavorite.do", "favNum="+favNum, null, "GET");
 }

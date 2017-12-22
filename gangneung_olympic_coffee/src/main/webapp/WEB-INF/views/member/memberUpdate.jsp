@@ -54,31 +54,31 @@
 			<form id="updateMember" name="updateMember" action="updateMember.do" method="POST">
 			<br>
 			<hr class="hr-white">
-			<h3 class="blue text-center"> Update Member </h3><hr class="hr-white">
+			<h3 class="blue text-center"><spring:message code="site.list.update"/></h3><hr class="hr-white">
 				
 				<!-- 회원 Email -->
-					<label for="email" class="control-label blue">Email&nbsp;:&nbsp;</label>
+					<label for="email" class="control-label blue"><spring:message code="site.member.email"/>&nbsp;:&nbsp;</label>
 					<input type="hidden" name="email" value="${memberSession.email}">
 					<p class="form-control-static">${memberSession.email}</p>
 				
 				<br>
 				
 				<!-- 회원 기존 Password -->
-					<label for="passwordBefore" class="control-label blue">Before PassWord&nbsp;:&nbsp;</label>
-					<input type="password" name="passwordBefore" id="passwordBefore" maxlength="16" placeholder="Enter Before Password" class="form-control input-lg blue"><br>
+					<label for="passwordBefore" class="control-label blue"><spring:message code="member.update.passwordBefore"/>&nbsp;:&nbsp;</label>
+					<input type="password" name="passwordBefore" id="passwordBefore" maxlength="16" placeholder='<spring:message code="member.update.passwordBeforePlaceHolder"/>' class="form-control input-lg blue"><br>
 				
 				<br>
 				
 				<!-- 회원 변경 Password -->
-					<label for="password" class="control-label blue">Update PassWord&nbsp;:&nbsp;</label>
-					<input type="password" id="password" name="password" maxlength="16" placeholder="Enter Update Password" class="form-control input-lg blue" onchange="compare()"><br>
-					<input type="password" id="password2" name="password2" maxlength="16" placeholder="Reconfirm Update Password" class="form-control input-lg blue" onchange="compare()">
+					<label for="password" class="control-label blue"><spring:message code="member.update.password"/>&nbsp;:&nbsp;</label>
+					<input type="password" id="password" name="password" maxlength="16" placeholder='<spring:message code="member.update.passwordPlaceHolder"/>' class="form-control input-lg blue" onchange="compare()"><br>
+					<input type="password" id="password2" name="password2" maxlength="16" placeholder='<spring:message code="member.update.passwordRePlaceHolder"/>' class="form-control input-lg blue" onchange="compare()">
 					<div id="alert"></div>
 				
 				<br>
 				
 				<!-- 회원 국가 변경 -->
-					<label for="nationCode" class="control-label blue">Update Nation&nbsp;:&nbsp;</label>
+					<label for="nationCode" class="control-label blue"><spring:message code="member.update.nation"/>&nbsp;:&nbsp;</label>
 					<select name="nationCode" id="nationCode" class="form-control input-lg blue" required="required">
 					  <c:if test="${not empty requestScope.nationList}">
 						<c:forEach items="${requestScope.nationList}" var="nation" >
@@ -93,7 +93,7 @@
 				<br>
 					
 					<!-- 회원 언어 변경 -->
-						<label for="lanCode" class="control-label blue">Update Language&nbsp;:&nbsp;</label>
+						<label for="lanCode" class="control-label blue"><spring:message code="member.update.language"/>&nbsp;:&nbsp;</label>
 					 	<select name="lanCode" id="lanCode" class="form-control input-lg blue">
 					 	  <c:if test="${not empty requestScope.languageList}">
 					 		<c:forEach var="language" items="${requestScope.languageList}">
@@ -109,31 +109,31 @@
 				<br>
 					
 					<!-- 회원 이름 변경 -->
-						<label for="name" class="control-label blue">Update Name&nbsp;:&nbsp;</label>
+						<label for="name" class="control-label blue"><spring:message code="member.update.name"/>&nbsp;:&nbsp;</label>
 						<input type="text" id="name" name="name" class="form-control input-lg blue" maxlength="20" value="${memberSession.name}" required="required">
 				
 				<br>
 					
 					<!-- 회원 국가 변경 -->
-						<label for="tel" class="control-label blue">Update CellPhone&nbsp;:&nbsp;</label>
+						<label for="tel" class="control-label blue"><spring:message code="member.update.cellphone"/>&nbsp;:&nbsp;</label>
 						<input type="tel" id="tel" name="tel" class="form-control input-lg blue" maxlength="20" value="${memberSession.tel}">
 				
 				<br>
 					
 					<!-- 회원 성별 변경 -->
 					<!-- memberSession.gender==1 일 때 checked Male, memeberSession.gender==2일 때 checked Female -->
-					<label for="gender" class="control-label blue">Gender&nbsp;:&nbsp;</label>
+					<label for="gender" class="control-label blue"><spring:message code="site.member.gender"/>&nbsp;:&nbsp;</label>
 					<c:if test="${memberSession.gender eq 1}">
 					<div class="raio-group">
 						<label class="custom-control custom-radio">
 						  <input id="gender" name="gender" type="radio" class="custom-control-input" value="1" checked="checked">
 						  <span class="custom-control-indicator"></span>
-						  <span class="custom-control-description">Male</span>
+						  <span class="custom-control-description"><spring:message code="site.member.man"/></span>
 						</label><br>
 						<label class="custom-control custom-radio">
 						  <input id="gender" name="gender" type="radio" class="custom-control-input" value="2">
 						  <span class="custom-control-indicator"></span>
-						  <span class="custom-control-description">Female</span>
+						  <span class="custom-control-description"><spring:message code="site.member.woman"/></span>
 						</label>
 					</div><br>
 					</c:if>
@@ -143,12 +143,12 @@
 						<label class="custom-control custom-radio">
 						  <input id="gender" name="gender" type="radio" class="custom-control-input" value="1">
 						  <span class="custom-control-indicator"></span>
-						  <span class="custom-control-description">Male</span>
+						  <span class="custom-control-description"><spring:message code="site.member.man"/></span>
 						</label><br>
 						<label class="custom-control custom-radio">
 						  <input id="gender" name="gender" type="radio" class="custom-control-input" value="2" checked="checked">
 						  <span class="custom-control-indicator"></span>
-						  <span class="custom-control-description">Female</span>
+						  <span class="custom-control-description"><spring:message code="site.member.woman"/></span>
 						</label>
 					</div><br>
 					</c:if>
@@ -158,10 +158,10 @@
 					<input type="text" id="imgDir" class="form-control input-lg blue" name="imgDir" value="${memberSession.imgDir}">
 				
 				<br>
-					<input type="button" class="btn btn-default pull-left btn-bottom-margin" value="회원탈퇴" onclick="memberDeleteBtn()">
-					<input type="button" class="btn btn-default pull-right btn-left-margin" value="변경" onclick="updateChecking();">
+					<input type="button" class="btn btn-default pull-left btn-bottom-margin" value="<spring:message code="member.delete.self"/>" onclick="memberDeleteBtn()">
+					<input type="button" class="btn btn-default pull-right btn-left-margin" value="<spring:message code="member.update.result"/>" onclick="updateChecking();">
 					&nbsp;&nbsp;
-					<input type="reset" class="btn btn-default pull-right btn-bottom-margin" value="다시">
+					<input type="reset" class="btn btn-default pull-right btn-bottom-margin" value="<spring:message code="memeber.update.reset"/>">
 			
 			</form>
 
