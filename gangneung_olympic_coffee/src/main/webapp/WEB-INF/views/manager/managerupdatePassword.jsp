@@ -93,7 +93,7 @@
 		function checking() {
 	
 			if (passwordCheck && passwordLengthCheck) {
-				alert("비밀번호");
+				alert("비밀번호 수정 성공");
 				document.getElementById("updatePassword").submit();
 			} else {
 				alert("비밀번호 수정에 실패");
