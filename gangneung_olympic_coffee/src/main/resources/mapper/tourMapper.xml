@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tourMapper">
+
+<!-- @author 신승엽 -->
+	
+	<resultMap type="tour" id="tourSelectMap">
+		<result column="lan_code" property="lanCode"/>
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="tour_source" property="tourSource" jdbcType="CLOB" javaType="java.lang.String"/>
+	</resultMap>
+	
+	<sql id="tourColum">
+		lan_code, id, name, tour_source
+	</sql>
+	
+	<select id="selectTour" resultMap="tourSelectMap" parameterType="int">
+		SELECT <include refid="tourColum"/>
+		FROM tour WHERE lan_code = #{lanCode}
+	</select>
+	
+	<select id="selectTourById" resultMap="tourSelectMap" parameterType="java.util.HashMap">
+		SELECT <include refid="tourColum"/>
+		FROM tour WHERE id = #{id} and lan_code = #{lanCode}
+	</select>
+</mapper>	

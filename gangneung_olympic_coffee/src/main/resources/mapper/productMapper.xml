@@ -31,7 +31,7 @@
 	<select id="selectProductByName" resultType="java.util.HashMap" parameterType="java.util.HashMap">
 		SELECT p.id as id, p.code as code, p.product as product, p.oz as oz, p.hot_price as hotprice, p.ice_price as iceprice, s.name as name
 		FROM product p JOIN store s on p.id = s.id
-		WHERE p.product LIKE #{product} AND p.lan_code = #{lanCode} AND s.lan_code = #{lanCode}
+		WHERE p.product LIKE '%'||#{product}||'%' AND p.lan_code = #{lanCode} AND s.lan_code = #{lanCode}
 	</select>
 	
 	<insert id="insertProduct" parameterType="product">

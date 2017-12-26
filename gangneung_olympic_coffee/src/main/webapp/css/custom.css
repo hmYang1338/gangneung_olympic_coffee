@@ -117,7 +117,7 @@ store출력을 위한 css
   	background-color: rgba(0, 0, 0, 0.3);
 }
 .store-info{
-	
+
 }
 .rating_list{
 	height: 70%;
@@ -131,7 +131,7 @@ store출력을 위한 css
 	border-bottom: 5px solid white;
 }
 .rating_element{
-	
+
 }
 .rating_name{
 	display: inline-block;
@@ -319,7 +319,7 @@ store출력을 위한 css
 }
 /*새로 생성한 HTML CSS*/
 .detail-background {
-    background: gray; /* For browsers that do not support gradients */    
+    background: gray; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(left, #f2f2f2, #d9d9d9, #bfbfbf); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(right, #f2f2f2, #d9d9d9, #bfbfbf); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(right, #f2f2f2, #d9d9d9, #bfbfbf); /* For Firefox 3.6 to 15 */
@@ -405,8 +405,11 @@ store출력을 위한 css
 	display: inline-block;
 }
 .productSearch> input[type="text"]{
+  border:none;
+  border-bottom:1px solid #ccc;
 	width: 50%;
 }
-.productSearch> input[type="button"]{
-	width: 25%;
+.productSearch> button{
+	background-color: silver;
+	border: 1px solid white;
 }

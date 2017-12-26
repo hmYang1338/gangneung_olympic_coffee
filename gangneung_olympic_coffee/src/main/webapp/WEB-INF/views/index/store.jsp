@@ -29,3 +29,7 @@
     <div id='store-content' class='store-content detail-background'>
     <!-- 여기에 store image가 나타납니다. -->
     </div>
+
+    <div id='touristList' class='detail-background'>
+    <!-- 여기에 tourist List가 나타납니다. -->
+    </div>
