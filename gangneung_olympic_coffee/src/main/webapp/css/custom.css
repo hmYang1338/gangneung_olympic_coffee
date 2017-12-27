@@ -413,3 +413,48 @@ store출력을 위한 css
 	background-color: silver;
 	border: 1px solid white;
 }
+
+/*tour-list*/
+.tour-list{
+	text-align: center;
+	display: inline-block;
+}
+
+
+.btn-floating{
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	display: inline-block;
+	text-align: center;
+	color: #fff;
+	background-color: #000;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	padding: 0;
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 24px;
+}
+
+.btn-floating:hover{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.tour-modal > a > img{
+	width : 80%;
+	margin : auto;
+}
+
+.tour-name{
+	border-bottom: 2px solid gray;
+	text-align: center;
+	font-size: 24px;
+}
+
+.tour_icon > img{
+	margin-left: 2px;
+	width: 50px;
+	height: 50px;
+}
