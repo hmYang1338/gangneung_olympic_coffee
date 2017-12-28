@@ -225,7 +225,7 @@ function storeExecute(element){
 		//링크
 		var siteUrl = elementChildSelectorName(element,'storeUrl');
 		 		if(isEmpty(siteUrl.value)){
-		 			var siteVisit = ['','visit web site', '사이트 방문', '访问网站'];
+		 			var siteVisit = ['','Visiting web site', '사이트 방문', '访问网站'];
 		 			var site = document.createElement('div');
 
 		 			site.appendChild(document.createTextNode(siteVisit[lanCode]));
@@ -318,8 +318,8 @@ function productRatingAppander(element) {
 		}
 	}
 
-	var ratingLanguage = ['','TASTE','풍미','味'];
-	var ozLanguage = ['','oz','크기','盎司']
+	var ratingLanguage = ['','TASTE','풍미','风味'];
+	var ozLanguage = ['','OZ(size)','크기','盎司']
 
 	//새로운 레이팅 element를 생성
 	var ratingElement = document.createElement('div');
@@ -382,9 +382,9 @@ function storeRatingAppander(element) {
 	
 	//스토어 레이팅(별)을 추가하는 메소드
 	var ratings = [ 'INTERIOR', 'RATACCESS', 'COSTEFFECT' ];
-	var ratingLanguage = [0,['INTERIOR', 'ACCESS', 'COSTEFFECT'],
+	var ratingLanguage = [0,['Interior', 'Accessibility', 'Cost-Effectiveness'],
 		['인테리어','접근성','가성비'],
-		['室内','无障碍','性价比']];
+		['室内','亲和力','性价比']];
 	//스토어 레이팅을 언어마다 각기 다른 번역을
 	var ratArr = [];
 	var i = 0;

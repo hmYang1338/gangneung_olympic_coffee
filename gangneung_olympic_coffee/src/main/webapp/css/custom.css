@@ -1,5 +1,12 @@
  @import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
  @import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
+.main-name {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+ 
 .store-background {
 	background: white;
 	background-image: url('../img/background-patterns.svg');
@@ -369,10 +376,24 @@ store출력을 위한 css
 	border-radius: 3px;
 	margin-bottom: 20px;
 }
+.product{
+	display: inline-block !important;
+}
 
 .product-name{
 	position: relative;
-	height:100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 100%;
+	width: 100%;
+}
+
+.product-name:hover{
+	position: relative;
+	white-space: normal;
+	overflow: visible;
+	height: 100%;
 	width: 100%;
 }
 
@@ -427,7 +448,7 @@ store출력을 위한 css
 	line-height: 40px;
 	display: inline-block;
 	text-align: center;
-	color: #fff;
+	color: #fff !important;
 	background-color: #000;
 	position: relative;
 	overflow: hidden;
@@ -451,6 +472,10 @@ store출력을 위한 css
 	border-bottom: 2px solid gray;
 	text-align: center;
 	font-size: 24px;
+}
+
+.tour-title{
+	text-align: center;
 }
 
 .tour_icon > img{

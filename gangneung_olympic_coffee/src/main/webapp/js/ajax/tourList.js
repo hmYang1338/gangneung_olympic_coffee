@@ -4,8 +4,15 @@
 
 var slideIndex = 1;
 var tourListRequest;
+var tourListStr = ['','Tourist List','관광지 목록','旅游名单'];
+
 function tourList(){
-	document.getElementById('touristList').innerHTML='';
+	var touristList = document.getElementById('touristList');
+	touristList.innerHTML = '';
+	var title = document.createElement('h2');
+	title.appendChild(document.createTextNode(tourListStr[lanCode]));
+	title.className = 'tour-title';
+	touristList.appendChild(title);
 	tourListRequest = sendRequest("tourList.do", null, tourListAjax, "POST");
 }
 
@@ -49,7 +56,7 @@ function tourSelectById(element){
 			tourName.id = "tour-name";
 			tourName.appendChild(document.createTextNode(name));
 			
-			iconMaker(tourName, 'tour_icon', 'img/info.svg', function(e){
+			iconMaker(tourName, 'tour_icon cursor', 'img/info.svg', function(e){
 				window.open('https://www.google.com/search?q='+name);
 			});
 			

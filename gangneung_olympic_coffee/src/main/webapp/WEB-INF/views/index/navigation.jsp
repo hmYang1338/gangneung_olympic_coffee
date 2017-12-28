@@ -16,7 +16,7 @@
 			<i class="fa fa-times"></i>
 		</a>
 		<li class="sidebar-brand">
-			<a class="js-scroll-trigger" href="#top">
+			<a class="js-scroll-trigger main-name" href="#top">
 				<spring:message code="site.list.top" />
 			</a>
 		</li>

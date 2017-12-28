@@ -20,8 +20,8 @@ function menuListAjax() {
 				'innerSet' : {
 						'hiddenColumn' : ['lanCode','id','code','oz'],
 						'divClass' : 'menu_list',
-						'divId' : '',
-						'tableClass' : '',
+						'divId' : 'product',
+						'tableClass' : 'product',
 						'tableId' : ''
 				},
 				'innerFunction' : menuExecute
