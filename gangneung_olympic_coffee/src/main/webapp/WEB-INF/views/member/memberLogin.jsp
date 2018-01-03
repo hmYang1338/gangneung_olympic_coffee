@@ -58,7 +58,7 @@
 					<input type="password" id="password" name="password" maxlength="16" placeholder='<spring:message code="site.member.passwordPlaceHolder"/>' class="form-control input-lg blue" required="required"><br>
 					<!--  -->
 
-					<input class="btn btn-default pull-left btn-bottom-margin" type="button" value='<spring:message code="site.member.join"/>' onclick="joinBtn()">
+					<%--<input class="btn btn-default pull-left btn-bottom-margin" type="button" value='<spring:message code="site.member.join"/>' onclick="joinBtn()">--%>
 					<!-- 로그인 버튼(Submit) -->
 					<input class="btn btn-default pull-right btn-bottom-margin" type="submit" value='<spring:message code="site.member.login"/>'>
 		</form>

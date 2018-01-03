@@ -42,7 +42,7 @@ function tourSelectById(element){
 		slideIndex = 1;
 		var name = elementChildSelectorName(element,'name').value;
 		var source = elementChildSelectorName(element,'tourSource').value;
-		source +='<a class="btn-floating" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">❮</a><a class="btn-floating" style="position:absolute;top:45%;right:0" onclick="plusDivs(1)">❯</a>';
+		source +='<a class="btn-floating" id="left-move" style="position:absolute;top:45%;left:0" onclick="plusDivs(-1)">❮</a><a class="btn-floating" id="right-move" style="position:absolute;top:45%;right:0" onclick="plusDivs(1)">❯</a>';
 		$(document).ready(function() {
 			var modalView = document.getElementById('store-modal-view');
 			modalView.innerHTML='';
@@ -75,8 +75,12 @@ function plusDivs(n) {
 function showDivs(n) {
     var i;
     var x = document.getElementById('tour-modal').getElementsByTagName("img");
+    var left = document.getElementById('left-move');
+    var right = document.getElementById('right-move');
     if (n > x.length) {slideIndex = 1} 
     if (n < 1) {slideIndex = x.length} ;
+    if (n == 1) {left.style.display = "none";} else {left.style.display = "block";}
+    if (n == x.length) {right.style.display = "none";} else {right.style.display = "block";}
     for (i = 0; i < x.length; i++) {
         x[i].style.display = "none"; 
     }

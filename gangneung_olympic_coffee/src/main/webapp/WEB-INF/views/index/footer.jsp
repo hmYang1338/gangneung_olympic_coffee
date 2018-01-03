@@ -31,7 +31,7 @@
             <br> -->
             <hr class="small">
             <br>
-            <p class="text-muted">Copyright &copy; 2017 <spring:message code="site.footer.teamName"/></p>
+            <p class="text-muted">Copyright &copy; 2018 <spring:message code="site.footer.teamName"/></p>
           </div>
         </div>
       </div>

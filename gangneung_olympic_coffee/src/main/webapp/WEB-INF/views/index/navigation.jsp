@@ -23,13 +23,13 @@
 		<!-- 다국어 선택 -->
 		<div>
 			<a href="<c:url value="/index.do?lang=ko" />">
-				<spring:message code="site.language.korean" />
+				<img class ="lang-img" alt="<spring:message code="site.language.korean" />" src="img/korea.svg"/>
 			</a> 
 			<a href="<c:url value="/index.do?lang=en" />">
-				<spring:message code="site.language.english" />
+				<img class ="lang-img" alt="<spring:message code="site.language.english" />" src="img/unitedkingdom.svg"/>
 			</a> 
 			<a href="<c:url value="/index.do?lang=zh" />">
-				<spring:message code="site.language.chinese" />
+				<img class ="lang-img" alt="<spring:message code="site.language.chinese" />" src="img/china.svg"/>
 			</a>
 		</div>
 		<!-- 로그인/회원가입 -->
